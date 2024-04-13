@@ -15,6 +15,7 @@ import AdminPage from './components/Pages/AdminPage'
 
 const PrivateOutlet = () => {
   const authentication = useAuth();
+  console.log('PrivateOutlet -', authentication.user)
   return authentication && authentication.user ? <Outlet /> : <Navigate to={routes.loginPagePath()} />;
 };
 

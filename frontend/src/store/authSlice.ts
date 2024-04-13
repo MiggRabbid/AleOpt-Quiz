@@ -1,10 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export type UserRole = 'admin' | 'employee';
+
 export interface iUser {
-  role: 'employee' | 'admin';
+  role: UserRole;
+  name: string
   username: string;
   token: string;
 }
+
 export interface iAuthState {
   user: iUser | null;
   isAuthenticated: boolean;
