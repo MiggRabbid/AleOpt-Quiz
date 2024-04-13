@@ -1,6 +1,5 @@
 import { Container, Navbar, NavbarBrand, Nav, NavLink, } from "react-bootstrap";
 
-import Logo from '../../assets/logo-header.png';
 import VkIcon from '../../assets/vk-icon.png'
 import TgIcon from '../../assets/tg-icon.png'
 import InIcon from '../../assets/in-icon.png'
