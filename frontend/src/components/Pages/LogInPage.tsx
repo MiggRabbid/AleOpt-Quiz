@@ -1,12 +1,23 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 
+import fakeApi from '../../FakeApi';
+import { iUser } from '../../interfaces'
+import useAuth from '../../hooks/useAuth';
+import routes from '../../routes';
+
 import BgLogin from '../../assets/login-img.jpg';
 
+type refType = HTMLInputElement | null
+
 const Login = () => {
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const usernameRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
+  const passwordRef = useRef<refType>(null);
+  const usernameRef = useRef<refType>(null);
+
+  const { logIn } = useAuth();
   const error = false;
 
   const formik = useFormik({
@@ -14,7 +25,14 @@ const Login = () => {
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        console.log('formik onSubmit -', values)
+        const response = fakeApi(routes.loginRequestPath(), values);
+        if (response.status === '200') {
+          console.log(response);
+          logIn(response.data as iUser);
+          navigate(routes.MainPagePath());
+        } else {
+          throw new Error(JSON.stringify(response.data));
+        }
       } catch (e) {
         console.error(e);
       }

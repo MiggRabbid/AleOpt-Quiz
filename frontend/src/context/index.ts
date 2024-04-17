@@ -1,19 +1,14 @@
 import { createContext } from 'react';
 
-import { iUser } from '../store/authSlice'
+import { iAuthContextType } from '../interfaces'
 
-interface AuthContextType {
-  user: iUser | null;
-  logIn: (data: iUser) => void;
-  logOut: () => void;
-  getAuthHeader: () => any;
-}
 
-const AuthContext = createContext<AuthContextType>({
+const AuthContext = createContext<iAuthContextType>({
   user: null,
   logIn: () => {},
   logOut: () => {},
   getAuthHeader: () => {},
+  isAdmin: () => false,
 });
 
 export default AuthContext;

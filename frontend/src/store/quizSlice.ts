@@ -1,25 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { data } from '../data/questions'
 
-interface iQuestion {
-  question: string;
-  answers: { id: string; answer: string }[];
-  correctAnswer: string[];
-}
+import { iQuizState, iQuestions, iAnswer } from '../interfaces';
 
-interface iAnswer {
-  id: string;
-  currentAnswer: string[];
-  correctAnswer: string[];
-}
-
-interface QuizState {
-  questions: iQuestion[];
-  currentResult: iAnswer[];
-}
-
-const initialState: QuizState = {
-  questions: data,
+const initialState: iQuizState = {
+  questions: {},
   currentResult: [],
 };
 
@@ -27,7 +11,7 @@ const quizSlice = createSlice({
   name: 'quiz',
   initialState,
   reducers: {
-    setQuestions: (state, action: PayloadAction<iQuestion[]>) => {
+    setQuestions: (state, action: PayloadAction<iQuestions>) => {
       state.questions = action.payload;
     },
     addAnswer: (state, action: PayloadAction<iAnswer>) => {

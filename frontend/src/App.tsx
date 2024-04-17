@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom';
 
 import './App.css'
+
 import routes from './routes';
 import useAuth from './hooks/useAuth';
 
@@ -15,9 +16,10 @@ import AdminPage from './components/Pages/AdminPage'
 import NotFound from './components/Pages/404NotFound';
 
 const PrivateOutlet = () => {
-  const authentication = useAuth();
-  console.log('PrivateOutlet -', authentication.user)
-  return authentication && authentication.user ? <Outlet /> : <Navigate to={routes.loginPagePath()} />;
+  const {user, isAdmin } = useAuth();
+  return !!user
+  ? (isAdmin(user) ? <Navigate to={routes.AdminPagePath()} /> : <Outlet />)
+  : <Navigate to={routes.loginPagePath()} />;
 };
 
 function App() {

@@ -1,5 +1,10 @@
-import { useFormik } from "formik";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
+import { useFormik } from "formik";
+
+import useAuth from "../../hooks/useAuth";
+import routes from "../../routes";
 
 interface FormValues {
   question: string;
@@ -24,7 +29,12 @@ const initialValues: FormValues = {
 };
 
 const AdminPage = () => {
-  console.log('----- AdminPage');
+  const navigate = useNavigate()
+  const { user, isAdmin } = useAuth();
+
+  useEffect(() => {
+    if (!user || isAdmin(user)) navigate(routes.loginPagePath())
+  }, [user, isAdmin])
 
   const formik = useFormik({
     initialValues,
@@ -58,44 +68,6 @@ const AdminPage = () => {
             />
           </FloatingLabel>
 
-          <div className="w-25 d-flex flex-column justify-content-center border py-2 px-4 rounded-3" style={{ height: '150px' }}>
-            <p className="w-100 text-center p-0 m-0">Выберите правильный</p>
-            <p className="w-100 text-center p-0 m-0">ответ или ответы</p>
-            <Form.Label className="w-100 d-flex flex-row flex-wrap justify-content-center mt-3"  controlId="correctAnswerCheckbox" label="Вопрос">
-              <Form.Check
-                className="w-50 h-50"
-                type="checkbox"
-                id="a"
-                label="Ответ А"
-                value={formik.values.correctAnswer.a}
-                onChange={formik.handleChange}
-              />
-                <Form.Check
-                className="w-50 h-50"
-                type="checkbox"
-                id="b"
-                label="Ответ Б"
-                value={formik.values.correctAnswer.b}
-                onChange={formik.handleChange}
-              />
-              <Form.Check
-                className="w-50 h-50"
-                type="checkbox"
-                id="c"
-                label="Ответ В"
-                value={formik.values.correctAnswer.c}
-                onChange={formik.handleChange}
-              />
-              <Form.Check
-                className="w-50 h-50"
-                type="checkbox"
-                id="d"
-                label="Ответ Г"
-                value={formik.values.correctAnswer.d}
-                onChange={formik.handleChange}
-              />
-            </Form.Label>
-          </div>
         </Form.Group>
 
         {/* <div className="w-100 col-md-6 mt-3 d-flex flex-column gap-2">

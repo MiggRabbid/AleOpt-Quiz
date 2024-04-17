@@ -1,19 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type UserRole = 'admin' | 'employee';
-
-export interface iUser {
-  role: UserRole;
-  name: string
-  username: string;
-  token: string;
-}
-
-export interface iAuthState {
-  user: iUser | null;
-  isAuthenticated: boolean;
-  error: string | null;
-}
+import { iAuthState } from '../interfaces';
 
 type actionType = { error: string | null};
 

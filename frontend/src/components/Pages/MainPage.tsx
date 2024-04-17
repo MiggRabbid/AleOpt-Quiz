@@ -1,10 +1,30 @@
+import { useEffect } from 'react'
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+
+import { iQuestions } from '../../interfaces';
+
+import fakeApi from '../../FakeApi';
 import routes from "../../routes";
+import useActions from '../../hooks/useActions';
 
 const Main = () => {
   console.log('----- Main');
   const navigate = useNavigate();
+  const { setQuestions } = useActions();
+  useEffect(() => {
+    try {
+      const response = fakeApi(routes.dataRequestPath(), );
+      if (response.status === '200') {
+        console.log(response)
+        setQuestions(response.data as iQuestions);
+      } else {
+        throw new Error(JSON.stringify(response.data));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [])
 
   return (
     <main className="container-xxl h-100 d-flex justify-content-between" >

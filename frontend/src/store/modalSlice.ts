@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface iModalState { show: boolean; modalType: string | null }
+import { iModalState } from '../interfaces';
 
 type actionType = { modalType: string }
 

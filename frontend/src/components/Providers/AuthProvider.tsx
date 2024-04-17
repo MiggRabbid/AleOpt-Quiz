@@ -1,14 +1,11 @@
 import { useState, ReactNode } from 'react';
 
 import AuthContext from '../../context/index';
-import { iUser } from '../../store/authSlice'
-
-const TEST_USER: iUser = {username: 'Buzer', name: 'Vlad', role: 'admin', token: 'abcd1234'};
+import { iUser } from '../../store/authSlice';
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // const currentUserString = localStorage.getItem('user');
-  // const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
-  const currentUser = TEST_USER;
+  const currentUserString = localStorage.getItem('user');
+  const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
   const [user, setUser] = useState(currentUser);
 
   const logIn = (data: iUser) => {
@@ -28,15 +25,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
     return {};
   };
+
   
-  console.log('AuthProvider -', currentUser);
-  console.log('AuthProvider -', user);
+const isAdmin = (user: iUser | null): boolean => user?.role === 'admin';
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <AuthContext.Provider
       value={{
-        user, logIn, logOut, getAuthHeader,
+        user, logIn, logOut, getAuthHeader, isAdmin,
       }}
     >
       {children}
