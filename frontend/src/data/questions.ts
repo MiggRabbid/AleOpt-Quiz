@@ -30,7 +30,7 @@ export const data: iQuestion[] = [
         id: 'd',
         answer: 'dddd dddd dddddddd dddddddddddd dddddddddddd dddddddddddd dddddddddddd dddddddddddd dddddddddddd dddddddddddd',
       }],
-    correctAnswer: ['a', 'b'],
+    correctAnswer: ['b'],
   },
   {
     question: 'question 3',

@@ -5,7 +5,7 @@ import TgIcon from '../../assets/tg-icon.png'
 import InIcon from '../../assets/in-icon.png'
 
 const Footer = () => {
-  console.log('----- Header');
+  console.log('----- Footer');
 
   return (
     <footer className="d-flex justify-content-center">
@@ -14,7 +14,7 @@ const Footer = () => {
           <Container>
 
             <NavbarBrand>
-              <h5 className="fw-semibold text-uppercase">Лучший магазин аксессуаров для телефонов в Новороссийске</h5>
+              <h5 className="w-100 fw-semibold text-uppercase">Лучший магазин аксессуаров для телефонов</h5>
             </NavbarBrand>
 
             <Nav>

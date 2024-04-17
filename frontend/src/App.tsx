@@ -12,6 +12,7 @@ import Main from './components/Pages/MainPage'
 import Login from './components/Pages/LogInPage'
 import QuizPage from './components/Pages/QuizPage'
 import AdminPage from './components/Pages/AdminPage'
+import NotFound from './components/Pages/404NotFound';
 
 const PrivateOutlet = () => {
   const authentication = useAuth();
@@ -33,6 +34,7 @@ function App() {
           </Route>
           <Route path={routes.QuizPagePath()} element={<QuizPage />} />
           <Route path={routes.AdminPagePath()} element={<AdminPage />} />
+          <Route path={routes.notFoundPagePath()} element={<NotFound />} />
         </Routes>
         <Footer />
       </div>

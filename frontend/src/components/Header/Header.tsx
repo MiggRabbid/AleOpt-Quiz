@@ -10,8 +10,9 @@ const Header = () => {
   const { user, logOut } = useAuth();
 
   const handleLogout = () => {
+    console.log('--- Header - handleLogout')
     logOut();
-    navigate(routes.MainPagePath());
+    navigate(routes.loginPagePath());
   };
 
   return (
