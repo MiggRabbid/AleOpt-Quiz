@@ -17,8 +17,8 @@ const Header = () => {
 
   return (
     <header className="d-flex justify-content-center">
-      <div className="container-xxl rounded-bottom shadow-sm px-3">
-        <Navbar className="d-flex justify-content-between">
+      <div className="container-xxl rounded-bottom shadow-sm">
+        <Navbar className="col-11 mx-auto d-flex justify-content-between">
           <NavbarBrand>
             <img src={Logo} alt="АлёОпт - лучший магазин аксессуаров для телефонов в Новороссийске" height="70"/>
           </NavbarBrand>

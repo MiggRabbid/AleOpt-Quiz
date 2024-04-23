@@ -4,13 +4,15 @@ export interface iUser {
   role: UserRole;
   name: string
   username: string;
+  password?: string,
   token: string;
 }
 
 export interface iAnswer {
   id: string;
-  currentAnswer: string[];
-  correctAnswer: string[];
+  userAnswer: string;
+  correctAnswer: string;
+  result: number;
 }
 
 export interface iQuestion {
@@ -38,6 +40,8 @@ export interface iAuthState {
 export interface iModalState { show: boolean; modalType: string | null }
 
 export interface iQuizState {
+  isStarted: boolean;
+  questionIndex: number;
   questions: questionsType | {};
   currentResult: iAnswer[];
 }

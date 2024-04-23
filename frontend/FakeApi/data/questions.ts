@@ -1,7 +1,8 @@
-import { iQuestion } from '../../';
+import { iQuestion } from '../../src/interfaces';
 
-const questions: { [key: string]: iQuestion } = {
-  '0': {
+const questions: iQuestion[] = [
+  {
+    id: 1,
     question: 'Покупатель выбрал 3 товара: силиконовый чехол в тех.паке - 200р, карту памяти "Smartbuy 32gb" - 670р, СЗУ "HOCO" - 250р. Общая стоимость покупки будет равна',
     answers:
     [
@@ -12,7 +13,8 @@ const questions: { [key: string]: iQuestion } = {
     ],
     correctAnswer: 'a',
   },
-  '1': {
+  {
+    id: 2,
     question: 'Чем отличаются флеш-диски USB2.0 от USB3.0',
     answers:
     [
@@ -23,7 +25,8 @@ const questions: { [key: string]: iQuestion } = {
     ],
     correctAnswer: 'b',
   },
-  '2': {
+  {
+    id: 3,
     question: 'ФМ-модулятор - это',
     answers:
     [
@@ -34,7 +37,8 @@ const questions: { [key: string]: iQuestion } = {
     ],
     correctAnswer: 'c',
   },
-  '3': {
+  {
+    id: 4,
     question: 'Главная идея АлёОпт',
     answers:
     [
@@ -45,7 +49,8 @@ const questions: { [key: string]: iQuestion } = {
     ],
     correctAnswer: 'd',
   },
-  '4': {
+  {
+    id: 5,
     question: 'Что будет, если блоку питания 5V/2.4A и с 2я USB подключить 2 телефона, с потребляемой мощностью 2А',
     answers:
     [
@@ -56,6 +61,6 @@ const questions: { [key: string]: iQuestion } = {
     ],
     correctAnswer: 'd',
   },
-}
+]
 
 export default questions;
