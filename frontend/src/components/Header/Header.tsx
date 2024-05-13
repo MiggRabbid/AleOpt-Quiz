@@ -1,17 +1,21 @@
 import {Button, Navbar, NavbarBrand } from "react-bootstrap";
-
-import Logo from '../../assets/logo-header.png';
-import routes from "../../routes";
-import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
+import routes from "../../routes";
+import useAuth from "../../hooks/useAuth";
+import useActions from "../../hooks/useActions";
+
+import Logo from '../../assets/logo-header.png';
+
 const Header = () => {
+  console.log('----- Header')
   const navigate = useNavigate();
-  const { user, logOut } = useAuth();
+  const { logout } = useActions();
+  const { user, useLogout } = useAuth();
 
   const handleLogout = () => {
-    console.log('--- Header - handleLogout')
-    logOut();
+    useLogout();
+    logout();
     navigate(routes.loginPagePath());
   };
 
@@ -24,7 +28,7 @@ const Header = () => {
           </NavbarBrand>
           
 
-          {user && (
+          {!!user && (
               <Button
                 type="submit"
                 variant="outline-success"

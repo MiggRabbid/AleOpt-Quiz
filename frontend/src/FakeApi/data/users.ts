@@ -1,23 +1,16 @@
-type UserRole = 'admin' | 'employee';
-
-interface iUser {
-  role: UserRole;
-  name: string;
-  username: string;
-  password: string,
-  token: string;
-}
+import { iUser } from '../../interfaces'
+import { UserRole } from '../../types';
 
 const users: { [key: string]: iUser } = {
   admin: {
-    role: 'admin',
+    role: UserRole.Admin,
     name: 'Иван',
     username: 'admin',
     password: 'admin',
     token: '1234ABCD',
   },
   vlad123: {
-    role: 'employee',
+    role: UserRole.Employee,
     name: 'Vlad',
     username: 'vlad123',
     password: 'vlad123',

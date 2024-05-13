@@ -17,32 +17,33 @@ const login = (data: dataType): responseLoginType => {
         role: currentUser.role,
       },
     }
-  }
-
-  return {
-    status: '401',
-    data: {error: 'Неизвестный пользователь'},
+  } else {
+    const authError = new Error()
+    authError.name = '401';
+    authError.message = 'Неизвестный пользователь';
+    throw authError;
   }
 };
 
 const getQuestions = (): responseQuestionsType => {
+  console.log('getQuestions - questions', questions)
   return {
     status: '200',
     data: questions,
   }
 };
 
-const fakeApi = (path: string, data?: dataType): responseLoginType | responseQuestionsType => {
+const fakeApi = (path: string, data?: dataType): responseLoginType | responseQuestionsType | Error => {
   switch (path) {
     case 'login':
       return login(data!);
     case 'questions':
       return getQuestions();
     default:
-      return {
-        status: '400',
-        data: {error: 'Неизвестный запрос'},
-      };
+      const unknownError = new Error()
+      unknownError.name = '400';
+      unknownError.message = 'Неизвестный запрос';
+      throw unknownError;
   }
 };
 

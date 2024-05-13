@@ -1,4 +1,4 @@
-import { UserRole, questionsType } from './types'
+import { UserRole, questionAnswer, questionsType } from './types'
 
 export interface iUser {
   role: UserRole;
@@ -8,33 +8,32 @@ export interface iUser {
   token: string;
 }
 
-export interface iAnswer {
+export interface iUserAnswer {
   id: string;
-  userAnswer: string;
-  correctAnswer: string;
+  userAnswerId: string;
+  correctAnswerId: string;
   result: number;
 }
 
 export interface iQuestion {
   id: number;
   question: string;
-  answers: { id: string; answer: string }[];
-  correctAnswer: string;
+  answers: questionAnswer[];
+  correctAnswerId: string;
 }
 
 export interface iAuthContextType {
   user: iUser | null;
-  logIn: (data: iUser) => void;
-  logOut: () => void;
+  UseLogin: (data: iUser) => void;
+  useLogout: () => void;
   getAuthHeader: () => any;
   isAdmin: (user: iUser) => boolean;
 }
 
 
 export interface iAuthState {
-  user: iUser | null;
   isAuthenticated: boolean;
-  error: string | null;
+  error: { name: string, message: string } | null;
 }
 
 export interface iModalState { show: boolean; modalType: string | null }
@@ -43,5 +42,5 @@ export interface iQuizState {
   isStarted: boolean;
   questionIndex: number;
   questions: questionsType | {};
-  currentResult: iAnswer[];
+  currentResult: iUserAnswer[];
 }
