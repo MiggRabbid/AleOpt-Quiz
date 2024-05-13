@@ -1,21 +1,23 @@
 import { useState, ReactNode } from 'react';
 
 import AuthContext from '../../context/index';
-import { iUser } from '../../store/authSlice';
+
+import { iUser } from '../../interfaces';
+import { UserRole } from '../../types';
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const currentUserString = localStorage.getItem('user');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
   const [user, setUser] = useState(currentUser);
 
-  const logIn = (data: iUser) => {
+  const UseLogin = (data: iUser) => {
     localStorage.setItem('user', JSON.stringify(data));
     setUser({ role: data.role, name: data.name, username: data.username, token: data.token });
   };
 
-  const logOut = () => {
+  const useLogout = () => {
     localStorage.removeItem('user');
-    setUser({ username: '', name: '', role: 'employee', token: '' });
+    setUser(null);
   };
 
   const getAuthHeader = () => {
@@ -27,14 +29,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   
-const isAdmin = (user: iUser | null): boolean => user?.role === 'admin';
+const isAdmin = (user: iUser): boolean => user.role === UserRole.Admin;
+
+const authValue = {
+  user, UseLogin, useLogout, getAuthHeader, isAdmin,
+}
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <AuthContext.Provider
-      value={{
-        user, logIn, logOut, getAuthHeader, isAdmin,
-      }}
+      value={authValue}
     >
       {children}
     </AuthContext.Provider>

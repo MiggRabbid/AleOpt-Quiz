@@ -1,39 +1,53 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 
 import fakeApi from '../../FakeApi';
+
 import { iUser } from '../../interfaces'
-import useAuth from '../../hooks/useAuth';
+
 import routes from '../../routes';
+import useAuth from '../../hooks/useAuth';
+import useActions from '../../hooks/useActions';
+import { getError } from '../../selectors/authSelectors';
 
 import BgLogin from '../../assets/login-img.jpg';
 
 type refType = HTMLInputElement | null
 
 const Login = () => {
+  console.log('----- Login')
   const navigate = useNavigate();
   const passwordRef = useRef<refType>(null);
   const usernameRef = useRef<refType>(null);
 
-  const { logIn } = useAuth();
-  const error = false;
+  const { user, UseLogin } = useAuth();
+  const { loginSuccess, loginFailed } = useActions();
+  const authError = useSelector(getError);
+
+  useEffect(() => {
+    if (!!user) navigate(routes.MainPagePath())
+    }); 
 
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
+        /**
+         * TODO: Косяк в типом data, name, message - пока работает, но нужно исправить
+         */
         const response = fakeApi(routes.loginRequestPath(), values);
-        if (response.status === '200') {
-          console.log(response);
-          logIn(response.data as iUser);
-          navigate(routes.MainPagePath());
-        } else {
-          throw new Error(JSON.stringify(response.data));
-        }
+        const { data } = response;
+        console.log('response - ', response);
+        UseLogin(data as iUser);
+        loginSuccess();
+        navigate(routes.MainPagePath());
       } catch (e) {
+        const {name, message} = e;
+        loginFailed({name, message})
         console.error(e);
       }
       setSubmitting(false);
@@ -62,6 +76,7 @@ const Login = () => {
                       ref={usernameRef}
                       value={formik.values.username}
                       onChange={formik.handleChange}
+                      isInvalid={!!authError}
                     />
                   </FloatingLabel>
 
@@ -78,7 +93,7 @@ const Login = () => {
                       ref={passwordRef}
                       value={formik.values.password}
                       onChange={formik.handleChange}
-                      isInvalid={!!error}
+                      isInvalid={!!authError}
                     />
                   </FloatingLabel>
                   <Form.Control.Feedback type="invalid" tooltip>Какая-то ошибка</Form.Control.Feedback>

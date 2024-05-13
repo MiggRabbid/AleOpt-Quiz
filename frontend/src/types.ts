@@ -7,8 +7,10 @@ export enum UserRole {
 
 export type dataType = { [key: string]: string};
 
-export type responseLoginType = { status: string, data: iUser | { error: string }};
+export type responseLoginType = { status: string, data: iUser} | Error;
 
 export type responseQuestionsType = { status: string, data: iQuestion[] };
 
 export type questionsType = iQuestion[];
+
+export type questionAnswer = { questionId: number, id: string; answer: string };
