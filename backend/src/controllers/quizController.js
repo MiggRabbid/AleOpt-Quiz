@@ -1,7 +1,14 @@
+import { Question } from "../models/models.js";
+
 class quizController {
   async newQuiz(request, response) {
     try {
-      
+      const newQuestion = new Question(request.body);
+      console.log('newQuestion -', newQuestion);
+
+      await newQuestion.save();
+
+      return response.json({ message: 'New question added' })
     } catch (e) {
       
     }
@@ -9,9 +16,10 @@ class quizController {
 
   async getQuiz(request, response) {
     try {
-      response.json("SERVER WORK - USER")
+      const question = await Question.find();
+      response.json(question)
     } catch (e) {
-      
+      response.json({ message: 'Network error' })
     }
   }
 };

@@ -11,12 +11,8 @@ class userController {
 
   async getUsers(request, response) {
     try {
-
-      const roleUser = new Role();
-      const roleAdmin = new Role({value: 'ADMIN'});
-      await roleUser.save();
-      await roleAdmin.save(); 
-      response.json("SERVER WORK - USER")
+      const users = await User.find();
+      response.json(users)
     } catch (e) {
       
     }
