@@ -13,8 +13,8 @@ start-dev:
 start-backend:
 	npm -C backend start
 
-localstart:
-	make start-dev
+dev:
+	make start-backend & make start-dev
 
 localstart-back:
 	make start-backend
