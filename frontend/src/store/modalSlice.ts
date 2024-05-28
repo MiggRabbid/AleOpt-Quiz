@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { iModalState } from '../interfaces';
+import { typeModalState } from '../models/types';
 
-type actionType = { modalType: string }
+type actionType = { modalType: string };
 
-const initialState: iModalState = {
+const initialState: typeModalState = {
   show: false,
   modalType: null,
 };
@@ -14,12 +14,18 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openModal: (state, action: PayloadAction<actionType>) => {
-      state.show = true;
-      state.modalType = action.payload.modalType;
+      return {
+        ...state,
+        show: true,
+        modalType: action.payload.modalType,
+      };
     },
     closeModal: (state) => {
-      state.show = false;
-      state.modalType = null;
+      return {
+        ...state,
+        show: false,
+        modalType: null,
+      };
     },
   },
 });

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { iAuthState } from '../interfaces';
+import { typeAuthState } from '../models/types';
 
-type actionTypeError = { name: string, message: string } ;
+type actionTypeError = { name: string; message: string };
 
-const initialState: iAuthState = {
+const initialState: typeAuthState = {
   isAuthenticated: false,
   error: null,
 };
@@ -14,16 +14,25 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     loginSuccess: (state) => {
-      state.isAuthenticated = true;
-      state.error = null;
+      return {
+        ...state,
+        isAuthenticated: true,
+        error: null,
+      };
     },
     loginFailed: (state, action: PayloadAction<actionTypeError>) => {
-      state.isAuthenticated = false;
-      state.error = action.payload;
+      return {
+        ...state,
+        isAuthenticated: true,
+        error: action.payload,
+      };
     },
     logout: (state) => {
-      state.isAuthenticated = false;
-      state.error = null;
+      return {
+        ...state,
+        isAuthenticated: false,
+        error: null,
+      };
     },
   },
 });

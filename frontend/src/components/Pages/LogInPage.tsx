@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import axios from 'axios';
 
-import fakeApi from '../../FakeApi';
-
-import { iUser } from '../../interfaces'
+import { iUser } from '../../models/interfaces';
 
 import routes from '../../routes';
 import useAuth from '../../hooks/useAuth';
@@ -15,21 +14,27 @@ import { getError } from '../../selectors/authSelectors';
 
 import BgLogin from '../../assets/login-img.jpg';
 
-type refType = HTMLInputElement | null
+type refType = HTMLInputElement | null;
 
-const Login = () => {
-  console.log('----- Login')
+axios.create({
+  baseURL: '/',
+});
+
+axios.defaults.baseURL = 'http://localhost:5000';
+
+const LoginPage = () => {
+  console.log('----- Login');
   const navigate = useNavigate();
   const passwordRef = useRef<refType>(null);
   const usernameRef = useRef<refType>(null);
 
   const { user, UseLogin } = useAuth();
-  const { loginSuccess, loginFailed } = useActions();
+  const { loginSuccess } = useActions();
   const authError = useSelector(getError);
 
   useEffect(() => {
-    if (!!user) navigate(routes.MainPagePath())
-    }); 
+    if (user) navigate(routes.MainPagePath());
+  });
 
   const formik = useFormik({
     initialValues: { username: '', password: '' },
@@ -39,15 +44,16 @@ const Login = () => {
         /**
          * TODO: Косяк в типом data, name, message - пока работает, но нужно исправить
          */
-        const response = fakeApi(routes.loginRequestPath(), values);
+        console.log('formik values - ', values);
+        const response = await axios.post(routes.loginRequestPath(), values);
         const { data } = response;
         console.log('response - ', response);
         UseLogin(data as iUser);
         loginSuccess();
         navigate(routes.MainPagePath());
       } catch (e) {
-        const {name, message} = e;
-        loginFailed({name, message})
+        // const {name, message} = e;
+        // loginFailed({name, message})
         console.error(e);
       }
       setSubmitting(false);
@@ -61,17 +67,28 @@ const Login = () => {
           <div className="card shadow-sm">
             <div className="card-body row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center position-relative">
-                <img src={BgLogin} alt="Simple Chat" className="rounded" style={{ width: 300 }} />
+                <img
+                  src={BgLogin}
+                  alt="Simple Chat"
+                  className="rounded"
+                  style={{ width: 300 }}
+                />
               </div>
-              <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
+              <Form
+                className="col-12 col-md-6 mt-3 mt-mb-0"
+                onSubmit={formik.handleSubmit}
+              >
                 <h1 className="text-center mb-4">Авторизуйтесь</h1>
                 <Form.Group className="mb-3">
-                  <FloatingLabel controlId="usernameInput" label="Имя пользователя">
+                  <FloatingLabel
+                    controlId="usernameInput"
+                    label="Имя пользователя"
+                  >
                     <Form.Control
                       type="text"
                       name="username"
                       placeholder="Имя пользователя"
-                      autoComplete="username"                      
+                      autoComplete="username"
                       required
                       ref={usernameRef}
                       value={formik.values.username}
@@ -79,7 +96,6 @@ const Login = () => {
                       isInvalid={!!authError}
                     />
                   </FloatingLabel>
-
                 </Form.Group>
                 <Form.Group className="mb-4">
                   <FloatingLabel controlId="usernamePassword" label="Пароль">
@@ -96,10 +112,16 @@ const Login = () => {
                       isInvalid={!!authError}
                     />
                   </FloatingLabel>
-                  <Form.Control.Feedback type="invalid" tooltip>Какая-то ошибка</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    Какая-то ошибка
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                <Button type="submit" variant="outline-primary" className="w-100 py-2 mb-3">
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  className="w-100 py-2 mb-3"
+                >
                   Авторизоваться
                 </Button>
               </Form>
@@ -108,7 +130,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
-export default Login;
+export default LoginPage;

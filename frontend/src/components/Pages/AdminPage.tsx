@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
-import { useFormik } from "formik";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { useFormik } from 'formik';
 
-import useAuth from "../../hooks/useAuth";
-import routes from "../../routes";
+import useAuth from '../../hooks/useAuth';
+import routes from '../../routes';
 
 interface FormValues {
   question: string;
@@ -24,18 +24,28 @@ interface FormValues {
 
 const initialValues: FormValues = {
   question: '',
-  answers: { a: '', b: '', c: '', d: '' },
-  correctAnswer: { a: false, b: false, c: false, d: false },
+  answers: {
+    a: '',
+    b: '',
+    c: '',
+    d: '',
+  },
+  correctAnswer: {
+    a: false,
+    b: false,
+    c: false,
+    d: false,
+  },
 };
 
 const AdminPage = () => {
-  console.log('----- AdminPage')
-  const navigate = useNavigate()
+  console.log('----- AdminPage');
+  const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
 
   useEffect(() => {
-    if (!user || !!user && !isAdmin(user)) navigate(routes.loginPagePath())
-  }, [user, isAdmin])
+    if (!user || (!!user && !isAdmin(user))) navigate(routes.loginPagePath());
+  }, [user]);
 
   const formik = useFormik({
     initialValues,
@@ -53,15 +63,22 @@ const AdminPage = () => {
   return (
     <main className="container-xxl h-100">
       <h2 className="mt-5">AdminPage</h2>
-  
-      <Form className="w-100 col-md-6 mt-3 d-flex flex-column gap-2 position-relative" onSubmit={formik.handleSubmit}>
+
+      <Form
+        className="w-100 col-md-6 mt-3 d-flex flex-column gap-2 position-relative"
+        onSubmit={formik.handleSubmit}
+      >
         <Form.Group className="row-9 d-flex flex-row gap-3">
-          <FloatingLabel className="w-75" controlId="questionInput" label="Вопрос">
+          <FloatingLabel
+            className="w-75"
+            controlId="questionInput"
+            label="Вопрос"
+          >
             <Form.Control
-              style={{ height: '150px' }} 
+              style={{ height: '150px' }}
               as="textarea"
               name="question"
-              placeholder="Вопрос"                     
+              placeholder="Вопрос"
               required
               value={formik.values.question}
               onChange={formik.handleChange}
@@ -70,13 +87,16 @@ const AdminPage = () => {
           </FloatingLabel>
         </Form.Group>
 
-        <Button type="submit" variant="outline-success" className="w-25 py-2 my-4 position-relative bottom-0 start-50 translate-middle">
+        <Button
+          type="submit"
+          variant="outline-success"
+          className="w-25 py-2 my-4 position-relative bottom-0 start-50 translate-middle"
+        >
           Добавить вопрос
         </Button>
-
       </Form>
     </main>
-  )
+  );
 };
 
 export default AdminPage;

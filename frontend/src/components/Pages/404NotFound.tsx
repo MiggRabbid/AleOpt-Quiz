@@ -13,9 +13,7 @@ const NotFound = () => {
           <span className="text-danger">Упс! </span>
           Страница не найдена
         </p>
-        <p className="lead">
-          Но вы можете перейти на главную страницу
-        </p>
+        <p className="lead">Но вы можете перейти на главную страницу</p>
         <br />
         <Button
           variant="outline-dark"

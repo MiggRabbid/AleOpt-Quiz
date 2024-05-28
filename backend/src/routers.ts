@@ -1,7 +1,9 @@
-import { Router } from "express";
+import { Router } from 'express';
 import { check } from 'express-validator';
 import {
-  authController, quizController, userController
+  authController,
+  quizController,
+  userController,
 } from './controllers/controllers';
 import { authMiddleware, roleMiddleware } from './middleware/middleware';
 
@@ -11,11 +13,18 @@ const validateUsernameAndPassword = [
 ];
 
 const validateName = [
-  check('name', 'Name must be between 4 and 20 characters').isLength({ min: 4, max: 20 }),
+  check('name', 'Name must be between 4 and 20 characters').isLength({
+    min: 4,
+    max: 20,
+  }),
 ];
 
 const authRouter = Router();
-authRouter.post('/signup', [...validateUsernameAndPassword, ...validateName], authController.signup);
+authRouter.post(
+  '/signup',
+  [...validateUsernameAndPassword, ...validateName],
+  authController.signup,
+);
 authRouter.post('/login', validateUsernameAndPassword, authController.login);
 
 const userRouter = Router();

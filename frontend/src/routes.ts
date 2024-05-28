@@ -1,4 +1,4 @@
-// const API_PATH = '/api/v1';
+const API_PATH = '/api';
 
 export default {
   MainPagePath: () => '/',
@@ -6,9 +6,8 @@ export default {
   QuizPagePath: () => '/quiz',
   AdminPagePath: () => '/admin',
   notFoundPagePath: () => '/*',
-  loginRequestPath: () => 'login',
   dataRequestPath: () => 'questions',
-  // loginRequestPath: () => [API_PATH, 'login'].join('/'),
-  // signupRequestPath: () => [API_PATH, 'signup'].join('/'),
+  loginRequestPath: () => [API_PATH, 'auth', 'login'].join('/'),
+  signupRequestPath: () => [API_PATH, 'auth', 'signup'].join('/'),
   // dataRequestPath: (path: string) => [API_PATH, path].join('/'),
 };
