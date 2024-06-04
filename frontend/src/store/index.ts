@@ -1,9 +1,13 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer, { actions as authActions } from './authSlice';
 import quizReducer, { actions as quizActions } from './quizSlice';
 import modalReducer, { actions as modalActions } from './modalSlice';
+import quizApi from './quiz.api';
+import authApi from './auth.api';
 
 const rootReducer = combineReducers({
+  [quizApi.reducerPath]: quizApi.reducer,
+  [authApi.reducerPath]: authApi.reducer,
   authReducer,
   quizReducer,
   modalReducer,
@@ -17,4 +21,13 @@ const actions = {
   ...modalActions,
 };
 
-export { actions, rootReducer };
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .concat(quizApi.middleware)
+      .concat(authApi.middleware),
+});
+
+export { actions, rootReducer, store };
+export type AppDispatch = typeof store.dispatch;

@@ -1,18 +1,26 @@
-import { useState, ReactNode } from 'react';
+import { useState, ReactNode, useMemo } from 'react';
 
 import AuthContext from '../../context/index';
 
-import { iUser } from '../../interfaces';
-import { UserRole } from '../../types';
+import { iUser, UserRoles } from '../../models/interfaces';
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
+  console.log('----- AuthProvider');
   const currentUserString = localStorage.getItem('user');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
   const [user, setUser] = useState(currentUser);
 
   const UseLogin = (data: iUser) => {
+    console.log('----- AuthProvider UseLogin -', data);
+    if (data === undefined) return;
+
     localStorage.setItem('user', JSON.stringify(data));
-    setUser({ role: data.role, name: data.name, username: data.username, token: data.token });
+    setUser({
+      role: data.role,
+      name: data.name,
+      username: data.username,
+      token: data.token,
+    });
   };
 
   const useLogout = () => {
@@ -28,19 +36,22 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return {};
   };
 
-  
-const isAdmin = (user: iUser): boolean => user.role === UserRole.Admin;
+  const isAdmin = (verifiableUser: iUser): boolean =>
+    verifiableUser.role === UserRoles.Admin;
 
-const authValue = {
-  user, UseLogin, useLogout, getAuthHeader, isAdmin,
-}
+  const authValue = useMemo(
+    () => ({
+      user,
+      UseLogin,
+      useLogout,
+      getAuthHeader,
+      isAdmin,
+    }),
+    [user],
+  );
 
   return (
-    <AuthContext.Provider
-      value={authValue}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 };
 

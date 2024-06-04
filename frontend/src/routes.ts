@@ -1,4 +1,6 @@
-// const API_PATH = '/api/v1';
+const API_PATH = '/api';
+
+export const BASE_SERVER_URL = 'http://localhost:5000/';
 
 export default {
   MainPagePath: () => '/',
@@ -6,9 +8,8 @@ export default {
   QuizPagePath: () => '/quiz',
   AdminPagePath: () => '/admin',
   notFoundPagePath: () => '/*',
-  loginRequestPath: () => 'login',
-  dataRequestPath: () => 'questions',
-  // loginRequestPath: () => [API_PATH, 'login'].join('/'),
-  // signupRequestPath: () => [API_PATH, 'signup'].join('/'),
-  // dataRequestPath: (path: string) => [API_PATH, path].join('/'),
+  loginRequestPath: () => [API_PATH, 'auth', 'login'].join('/'),
+  signupRequestPath: () => [API_PATH, 'auth', 'signup'].join('/'),
+  usersRequestPath: () => [API_PATH, 'data', 'users'].join('/'),
+  questionsRequestPath: () => [API_PATH, 'data', 'questions'].join('/'),
 };

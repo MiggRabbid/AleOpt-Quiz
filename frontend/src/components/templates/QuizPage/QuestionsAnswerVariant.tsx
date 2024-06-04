@@ -1,14 +1,16 @@
-import { ListGroupItem } from "react-bootstrap";
+import { ListGroupItem } from 'react-bootstrap';
 
-import { questionAnswer } from "../../../../types";
+import { typeQuestionAnswer } from '../../../models/types';
 
 interface QuestionsAnswerVariantProps {
-  item: questionAnswer;
+  item: typeQuestionAnswer;
   active: boolean;
   onClick: React.MouseEventHandler<HTMLElement>;
 }
 
-const QuestionsAnswerVariant: React.FC<QuestionsAnswerVariantProps> = (props) => {
+const QuestionsAnswerVariant: React.FC<QuestionsAnswerVariantProps> = (
+  props,
+) => {
   const { item, active, onClick } = props;
   return (
     <ListGroupItem
@@ -22,8 +24,7 @@ const QuestionsAnswerVariant: React.FC<QuestionsAnswerVariantProps> = (props) =>
     >
       {`${item.id.toUpperCase()}: ${item.answer}`}
     </ListGroupItem>
-  )
-
-}
+  );
+};
 
 export default QuestionsAnswerVariant;
