@@ -1,6 +1,6 @@
 import { ListGroupItem } from 'react-bootstrap';
 
-import { typeQuestionAnswer } from '../../../../models/types';
+import { typeQuestionAnswer } from '../../../models/types';
 
 interface QuestionsAnswerVariantProps {
   item: typeQuestionAnswer;

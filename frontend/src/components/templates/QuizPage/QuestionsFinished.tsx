@@ -1,19 +1,16 @@
 import { useSelector } from 'react-redux';
 
-import { iQuestion, iUserAnswer } from '../../../../models/interfaces';
+import { iQuestion, iUserAnswer } from '../../../models/interfaces';
 
 import {
   getCurrentResult,
   getQuestions,
-} from '../../../../selectors/quizSelectors';
+} from '../../../selectors/quizSelectors';
 
 import QuestionsResultVariant from './QuestionsResultVariant';
 
 const getQuestion = (questions: iQuestion[], id: string): iQuestion => {
-  const result = questions.filter((item) => {
-    console.log(item.id, id);
-    return item.id === Number(id);
-  });
+  const result = questions.filter((item) => item.id === id);
   return result[0];
 };
 
@@ -28,8 +25,9 @@ const QuestionsFinished = () => {
           Ваши результаты
         </h3>
         {currentResult.map((userAnswer: iUserAnswer) => {
+          // console.log('userAnswer   -', JSON.stringify(userAnswer));
           const currQuestion = getQuestion(questions, userAnswer.id);
-          console.log(JSON.stringify(currQuestion));
+          // console.log('currQuestion -', JSON.stringify(currQuestion));
           return (
             <div key={currQuestion.id} className="py-2">
               <QuestionsResultVariant

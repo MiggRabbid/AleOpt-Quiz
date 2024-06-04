@@ -1,18 +1,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+import routes, { BASE_SERVER_URL } from '../routes';
+
 import { iQuestion } from '../models/interfaces';
-import { typeHeaderResponse } from '../models/types';
+import { typeApiResponse } from '../models/types';
 
 const quizApi = createApi({
   reducerPath: 'quizApiReducer',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api/',
+    baseUrl: BASE_SERVER_URL,
   }),
   endpoints: (build) => ({
-    getAllQuestions: build.query<iQuestion[], typeHeaderResponse>({
+    getAllQuestions: build.query<iQuestion[], typeApiResponse>({
       query: (userHeaders) => ({
-        url: 'data/questions',
-        headers: userHeaders,
+        url: routes.questionsRequestPath(),
+        headers: {
+          'Content-Type': 'application/json',
+          ...userHeaders,
+        },
       }),
     }),
   }),

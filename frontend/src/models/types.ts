@@ -16,6 +16,6 @@ export type typeModalState = {
   modalType: string | null;
 };
 
-export type typeHeaderResponse = {
+export type typeApiResponse = {
   [key: string]: string;
 };

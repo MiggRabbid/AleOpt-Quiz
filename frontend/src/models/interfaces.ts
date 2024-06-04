@@ -2,16 +2,17 @@ import { typeQuestionAnswer } from './types';
 
 // eslint-disable-next-line no-shadow
 export enum UserRoles {
-  Admin = 'admin',
-  Employee = 'employee',
+  Admin = 'ADMIN',
+  Employee = 'EMPLOYEE',
 }
 
 export interface iUser {
+  _id?: string;
   role: UserRoles;
   name: string;
   username: string;
   password?: string;
-  token: string;
+  token?: string;
 }
 
 export interface iAuthContext {
@@ -30,7 +31,7 @@ export interface iUserAnswer {
 }
 
 export interface iQuestion {
-  id: number;
+  id: string;
   question: string;
   answers: typeQuestionAnswer[];
   correctAnswerId: string;

@@ -3,7 +3,7 @@ import express from "express";
 import mongoose, { ConnectOptions } from "mongoose";
 import cors from "cors";
 
-import { authRouter, userRouter, quizRouter } from "./src/routers";
+import { authRouter, userRouter, quizRouter } from "./routers";
 
 dotenv.config();
 

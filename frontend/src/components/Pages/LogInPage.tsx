@@ -5,14 +5,14 @@ import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import axios from 'axios';
 
-import { iUser } from '../../models/interfaces';
-
 import routes from '../../routes';
 import useAuth from '../../hooks/useAuth';
-import useActions from '../../hooks/useActions';
 import { getError } from '../../selectors/authSelectors';
 
+import { iUser } from '../../models/interfaces';
+
 import BgLogin from '../../assets/login-img.jpg';
+import { useLogInMutation } from '../../store/auth.api';
 
 type refType = HTMLInputElement | null;
 
@@ -27,33 +27,30 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const passwordRef = useRef<refType>(null);
   const usernameRef = useRef<refType>(null);
-
+  const [logIn, { data, error }] = useLogInMutation();
   const { user, UseLogin } = useAuth();
-  const { loginSuccess } = useActions();
   const authError = useSelector(getError);
 
   useEffect(() => {
     if (user) navigate(routes.MainPagePath());
   });
 
+  useEffect(() => {
+    if (data) {
+      UseLogin(data as iUser);
+      navigate(routes.MainPagePath());
+    }
+  }, [data, error]);
+
   const formik = useFormik({
     initialValues: { username: '', password: '' },
+
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        /**
-         * TODO: Косяк в типом data, name, message - пока работает, но нужно исправить
-         */
-        console.log('formik values - ', values);
-        const response = await axios.post(routes.loginRequestPath(), values);
-        const { data } = response;
-        console.log('response - ', response);
-        UseLogin(data as iUser);
-        loginSuccess();
-        navigate(routes.MainPagePath());
+        await logIn(values);
+        console.log('LoginPage response data - ', data);
       } catch (e) {
-        // const {name, message} = e;
-        // loginFailed({name, message})
         console.error(e);
       }
       setSubmitting(false);

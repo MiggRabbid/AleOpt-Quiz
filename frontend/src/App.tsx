@@ -15,23 +15,25 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import MainPage from './components/Pages/MainPage';
 import LoginPage from './components/Pages/LogInPage';
-import QuizPage from './components/Pages/QuizPage/QuizPage';
+import QuizPage from './components/Pages/QuizPage';
 import AdminPage from './components/Pages/AdminPage';
 import NotFound from './components/Pages/404NotFound';
 
 const PrivateUserOutlet = () => {
-  console.log('----- PrivateUserOutlet');
+  console.group('----- PrivateUserOutlet');
   const { user, isAdmin } = useAuth();
   console.log(!!user, user);
   if (user) console.log(isAdmin(user));
+  console.groupEnd();
   return user ? <Outlet /> : <Navigate to={routes.loginPagePath()} />;
 };
 
 const PrivateAdminOutlet = () => {
   const { user, isAdmin } = useAuth();
-  console.log('----- PrivateAdminOutlet');
+  console.group('----- PrivateAdminOutlet');
   console.log(!!user, user);
   if (user) console.log(isAdmin(user));
+  console.groupEnd();
   return !!user && isAdmin(user) ? (
     <Outlet />
   ) : (

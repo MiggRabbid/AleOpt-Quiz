@@ -2,22 +2,19 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { iQuestion } from '../../../models/interfaces';
+import { iQuestion } from '../../models/interfaces';
 
-import {
-  getQuestionIndex,
-  getQuestions,
-} from '../../../selectors/quizSelectors';
-import useActions from '../../../hooks/useActions';
-import useAuth from '../../../hooks/useAuth';
-import routes from '../../../routes';
+import { getQuestionIndex, getQuestions } from '../../selectors/quizSelectors';
+import useActions from '../../hooks/useActions';
+import useAuth from '../../hooks/useAuth';
+import routes from '../../routes';
 
-import QuestionsFinished from './templates/QuestionsFinished';
-import QuestionsSection from './templates/QuestionsSection';
+import QuestionsFinished from '../templates/QuizPage/QuestionsFinished';
+import QuestionsSection from '../templates/QuizPage/QuestionsSection';
 
 const QuizPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const { changeQuizState } = useActions();
 
   const questionsIndex = useSelector(getQuestionIndex);
@@ -27,6 +24,7 @@ const QuizPage = () => {
 
   useEffect(() => {
     if (!user || quantityQuestions === 0) navigate(routes.MainPagePath());
+    if (!!user && isAdmin(user)) navigate(routes.AdminPagePath());
   }, [user]);
 
   useEffect(() => {

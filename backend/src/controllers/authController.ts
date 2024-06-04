@@ -5,12 +5,13 @@ import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
 import { User, Role } from "../models/models";
+import { iUserModel } from '../models/User';
 
 dotenv.config();
 
 const secret = process.env.SECRET_KEY || '';
 
-const getAccessToken = (id: string, role: string, username: string): string => {
+const getAccessToken = (id: string, role: string, username: string, name: string): string => {
   const payload = {
     id, role, username
   }
@@ -58,8 +59,9 @@ class AuthController {
       }
 
       const { username, password } = request.body;
-      const user = await User.findOne({username});
-
+      const user = await User.findOne({username}) as iUserModel;
+      const { role, name } = user;
+      
       if (!user) {
         return response.status(400).json({ message: `User ${username} not found` });
       }
@@ -70,23 +72,23 @@ class AuthController {
         return response.status(400).json({ message: 'Incorrect password entered' });
       }
 
-      const token = getAccessToken(user._id as string, user.role as string, user.username);
+      const token = getAccessToken(user._id as string, user.role as string, user.username, user.name);
 
-      return response.json({token});
+      return response.json({token, username, role, name});
     } catch (e) {
       console.log('---- authController', e);
       return response.status(400).json({ message: 'Authorization error' });
     }
   }
 
-  async isLogin(request: Request, response: Response): Promise<Response> {
-    try {
-      return response.json("SERVER WORK - AUTH");
-    } catch (e) {
-      console.log('---- authController', e);
-      return response.status(400).json({ message: 'isLogin error' });
-    }
-  }
+  // async isLogin(request: Request, response: Response): Promise<Response> {
+  //   try {
+  //     return response.json("SERVER WORK - AUTH");
+  //   } catch (e) {
+  //     console.log('---- authController', e);
+  //     return response.status(400).json({ message: 'isLogin error' });
+  //   }
+  // }
 };
 
 export default new AuthController();

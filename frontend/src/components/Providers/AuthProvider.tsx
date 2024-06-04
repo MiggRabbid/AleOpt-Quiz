@@ -5,11 +5,15 @@ import AuthContext from '../../context/index';
 import { iUser, UserRoles } from '../../models/interfaces';
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
+  console.log('----- AuthProvider');
   const currentUserString = localStorage.getItem('user');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
   const [user, setUser] = useState(currentUser);
 
   const UseLogin = (data: iUser) => {
+    console.log('----- AuthProvider UseLogin -', data);
+    if (data === undefined) return;
+
     localStorage.setItem('user', JSON.stringify(data));
     setUser({
       role: data.role,

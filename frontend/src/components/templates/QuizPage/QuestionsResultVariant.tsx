@@ -1,5 +1,5 @@
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import { iQuestion, iUserAnswer } from '../../../../models/interfaces';
+import { iQuestion, iUserAnswer } from '../../../models/interfaces';
 
 interface QuestionsResultVariantProps {
   currQuestion: iQuestion;
@@ -10,6 +10,7 @@ const QuestionsResultVariant: React.FC<QuestionsResultVariantProps> = (
   props,
 ) => {
   const { currQuestion, userAnswer } = props;
+  console.group('----- QuestionsResultVariant');
   console.log('currQuestion -', currQuestion);
   console.log('userAnswer   -', userAnswer);
   const { id, question, answers, correctAnswerId } = currQuestion;
@@ -22,6 +23,7 @@ const QuestionsResultVariant: React.FC<QuestionsResultVariantProps> = (
   console.log('correctAnswer -', correctAnswer);
   console.log('currentAnswer -', currentAnswer);
   console.log('result        -', result, typeof result);
+  console.groupEnd();
   return (
     <ListGroup className="text-center d-flex flex-column">
       <ListGroupItem className="px-2 fw-semibold fs-8">

@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import routes from '../../routes';
 import useAuth from '../../hooks/useAuth';
-import { useGetAllQuestionsQuery } from '../../store/quizApi';
-import { typeHeaderResponse } from '../../models/types';
+import { useGetAllQuestionsQuery } from '../../store/quiz.api';
+import { typeApiResponse } from '../../models/types';
 import useActions from '../../hooks/useActions';
 
 const MainPage = () => {
@@ -13,17 +13,27 @@ const MainPage = () => {
   const navigate = useNavigate();
   const { user, isAdmin, getAuthHeader } = useAuth();
   const { setQuestions } = useActions();
-  const headers = getAuthHeader() as typeHeaderResponse;
-  const { data } = useGetAllQuestionsQuery(headers);
+  const headers = getAuthHeader() as typeApiResponse;
+  const { data: questions, error } = useGetAllQuestionsQuery(headers);
 
   useEffect(() => {
     if (!!user && isAdmin(user)) navigate(routes.AdminPagePath());
   });
 
   useEffect(() => {
-    if (data) setQuestions(data);
-    console.log('MainPage data -', data);
-  }, [data]);
+    if (questions) setQuestions(questions);
+    console.group('----- MainPage');
+    console.log('headers -', headers);
+    console.groupEnd();
+  }, [headers]);
+
+  useEffect(() => {
+    if (questions) setQuestions(questions);
+    console.group('----- MainPage');
+    console.log('questions -', questions);
+    console.log('error -', error);
+    console.groupEnd();
+  }, [questions, error]);
 
   return (
     <main className="container-xl h-100 d-flex align-items-center justify-content-center">

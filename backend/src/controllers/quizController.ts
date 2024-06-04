@@ -5,23 +5,21 @@ class QuizController {
   async newQuiz(request: Request, response: Response): Promise<Response> {
     try {
       const newQuestion = new Question(request.body);
-      console.log('newQuestion -', newQuestion);
-
       await newQuestion.save();
 
       return response.json({ message: 'New question added' });
     } catch (e) {
-      console.log('---- quizController', e);
       return response.status(500).json({ message: 'Network error' });
     }
   }
 
   async getQuiz(request: Request, response: Response): Promise<Response> {
     try {
-      const question = await Question.find();
-      return response.json(question);
+      const questions = await Question.find();
+      const sortQuestions = questions.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
+
+      return response.json(sortQuestions);
     } catch (e) {
-      console.log('---- quizController', e);
       return response.status(500).json({ message: 'Network error' });
     }
   }

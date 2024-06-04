@@ -2,13 +2,13 @@ import { Button, ListGroup } from 'react-bootstrap';
 
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { iQuestion, iUserAnswer } from '../../../../models/interfaces';
-import { typeQuestionAnswer } from '../../../../models/types';
+import { iQuestion, iUserAnswer } from '../../../models/interfaces';
+import { typeQuestionAnswer } from '../../../models/types';
 
 import QuestionsProgress from './QuestionsProgress';
 import QuestionsAnswerVariant from './QuestionsAnswerVariant';
-import useActions from '../../../../hooks/useActions';
-import { getQuestionIndex } from '../../../../selectors/quizSelectors';
+import useActions from '../../../hooks/useActions';
+import { getQuestionIndex } from '../../../selectors/quizSelectors';
 
 interface QuestionsSectionProps {
   questions: iQuestion[];
