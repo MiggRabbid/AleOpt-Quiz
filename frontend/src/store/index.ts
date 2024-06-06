@@ -4,10 +4,12 @@ import quizReducer, { actions as quizActions } from './quizSlice';
 import modalReducer, { actions as modalActions } from './modalSlice';
 import quizApi from './quiz.api';
 import authApi from './auth.api';
+import usersApi from './users.api';
 
 const rootReducer = combineReducers({
   [quizApi.reducerPath]: quizApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [usersApi.reducerPath]: usersApi.reducer,
   authReducer,
   quizReducer,
   modalReducer,
@@ -26,7 +28,8 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(quizApi.middleware)
-      .concat(authApi.middleware),
+      .concat(authApi.middleware)
+      .concat(usersApi.middleware),
 });
 
 export { actions, rootReducer, store };

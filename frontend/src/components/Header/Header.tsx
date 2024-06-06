@@ -9,22 +9,29 @@ import useActions from '../../hooks/useActions';
 import Logo from '../../assets/logo-header.png';
 
 const Header = () => {
-  console.log('----- Header');
+  console.group('----- Header');
   const navigate = useNavigate();
   const { logout } = useActions();
   const { user, useLogout } = useAuth();
 
+  console.log('user -', user);
+
   const handleLogout = () => {
     useLogout();
     logout();
+    console.groupEnd();
     navigate(routes.loginPagePath());
   };
 
+  console.groupEnd();
   return (
-    <header className="d-flex justify-content-center">
-      <div className="container-xxl rounded-bottom shadow-sm">
-        <Navbar className="col-11 mx-auto d-flex justify-content-between">
-          <NavbarBrand>
+    <header className="container-xxl d-flex justify-content-center p-0 mb-2">
+      <div className="w-100 rounded-bottom shadow-sm bg-light-subtle">
+        <Navbar className="d-flex justify-content-between">
+          <NavbarBrand
+            className="col-3 m-0 d-flex justify-content-center"
+            style={{ minWidth: '170px', maxWidth: '250px' }}
+          >
             <img
               src={Logo}
               alt="АлёОпт - лучший магазин аксессуаров для телефонов в Новороссийске"
@@ -35,8 +42,10 @@ const Header = () => {
           {!!user && (
             <Button
               type="submit"
-              variant="outline-success"
+              variant="success"
               onClick={handleLogout}
+              className="me-3"
+              style={{ height: '50px', width: '100px' }}
             >
               Выйти
             </Button>

@@ -11,7 +11,7 @@ dotenv.config();
 
 const secret = process.env.SECRET_KEY || '';
 
-const getAccessToken = (id: string, role: string, username: string, name: string): string => {
+const getAccessToken = (id: string, role: string, username: string): string => {
   const payload = {
     id, role, username
   }
@@ -60,7 +60,7 @@ class AuthController {
 
       const { username, password } = request.body;
       const user = await User.findOne({username}) as iUserModel;
-      const { role, name } = user;
+      const { role } = user;
       
       if (!user) {
         return response.status(400).json({ message: `User ${username} not found` });
@@ -72,9 +72,9 @@ class AuthController {
         return response.status(400).json({ message: 'Incorrect password entered' });
       }
 
-      const token = getAccessToken(user._id as string, user.role as string, user.username, user.name);
+      const token = getAccessToken(user._id as string, user.role as string, user.username);
 
-      return response.json({token, username, role, name});
+      return response.json({token, username, role});
     } catch (e) {
       console.log('---- authController', e);
       return response.status(400).json({ message: 'Authorization error' });

@@ -5,11 +5,12 @@ import TgIcon from '../../assets/tg-icon.png';
 import InIcon from '../../assets/in-icon.png';
 
 const Footer = () => {
-  console.log('----- Footer');
+  console.group('----- Footer');
+  console.groupEnd();
 
   return (
-    <footer className="d-flex col-11 justify-content-center">
-      <div className="container-xxl py-1 px-3">
+    <footer className="container-xxl d-flex justify-content-center p-0 mt-2">
+      <div className="container-xxl py-1 px-3 bg-light rounded-top">
         <Navbar className="d-flex flex-row justify-content-between ">
           <Container>
             <NavbarBrand>

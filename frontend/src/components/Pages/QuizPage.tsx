@@ -13,13 +13,14 @@ import QuestionsFinished from '../templates/QuizPage/QuestionsFinished';
 import QuestionsSection from '../templates/QuizPage/QuestionsSection';
 
 const QuizPage = () => {
+  console.group('----- QuizPage');
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
   const { changeQuizState } = useActions();
 
   const questionsIndex = useSelector(getQuestionIndex);
   const questions = useSelector(getQuestions) as iQuestion[];
-  console.log('MainPage data -', questions);
+  console.log('QuizPage data -', questions);
   const quantityQuestions = Object.keys(questions).length;
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const QuizPage = () => {
     changeQuizState(true);
   }, []);
 
+  console.groupEnd();
   return (
     <main className="container-xl h-auto min-h-100 d-flex">
       <div className="h-100 col-12 row justify-content-center align-content-center ">

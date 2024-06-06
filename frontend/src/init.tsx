@@ -6,6 +6,8 @@ import { AuthProvider } from './components/Providers/Providers';
 import App from './App';
 
 const initApp = () => {
+  console.group('----- initApp');
+  console.groupEnd();
   return (
     <AuthProvider>
       <Provider store={store}>

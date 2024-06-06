@@ -9,7 +9,7 @@ import { typeApiResponse } from '../../models/types';
 import useActions from '../../hooks/useActions';
 
 const MainPage = () => {
-  console.log('----- MainPage');
+  console.group('----- MainPage');
   const navigate = useNavigate();
   const { user, isAdmin, getAuthHeader } = useAuth();
   const { setQuestions } = useActions();
@@ -18,7 +18,7 @@ const MainPage = () => {
 
   useEffect(() => {
     if (!!user && isAdmin(user)) navigate(routes.AdminPagePath());
-  });
+  }, [user, isAdmin]);
 
   useEffect(() => {
     if (questions) setQuestions(questions);
@@ -28,17 +28,18 @@ const MainPage = () => {
   }, [headers]);
 
   useEffect(() => {
+    console.group('----- MainPage useEffect');
     if (questions) setQuestions(questions);
-    console.group('----- MainPage');
     console.log('questions -', questions);
     console.log('error -', error);
     console.groupEnd();
   }, [questions, error]);
 
+  console.groupEnd();
   return (
     <main className="container-xl h-100 d-flex align-items-center justify-content-center">
       <section className="col-12 col-md-10 col-xxl-8 d-flex flex-column align-items-center justify-content-center position-relative">
-        <h3 className="text-uppercase py-5 position-absolute top-0 fw-semibold">{`${user?.name}, Добро пожаловать`}</h3>
+        <h3 className="text-uppercase py-5 position-absolute top-0 fw-semibold">{`${user?.firstName || user?.username}, Добро пожаловать`}</h3>
         <article className="col-12 py-5 px-4 card shadow-sm d-flex flex-column">
           <p className="text-center pb-5 text-uppercase fs-5 fw-semibold">
             ТЕСТ ДЛЯ ПРОВЕРКИ УРОВНЯ ТЕОРЕТИЧЕСКИХ ЗНАНИЙ СОТРУДНИКОВ АЛЁОПТ

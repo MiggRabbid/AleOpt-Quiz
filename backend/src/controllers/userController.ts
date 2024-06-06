@@ -4,7 +4,6 @@ import { User, Role } from "../models/models";
 class UserController {
   async userResult(request: Request, response: Response): Promise<Response> {
     try {
-      // Ваш код для обработки результата пользователя
       return response.json({ message: 'User result processed' });
     } catch (e) {
       console.log('---- userController', e);

@@ -1,5 +1,12 @@
 import { useFormik } from 'formik';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
+import FormInput from '../../ui/forms/FormInput';
+import MainButton from '../../ui/MainButton';
+
+interface iCreateNewQuestionProps {
+  modalState: boolean;
+  setModalState: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 type typeAnswersKeys = 'a' | 'b' | 'c' | 'd';
 
@@ -26,13 +33,15 @@ const getAnswersKeys = (obj: typeAnswers) => {
   return Object.keys(obj) as typeAnswersKeys[];
 };
 
-const CreateNewQuestion = () => {
+const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
+  const { modalState, setModalState } = props;
   const formik = useFormik({
     initialValues,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
         console.log('formik onSubmit -', values);
+        setModalState(!modalState);
       } catch (e) {
         console.error(e);
       }
@@ -41,75 +50,76 @@ const CreateNewQuestion = () => {
   });
 
   return (
-    <Form
-      className="h-auto w-100 m-auto d-flex flex-wrap justify-content-around position-relative rounded-2 border-2 shadow py-5"
-      onSubmit={formik.handleSubmit}
+    <Modal
+      show={modalState}
+      onHide={() => setModalState(!modalState)}
+      dialogClassName="modal-dialog-centered"
+      className="col-12 col-lg-10 xl-8"
+      size="lg"
     >
-      <Form.Group className="col-12 col-md-6 d-flex flex-column gap-2 px-2 mb-2">
-        <FloatingLabel
-          className="w-100"
-          controlId="questionInput"
-          label="Вопрос"
+      <Modal.Header closeButton>
+        <Modal.Title>Создание нового вопроса</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form
+          className="d-flex flex-wrap justify-content-end position-relative"
+          onSubmit={formik.handleSubmit}
         >
-          <Form.Control
-            style={{ height: '190px', minWidth: '150px' }}
-            as="textarea"
-            name="question"
-            placeholder="Вопрос"
-            required
-            value={formik.values.question}
-            onChange={formik.handleChange}
-            isInvalid={!!formik.errors.question}
-          />
-        </FloatingLabel>
-
-        <Form.Select
-          required
-          name="correctAnswer"
-          aria-label="Выберите верный вариант ответа"
-          style={{ height: '57px', minWidth: '150px' }}
-          onChange={formik.handleChange}
-          defaultValue=""
-        >
-          <option>Выберите верный вариант ответа</option>
-          <option value="a">Вариант A</option>
-          <option value="b">Вариант B</option>
-          <option value="c">Вариант C</option>
-          <option value="d">Вариант D</option>
-        </Form.Select>
-      </Form.Group>
-
-      <Form.Group className="col-12 col-md-6 d-flex flex-column gap-2 px-2  mb-2">
-        {getAnswersKeys(formik.values.answers).map((key) => (
-          <FloatingLabel
-            key={key}
-            controlId={`answer${key.toUpperCase()}`}
-            label={`Введите ответ ${key.toUpperCase()}`}
-          >
-            <Form.Control
+          <Form.Group className="col-12 col-md-6 d-flex flex-column gap-2 pe-2 mb-2">
+            <FormInput
               className="w-100"
-              style={{ height: '50px', minWidth: '150px' }}
+              controlId="questionInput"
+              label="Вопрос"
+              height="190px"
               as="textarea"
-              name={`answers.${key}`}
-              placeholder={`Ответ ${key.toUpperCase()}`}
-              required
-              value={formik.values.answers[key]}
+              name="question"
+              placeholder="Вопрос"
+              value={formik.values.question}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.answers?.[key]}
+              isInvalid={!!formik.errors.question}
             />
-          </FloatingLabel>
-        ))}
-      </Form.Group>
 
-      <Button
-        type="submit"
-        variant="outline-success"
-        className="px-2 py-1"
-        style={{ height: '50px', width: '200px' }}
-      >
-        Добавить вопрос
-      </Button>
-    </Form>
+            <FormInput
+              className="w-100"
+              controlId="roleSelect"
+              label="Выберите верный вариант ответа"
+              height="57px"
+              as="select"
+              name="correctAnswer"
+              value={formik.values.correctAnswer}
+              onChange={formik.handleChange}
+              isInvalid={!!formik.errors.correctAnswer}
+              options={{
+                a: 'Вариант A',
+                b: 'Вариант B',
+                c: 'Вариант C',
+                d: 'Вариант D',
+              }}
+            />
+          </Form.Group>
+
+          <Form.Group className="col-11 col-md-6 d-flex flex-column gap-2 ps-2 mb-2">
+            {getAnswersKeys(formik.values.answers).map((key) => (
+              <FormInput
+                key={key}
+                className="w-100"
+                controlId={`answer${key.toUpperCase()}`}
+                label={`Введите ответ ${key.toUpperCase()}`}
+                height="50px"
+                as="textarea"
+                name={`answers.${key}`}
+                placeholder={`Ответ ${key.toUpperCase()}`}
+                value={formik.values.answers[key]}
+                onChange={formik.handleChange}
+                isInvalid={!!formik.errors.answers?.[key]}
+              />
+            ))}
+          </Form.Group>
+
+          <MainButton text="Создать" type="submit" />
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

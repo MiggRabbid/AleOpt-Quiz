@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
-import Button from 'react-bootstrap/Button';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
+import { Form, Modal } from 'react-bootstrap';
 
 import { UserRoles } from '../../../models/interfaces';
 
-import EyeWithoutSlash from '../../ui/icons/EyeWithoutSlash';
-import EyeWithSlash from '../../ui/icons/EyeWithSlash';
 import FormInput from '../../ui/forms/FormInput';
+import MainButton from '../../ui/MainButton';
+
+interface iCreateNewUserProps {
+  modalState: boolean;
+  setModalState: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 interface iInitialValues {
   role: UserRoles;
@@ -26,17 +28,15 @@ const initialValues: iInitialValues = {
   password: '',
 };
 
-const CreateNewUser = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  const handleShowPassword = () => setShowPassword(!showPassword);
-
+const CreateNewUser: React.FC<iCreateNewUserProps> = (props) => {
+  const { modalState, setModalState } = props;
   const formik = useFormik({
     initialValues,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
         console.log('formik onSubmit -', values);
+        setModalState(!modalState);
       } catch (e) {
         console.error(e);
       }
@@ -45,111 +45,88 @@ const CreateNewUser = () => {
   });
 
   return (
-    <Form
-      className="col-12 col-lg-8 xl-6 m-auto d-flex justify-content-center align-items-center flex-column gap-4 rounded-2 border-2 shadow py-5"
-      onSubmit={formik.handleSubmit}
+    <Modal
+      show={modalState}
+      onHide={() => setModalState(!modalState)}
+      dialogClassName="modal-dialog-centered"
+      className="col-12 col-lg-8 xl-6"
+      size="lg"
     >
-      <Form.Group className="h-auto d-flex flex-wrap justify-content-center align-items-center gap-3">
-        <FormInput
-          controlId="inputFirstName"
-          label="Введите имя"
-          height="50px"
-          inputType="input"
-          placeholder="Введите имя"
-          name="fistName"
-          value={formik.values.fistName}
-          onChange={formik.handleChange}
-          isInvalid={!!formik.errors.fistName}
-        />
-
-        <FloatingLabel
-          className="col-11 col-sm-5"
-          controlId="inputLastName"
-          label="Введите фамилию"
+      <Modal.Header closeButton>
+        <Modal.Title>Создание нового пользователя</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form
+          className="d-flex justify-content-center align-items-end flex-column gap-4"
+          onSubmit={formik.handleSubmit}
         >
-          <Form.Control
-            style={{ height: '50px', minWidth: '150px' }}
-            as="input"
-            name="lastName"
-            placeholder="Введите фамилию"
-            required
-            value={formik.values.lastName}
-            onChange={formik.handleChange}
-            isInvalid={!!formik.errors.lastName}
-          />
-        </FloatingLabel>
+          <Form.Group className="h-auto w-100 py-4 d-flex flex-wrap justify-content-center align-items-center gap-3 border-bottom">
+            <FormInput
+              controlId="inputFirstName"
+              label="Введите имя"
+              height="50px"
+              as="input"
+              name="fistName"
+              placeholder="Введите имя"
+              value={formik.values.fistName}
+              onChange={formik.handleChange}
+              isInvalid={!!formik.errors.fistName}
+            />
 
-        <FloatingLabel
-          className="col-11 col-sm-5"
-          controlId="inputUserName"
-          label="Придумайте логин"
-        >
-          <Form.Control
-            style={{ height: '50px', minWidth: '150px' }}
-            as="input"
-            name="username"
-            placeholder="Придумайте логин"
-            required
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            isInvalid={!!formik.errors.username}
-          />
-        </FloatingLabel>
+            <FormInput
+              controlId="inputLastName"
+              label="Введите фамилию"
+              height="50px"
+              as="input"
+              name="lastName"
+              placeholder="Введите фамилию"
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              isInvalid={!!formik.errors.lastName}
+            />
 
-        <FloatingLabel
-          className="col-11 col-sm-5 position-relative"
-          controlId="inputPassword"
-          label="Придумайте пароль"
-        >
-          <Form.Control
-            style={{ height: '50px', minWidth: '150px' }}
-            as="input"
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            placeholder="подтвердите пароль"
-            required
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            isInvalid={!!formik.errors.password}
-          />
-          <Button
-            size="sm"
-            variant="outline-secondary"
-            className="position-absolute me-2 translate-middle-y top-50 end-0"
-            onClick={handleShowPassword}
-          >
-            {showPassword ? <EyeWithSlash /> : <EyeWithoutSlash />}
-          </Button>
-        </FloatingLabel>
+            <FormInput
+              controlId="inputUserName"
+              label="Придумайте логин"
+              height="50px"
+              as="input"
+              name="username"
+              placeholder="Придумайте логин"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              isInvalid={!!formik.errors.username}
+            />
 
-        <FloatingLabel
-          className="col-11 col-sm-5"
-          controlId="roleSelect"
-          label="Выберите роль пользователя"
-        >
-          <Form.Select
-            required
-            name="role"
-            aria-label="Выберите роль пользователя"
-            style={{ height: '55px', minWidth: '150px' }}
-            onChange={formik.handleChange}
-            defaultValue=""
-          >
-            <option defaultValue={UserRoles.Employee}>Сотрудник</option>
-            <option value={UserRoles.Admin}>Администратор</option>
-          </Form.Select>
-        </FloatingLabel>
-      </Form.Group>
+            <FormInput
+              controlId="inputPassword"
+              label="Придумайте пароль"
+              height="50px"
+              as="input"
+              type="password"
+              name="password"
+              placeholder="подтвердите пароль"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              isInvalid={!!formik.errors.password}
+            />
 
-      <Button
-        type="submit"
-        variant="outline-success"
-        className="px-2 py-1"
-        style={{ height: '50px', width: '200px' }}
-      >
-        Добавить пользователя
-      </Button>
-    </Form>
+            <FormInput
+              controlId="roleSelect"
+              label="Выберите роль пользователя"
+              height="55px"
+              as="select"
+              name="role"
+              value={formik.values.role}
+              onChange={formik.handleChange}
+              isInvalid={!!formik.errors.role}
+              options={UserRoles}
+            />
+          </Form.Group>
+
+          <MainButton text="Создать" type="submit" />
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

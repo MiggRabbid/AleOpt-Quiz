@@ -11,13 +11,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState(currentUser);
 
   const UseLogin = (data: iUser) => {
-    console.log('----- AuthProvider UseLogin -', data);
+    console.group('----- UseLogin');
+    console.log('data -', data);
     if (data === undefined) return;
-
     localStorage.setItem('user', JSON.stringify(data));
     setUser({
       role: data.role,
-      name: data.name,
       username: data.username,
       token: data.token,
     });

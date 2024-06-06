@@ -42,11 +42,15 @@ const PrivateAdminOutlet = () => {
 };
 
 const App = () => {
-  console.log('----- App');
+  console.group('----- initApp');
+  console.groupEnd();
   return (
     <BrowserRouter>
-      <div className="h-100 min-h-100" id="quiz">
-        <div className="h-100 d-flex flex-column justify-content-between">
+      <div
+        className="h-100 min-h-100 bg-secondary-subtle bg-opacity-0"
+        id="quiz"
+      >
+        <div className="h-100 d-flex flex-column align-items-center justify-content-between">
           <Header />
           <Routes>
             <Route path={routes.loginPagePath()} element={<LoginPage />} />

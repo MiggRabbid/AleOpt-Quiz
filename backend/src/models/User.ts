@@ -5,14 +5,17 @@ import { iRoleModel } from './Role';
 export interface iUserModel extends Document {
   _id?: string;
   role: string | iRoleModel;
-  name: string;
+  lastName: string;
+  firstName: string;
   username: string;
   password: string;
+  results?: Array<Record<string, string>>
 }
 
 const UserSchema = new Schema<iUserModel>({
   role: { type: String, ref: 'Role' },
-  name: { type: String, required: true },
+  lastName: { type: String, required: true },
+  firstName: { type: String, required: true },
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
 });

@@ -1,52 +1,79 @@
-import React from 'react';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
+import InputSelect from './inputSelect';
+import InputPass from './inputPass';
+import InputText from './InputText';
 
-interface FormInputProps {
-  controlId: string;
-  label: string;
-  height: string;
-  inputType: 'input' | 'textarea' | 'select';
-  name: string;
-  placeholder: string;
-  value: string;
-  onChange: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => void;
-  isInvalid: boolean;
-}
+import { iFormInputProps } from '../../../models/interfaces';
 
-const FormInput: React.FC<FormInputProps> = ({
-  controlId,
-  label,
-  height,
-  inputType,
-  name,
-  placeholder,
-  value,
-  onChange,
-  isInvalid = false,
-}) => {
-  return (
-    <FloatingLabel
-      className="col-11 col-sm-5"
-      controlId={controlId}
-      label={label}
-    >
-      <Form.Control
-        style={{ height, minWidth: '150px' }}
-        as={inputType}
+const FormInput: React.FC<iFormInputProps> = (props) => {
+  const {
+    as,
+    type,
+    controlId,
+    label,
+    height,
+    name,
+    placeholder,
+    value,
+    onChange,
+    isInvalid,
+    options,
+    className,
+  } = props;
+
+  const style = { height, minWidth: '150px' };
+
+  if (as === 'select') {
+    return (
+      <InputSelect
+        className={className}
+        controlId={controlId}
+        label={label}
+        style={style}
         name={name}
         placeholder={placeholder}
-        required
+        value={value}
+        onChange={onChange}
+        isInvalid={isInvalid}
+        options={options}
+      />
+    );
+  }
+
+  if (type === 'password') {
+    return (
+      <InputPass
+        className={className}
+        controlId={controlId}
+        label={label}
+        style={style}
+        name={name}
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
         isInvalid={isInvalid}
       />
-    </FloatingLabel>
+    );
+  }
+
+  return (
+    <InputText
+      className={className}
+      as={as}
+      controlId={controlId}
+      label={label}
+      style={style}
+      name={name}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      isInvalid={isInvalid}
+    />
   );
+};
+
+FormInput.defaultProps = {
+  type: 'text',
+  placeholder: '',
 };
 
 export default FormInput;

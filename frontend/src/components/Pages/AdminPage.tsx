@@ -1,49 +1,76 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
-
+import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import routes from '../../routes';
-import CreateNewQuestion from '../templates/AdminPage/CreateNewQuestion';
-import CreateNewUser from '../templates/AdminPage/CreateNewUser';
+
+import WatchUsers from '../templates/AdminPage/WatchUsers';
+import WatchQuestions from '../templates/AdminPage/WatchQuestions';
 
 const AdminPage = () => {
-  console.log('----- AdminPage');
+  console.group('----- AdminPage');
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
 
-  const [activeTab, setActiveTab] = useState<string>('users');
-
   useEffect(() => {
-    if (!user || (!!user && !isAdmin(user))) navigate(routes.loginPagePath());
-  }, [user, isAdmin]);
+    if (!user) {
+      navigate(routes.loginPagePath());
+    }
+    if (!!user && !isAdmin(user)) {
+      navigate(routes.MainPagePath());
+    }
+  }, [user, isAdmin, navigate]);
 
+  console.groupEnd();
   return (
-    <main className="container-xxl h-100 p-0 w-100 mt-4">
-      <Tabs
-        id="admin-tabs"
-        activeKey={activeTab}
-        className="mb-3"
-        onSelect={(tab) => {
-          console.log(tab);
-          setActiveTab(tab as string);
-        }}
-        fill
+    <main className="h-100 p-0 rounded overflow-hidden container-xxl">
+      <Tab.Container
+        transition
+        id="left-tabs-example"
+        defaultActiveKey="questions"
       >
-        <Tab eventKey="users" title="Пользователи" className="mt-5">
-          <h5> Пользователи </h5>
-        </Tab>
-
-        <Tab eventKey="newQuestion" title="Создать вопрос" className="mt-5">
-          <CreateNewQuestion />
-        </Tab>
-
-        <Tab eventKey="newUsers" title="Создать пользователя" className="mt-5">
-          <CreateNewUser />
-        </Tab>
-      </Tabs>
+        <Row className="h-100 w-100 m-0 d-flex flex-row justify-content-between position-relative">
+          <Col
+            sm={3}
+            className="p-0 bg-light"
+            style={{ minWidth: '170px', maxWidth: '250px' }}
+          >
+            <Nav
+              variant="pills"
+              className="flex-column py-3 position-relative"
+              style={{ left: '-12px' }}
+            >
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="users"
+                  className="ps-4 py-3 border border-primary"
+                >
+                  Пользователи
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="questions"
+                  className="ps-4 py-3 border border-primary"
+                >
+                  Вопросы
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Col>
+          <Col className="h-100 w-100 ms-2 p-0 bg-light">
+            <Tab.Content className="h-100">
+              <Tab.Pane transition eventKey="users" className="h-100">
+                <WatchUsers />
+              </Tab.Pane>
+              <Tab.Pane transition eventKey="questions" className="h-100">
+                <WatchQuestions />
+              </Tab.Pane>
+            </Tab.Content>
+          </Col>
+        </Row>
+      </Tab.Container>
     </main>
   );
 };
