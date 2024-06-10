@@ -8,9 +8,9 @@ const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
   const {
     controlId,
     label,
+    placeholder,
     style,
     name,
-    placeholder,
     value,
     onChange,
     isInvalid,
@@ -34,12 +34,13 @@ const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
       <Form.Select
         required
         name={name}
-        aria-label={placeholder}
+        aria-label={label}
         style={style}
         onChange={handleChange}
         isInvalid={isInvalid}
         value={value}
       >
+        <option key="placeholder">{placeholder}</option>;
         {options &&
           Object.entries(options).map(([key, currValue]) => {
             return (

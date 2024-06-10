@@ -5,6 +5,11 @@ import routes, { BASE_SERVER_URL } from '../routes';
 import { iQuestion } from '../models/interfaces';
 import { typeApiResponse } from '../models/types';
 
+type typeAddNewQuestionRequest = {
+  headers: typeApiResponse;
+  body: iQuestion;
+};
+
 const quizApi = createApi({
   reducerPath: 'quizApiReducer',
   baseQuery: fetchBaseQuery({
@@ -20,8 +25,23 @@ const quizApi = createApi({
         },
       }),
     }),
+    addNewQuestion: build.mutation<iQuestion[], typeAddNewQuestionRequest>({
+      query: (request) => ({
+        url: routes.questionsRequestPath(),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...request.headers,
+        },
+        body: request.body,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllQuestionsQuery, useLazyGetAllQuestionsQuery } = quizApi;
+export const {
+  useGetAllQuestionsQuery,
+  useLazyGetAllQuestionsQuery,
+  useAddNewQuestionMutation,
+} = quizApi;
 export default quizApi;

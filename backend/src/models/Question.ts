@@ -7,7 +7,7 @@ interface iAnswer {
   answer: string;
 }
 
-interface QuestionModel extends Document {
+export interface iQuestionModel extends Document {
   id: string;
   question: string;
   answers: iAnswer[];
@@ -20,13 +20,13 @@ const AnswerSchema = new Schema<iAnswer>({
   answer: { type: String, required: true },
 });
 
-const QuestionSchema = new Schema<QuestionModel>({
+const QuestionSchema = new Schema<iQuestionModel>({
   id: { type: String, unique: true, required: true },
   question: { type: String, required: true },
   answers: [AnswerSchema],
   correctAnswerId: { type: String, required: true },
 });
 
-const Question = model<QuestionModel>('Question', QuestionSchema);
+const Question = model<iQuestionModel>('Question', QuestionSchema);
 
 export default Question;

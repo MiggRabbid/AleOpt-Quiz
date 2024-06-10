@@ -55,9 +55,7 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = (props) => {
       />
       <div className="card shadow-sm my-3 px-2">
         <ListGroup className="text-center d-flex flex-column gap-1">
-          <p className="py-2 border-bottom fw-semibold fs-5">
-            {`${currentQuestion.question}:`}
-          </p>
+          <p className="py-2 border-bottom fw-semibold fs-5">{`${currentQuestion.question}:`}</p>
           {currentQuestion.answers.map((item: typeQuestionAnswer) => (
             <QuestionsAnswerVariant
               key={`${item.questionId}-${item.id}`}

@@ -28,9 +28,9 @@ const FormInput: React.FC<iFormInputProps> = (props) => {
         className={className}
         controlId={controlId}
         label={label}
+        placeholder={placeholder}
         style={style}
         name={name}
-        placeholder={placeholder}
         value={value}
         onChange={onChange}
         isInvalid={isInvalid}

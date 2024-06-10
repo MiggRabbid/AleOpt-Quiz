@@ -23,8 +23,13 @@ const AdminPage = () => {
   }, [user, isAdmin, navigate]);
 
   console.groupEnd();
+  const navLinkClass = 'ps-4 py-2 border border-2 border-primary';
+
   return (
-    <main className="h-100 p-0 rounded overflow-hidden container-xxl">
+    <main
+      className="container-xxl h-100 p-0 rounded overflow-y-auto"
+      id="admin-page"
+    >
       <Tab.Container
         transition
         id="left-tabs-example"
@@ -33,38 +38,28 @@ const AdminPage = () => {
         <Row className="h-100 w-100 m-0 d-flex flex-row justify-content-between position-relative">
           <Col
             sm={3}
-            className="p-0 bg-light"
+            className="p-0 bg-light rounded-start"
             style={{ minWidth: '170px', maxWidth: '250px' }}
           >
-            <Nav
-              variant="pills"
-              className="flex-column py-3 position-relative"
-              style={{ left: '-12px' }}
-            >
+            <Nav variant="pills" className="flex-column p-3">
               <Nav.Item>
-                <Nav.Link
-                  eventKey="users"
-                  className="ps-4 py-3 border border-primary"
-                >
+                <Nav.Link eventKey="users" className={navLinkClass}>
                   Пользователи
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link
-                  eventKey="questions"
-                  className="ps-4 py-3 border border-primary"
-                >
+                <Nav.Link eventKey="questions" className={navLinkClass}>
                   Вопросы
                 </Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
-          <Col className="h-100 w-100 ms-2 p-0 bg-light">
-            <Tab.Content className="h-100">
-              <Tab.Pane transition eventKey="users" className="h-100">
+          <Col className="w-100 ms-2 p-0 bg-light rounded-end">
+            <Tab.Content>
+              <Tab.Pane transition eventKey="users" className="">
                 <WatchUsers />
               </Tab.Pane>
-              <Tab.Pane transition eventKey="questions" className="h-100">
+              <Tab.Pane transition eventKey="questions">
                 <WatchQuestions />
               </Tab.Pane>
             </Tab.Content>

@@ -47,27 +47,22 @@ const App = () => {
   return (
     <BrowserRouter>
       <div
-        className="h-100 min-h-100 bg-secondary-subtle bg-opacity-0"
+        className="container-fluid min-vh-100 bg-secondary-subtle d-flex flex-column align-items-center justify-content-between overflow-y-scroll"
         id="quiz"
       >
-        <div className="h-100 d-flex flex-column align-items-center justify-content-between">
-          <Header />
-          <Routes>
-            <Route path={routes.loginPagePath()} element={<LoginPage />} />
-            <Route path={routes.MainPagePath()} element={<PrivateUserOutlet />}>
-              <Route path="" element={<MainPage />} />
-            </Route>
-            <Route
-              path={routes.AdminPagePath()}
-              element={<PrivateAdminOutlet />}
-            >
-              <Route path="" element={<AdminPage />} />
-            </Route>
-            <Route path={routes.QuizPagePath()} element={<QuizPage />} />
-            <Route path={routes.notFoundPagePath()} element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </div>
+        <Header />
+        <Routes>
+          <Route path={routes.loginPagePath()} element={<LoginPage />} />
+          <Route path={routes.MainPagePath()} element={<PrivateUserOutlet />}>
+            <Route path="" element={<MainPage />} />
+          </Route>
+          <Route path={routes.AdminPagePath()} element={<PrivateAdminOutlet />}>
+            <Route path="" element={<AdminPage />} />
+          </Route>
+          <Route path={routes.QuizPagePath()} element={<QuizPage />} />
+          <Route path={routes.notFoundPagePath()} element={<NotFound />} />
+        </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
   );

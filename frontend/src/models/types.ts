@@ -1,7 +1,7 @@
 export type typeData = { [key: string]: string };
 
 export type typeQuestionAnswer = {
-  questionId: number;
+  questionId: string;
   id: string;
   answer: string;
 };

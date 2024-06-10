@@ -34,8 +34,8 @@ const QuizPage = () => {
 
   console.groupEnd();
   return (
-    <main className="container-xl h-auto min-h-100 d-flex">
-      <div className="h-100 col-12 row justify-content-center align-content-center ">
+    <main className="container-xxl p-0 h-auto min-h-100 d-flex" id="quiz-page">
+      <div className="h-100 p-0 justify-content-center align-content-center ">
         {questionsIndex < quantityQuestions ? (
           <QuestionsSection
             questions={questions}

@@ -1,24 +1,32 @@
 import { useFormik } from 'formik';
 import { Form, Modal } from 'react-bootstrap';
+
+import { useAddNewQuestionMutation } from '../../../store/quiz.api';
+import useActions from '../../../hooks/useActions';
+import useAuth from '../../../hooks/useAuth';
+
 import FormInput from '../../ui/forms/FormInput';
 import MainButton from '../../ui/MainButton';
+
+import { typeApiResponse } from '../../../models/types';
 
 interface iCreateNewQuestionProps {
   modalState: boolean;
   setModalState: React.Dispatch<React.SetStateAction<boolean>>;
+  questionId: string;
 }
 
 type typeAnswersKeys = 'a' | 'b' | 'c' | 'd';
 
 type typeAnswers = Record<typeAnswersKeys, string>;
 
-interface FormValues {
+interface iNewQuestionFormValues {
   question: string;
   answers: typeAnswers;
-  correctAnswer: string;
+  correctAnswerId: string;
 }
 
-const initialValues: FormValues = {
+const initialValues: iNewQuestionFormValues = {
   question: '',
   answers: {
     a: '',
@@ -26,7 +34,21 @@ const initialValues: FormValues = {
     c: '',
     d: '',
   },
-  correctAnswer: '',
+  correctAnswerId: '',
+};
+
+const getResponseBody = (value: iNewQuestionFormValues, questionId: string) => {
+  const body = {
+    id: questionId,
+    question: value.question,
+    answers: Object.entries(value.answers).map(([id, answer]) => {
+      return { questionId, id, answer };
+    }),
+    correctAnswerId: value.correctAnswerId,
+  };
+  console.log('getResponseBody', body);
+
+  return body;
 };
 
 const getAnswersKeys = (obj: typeAnswers) => {
@@ -34,13 +56,22 @@ const getAnswersKeys = (obj: typeAnswers) => {
 };
 
 const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
-  const { modalState, setModalState } = props;
+  const { modalState, setModalState, questionId } = props;
+
+  const { getAuthHeader } = useAuth();
+  const headers = getAuthHeader() as typeApiResponse;
+  const { setQuestions } = useActions();
+  const [addNewQuestion] = useAddNewQuestionMutation();
+
   const formik = useFormik({
     initialValues,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        console.log('formik onSubmit -', values);
+        const body = getResponseBody(values, questionId);
+        const response = await addNewQuestion({ headers, body });
+        console.log('response', response.data);
+        setQuestions(response.data);
         setModalState(!modalState);
       } catch (e) {
         console.error(e);
@@ -82,13 +113,14 @@ const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
             <FormInput
               className="w-100"
               controlId="roleSelect"
-              label="Выберите верный вариант ответа"
+              label="Варианты ответов"
+              placeholder="Выберите верный"
               height="57px"
               as="select"
-              name="correctAnswer"
-              value={formik.values.correctAnswer}
+              name="correctAnswerId"
+              value={formik.values.correctAnswerId}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.correctAnswer}
+              isInvalid={!!formik.errors.correctAnswerId}
               options={{
                 a: 'Вариант A',
                 b: 'Вариант B',

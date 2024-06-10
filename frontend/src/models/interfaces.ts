@@ -47,6 +47,10 @@ export interface iQuizState {
   currentResult: iUserAnswer[];
 }
 
+export interface iUsersState {
+  users: iUser[] | null;
+}
+
 export interface iResponseLogin {
   status: string;
   data: iUser;

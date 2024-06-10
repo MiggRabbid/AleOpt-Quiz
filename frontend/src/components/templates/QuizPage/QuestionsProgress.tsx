@@ -12,11 +12,7 @@ const QuestionsProgress: React.FC<QuestionsProgressProps> = ({
   TotalQuestions,
 }) => (
   <div className="mb-2">
-    <ProgressBar
-      variant="success"
-      now={now}
-      label={`${CurrentQuestion} из ${TotalQuestions}`}
-    />
+    <ProgressBar variant="success" now={now} label={`${CurrentQuestion} из ${TotalQuestions}`} />
   </div>
 );
 

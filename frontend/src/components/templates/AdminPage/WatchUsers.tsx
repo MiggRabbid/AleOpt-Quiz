@@ -22,7 +22,7 @@ const WatchUsers = () => {
   console.groupEnd();
   return (
     <section className="h-100 d-flex flex-column align-items-center">
-      <div className="w-100 h-auto my-4 position-relative bg-body-tertiary">
+      <div className="h-100 w-100 my-4 position-relative bg-body-tertiary">
         <h1 className="mx-auto text-uppercase text-center fw-bold fs-3">
           Сотрудники АлёОпт
         </h1>
@@ -36,30 +36,27 @@ const WatchUsers = () => {
       {isLoadingUsers ? (
         <Spinner animation="border" variant="primary" className="mx-auto" />
       ) : (
-        <>
-          {' '}
-          <Accordion
-            defaultActiveKey="0"
-            flush
-            className="col-10 border rounded overflow-hidden"
-          >
-            {users?.map((user) => {
-              return (
-                <Accordion.Item key={user.username} eventKey={user.username}>
-                  <Accordion.Header>
-                    <h6>{`${user.firstName} ${user.lastName}`}</h6>
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <div className="d-flex border-bottom">
-                      <p className="col-6">логин - {user.username}</p>
-                      <p className="col-6">роль - {user.role}</p>
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-              );
-            })}
-          </Accordion>
-        </>
+        <Accordion
+          defaultActiveKey="0"
+          flush
+          className="col-10 border rounded overflow-hidden"
+        >
+          {users?.map((user) => {
+            return (
+              <Accordion.Item key={user.username} eventKey={user.username}>
+                <Accordion.Header>
+                  <h6>{`${user.firstName} ${user.lastName}`}</h6>
+                </Accordion.Header>
+                <Accordion.Body>
+                  <div className="d-flex border-bottom">
+                    <p className="col-6">логин - {user.username}</p>
+                    <p className="col-6">роль - {user.role}</p>
+                  </div>
+                </Accordion.Body>
+              </Accordion.Item>
+            );
+          })}
+        </Accordion>
       )}
       <CreateNewUser modalState={modalState} setModalState={setModalState} />
     </section>
