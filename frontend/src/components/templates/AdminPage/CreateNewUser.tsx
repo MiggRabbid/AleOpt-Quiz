@@ -2,19 +2,24 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Form, Modal } from 'react-bootstrap';
 
-import { UserRoles } from '../../../models/interfaces';
+import { useAddNewUserMutation } from '../../../store/users.api';
+import useActions from '../../../hooks/useActions';
+import useAuth from '../../../hooks/useAuth';
 
 import FormInput from '../../ui/forms/FormInput';
 import MainButton from '../../ui/MainButton';
 
+import { UserRoles } from '../../../models/interfaces';
+import { typeApiResponse } from '../../../models/types';
+
 interface iCreateNewUserProps {
   modalState: boolean;
-  setModalState: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalState: () => void;
 }
 
 interface iInitialValues {
   role: UserRoles;
-  fistName: string;
+  firstName: string;
   lastName: string;
   username: string;
   password: string;
@@ -22,21 +27,29 @@ interface iInitialValues {
 
 const initialValues: iInitialValues = {
   role: UserRoles.Employee,
-  fistName: '',
+  firstName: '',
   lastName: '',
   username: '',
   password: '',
 };
 
 const CreateNewUser: React.FC<iCreateNewUserProps> = (props) => {
+  console.group('----- CreateNewUser');
   const { modalState, setModalState } = props;
+
+  const { getAuthHeader } = useAuth();
+  const headers = getAuthHeader() as typeApiResponse;
+  const { setUsers } = useActions();
+  const [addNewUser] = useAddNewUserMutation();
+
   const formik = useFormik({
     initialValues,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        console.log('formik onSubmit -', values);
-        setModalState(!modalState);
+        const response = await addNewUser({ headers, body: values });
+        setUsers(response.data);
+        setModalState();
       } catch (e) {
         console.error(e);
       }
@@ -44,10 +57,11 @@ const CreateNewUser: React.FC<iCreateNewUserProps> = (props) => {
     },
   });
 
+  console.groupEnd();
   return (
     <Modal
       show={modalState}
-      onHide={() => setModalState(!modalState)}
+      onHide={() => setModalState()}
       dialogClassName="modal-dialog-centered"
       className="col-12 col-lg-8 xl-6"
       size="lg"
@@ -66,11 +80,11 @@ const CreateNewUser: React.FC<iCreateNewUserProps> = (props) => {
               label="Введите имя"
               height="50px"
               as="input"
-              name="fistName"
+              name="firstName"
               placeholder="Введите имя"
-              value={formik.values.fistName}
+              value={formik.values.firstName}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.fistName}
+              isInvalid={!!formik.errors.firstName}
             />
 
             <FormInput

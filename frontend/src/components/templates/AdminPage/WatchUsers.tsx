@@ -1,23 +1,24 @@
-import { useEffect, useState } from 'react';
-import { Accordion, Spinner } from 'react-bootstrap';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Accordion } from 'react-bootstrap';
 
-import useAuth from '../../../hooks/useAuth';
-import { useLazyGetAllUsersQuery } from '../../../store/users.api';
-
-import { typeApiResponse } from '../../../models/types';
-import MainButton from '../../ui/MainButton';
 import CreateNewUser from './CreateNewUser';
+import getAllUsers from '../../../selectors/usersSelector';
+
+import MainButton from '../../ui/MainButton';
+import UserChangeButtonsGroup from '../../ui/UserChangeButtonsGroup';
+import useActions from '../../../hooks/useActions';
+import { getNewUserModalState } from '../../../selectors/modalSelectors';
 
 const WatchUsers = () => {
   console.group('----- WatchUsers');
-  const { getAuthHeader } = useAuth();
-  const headers = getAuthHeader() as typeApiResponse;
-  const [getAllUsers, { data: users, isLoading: isLoadingUsers }] =
-    useLazyGetAllUsersQuery();
-  const [modalState, setModalState] = useState(false);
-  useEffect(() => {
-    getAllUsers(headers);
-  }, []);
+  const { changeNewUserModalState } = useActions();
+  const users = useSelector(getAllUsers);
+  const newUserModalState = useSelector(getNewUserModalState);
+
+  useEffect (() => {
+    console.log('newUserModalState -', newUserModalState);
+  }, [newUserModalState]);
 
   console.groupEnd();
   return (
@@ -29,36 +30,36 @@ const WatchUsers = () => {
         <div className="position-absolute top-50 translate-middle-y end-0 me-3">
           <MainButton
             text="Новый пользователь"
-            onClick={() => setModalState(!modalState)}
+            onClick={() => changeNewUserModalState()}
           />
         </div>
       </div>
-      {isLoadingUsers ? (
-        <Spinner animation="border" variant="primary" className="mx-auto" />
-      ) : (
-        <Accordion
-          defaultActiveKey="0"
-          flush
-          className="col-10 border rounded overflow-hidden"
-        >
-          {users?.map((user) => {
-            return (
-              <Accordion.Item key={user.username} eventKey={user.username}>
-                <Accordion.Header>
-                  <h6>{`${user.firstName} ${user.lastName}`}</h6>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <div className="d-flex border-bottom">
-                    <p className="col-6">логин - {user.username}</p>
-                    <p className="col-6">роль - {user.role}</p>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-            );
-          })}
-        </Accordion>
-      )}
-      <CreateNewUser modalState={modalState} setModalState={setModalState} />
+      <Accordion
+        defaultActiveKey="0"
+        flush
+        className="col-10 border rounded overflow-hidden"
+      >
+        {users?.map((user) => {
+          return (
+            <Accordion.Item key={user.username} eventKey={user.username}>
+              <Accordion.Header>
+                {`${user.firstName} ${user.lastName}`}
+              </Accordion.Header>
+              <Accordion.Body className="d-flex justify-content-between align-items-center">
+                <div className="w-100 d-flex">
+                  <p className="col-6 text-center">логин - {user.username}</p>
+                  <p className="col-6 text-center">роль - {user.role}</p>
+                </div>
+                <UserChangeButtonsGroup />
+              </Accordion.Body>
+            </Accordion.Item>
+          );
+        })}
+      </Accordion>
+      <CreateNewUser
+        modalState={newUserModalState}
+        setModalState={changeNewUserModalState}
+      />
     </section>
   );
 };

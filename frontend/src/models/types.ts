@@ -12,8 +12,8 @@ export type typeAuthState = {
 };
 
 export type typeModalState = {
-  show: boolean;
-  modalType: string | null;
+  showNewUserModal: boolean;
+  showNewQuestionModal: boolean;
 };
 
 export type typeApiResponse = {

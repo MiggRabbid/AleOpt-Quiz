@@ -1,30 +1,26 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { typeModalState } from '../models/types';
 
-type actionType = { modalType: string };
-
 const initialState: typeModalState = {
-  show: false,
-  modalType: null,
+  showNewUserModal: false,
+  showNewQuestionModal: false,
 };
 
 const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    openModal: (state, action: PayloadAction<actionType>) => {
+    changeNewUserModalState: (state) => {
       return {
         ...state,
-        show: true,
-        modalType: action.payload.modalType,
+        showNewUserModal: !state.showNewUserModal,
       };
     },
-    closeModal: (state) => {
+    changeNewQuestionModalState: (state) => {
       return {
         ...state,
-        show: false,
-        modalType: null,
+        showNewQuestionModal: !state.showNewQuestionModal,
       };
     },
   },

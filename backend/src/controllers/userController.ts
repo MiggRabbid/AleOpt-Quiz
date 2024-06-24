@@ -1,22 +1,48 @@
 import { Request, Response } from 'express';
-import { User, Role } from "../models/models";
+import { User } from "../models/models";
 
 class UserController {
-  async userResult(request: Request, response: Response): Promise<Response> {
+  async allUsers(request: Request, response: Response): Promise<Response> {
     try {
-      return response.json({ message: 'User result processed' });
+      const users = await User.find();
+      return response.json(users);
     } catch (e) {
       console.log('---- userController', e);
       return response.status(500).json({ message: 'Network error' });
     }
   }
 
-  async getUsers(request: Request, response: Response): Promise<Response> {
+  async newUser(request: Request, response: Response): Promise<Response> {
     try {
+      
+      console.log('---- newUsers', request.body);
+      const newUsers = new User(request.body);
+      await newUsers.save();
+
+      
       const users = await User.find();
       return response.json(users);
     } catch (e) {
-      console.log('---- userController', e);
+      console.error('Error in newUsers:', e);
+      return response.status(500).json({ message: 'Network error' }, );
+    }
+  }
+
+  async editUser(request: Request, response: Response): Promise<Response> {
+    try {
+      const { username } = request.params;
+      const updateData = request.body;
+
+      const user = await User.findOneAndUpdate({ username }, updateData, { new: true });
+
+      if (!user) {
+        return response.status(404).json({ message: 'User not found' });
+      }
+
+      const users = await User.find();
+      return response.json(users);
+    } catch (e) {
+      console.error('Error in editUser:', e);
       return response.status(500).json({ message: 'Network error' });
     }
   }

@@ -28,11 +28,13 @@ authRouter.post(
 authRouter.post('/login', validateUsernameAndPassword, authController.login);
 
 const userRouter = Router();
-userRouter.post('/users', roleMiddleware('ADMIN'), userController.userResult);
-userRouter.get('/users', roleMiddleware('ADMIN'), userController.getUsers);
+userRouter.get('/users', roleMiddleware('ADMIN'), userController.allUsers);
+userRouter.post('/users', roleMiddleware('ADMIN'), userController.newUser);
+userRouter.put('/edit/:username', roleMiddleware('ADMIN'), userController.editUser);
 
 const quizRouter = Router();
-quizRouter.post('/questions', roleMiddleware('ADMIN'), quizController.newQuiz);
-quizRouter.get('/questions', authMiddleware, quizController.getQuiz);
+quizRouter.get('/questions', authMiddleware, quizController.allQuestions);
+quizRouter.post('/questions', roleMiddleware('ADMIN'), quizController.newQuestion);
+userRouter.put('/edit/:id', roleMiddleware('ADMIN'), quizController.editQuestion);
 
 export { authRouter, userRouter, quizRouter };

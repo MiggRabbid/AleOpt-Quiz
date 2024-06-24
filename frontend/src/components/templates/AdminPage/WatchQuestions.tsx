@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Accordion, Spinner } from 'react-bootstrap';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Accordion } from 'react-bootstrap';
 
-import useAuth from '../../../hooks/useAuth';
-import useActions from '../../../hooks/useActions';
-
-import { useGetAllQuestionsQuery } from '../../../store/quiz.api';
+import { getQuestions } from '../../../selectors/quizSelectors';
 
 import MainButton from '../../ui/MainButton';
 import CreateNewQuestion from './CreateNewQuestion';
 
-import { typeApiResponse } from '../../../models/types';
 import { iQuestion } from '../../../models/interfaces';
+import UserChangeButtonsGroup from '../../ui/UserChangeButtonsGroup';
 
 const getNewQuestionId = (questions: iQuestion[] | undefined) => {
   return `${questions ? questions.length + 1 : 1}`;
@@ -18,19 +16,8 @@ const getNewQuestionId = (questions: iQuestion[] | undefined) => {
 
 const WatchQuestions = () => {
   console.group('----- WatchUsers');
-  const { getAuthHeader } = useAuth();
-  const headers = getAuthHeader() as typeApiResponse;
-  const { setQuestions } = useActions();
-  const {
-    data: questions,
-    isLoading: isLoadingQuestions,
-    error: questionsError,
-  } = useGetAllQuestionsQuery(headers);
+  const questions = useSelector(getQuestions);
   const [modalState, setModalState] = useState(false);
-
-  useEffect(() => {
-    if (questions) setQuestions(questions);
-  }, [questions, questionsError]);
 
   console.groupEnd();
   return (
@@ -49,39 +36,36 @@ const WatchQuestions = () => {
           />
         </div>
       </div>
-      {isLoadingQuestions ? (
-        <Spinner animation="border" variant="primary" className="mx-auto" />
-      ) : (
-        <Accordion
-          defaultActiveKey="0"
-          flush
-          className="col-10 border rounded overflow-hidden"
-        >
-          {questions?.map((question) => {
-            return (
-              <Accordion.Item key={question.id} eventKey={question.id}>
-                <Accordion.Header>
-                  <h6>{`${question.id}) ${question.question}`}</h6>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <div className="d-flex flex-wrap rounded overflow-hidden border">
-                    {question.answers.map((answer) => {
-                      return (
-                        <p
-                          key={answer.id}
-                          className={`col-6 border p-4 m-0 ${question.correctAnswerId === answer.id ? ' bg-primary-subtle' : ''}`}
-                        >
-                          {`${answer.id.toLocaleUpperCase()}: ${answer.answer}`}
-                        </p>
-                      );
-                    })}
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-            );
-          })}
-        </Accordion>
-      )}
+      <Accordion
+        defaultActiveKey="0"
+        flush
+        className="col-10 border rounded overflow-hidden"
+      >
+        {questions?.map((question) => {
+          return (
+            <Accordion.Item key={question.id} eventKey={question.id}>
+              <Accordion.Header>
+                <h6>{`${question.id}) ${question.question}`}</h6>
+              </Accordion.Header>
+              <Accordion.Body className="d-flex justify-content-between align-items-start">
+                <div className="w-100 d-flex flex-wrap rounded overflow-hidden border me-2">
+                  {question.answers.map((answer) => {
+                    return (
+                      <p
+                        key={answer.id}
+                        className={`col-6 border p-4 m-0 ${question.correctAnswerId === answer.id ? ' bg-primary-subtle' : ''}`}
+                      >
+                        {`${answer.id.toLocaleUpperCase()}: ${answer.answer}`}
+                      </p>
+                    );
+                  })}
+                </div>
+                <UserChangeButtonsGroup />
+              </Accordion.Body>
+            </Accordion.Item>
+          );
+        })}
+      </Accordion>
       <CreateNewQuestion
         modalState={modalState}
         setModalState={setModalState}

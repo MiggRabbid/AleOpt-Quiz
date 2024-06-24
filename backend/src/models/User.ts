@@ -1,4 +1,3 @@
-// backend/src/models/User.ts
 import { Schema, model, Document } from 'mongoose';
 import { iRoleModel } from './Role';
 

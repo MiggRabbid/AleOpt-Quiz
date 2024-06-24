@@ -43,7 +43,7 @@ export interface iQuestion {
 export interface iQuizState {
   isStarted: boolean;
   questionIndex: number;
-  questions: iQuestion[] | Record<string, never>;
+  questions: iQuestion[];
   currentResult: iUserAnswer[];
 }
 

@@ -80,15 +80,6 @@ class AuthController {
       return response.status(400).json({ message: 'Authorization error' });
     }
   }
-
-  // async isLogin(request: Request, response: Response): Promise<Response> {
-  //   try {
-  //     return response.json("SERVER WORK - AUTH");
-  //   } catch (e) {
-  //     console.log('---- authController', e);
-  //     return response.status(400).json({ message: 'isLogin error' });
-  //   }
-  // }
 };
 
 export default new AuthController();

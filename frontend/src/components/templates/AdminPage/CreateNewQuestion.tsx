@@ -56,6 +56,7 @@ const getAnswersKeys = (obj: typeAnswers) => {
 };
 
 const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
+  console.group('----- CreateNewQuestion');
   const { modalState, setModalState, questionId } = props;
 
   const { getAuthHeader } = useAuth();
@@ -70,7 +71,6 @@ const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
       try {
         const body = getResponseBody(values, questionId);
         const response = await addNewQuestion({ headers, body });
-        console.log('response', response.data);
         setQuestions(response.data);
         setModalState(!modalState);
       } catch (e) {
@@ -80,6 +80,7 @@ const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
     },
   });
 
+  console.groupEnd();
   return (
     <Modal
       show={modalState}

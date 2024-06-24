@@ -5,7 +5,7 @@ import { iQuizState, iQuestion, iUserAnswer } from '../models/interfaces';
 const initialState: iQuizState = {
   isStarted: false,
   questionIndex: 0,
-  questions: {},
+  questions: [],
   currentResult: [],
 };
 
