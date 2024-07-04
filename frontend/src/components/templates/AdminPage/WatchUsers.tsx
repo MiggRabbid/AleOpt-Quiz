@@ -16,13 +16,19 @@ const WatchUsers = () => {
   const users = useSelector(getAllUsers);
   const newUserModalState = useSelector(getNewUserModalState);
 
-  useEffect (() => {
+  useEffect(() => {
     console.log('newUserModalState -', newUserModalState);
   }, [newUserModalState]);
 
   console.groupEnd();
   return (
-    <section className="h-100 d-flex flex-column align-items-center">
+    <section
+      className="h-100 d-flex flex-column align-items-center"
+      style={{
+        minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)',
+      }}
+      id="adminUsers"
+    >
       <div className="h-100 w-100 my-4 position-relative bg-body-tertiary">
         <h1 className="mx-auto text-uppercase text-center fw-bold fs-3">
           Сотрудники АлёОпт

@@ -26,7 +26,7 @@ const QuizPage = () => {
   useEffect(() => {
     if (!user || quantityQuestions === 0) navigate(routes.MainPagePath());
     if (!!user && isAdmin(user)) navigate(routes.AdminPagePath());
-  }, [user]);
+  }, [user, quantityQuestions]);
 
   useEffect(() => {
     changeQuizState(true);
@@ -34,8 +34,12 @@ const QuizPage = () => {
 
   console.groupEnd();
   return (
-    <main className="container-xxl p-0 h-auto min-h-100 d-flex" id="quiz-page">
-      <div className="h-100 p-0 justify-content-center align-content-center ">
+    <main
+      className="container-xxl h-100 p-0 d-flex align-items-center justify-content-center"
+      style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
+      id="quizPage"
+    >
+      <div className="p-0 w-100 d-flex justify-content-center align-content-center ">
         {questionsIndex < quantityQuestions ? (
           <QuestionsSection
             questions={questions}

@@ -47,17 +47,17 @@ const App = () => {
   return (
     <BrowserRouter>
       <div
-        className="container-fluid min-vh-100 bg-secondary-subtle d-flex flex-column align-items-center justify-content-between overflow-y-scroll"
+        className="container-fluid min-vh-100 bg-secondary-subtle d-flex flex-column align-items-center justify-content-between"
         id="quiz"
       >
         <Header />
         <Routes>
           <Route path={routes.loginPagePath()} element={<LoginPage />} />
-          <Route path={routes.MainPagePath()} element={<PrivateUserOutlet />}>
-            <Route path="" element={<MainPage />} />
-          </Route>
           <Route path={routes.AdminPagePath()} element={<PrivateAdminOutlet />}>
             <Route path="" element={<AdminPage />} />
+          </Route>
+          <Route path={routes.MainPagePath()} element={<PrivateUserOutlet />}>
+            <Route path="" element={<MainPage />} />
           </Route>
           <Route path={routes.QuizPagePath()} element={<QuizPage />} />
           <Route path={routes.notFoundPagePath()} element={<NotFound />} />

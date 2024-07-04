@@ -37,7 +37,11 @@ const MainPage = () => {
 
   console.groupEnd();
   return (
-    <main className="container-xl h-100 d-flex align-items-center justify-content-center">
+    <main
+      className="container-xxl h-100 d-flex align-items-center justify-content-center"
+      style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
+      id="Page"
+    >
       <section className="col-12 col-md-10 col-xxl-8 d-flex flex-column align-items-center justify-content-center position-relative">
         <h3 className="text-uppercase py-5 position-absolute top-0 fw-semibold">{`${user?.firstName || user?.username}, Добро пожаловать`}</h3>
         <article className="col-12 py-5 px-4 card shadow-sm d-flex flex-column">

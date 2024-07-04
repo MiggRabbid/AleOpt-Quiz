@@ -45,15 +45,23 @@ const AdminPage = () => {
   const navLinkClass = 'ps-4 py-2 border border-2 border-primary';
 
   return (
-    <main className="container-xxl h-100 p-0 rounded" id="admin-page">
+    <main
+      className="container-xxl h-100 p-0 rounded"
+      style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
+      id="adminPage"
+    >
       <Tab.Container transition id="left-tabs-example" defaultActiveKey="users">
-        <Row className="h-100 w-100 m-0 d-flex flex-row justify-content-between position-relative">
+        <Row className="h-100 m-0 d-flex flex-row justify-content-between position-relative">
           <Col
             sm={3}
-            className="p-0 bg-light rounded-start"
-            style={{ minWidth: '170px', maxWidth: '250px' }}
+            className="h-auto p-0 bg-light rounded-start"
+            style={{
+              minWidth: '170px',
+              maxWidth: '250px',
+              minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)',
+            }}
           >
-            <Nav variant="pills" className="flex-column p-3">
+            <Nav variant="pills" className="h-100 flex-column p-3">
               <Nav.Item>
                 <Nav.Link eventKey="users" className={navLinkClass}>
                   Пользователи
@@ -66,12 +74,12 @@ const AdminPage = () => {
               </Nav.Item>
             </Nav>
           </Col>
-          <Col className="w-100 ms-2 p-0 bg-light rounded-end h-100 overflow-y-auto">
-            <Tab.Content>
-              <Tab.Pane transition eventKey="users" className="">
+          <Col className="h-100 ms-2 p-0 bg-light rounded-end">
+            <Tab.Content className="h-100">
+              <Tab.Pane transition eventKey="users" className="h-100">
                 <WatchUsers />
               </Tab.Pane>
-              <Tab.Pane transition eventKey="questions">
+              <Tab.Pane transition eventKey="questions" className="h-100">
                 <WatchQuestions />
               </Tab.Pane>
             </Tab.Content>

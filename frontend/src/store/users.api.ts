@@ -36,6 +36,17 @@ const usersApi = createApi({
         body: request.body,
       }),
     }),
+    editUser: build.mutation<iUser[], typeAddNewUserRequest>({
+      query: (request) => ({
+        url: routes.editUserRequestPath(request.body.username),
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...request.headers,
+        },
+        body: request.body,
+      }),
+    }),
   }),
 });
 
@@ -43,5 +54,6 @@ export const {
   useGetAllUsersQuery,
   useLazyGetAllUsersQuery,
   useAddNewUserMutation,
+  useEditUserMutation,
 } = usersApi;
 export default usersApi;

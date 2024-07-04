@@ -3,6 +3,7 @@ import { User } from "../models/models";
 
 class UserController {
   async allUsers(request: Request, response: Response): Promise<Response> {
+    console.log('---- editUser', request.body);
     try {
       const users = await User.find();
       return response.json(users);
@@ -13,13 +14,11 @@ class UserController {
   }
 
   async newUser(request: Request, response: Response): Promise<Response> {
+    console.log('---- newUsers', request.body);
     try {
-      
-      console.log('---- newUsers', request.body);
       const newUsers = new User(request.body);
       await newUsers.save();
 
-      
       const users = await User.find();
       return response.json(users);
     } catch (e) {
@@ -29,6 +28,7 @@ class UserController {
   }
 
   async editUser(request: Request, response: Response): Promise<Response> {
+    console.log('---- editUser', request.body);
     try {
       const { username } = request.params;
       const updateData = request.body;

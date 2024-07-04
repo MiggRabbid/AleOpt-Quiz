@@ -8,8 +8,15 @@ export default {
   QuizPagePath: () => '/quiz',
   AdminPagePath: () => '/admin',
   notFoundPagePath: () => '/*',
+
   loginRequestPath: () => [API_PATH, 'auth', 'login'].join('/'),
   signupRequestPath: () => [API_PATH, 'auth', 'signup'].join('/'),
+
   usersRequestPath: () => [API_PATH, 'data', 'users'].join('/'),
+  editUserRequestPath: (param: string) =>
+    [API_PATH, 'data', 'users', 'edit', param].join('/'),
+
   questionsRequestPath: () => [API_PATH, 'data', 'questions'].join('/'),
+  editQuestionRequestPath: (param: string) =>
+    [API_PATH, 'data', 'users', 'edit', param].join('/'),
 };

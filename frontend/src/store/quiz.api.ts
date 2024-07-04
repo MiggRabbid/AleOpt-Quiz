@@ -36,6 +36,17 @@ const quizApi = createApi({
         body: request.body,
       }),
     }),
+    editQuestion: build.mutation<iQuestion[], typeAddNewQuestionRequest>({
+      query: (request) => ({
+        url: routes.editQuestionRequestPath(request.body.id),
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...request.headers,
+        },
+        body: request.body,
+      }),
+    }),
   }),
 });
 

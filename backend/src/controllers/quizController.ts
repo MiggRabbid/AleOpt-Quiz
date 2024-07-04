@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import { Question, } from "../models/models";
 
 class QuizController {
-
   async allQuestions(request: Request, response: Response): Promise<Response> {
+    console.log('---- allQuestions', request.body);
     try {
       const questions = await Question.find();
 
@@ -17,6 +17,7 @@ class QuizController {
   }
 
   async newQuestion(request: Request, response: Response): Promise<Response> {
+    console.log('---- newQuestion', request.body);
     try {
       const newQuestion = new Question(request.body);
       await newQuestion.save();
@@ -32,6 +33,7 @@ class QuizController {
   }
 
   async editQuestion(request: Request, response: Response): Promise<Response> {
+    console.log('---- editQuestion', request.body);
     try {
       const { id } = request.params;
       const updateData = request.body;
