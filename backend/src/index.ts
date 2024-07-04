@@ -11,11 +11,8 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 
 const DB_USERNAME = process.env.DB_USERNAME as string;
 const DB_PASSWORD = process.env.DB_PASSWORD as string;
-const DB_PROTOCOL = process.env.DB_PROTOCOL as string;
-const DB_DNS_CLUSTER = process.env.DB_DNS_CLUSTER as string;
-const DB_URI_PARAM = process.env.DB_URI_PARAM as string;
 
-const DB_URI = `${DB_PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${DB_DNS_CLUSTER}/${DB_URI_PARAM}`;
+const DB_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@aleopt-quiz.b83cvlz.mongodb.net/?retryWrites=true&w=majority&appName=AleOpt-Quiz`;
 
 const clientOptions: ConnectOptions = {
   serverApi: { version: "1", strict: true, deprecationErrors: true },

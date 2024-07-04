@@ -14,9 +14,9 @@ export default {
 
   usersRequestPath: () => [API_PATH, 'data', 'users'].join('/'),
   editUserRequestPath: (param: string) =>
-    [API_PATH, 'data', 'users', 'edit', param].join('/'),
+    [API_PATH, 'data', `users?username=${param}`].join('/'),
 
   questionsRequestPath: () => [API_PATH, 'data', 'questions'].join('/'),
   editQuestionRequestPath: (param: string) =>
-    [API_PATH, 'data', 'users', 'edit', param].join('/'),
+    [API_PATH, 'data', `questions?id=${param}`].join('/'),
 };
