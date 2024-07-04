@@ -1,23 +1,28 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Accordion } from 'react-bootstrap';
 
 import { getQuestions } from '../../../selectors/quizSelectors';
+import useActions from '../../../hooks/useActions';
 
-import MainButton from '../../ui/MainButton';
-import CreateNewQuestion from './CreateNewQuestion';
+import MainButton from '../../ui/modals/buttons/MainButton';
+import UserChangeButtonsGroup from '../../ui/modals/buttons/ChangeButtonsGroup';
 
-import { iQuestion } from '../../../models/interfaces';
-import UserChangeButtonsGroup from '../../ui/UserChangeButtonsGroup';
+import { iQuestion, FabricModalType } from '../../../models/interfaces';
 
 const getNewQuestionId = (questions: iQuestion[] | undefined) => {
-  return `${questions ? questions.length + 1 : 1}`;
+  if (questions && questions.length > 0) {
+    const lastId = questions[questions.length - 1].id;
+    return `${Number(lastId) + 1}`;
+  }
+  return '1';
 };
 
 const WatchQuestions = () => {
-  console.group('----- WatchUsers');
+  console.group('----- WatchQuestions');
+
   const questions = useSelector(getQuestions);
-  const [modalState, setModalState] = useState(false);
+  const { openModal } = useActions();
+  const newQuestionId = getNewQuestionId(questions);
 
   console.groupEnd();
   return (
@@ -35,7 +40,12 @@ const WatchQuestions = () => {
         <div className="position-absolute top-50 translate-middle-y end-0 me-3">
           <MainButton
             text="Новый вопрос"
-            onClick={() => setModalState(!modalState)}
+            onClick={() =>
+              openModal({
+                modalType: FabricModalType.newQuestion,
+                modalData: newQuestionId,
+              })
+            }
           />
         </div>
       </div>
@@ -71,12 +81,6 @@ const WatchQuestions = () => {
           })}
         </Accordion>
       </div>
-
-      <CreateNewQuestion
-        modalState={modalState}
-        setModalState={setModalState}
-        questionId={getNewQuestionId(questions)}
-      />
     </section>
   );
 };

@@ -1,3 +1,6 @@
+/* eslint-disable import/no-cycle */
+import { iQuestion, iUser } from './interfaces';
+
 export type typeData = { [key: string]: string };
 
 export type typeQuestionAnswer = {
@@ -11,11 +14,8 @@ export type typeAuthState = {
   error: { name: string; message: string } | null;
 };
 
-export type typeModalState = {
-  showNewUserModal: boolean;
-  showNewQuestionModal: boolean;
-};
-
 export type typeApiResponse = {
   [key: string]: string;
 };
+
+export type typeModelData = null | string | iUser | iQuestion;

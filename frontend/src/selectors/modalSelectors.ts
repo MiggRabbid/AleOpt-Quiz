@@ -1,7 +1,6 @@
 import { RootState } from '../store/index';
 
-export const getNewUserModalState = (state: RootState) =>
-  state.modalReducer.showNewUserModal;
+export const getModalType = (state: RootState) => state.modalReducer.modalType;
 
-export const getNewQuestionModalModalState = (state: RootState) =>
-  state.modalReducer.showNewQuestionModal;
+export const getModalState = (state: RootState) =>
+  state.modalReducer.modalState;

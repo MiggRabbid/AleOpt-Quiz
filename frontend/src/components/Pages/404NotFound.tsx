@@ -8,7 +8,7 @@ const NotFound = () => {
   return (
     <main
       className="container-xxl d-flex align-items-center justify-content-center"
-      style={{ minHeight: 'calc(100vh - 70px - 70px)' }}
+      style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
       id="notFound"
     >
       <div className="text-center">

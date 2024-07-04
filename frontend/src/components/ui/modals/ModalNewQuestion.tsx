@@ -5,14 +5,14 @@ import { useAddNewQuestionMutation } from '../../../store/quiz.api';
 import useActions from '../../../hooks/useActions';
 import useAuth from '../../../hooks/useAuth';
 
-import FormInput from '../../ui/forms/FormInput';
-import MainButton from '../../ui/MainButton';
+import FormInput from '../forms/FormInput';
+import MainButton from './buttons/MainButton';
 
 import { typeApiResponse } from '../../../models/types';
 
-interface iCreateNewQuestionProps {
+interface iModalNewQuestionProps {
   modalState: boolean;
-  setModalState: React.Dispatch<React.SetStateAction<boolean>>;
+  onHide: () => void;
   questionId: string;
 }
 
@@ -55,9 +55,9 @@ const getAnswersKeys = (obj: typeAnswers) => {
   return Object.keys(obj) as typeAnswersKeys[];
 };
 
-const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
+const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
   console.group('----- CreateNewQuestion');
-  const { modalState, setModalState, questionId } = props;
+  const { modalState, onHide, questionId } = props;
 
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
@@ -71,8 +71,13 @@ const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
       try {
         const body = getResponseBody(values, questionId);
         const response = await addNewQuestion({ headers, body });
-        setQuestions(response.data);
-        setModalState(!modalState);
+
+        if ('data' in response) {
+          setQuestions(response.data);
+          onHide();
+        } else {
+          console.error('Unexpected response structure:', response);
+        }
       } catch (e) {
         console.error(e);
       }
@@ -84,7 +89,7 @@ const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
   return (
     <Modal
       show={modalState}
-      onHide={() => setModalState(!modalState)}
+      onHide={onHide}
       dialogClassName="modal-dialog-centered"
       className="col-12 col-lg-10 xl-8"
       size="lg"
@@ -156,4 +161,4 @@ const CreateNewQuestion: React.FC<iCreateNewQuestionProps> = (props) => {
   );
 };
 
-export default CreateNewQuestion;
+export default ModalNewQuestion;

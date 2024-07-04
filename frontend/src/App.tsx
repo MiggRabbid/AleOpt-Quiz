@@ -5,11 +5,13 @@ import {
   Navigate,
   Outlet,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import './App.css';
 
 import routes from './routes';
 import useAuth from './hooks/useAuth';
+import { getModalState } from './selectors/modalSelectors.ts';
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -18,21 +20,28 @@ import LoginPage from './components/Pages/LogInPage';
 import QuizPage from './components/Pages/QuizPage';
 import AdminPage from './components/Pages/AdminPage';
 import NotFound from './components/Pages/404NotFound';
+import ModalFabric from './components/ui/modals/ModalFabric';
 
 const PrivateUserOutlet = () => {
   console.group('----- PrivateUserOutlet');
+
   const { user, isAdmin } = useAuth();
   console.log(!!user, user);
+
   if (user) console.log(isAdmin(user));
+
   console.groupEnd();
   return user ? <Outlet /> : <Navigate to={routes.loginPagePath()} />;
 };
 
 const PrivateAdminOutlet = () => {
-  const { user, isAdmin } = useAuth();
   console.group('----- PrivateAdminOutlet');
+
+  const { user, isAdmin } = useAuth();
   console.log(!!user, user);
+
   if (user) console.log(isAdmin(user));
+
   console.groupEnd();
   return !!user && isAdmin(user) ? (
     <Outlet />
@@ -43,6 +52,9 @@ const PrivateAdminOutlet = () => {
 
 const App = () => {
   console.group('----- initApp');
+
+  const modalState = useSelector(getModalState);
+
   console.groupEnd();
   return (
     <BrowserRouter>
@@ -62,6 +74,8 @@ const App = () => {
           <Route path={routes.QuizPagePath()} element={<QuizPage />} />
           <Route path={routes.notFoundPagePath()} element={<NotFound />} />
         </Routes>
+
+        {modalState && <ModalFabric />}
         <Footer />
       </div>
     </BrowserRouter>

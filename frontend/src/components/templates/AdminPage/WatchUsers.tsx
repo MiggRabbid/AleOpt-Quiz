@@ -1,24 +1,18 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Accordion } from 'react-bootstrap';
 
-import CreateNewUser from './CreateNewUser';
 import getAllUsers from '../../../selectors/usersSelector';
-
-import MainButton from '../../ui/MainButton';
-import UserChangeButtonsGroup from '../../ui/UserChangeButtonsGroup';
 import useActions from '../../../hooks/useActions';
-import { getNewUserModalState } from '../../../selectors/modalSelectors';
+
+import MainButton from '../../ui/modals/buttons/MainButton';
+import UserChangeButtonsGroup from '../../ui/modals/buttons/ChangeButtonsGroup';
+import { FabricModalType } from '../../../models/interfaces';
 
 const WatchUsers = () => {
   console.group('----- WatchUsers');
-  const { changeNewUserModalState } = useActions();
-  const users = useSelector(getAllUsers);
-  const newUserModalState = useSelector(getNewUserModalState);
 
-  useEffect(() => {
-    console.log('newUserModalState -', newUserModalState);
-  }, [newUserModalState]);
+  const { openModal } = useActions();
+  const users = useSelector(getAllUsers);
 
   console.groupEnd();
   return (
@@ -36,7 +30,7 @@ const WatchUsers = () => {
         <div className="position-absolute top-50 translate-middle-y end-0 me-3">
           <MainButton
             text="Новый пользователь"
-            onClick={() => changeNewUserModalState()}
+            onClick={() => openModal({ modalType: FabricModalType.NewUser })}
           />
         </div>
       </div>
@@ -62,10 +56,6 @@ const WatchUsers = () => {
           );
         })}
       </Accordion>
-      <CreateNewUser
-        modalState={newUserModalState}
-        setModalState={changeNewUserModalState}
-      />
     </section>
   );
 };

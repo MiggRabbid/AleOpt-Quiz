@@ -6,15 +6,15 @@ import { useAddNewUserMutation } from '../../../store/users.api';
 import useActions from '../../../hooks/useActions';
 import useAuth from '../../../hooks/useAuth';
 
-import FormInput from '../../ui/forms/FormInput';
-import MainButton from '../../ui/MainButton';
+import FormInput from '../forms/FormInput';
+import MainButton from './buttons/MainButton';
 
 import { UserRoles } from '../../../models/interfaces';
 import { typeApiResponse } from '../../../models/types';
 
-interface iCreateNewUserProps {
+interface iModalNewUserProps {
   modalState: boolean;
-  setModalState: () => void;
+  onHide: () => void;
 }
 
 interface iInitialValues {
@@ -33,9 +33,9 @@ const initialValues: iInitialValues = {
   password: '',
 };
 
-const CreateNewUser: React.FC<iCreateNewUserProps> = (props) => {
-  console.group('----- CreateNewUser');
-  const { modalState, setModalState } = props;
+const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
+  console.group('----- ModalNewUser');
+  const { modalState, onHide } = props;
 
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
@@ -48,8 +48,13 @@ const CreateNewUser: React.FC<iCreateNewUserProps> = (props) => {
       setSubmitting(true);
       try {
         const response = await addNewUser({ headers, body: values });
-        setUsers(response.data);
-        setModalState();
+
+        if ('data' in response) {
+          setUsers(response.data);
+          onHide();
+        } else {
+          console.error('Unexpected response structure:', response);
+        }
       } catch (e) {
         console.error(e);
       }
@@ -61,7 +66,7 @@ const CreateNewUser: React.FC<iCreateNewUserProps> = (props) => {
   return (
     <Modal
       show={modalState}
-      onHide={() => setModalState()}
+      onHide={onHide}
       dialogClassName="modal-dialog-centered"
       className="col-12 col-lg-8 xl-6"
       size="lg"
@@ -144,4 +149,4 @@ const CreateNewUser: React.FC<iCreateNewUserProps> = (props) => {
   );
 };
 
-export default CreateNewUser;
+export default ModalNewUser;

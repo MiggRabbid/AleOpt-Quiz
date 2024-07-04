@@ -48,6 +48,7 @@ const InputPass: React.FC<iInputPassProps> = React.memo((props) => {
         value={value}
         onChange={handleChange}
         isInvalid={isInvalid}
+        autoComplete="false"
       />
       <Button
         size="sm"

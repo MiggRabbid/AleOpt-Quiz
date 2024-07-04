@@ -1,10 +1,19 @@
-import { typeQuestionAnswer } from './types';
+/* eslint-disable import/no-cycle */
+import { typeModelData, typeQuestionAnswer } from './types';
 
 // eslint-disable-next-line no-shadow
 export enum UserRoles {
   Admin = 'ADMIN',
   Employee = 'EMPLOYEE',
   Owner = 'OWNER',
+}
+
+// eslint-disable-next-line no-shadow
+export enum FabricModalType {
+  NewUser = 'showNewUserModal',
+  newQuestion = 'showNewQuestionModal',
+  delConfirm = 'showDeleteModal',
+  defaultValue = '',
 }
 
 export interface iUser {
@@ -99,4 +108,10 @@ export interface iInputPassProps
 export interface iInputSelectProps
   extends Omit<iFormInputProps, 'height' | 'as' | 'type'> {
   style: Record<string, string>;
+}
+
+export interface iModalSlice {
+  modalState: boolean;
+  modalType: FabricModalType;
+  modalData: typeModelData;
 }

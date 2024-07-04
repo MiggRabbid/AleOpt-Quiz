@@ -1,26 +1,37 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { typeModalState } from '../models/types';
+import { FabricModalType, iModalSlice } from '../models/interfaces';
+import { typeModelData } from '../models/types';
 
-const initialState: typeModalState = {
-  showNewUserModal: false,
-  showNewQuestionModal: false,
+interface iPayloadAction {
+  modalType: FabricModalType;
+  modalData?: typeModelData;
+}
+
+const initialState: iModalSlice = {
+  modalState: false,
+  modalType: FabricModalType.defaultValue,
+  modalData: null,
 };
 
 const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    changeNewUserModalState: (state) => {
+    openModal: (state, action: PayloadAction<iPayloadAction>) => {
       return {
         ...state,
-        showNewUserModal: !state.showNewUserModal,
+        modalState: true,
+        modalType: action.payload.modalType,
+        modalData: action.payload.modalData || null,
       };
     },
-    changeNewQuestionModalState: (state) => {
+    closedModal: (state) => {
       return {
         ...state,
-        showNewQuestionModal: !state.showNewQuestionModal,
+        modalState: true,
+        modalType: FabricModalType.defaultValue,
+        modalData: null,
       };
     },
   },
