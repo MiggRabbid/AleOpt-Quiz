@@ -38,12 +38,25 @@ const quizApi = createApi({
     }),
     editQuestion: build.mutation<iQuestion[], typeAddNewQuestionRequest>({
       query: (request) => ({
-        url: routes.editQuestionRequestPath(request.body.id),
+        url: routes.questionsRequestPath(),
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           ...request.headers,
         },
+        params: { id: request.body.id },
+        body: request.body,
+      }),
+    }),
+    deleteQuestion: build.mutation<iQuestion[], typeAddNewQuestionRequest>({
+      query: (request) => ({
+        url: routes.questionsRequestPath(),
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          ...request.headers,
+        },
+        params: { id: request.body.id },
         body: request.body,
       }),
     }),
@@ -54,5 +67,6 @@ export const {
   useGetAllQuestionsQuery,
   useLazyGetAllQuestionsQuery,
   useAddNewQuestionMutation,
+  useDeleteQuestionMutation,
 } = quizApi;
 export default quizApi;

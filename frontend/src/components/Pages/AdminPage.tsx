@@ -42,11 +42,11 @@ const AdminPage = () => {
   }, [users]);
 
   console.groupEnd();
-  const navLinkClass = 'ps-4 py-2 border border-2 border-primary';
+  const navLinkClass = 'ps-4 py-2 rounded-0 rounded-end bg-';
 
   return (
     <main
-      className="container-xxl h-100 p-0 rounded"
+      className="container-xxl h-100 p-0 rounded-0"
       style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
       id="adminPage"
     >
@@ -61,7 +61,7 @@ const AdminPage = () => {
               minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)',
             }}
           >
-            <Nav variant="pills" className="h-100 flex-column p-3">
+            <Nav variant="pills" className="h-100 flex-column pe-3 py-3">
               <Nav.Item>
                 <Nav.Link eventKey="users" className={navLinkClass}>
                   Пользователи

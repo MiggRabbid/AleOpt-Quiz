@@ -4,8 +4,8 @@ import { Accordion } from 'react-bootstrap';
 import { getQuestions } from '../../../selectors/quizSelectors';
 import useActions from '../../../hooks/useActions';
 
-import MainButton from '../../ui/modals/buttons/MainButton';
-import UserChangeButtonsGroup from '../../ui/modals/buttons/ChangeButtonsGroup';
+import MainButton from '../../ui/buttons/MainButton';
+import UserChangeButtonsGroup from '../../ui/buttons/ChangeButtonsGroup';
 
 import { iQuestion, FabricModalType } from '../../../models/interfaces';
 
@@ -33,10 +33,8 @@ const WatchQuestions = () => {
       }}
       id="adminQuestions"
     >
-      <div className="w-100 mb-3 position-relative bg-body-secondary bg-danger-subtle">
-        <h1 className="text-uppercase text-center fw-bold fs-3">
-          Актуальные вопросы
-        </h1>
+      <div className="w-100 mb-3 position-relative">
+        <h1 className="text-uppercase text-center fw-bold fs-3">Актуальные вопросы</h1>
         <div className="position-absolute top-50 translate-middle-y end-0 me-3">
           <MainButton
             text="Новый вопрос"
@@ -49,7 +47,7 @@ const WatchQuestions = () => {
           />
         </div>
       </div>
-      <div className="w-100 mx-auto overflow-y-auto bg-success-subtle">
+      <div className="w-100 mx-auto overflow-y-auto">
         <Accordion
           defaultActiveKey="0"
           flush
@@ -74,7 +72,7 @@ const WatchQuestions = () => {
                       );
                     })}
                   </div>
-                  <UserChangeButtonsGroup />
+                  <UserChangeButtonsGroup data={question} />
                 </Accordion.Body>
               </Accordion.Item>
             );

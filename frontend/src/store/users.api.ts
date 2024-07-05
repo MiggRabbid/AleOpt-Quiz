@@ -38,12 +38,25 @@ const usersApi = createApi({
     }),
     editUser: build.mutation<iUser[], typeAddNewUserRequest>({
       query: (request) => ({
-        url: routes.editUserRequestPath(request.body.username),
+        url: routes.usersRequestPath(),
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           ...request.headers,
         },
+        params: { username: request.body.username },
+        body: request.body,
+      }),
+    }),
+    deleteUser: build.mutation<iUser[], typeAddNewUserRequest>({
+      query: (request) => ({
+        url: routes.usersRequestPath(),
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          ...request.headers,
+        },
+        params: { username: request.body.username },
         body: request.body,
       }),
     }),
@@ -55,5 +68,6 @@ export const {
   useLazyGetAllUsersQuery,
   useAddNewUserMutation,
   useEditUserMutation,
+  useDeleteUserMutation,
 } = usersApi;
 export default usersApi;

@@ -80,9 +80,7 @@ export interface iFormInputProps {
   placeholder?: string;
   value: string;
   onChange: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => void;
   isInvalid: boolean;
   options?: Record<string, string>;
@@ -90,18 +88,12 @@ export interface iFormInputProps {
 }
 
 export interface iInputTextProps
-  extends Omit<
-    iFormInputProps,
-    'height' | 'type' | 'options' | 'defaultValue'
-  > {
+  extends Omit<iFormInputProps, 'height' | 'type' | 'options' | 'defaultValue'> {
   style: Record<string, string>;
 }
 
 export interface iInputPassProps
-  extends Omit<
-    iFormInputProps,
-    'height' | 'as' | 'type' | 'options' | 'defaultValue'
-  > {
+  extends Omit<iFormInputProps, 'height' | 'as' | 'type' | 'options' | 'defaultValue'> {
   style: Record<string, string>;
 }
 

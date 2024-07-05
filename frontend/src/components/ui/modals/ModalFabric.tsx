@@ -1,11 +1,15 @@
 import { useSelector } from 'react-redux';
 
-import { getModalType, getModalState } from '../../../selectors/modalSelectors';
+import {
+  getModalType,
+  getModalState,
+  getModalData,
+} from '../../../selectors/modalSelectors';
 
 import ModalNewQuestion from './ModalNewQuestion';
 import ModalNewUser from './ModalNewUser';
 
-import { FabricModalType } from '../../../models/interfaces';
+import { FabricModalType, iQuestion, iUser } from '../../../models/interfaces';
 import ModalDelConfirm from './ModalDelConfirm';
 import useActions from '../../../hooks/useActions';
 
@@ -15,17 +19,21 @@ const ModalFabric = () => {
   const { closedModal } = useActions();
   const modalState = useSelector(getModalState);
   const modalType = useSelector(getModalType);
-  const modalData = useSelector(getModalType);
+  const modalData = useSelector(getModalData);
+
+  const handleCloseButton = () => {
+    closedModal();
+  };
 
   console.groupEnd();
   switch (modalType) {
     case FabricModalType.NewUser:
-      return <ModalNewUser modalState={modalState} onHide={closedModal} />;
+      return <ModalNewUser modalState={modalState} onHide={handleCloseButton} />;
     case FabricModalType.newQuestion:
       return (
         <ModalNewQuestion
           modalState={modalState}
-          onHide={closedModal}
+          onHide={handleCloseButton}
           questionId={modalData as string}
         />
       );
@@ -33,8 +41,8 @@ const ModalFabric = () => {
       return (
         <ModalDelConfirm
           modalState={modalState}
-          onHide={closedModal}
-          idOrUsername={modalData as string}
+          onHide={handleCloseButton}
+          data={modalData as iUser | iQuestion}
         />
       );
     default:

@@ -4,8 +4,8 @@ import { Accordion } from 'react-bootstrap';
 import getAllUsers from '../../../selectors/usersSelector';
 import useActions from '../../../hooks/useActions';
 
-import MainButton from '../../ui/modals/buttons/MainButton';
-import UserChangeButtonsGroup from '../../ui/modals/buttons/ChangeButtonsGroup';
+import MainButton from '../../ui/buttons/MainButton';
+import UserChangeButtonsGroup from '../../ui/buttons/ChangeButtonsGroup';
 import { FabricModalType } from '../../../models/interfaces';
 
 const WatchUsers = () => {
@@ -42,15 +42,13 @@ const WatchUsers = () => {
         {users?.map((user) => {
           return (
             <Accordion.Item key={user.username} eventKey={user.username}>
-              <Accordion.Header>
-                {`${user.firstName} ${user.lastName}`}
-              </Accordion.Header>
+              <Accordion.Header>{`${user.firstName} ${user.lastName}`}</Accordion.Header>
               <Accordion.Body className="d-flex justify-content-between align-items-center">
                 <div className="w-100 d-flex">
                   <p className="col-6 text-center">логин - {user.username}</p>
-                  <p className="col-6 text-center">роль - {user.role}</p>
+                  <p className="col-6 text-center">пароль - {user.role}</p>
                 </div>
-                <UserChangeButtonsGroup />
+                <UserChangeButtonsGroup data={user} />
               </Accordion.Body>
             </Accordion.Item>
           );

@@ -6,7 +6,7 @@ import useActions from '../../../hooks/useActions';
 import useAuth from '../../../hooks/useAuth';
 
 import FormInput from '../forms/FormInput';
-import MainButton from './buttons/MainButton';
+import MainButton from '../buttons/MainButton';
 
 import { typeApiResponse } from '../../../models/types';
 

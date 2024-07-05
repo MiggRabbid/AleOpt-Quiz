@@ -29,7 +29,7 @@ const modalSlice = createSlice({
     closedModal: (state) => {
       return {
         ...state,
-        modalState: true,
+        modalState: false,
         modalType: FabricModalType.defaultValue,
         modalData: null,
       };
