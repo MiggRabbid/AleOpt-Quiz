@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import React, { useCallback } from 'react';
+import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
 
 import { useDeleteUserMutation } from '../../../store/users.api';
 import useAuth from '../../../hooks/useAuth';
@@ -15,9 +15,7 @@ interface iModalDelConfirmProps {
   data: iUser | iQuestion;
 }
 
-const ModalDelConfirm: React.FC<iModalDelConfirmProps> = (props) => {
-  console.group('----- ModalDelConfirm');
-
+const ModalDelConfirm: React.FC<iModalDelConfirmProps> = React.memo((props) => {
   const { modalState, onHide, data } = props;
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
@@ -25,14 +23,23 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = (props) => {
   const [deleteUser] = useDeleteUserMutation();
   const [deleteQuestion] = useDeleteQuestionMutation();
 
-  const handleDelButton = async () => {
+  const handleDelButton = useCallback(async () => {
     try {
+      let response;
       if ('username' in data) {
-        const response = await deleteUser({ headers, body: data });
+        response = await deleteUser({
+          headers,
+          body: data,
+          params: { username: data.username },
+        });
         if ('data' in response) setUsers(response.data);
       }
       if ('question' in data) {
-        const response = await deleteQuestion({ headers, body: data });
+        response = await deleteQuestion({
+          headers,
+          body: data,
+          params: { id: data.id },
+        });
         if ('data' in response) setQuestions(response.data);
       }
     } catch (e) {
@@ -40,9 +47,53 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = (props) => {
     } finally {
       onHide();
     }
-  };
+  }, [data, deleteUser, deleteQuestion, headers, onHide, setUsers, setQuestions]);
 
-  console.groupEnd();
+  const renderUserData = (user: iUser) => (
+    <Modal.Body className="w-100 d-flex flex-row justify-content-center gap-2">
+      <InputGroup className="w-50">
+        <InputGroup.Text id="firstName">Имя:</InputGroup.Text>
+        <Form.Control
+          value={user.firstName}
+          placeholder={user.firstName}
+          aria-label="firstName"
+          aria-describedby="firstName"
+          disabled
+        />
+      </InputGroup>
+      <InputGroup className="w-50">
+        <InputGroup.Text id="lastName">Фамилия:</InputGroup.Text>
+        <Form.Control
+          value={user.lastName}
+          placeholder={user.lastName}
+          aria-label="lastName"
+          aria-describedby="lastName"
+          disabled
+        />
+      </InputGroup>
+    </Modal.Body>
+  );
+
+  const renderQuestionData = (question: iQuestion) => (
+    <Modal.Body>
+      <InputGroup className="w-auto my-2 mx-5">
+        <InputGroup.Text id="question" className="">
+          Вопрос:
+        </InputGroup.Text>
+        <Form.Control
+          value={question.question}
+          placeholder={question.question}
+          aria-label="question"
+          aria-describedby="question"
+          disabled
+          className="h-auto"
+          as="textarea"
+          style={{ minHeight: '150px' }}
+        />
+      </InputGroup>
+    </Modal.Body>
+  );
+
   return (
     <Modal
       show={modalState}
@@ -58,17 +109,7 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = (props) => {
         </Modal.Title>
       </Modal.Header>
 
-      {'question' in data && (
-        <Modal.Body>
-          <p className="my-2 px-3 fs-5 fw-normal">{data.question}</p>
-        </Modal.Body>
-      )}
-
-      {'username' in data && (
-        <Modal.Body>
-          <p className="my-2 px-3 fs-5 fw-normal">{`${data.firstName} ${data.lastName}`}</p>
-        </Modal.Body>
-      )}
+      {'question' in data ? renderQuestionData(data) : renderUserData(data)}
 
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
@@ -80,6 +121,8 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = (props) => {
       </Modal.Footer>
     </Modal>
   );
-};
+});
+
+ModalDelConfirm.displayName = 'ModalDelConfirm';
 
 export default ModalDelConfirm;

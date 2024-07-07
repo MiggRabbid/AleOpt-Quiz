@@ -8,6 +8,7 @@ import { typeApiResponse } from '../models/types';
 type typeAddNewQuestionRequest = {
   headers: typeApiResponse;
   body: iQuestion;
+  params?: { id: string };
 };
 
 const quizApi = createApi({
@@ -44,7 +45,7 @@ const quizApi = createApi({
           'Content-Type': 'application/json',
           ...request.headers,
         },
-        params: { id: request.body.id },
+        params: { id: request.params?.id },
         body: request.body,
       }),
     }),
@@ -56,7 +57,7 @@ const quizApi = createApi({
           'Content-Type': 'application/json',
           ...request.headers,
         },
-        params: { id: request.body.id },
+        params: { id: request.params?.id },
         body: request.body,
       }),
     }),

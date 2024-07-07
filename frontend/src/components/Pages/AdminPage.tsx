@@ -34,10 +34,12 @@ const AdminPage = () => {
   const { data: users } = useGetAllUsersQuery(headers);
 
   useEffect(() => {
+    console.log('--- questions -', questions);
     if (questions) setQuestions(questions);
   }, [questions]);
 
   useEffect(() => {
+    console.log('--- users     -', users);
     if (users) setUsers(users);
   }, [users]);
 
@@ -46,7 +48,7 @@ const AdminPage = () => {
 
   return (
     <main
-      className="container-xxl h-100 p-0 rounded-0"
+      className="container-xxl h-100 p-0 mx-0 rounded-0"
       style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
       id="adminPage"
     >

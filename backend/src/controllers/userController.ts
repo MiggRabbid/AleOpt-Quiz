@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+import bcrypt from 'bcryptjs';
 
-import { User } from "../models/models";
+import { Role, User } from "../models/models";
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const USER_NOT_FOUND_MESSAGE = 'User not found';
@@ -27,9 +29,13 @@ class UserController {
   }
 
   async allUsers(request: Request, response: Response): Promise<Response> {
-    console.log('---- allUsers', request.body);
     try {
-      const users = await this.getAllUsers();
+      const users = (await this.getAllUsers()).map((user) => {
+        const { firstName, lastName, username, role } = user;
+        return { firstName, lastName, username, role };
+      });
+      console.log('users -', users);
+      console.groupEnd()
       return response.json(users);
     } catch (e) {
       return this.handleError(response, e, 'Error in allUsers:');
@@ -37,20 +43,43 @@ class UserController {
   }
 
   async newUser(request: Request, response: Response): Promise<Response> {
-    console.log('---- newUser', request.body);
     try {
-      const newUser = new User(request.body);
+      const validationError = validationResult(request);
+
+      if (!validationError.isEmpty()) {
+        return response
+          .status(400)
+          .json({ message: validationError.array()[0].msg, validationError });
+      }
+
+      const { firstName, lastName, username, password, role } = request.body;
+
+      const candidate = await User.findOne({ username });
+
+      if (candidate) {
+        return response.status(400).json({ message: 'This user exists' });
+      }
+
+      const hashPassword = bcrypt.hashSync(password, 5);
+      const userRole = await Role.findOne({ value: role.toUpperCase() });
+
+      const newUser = new User({
+        firstName,
+        lastName,
+        username,
+        password: hashPassword,
+        role: userRole?.value,
+      });
+
       await newUser.save();
 
-      const users = await this.getAllUsers();
-      return response.json(users);
+      return response.json({ message: 'User successfully registered' });
     } catch (e) {
-      return this.handleError(response, e, 'Error in newUser:');
+      return response.status(400).json({ message: 'Registration error' });
     }
   }
 
   async editUser(request: Request, response: Response): Promise<Response> {
-    console.log('---- editUser', request.query, '/',request.body);
     try {
       const { username } = request.query;
       const updateData = request.body;
@@ -69,7 +98,6 @@ class UserController {
   }
 
   async deleteUser(request: Request, response: Response): Promise<Response> {
-    console.log('---- deleteUser', request.query);
     try {
       const { username } = request.query;
 
@@ -80,7 +108,6 @@ class UserController {
       }
 
       const users = await this.getAllUsers();
-      console.log('---- deleteUser', users);
 
       return response.json(users);
     } catch (e) {

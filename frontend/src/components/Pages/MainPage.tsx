@@ -38,7 +38,7 @@ const MainPage = () => {
   console.groupEnd();
   return (
     <main
-      className="container-xxl h-100 d-flex align-items-center justify-content-center"
+      className="container-xxl h-100 mx-0 d-flex align-items-center justify-content-center"
       style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
       id="Page"
     >

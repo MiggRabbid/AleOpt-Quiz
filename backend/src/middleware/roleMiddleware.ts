@@ -8,6 +8,7 @@ const secret = process.env.SECRET_KEY || '';
 
 const roleMiddleware = (role: string) => {
   return (request: Request, response: Response, next: NextFunction): void => {
+    console.group('----- roleMiddleware');
     if (request.method === "OPTIONS") {
       next();
     }
@@ -24,16 +25,20 @@ const roleMiddleware = (role: string) => {
 
       const userRole = decodedData.role;
       const isAdmin = userRole === role;
-
-      console.log('role     -', role);
+      const isOwner = userRole === role;
       console.log('userRole -', userRole);
-      console.log('isAdmin  -', isAdmin);
+      console.log('isAdmin -', isAdmin);
+      console.log('isOwner -', isOwner);
 
-      if (!isAdmin) {
-        response.status(403).json({ message: "User is not admin" });
+      if (!isAdmin && !isOwner) {
+        console.log('Not admin && not owner -', !isAdmin && !isOwner);
+        console.groupEnd();
+        response.status(403).json({ message: "User is not admin or not owner" });
         return;
       }
 
+      console.log('admin || owner -', isAdmin && isOwner);
+      console.groupEnd();
       next();
     } catch (e) {
       console.log(e);

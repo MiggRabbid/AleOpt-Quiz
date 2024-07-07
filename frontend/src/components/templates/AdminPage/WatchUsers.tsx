@@ -5,8 +5,8 @@ import getAllUsers from '../../../selectors/usersSelector';
 import useActions from '../../../hooks/useActions';
 
 import MainButton from '../../ui/buttons/MainButton';
-import UserChangeButtonsGroup from '../../ui/buttons/ChangeButtonsGroup';
 import { FabricModalType } from '../../../models/interfaces';
+import UserAccordionBody from './UserAccordionBody';
 
 const WatchUsers = () => {
   console.group('----- WatchUsers');
@@ -40,16 +40,12 @@ const WatchUsers = () => {
         className="col-10 border rounded overflow-hidden"
       >
         {users?.map((user) => {
+          console.log('users -', users);
+          console.log('user  -', user);
           return (
             <Accordion.Item key={user.username} eventKey={user.username}>
               <Accordion.Header>{`${user.firstName} ${user.lastName}`}</Accordion.Header>
-              <Accordion.Body className="d-flex justify-content-between align-items-center">
-                <div className="w-100 d-flex">
-                  <p className="col-6 text-center">логин - {user.username}</p>
-                  <p className="col-6 text-center">пароль - {user.role}</p>
-                </div>
-                <UserChangeButtonsGroup data={user} />
-              </Accordion.Body>
+              <UserAccordionBody user={user} />
             </Accordion.Item>
           );
         })}

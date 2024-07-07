@@ -28,12 +28,7 @@ const MainButton: React.FC<typeMainButtonProps> = React.memo((props) => {
   }
 
   return (
-    <Button
-      variant={variant}
-      style={style}
-      className="px-2 py-1m"
-      onClick={handleClick}
-    >
+    <Button variant={variant} style={style} className="px-2 py-1m" onClick={handleClick}>
       {text}
     </Button>
   );

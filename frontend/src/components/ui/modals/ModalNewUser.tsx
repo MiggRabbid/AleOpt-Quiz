@@ -1,20 +1,25 @@
 import React from 'react';
-import { useFormik } from 'formik';
 import { Form, Modal } from 'react-bootstrap';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
-import { useAddNewUserMutation } from '../../../store/users.api';
+import {
+  useAddNewUserMutation,
+  useEditUserMutation,
+} from '../../../store/users.api';
 import useActions from '../../../hooks/useActions';
 import useAuth from '../../../hooks/useAuth';
 
 import FormInput from '../forms/FormInput';
 import MainButton from '../buttons/MainButton';
 
-import { UserRoles } from '../../../models/interfaces';
+import { iUser, UserRoles } from '../../../models/interfaces';
 import { typeApiResponse } from '../../../models/types';
 
 interface iModalNewUserProps {
   modalState: boolean;
   onHide: () => void;
+  user: iUser | null;
 }
 
 interface iInitialValues {
@@ -25,29 +30,59 @@ interface iInitialValues {
   password: string;
 }
 
-const initialValues: iInitialValues = {
-  role: UserRoles.Employee,
-  firstName: '',
-  lastName: '',
-  username: '',
-  password: '',
+const validationSchema = Yup.object({
+  firstName: Yup.string().required('Имя обязательно'),
+  lastName: Yup.string().required('Фамилия обязательна'),
+  username: Yup.string()
+    .min(4, 'Логин должен быть не менее 4 символов')
+    .max(20, 'Логин должен быть не более 20 символов')
+    .required('Логин обязателен'),
+  password: Yup.string()
+    .min(6, 'Пароль должен быть не менее 6 символов')
+    .max(20, 'Пароль должен быть не более 20 символов')
+    .required('Пароль обязателен'),
+  role: Yup.mixed().required('Роль обязательна'),
+});
+
+const getInitialValues = (user: iUser | null): iInitialValues => {
+  return !!user
+    ? (user as iInitialValues)
+    : {
+        role: UserRoles.Employee,
+        firstName: '',
+        lastName: '',
+        username: '',
+        password: '',
+      };
 };
 
 const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
   console.group('----- ModalNewUser');
-  const { modalState, onHide } = props;
+  const { modalState, onHide, user } = props;
 
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
   const { setUsers } = useActions();
   const [addNewUser] = useAddNewUserMutation();
+  const [editUser] = useEditUserMutation();
 
   const formik = useFormik({
-    initialValues,
+    initialValues: getInitialValues(user),
+    validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        const response = await addNewUser({ headers, body: values });
+        console.log(values);
+        let response;
+        if (!!user) {
+          response = await editUser({
+            headers,
+            body: values,
+            params: { username: user.username },
+          });
+        } else {
+          response = await addNewUser({ headers, body: values });
+        }
 
         if ('data' in response) {
           setUsers(response.data);
@@ -57,7 +92,10 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
         }
       } catch (e) {
         console.error(e);
+      } finally {
+        onHide();
       }
+
       setSubmitting(false);
     },
   });

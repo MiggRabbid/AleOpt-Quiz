@@ -9,12 +9,9 @@ import useActions from '../../hooks/useActions';
 import Logo from '../../assets/logo-header.png';
 
 const Header = () => {
-  console.group('----- Header');
   const navigate = useNavigate();
   const { logout } = useActions();
   const { user, useLogout } = useAuth();
-
-  console.log('user -', user);
 
   const handleLogout = () => {
     useLogout();
@@ -23,9 +20,8 @@ const Header = () => {
     navigate(routes.loginPagePath());
   };
 
-  console.groupEnd();
   return (
-    <header className="container-xxl d-flex justify-content-center p-0 mb-2">
+    <header className="container-xxl d-flex justify-content-center p-0 mb-2 mx-0">
       <div className="w-100 rounded-bottom shadow-sm bg-light-subtle">
         <Navbar className="d-flex justify-content-between">
           <NavbarBrand

@@ -4,6 +4,7 @@ import { Schema, model, Document } from "mongoose";
 export enum UserRoles {
   Admin = 'ADMIN',
   Employee = 'EMPLOYEE',
+  Owner = 'OWNER',
 }
 
 interface iRoleModel extends Document {

@@ -21,49 +21,15 @@ const getAccessToken = (id: string, role: string, username: string): string => {
 };
 
 class AuthController {
-  async signup(request: Request, response: Response): Promise<Response> {
-    try {
-      const validationError = validationResult(request);
-
-      if (!validationError.isEmpty()) {
-        return response
-          .status(400)
-          .json({ message: validationError.array()[0].msg, validationError });
-      }
-
-      const { name, username, password, role } = request.body;
-
-      const candidate = await User.findOne({ username });
-
-      if (candidate) {
-        return response.status(400).json({ message: 'This user exists' });
-      }
-
-      const hashPassword = bcrypt.hashSync(password, 5);
-      const userRole = await Role.findOne({ value: role.toUpperCase() });
-
-      const newUser = new User({
-        name,
-        username,
-        password: hashPassword,
-        role: userRole?.value,
-      });
-      console.log('new user -', newUser);
-      await newUser.save();
-
-      return response.json({ message: 'User successfully registered' });
-    } catch (e) {
-      console.log('---- authController', e);
-      return response.status(400).json({ message: 'Registration error' });
-    }
-  }
-
   async login(request: Request, response: Response): Promise<Response> {
+    console.group('----- login', request.body);
+    console.log('request.body', request.body);
     try {
       const validationError = validationResult(request);
 
       if (!validationError.isEmpty()) {
         console.log(validationError);
+        console.groupEnd();
         return response
           .status(400)
           .json({ message: validationError.array()[0].msg, validationError });
@@ -71,17 +37,21 @@ class AuthController {
 
       const { username, password } = request.body;
       const user = (await User.findOne({ username })) as iUserModel;
+      console.log('----- login user - ', user);
       const { role } = user;
 
       if (!user) {
+        console.groupEnd();
         return response
           .status(400)
           .json({ message: `User ${username} not found` });
       }
 
       const isValidPassword = bcrypt.compareSync(password, user.password);
+      console.log('----- login isValidPassword - ', user);
 
       if (!isValidPassword) {
+        console.groupEnd();
         return response
           .status(400)
           .json({ message: 'Incorrect password entered' });
@@ -93,6 +63,7 @@ class AuthController {
         user.username,
       );
 
+      console.groupEnd();
       return response.json({ token, username, role });
     } catch (e) {
       console.log('---- authController', e);

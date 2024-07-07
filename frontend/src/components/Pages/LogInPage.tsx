@@ -48,8 +48,9 @@ const LoginPage = () => {
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
+        console.log('LoginPage response values - ', values);
         await logIn(values);
-        console.log('LoginPage response data - ', data);
+        console.log('LoginPage response data   - ', data);
       } catch (e) {
         console.error(e);
       }
@@ -59,7 +60,7 @@ const LoginPage = () => {
 
   return (
     <div
-      className="container-xxl h-100 d-flex align-items-center justify-content-center"
+      className="container-xxl h-100 mx-0 d-flex align-items-center justify-content-center"
       id="loginPage"
     >
       <div className="h-100 w-100 row justify-content-center align-content-center ">

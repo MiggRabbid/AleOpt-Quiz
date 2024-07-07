@@ -28,9 +28,11 @@ class QuizController {
   }
 
   async allQuestions(request: Request, response: Response): Promise<Response> {
-    console.log('---- allQuestions', request.body);
+    console.group('----- allQuestions')
     try {
       const sortedQuestions = await this.getSortedQuestions();
+      console.log('sortedQuestions -', sortedQuestions);
+      console.groupEnd()
       return response.json(sortedQuestions);
     } catch (e) {
       return this.handleError(response, e, 'Error in getQuiz:');
@@ -38,7 +40,6 @@ class QuizController {
   }
 
   async newQuestion(request: Request, response: Response): Promise<Response> {
-    console.log('---- newQuestion', request.body);
     try {
       const newQuestion = new Question(request.body);
       await newQuestion.save();
@@ -51,7 +52,6 @@ class QuizController {
   }
 
   async editQuestion(request: Request, response: Response): Promise<Response> {
-    console.log('---- editQuestion', request.query, '/', request.body);
     try {
       const { id } = request.query;
       const updateData = request.body;
@@ -70,7 +70,6 @@ class QuizController {
   }
 
   async deleteQuestion(request: Request, response: Response): Promise<Response> {
-    console.log('---- deleteQuestion', request.query);
     try {
       const { id } = request.query;
 

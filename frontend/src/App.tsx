@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  Outlet,
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './App.css';
@@ -43,11 +37,7 @@ const PrivateAdminOutlet = () => {
   if (user) console.log(isAdmin(user));
 
   console.groupEnd();
-  return !!user && isAdmin(user) ? (
-    <Outlet />
-  ) : (
-    <Navigate to={routes.MainPagePath()} />
-  );
+  return !!user && isAdmin(user) ? <Outlet /> : <Navigate to={routes.MainPagePath()} />;
 };
 
 const App = () => {
@@ -59,7 +49,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <div
-        className="container-fluid min-vh-100 bg-secondary-subtle d-flex flex-column align-items-center justify-content-between"
+        className="container-fluid p-0 min-vh-100 bg-secondary-subtle d-flex flex-column align-items-center justify-content-between"
         id="quiz"
       >
         <Header />

@@ -1,24 +1,13 @@
 import React, { useCallback, useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
-import EyeWithoutSlash from '../icons/EyeWithoutSlash';
-import EyeWithSlash from '../icons/EyeWithSlash';
-
 import { iInputPassProps } from '../../../models/interfaces';
+import ShowPassButton from '../buttons/ShowPassBtn';
 
 const InputPass: React.FC<iInputPassProps> = React.memo((props) => {
-  const {
-    controlId,
-    label,
-    style,
-    name,
-    placeholder,
-    value,
-    onChange,
-    isInvalid,
-  } = props;
+  const { controlId, label, style, name, placeholder, value, onChange, isInvalid } =
+    props;
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -34,11 +23,7 @@ const InputPass: React.FC<iInputPassProps> = React.memo((props) => {
   );
 
   return (
-    <FloatingLabel
-      className="col-11 col-sm-5"
-      controlId={controlId}
-      label={label}
-    >
+    <FloatingLabel className="col-11 col-sm-5" controlId={controlId} label={label}>
       <Form.Control
         style={style}
         type={getPassInpType(showPassword)}
@@ -50,14 +35,7 @@ const InputPass: React.FC<iInputPassProps> = React.memo((props) => {
         isInvalid={isInvalid}
         autoComplete="false"
       />
-      <Button
-        size="sm"
-        variant="outline-secondary"
-        className="position-absolute me-2 translate-middle-y top-50 end-0"
-        onClick={() => setShowPassword(!showPassword)}
-      >
-        {showPassword ? <EyeWithSlash /> : <EyeWithoutSlash />}
-      </Button>
+      <ShowPassButton showPassword={showPassword} setShowPassword={setShowPassword} />
     </FloatingLabel>
   );
 });

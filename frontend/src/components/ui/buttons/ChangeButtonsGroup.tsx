@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
 import useActions from '../../../hooks/useActions';
@@ -11,36 +12,42 @@ interface iChangeButtonsGroupProps {
   data: iUser | iQuestion;
 }
 
-const ChangeButtonsGroup: React.FC<iChangeButtonsGroupProps> = (props) => {
-  const { data } = props;
+const ChangeButtonsGroup: React.FC<iChangeButtonsGroupProps> = React.memo(({ data }) => {
   const { openModal } = useActions();
 
+  const handleEditButton = useCallback(() => {
+    if ('question' in data) {
+      openModal({
+        modalType: FabricModalType.newQuestion,
+        modalData: data,
+      });
+    } else if ('username' in data) {
+      openModal({
+        modalType: FabricModalType.NewUser,
+        modalData: data,
+      });
+    }
+  }, [data, openModal]);
+
+  const handleDeleteButton = useCallback(() => {
+    openModal({
+      modalType: FabricModalType.delConfirm,
+      modalData: data,
+    });
+  }, [data, openModal]);
+
   return (
-    <ButtonGroup vertical size="sm" className="mb-2">
-      <Button
-        variant="primary"
-        onClick={() =>
-          openModal({
-            modalType: FabricModalType.NewUser,
-            modalData: data,
-          })
-        }
-      >
+    <ButtonGroup>
+      <Button variant="primary" onClick={handleEditButton}>
         <PencilSquare />
       </Button>
-      <Button
-        variant="danger"
-        onClick={() =>
-          openModal({
-            modalType: FabricModalType.delConfirm,
-            modalData: data,
-          })
-        }
-      >
+      <Button variant="danger" onClick={handleDeleteButton}>
         <TrashBucket />
       </Button>
     </ButtonGroup>
   );
-};
+});
+
+ChangeButtonsGroup.displayName = 'ChangeButtonsGroup';
 
 export default ChangeButtonsGroup;

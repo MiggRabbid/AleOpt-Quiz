@@ -1,76 +1,65 @@
 import { useFormik } from 'formik';
 import { Form, Modal } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import * as Yup from 'yup';
 
 import { useAddNewQuestionMutation } from '../../../store/quiz.api';
 import useActions from '../../../hooks/useActions';
 import useAuth from '../../../hooks/useAuth';
+import { getQuestions } from '../../../selectors/quizSelectors';
 
 import FormInput from '../forms/FormInput';
 import MainButton from '../buttons/MainButton';
 
+import { iQuestion } from '../../../models/interfaces';
 import { typeApiResponse } from '../../../models/types';
+import {
+  getAnswersKeys,
+  getInitialValue,
+  getNewQuestionId,
+  getResponseBody,
+} from '../../../utils/newQuestion';
 
 interface iModalNewQuestionProps {
   modalState: boolean;
   onHide: () => void;
-  questionId: string;
+  question: iQuestion | null;
 }
 
-type typeAnswersKeys = 'a' | 'b' | 'c' | 'd';
-
-type typeAnswers = Record<typeAnswersKeys, string>;
-
-interface iNewQuestionFormValues {
-  question: string;
-  answers: typeAnswers;
-  correctAnswerId: string;
-}
-
-const initialValues: iNewQuestionFormValues = {
-  question: '',
-  answers: {
-    a: '',
-    b: '',
-    c: '',
-    d: '',
-  },
-  correctAnswerId: '',
-};
-
-const getResponseBody = (value: iNewQuestionFormValues, questionId: string) => {
-  const body = {
-    id: questionId,
-    question: value.question,
-    answers: Object.entries(value.answers).map(([id, answer]) => {
-      return { questionId, id, answer };
-    }),
-    correctAnswerId: value.correctAnswerId,
-  };
-  console.log('getResponseBody', body);
-
-  return body;
-};
-
-const getAnswersKeys = (obj: typeAnswers) => {
-  return Object.keys(obj) as typeAnswersKeys[];
-};
+const validationSchema = Yup.object({
+  question: Yup.string().required('Вопрос обязателен'),
+  correctAnswerId: Yup.string().required('Выберите верный ответ'),
+  answers: Yup.object({
+    a: Yup.string().required('Ответ A обязателен'),
+    b: Yup.string().required('Ответ B обязателен'),
+    c: Yup.string().required('Ответ C обязателен'),
+    d: Yup.string().required('Ответ D обязателен'),
+  }),
+});
 
 const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
   console.group('----- CreateNewQuestion');
-  const { modalState, onHide, questionId } = props;
+  const { modalState, onHide, question } = props;
 
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
   const { setQuestions } = useActions();
   const [addNewQuestion] = useAddNewQuestionMutation();
+  const AllQuestions = useSelector(getQuestions);
 
   const formik = useFormik({
-    initialValues,
+    initialValues: getInitialValue(question),
+    validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
+        const questionId = getNewQuestionId(AllQuestions);
         const body = getResponseBody(values, questionId);
-        const response = await addNewQuestion({ headers, body });
+        console.log('body -', body);
+        const response = await addNewQuestion({
+          headers,
+          body,
+        });
 
         if ('data' in response) {
           setQuestions(response.data);

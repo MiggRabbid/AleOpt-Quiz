@@ -7,22 +7,13 @@ import useActions from '../../../hooks/useActions';
 import MainButton from '../../ui/buttons/MainButton';
 import UserChangeButtonsGroup from '../../ui/buttons/ChangeButtonsGroup';
 
-import { iQuestion, FabricModalType } from '../../../models/interfaces';
-
-const getNewQuestionId = (questions: iQuestion[] | undefined) => {
-  if (questions && questions.length > 0) {
-    const lastId = questions[questions.length - 1].id;
-    return `${Number(lastId) + 1}`;
-  }
-  return '1';
-};
+import { FabricModalType } from '../../../models/interfaces';
 
 const WatchQuestions = () => {
   console.group('----- WatchQuestions');
 
   const questions = useSelector(getQuestions);
   const { openModal } = useActions();
-  const newQuestionId = getNewQuestionId(questions);
 
   console.groupEnd();
   return (
@@ -34,14 +25,16 @@ const WatchQuestions = () => {
       id="adminQuestions"
     >
       <div className="w-100 mb-3 position-relative">
-        <h1 className="text-uppercase text-center fw-bold fs-3">Актуальные вопросы</h1>
+        <h1 className="text-uppercase text-center fw-bold fs-3">
+          Актуальные вопросы
+        </h1>
         <div className="position-absolute top-50 translate-middle-y end-0 me-3">
           <MainButton
             text="Новый вопрос"
             onClick={() =>
               openModal({
                 modalType: FabricModalType.newQuestion,
-                modalData: newQuestionId,
+                modalData: null,
               })
             }
           />

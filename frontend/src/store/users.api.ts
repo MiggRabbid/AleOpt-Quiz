@@ -8,6 +8,7 @@ import { typeApiResponse } from '../models/types';
 type typeAddNewUserRequest = {
   headers: typeApiResponse;
   body: iUser;
+  params?: { username: string } | undefined;
 };
 
 const usersApi = createApi({
@@ -44,7 +45,7 @@ const usersApi = createApi({
           'Content-Type': 'application/json',
           ...request.headers,
         },
-        params: { username: request.body.username },
+        params: { username: request.params?.username },
         body: request.body,
       }),
     }),
@@ -56,7 +57,7 @@ const usersApi = createApi({
           'Content-Type': 'application/json',
           ...request.headers,
         },
-        params: { username: request.body.username },
+        params: { username: request.params?.username },
         body: request.body,
       }),
     }),
