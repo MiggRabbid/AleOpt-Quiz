@@ -1,6 +1,7 @@
-import { RootState } from '../store/index';
+import { RootState } from '../app/store/index';
 
 export const getQuestions = (state: RootState) => state.quizReducer.questions;
+
 export const getQuestionIndex = (state: RootState) =>
   state.quizReducer.questionIndex;
 

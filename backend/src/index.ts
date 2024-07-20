@@ -3,19 +3,23 @@ import express from "express";
 import mongoose, { ConnectOptions } from "mongoose";
 import cors from "cors";
 
-import { authRouter, userRouter, quizRouter } from "./routers";
+import router from "./routers/router";
 
 dotenv.config();
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 
-const DB_USERNAME = process.env.DB_USERNAME as string;
-const DB_PASSWORD = process.env.DB_PASSWORD as string;
-const DB_PROTOCOL = process.env.DB_PROTOCOL as string;
-const DB_DNS_CLUSTER = process.env.DB_DNS_CLUSTER as string;
-const DB_URI_PARAM = process.env.DB_URI_PARAM as string;
+const DB_USERNAME = process.env.REACT_APP_DB_USERNAME as string;
+const DB_PASSWORD = process.env.REACT_APP_DB_PASSWORD as string;
+const APP_NAME = process.env.REACT_APP_NAME as string;
 
-const DB_URI = `${DB_PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${DB_DNS_CLUSTER}/${DB_URI_PARAM}`;
+const DB_SCHEME = process.env.REACT_APP_DB_URI_SCHEME as string;
+const DB_HOST = process.env.REACT_APP_DB_URI_HOST as string;
+const DB_OPTIONS = process.env.REACT_APP_DB_URI_OPTIONS as string;
+
+const DB_URI = `${DB_SCHEME}://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_OPTIONS}${APP_NAME}`;
+
+// const DB_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@aleopt-quiz.b83cvlz.mongodb.net/?retryWrites=true&w=majority&appName=AleOpt-Quiz`;
 
 const clientOptions: ConnectOptions = {
   serverApi: { version: "1", strict: true, deprecationErrors: true },
@@ -25,9 +29,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use("/api/auth", authRouter);
-app.use("/api/data", userRouter);
-app.use("/api/data", quizRouter);
+app.use('/api', router);
 
 const start = async () => {
   try {

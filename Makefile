@@ -2,7 +2,10 @@ install:
 	npm ci
 	
 lint-front:
-	make -C frontend lint
+	npm -C frontend run lint
+
+fix-front:
+	npm -C frontend run fix
 
 build:
 	npm -C frontend run build
