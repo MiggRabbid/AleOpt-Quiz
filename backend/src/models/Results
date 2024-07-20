@@ -1,0 +1,12 @@
+import { Schema, model, Document } from 'mongoose';
+
+export interface iResultModel extends Document {
+  username: string;
+  data: string
+  question: string;
+}
+
+const ResultSchema = new Schema<iResultModel>({
+  id: { type: String, unique: true, required: true },
+  data: { type: String, required: true },
+});

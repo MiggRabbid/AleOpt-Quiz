@@ -1,4 +1,4 @@
-import { RootState } from '../store/index';
+import { RootState } from '../app/store/index';
 
 const getAllUsers = (state: RootState) => state.usersSlice.users;
 

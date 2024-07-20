@@ -73,7 +73,8 @@ class UserController {
 
       await newUser.save();
 
-      return response.json({ message: 'User successfully registered' });
+      const users = await this.getAllUsers();
+      return response.json(users);
     } catch (e) {
       return response.status(400).json({ message: 'Registration error' });
     }
@@ -82,7 +83,12 @@ class UserController {
   async editUser(request: Request, response: Response): Promise<Response> {
     try {
       const { username } = request.query;
-      const updateData = request.body;
+      const updateData = {
+        role: request.body.role,
+        username: request.body.username,
+        firstName: request.body.firstName,
+        lastName: request.body.lastName,
+      };
 
       const user = await User.findOneAndUpdate({ username }, updateData, { new: true });
 

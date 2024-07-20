@@ -4,20 +4,19 @@ import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
-import { User, Role } from '../models/models';
+import { User } from '../models/models';
 import { iUserModel } from '../models/User';
 
 dotenv.config();
 
 const secret = process.env.SECRET_KEY || '';
 
-const getAccessToken = (id: string, role: string, username: string): string => {
+const getAccessToken = (role: string, username: string): string => {
   const payload = {
-    id,
     role,
     username,
   };
-  return jwt.sign(payload, secret, { expiresIn: '24h' });
+  return jwt.sign(payload, secret);
 };
 
 class AuthController {
@@ -58,7 +57,6 @@ class AuthController {
       }
 
       const token = getAccessToken(
-        user._id as string,
         user.role as string,
         user.username,
       );
