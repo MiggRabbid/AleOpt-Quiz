@@ -34,8 +34,7 @@ class UserController {
         const { firstName, lastName, username, role } = user;
         return { firstName, lastName, username, role };
       });
-      console.log('users -', users);
-      console.groupEnd()
+      
       return response.json(users);
     } catch (e) {
       return this.handleError(response, e, 'Error in allUsers:');
@@ -61,7 +60,7 @@ class UserController {
       }
 
       const hashPassword = bcrypt.hashSync(password, 5);
-      const userRole = await Role.findOne({ value: role.toUpperCase() });
+      const userRole = await Role.findOne({ value: role });
 
       const newUser = new User({
         firstName,
@@ -70,6 +69,7 @@ class UserController {
         password: hashPassword,
         role: userRole?.value,
       });
+      console.log('----- newUser newUser', newUser)
 
       await newUser.save();
 

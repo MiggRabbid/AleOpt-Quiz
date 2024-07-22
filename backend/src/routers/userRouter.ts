@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
+
 import { userController } from '../controllers/controllers';
 import { roleMiddleware } from '../middleware/middleware';
-import { UserRoles } from '../models/Role';
+
+import { UserRoles } from '../types/userTypes';
 
 const VALIDATION_ERROR_USERNAME = 'Username must be between 4 and 20 characters';
 const VALIDATION_ERROR_PASSWORD = 'Password must be between 6 and 20 characters';

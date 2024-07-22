@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
+
 import { authController } from '../controllers/controllers';
 
 const VALIDATION_ERROR_USERNAME = 'Username must be between 4 and 20 characters';

@@ -11,10 +11,7 @@ dotenv.config();
 const secret = process.env.SECRET_KEY || '';
 
 const authMiddleware = (request: CustomRequest, response: Response, next: NextFunction): void => {
-  console.group('----- roleMiddleware');
   if (request.method === "OPTIONS") {
-    console.log('request.method === "OPTIONS" - ', request.method === "OPTIONS");
-    console.groupEnd();
     next();
   }
 
@@ -22,20 +19,17 @@ const authMiddleware = (request: CustomRequest, response: Response, next: NextFu
     const token = request.headers.authorization?.split(' ')[1];
 
     if (!token) {
-      console.log('No token -', !token );
-      console.groupEnd();
       response.status(403).json({ message: "User is not authorized" });
       return;
     }
 
     const decodedData = jwt.verify(token, secret) as jwt.JwtPayload;
-    console.log('decodedData -', decodedData);
-    console.groupEnd();
-  
+    
     request.user = decodedData;
+    console.log(`----- authMiddleware - ${JSON.stringify(request.user)}`);
     next();
   } catch (e) {
-    console.log(e);
+    console.error('---- authMiddleware', e);
     response.status(403).json({ message: "User is not authorized" });
   }
 };

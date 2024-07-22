@@ -69,5 +69,6 @@ export const {
   useLazyGetAllQuestionsQuery,
   useAddNewQuestionMutation,
   useDeleteQuestionMutation,
+  useEditQuestionMutation,
 } = quizApi;
 export default quizApi;

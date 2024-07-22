@@ -1,18 +1,7 @@
 // backend/src/models/Question.ts
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-interface iAnswer {
-  questionId: string;
-  id: string;
-  answer: string;
-}
-
-export interface iQuestionModel extends Document {
-  id: string;
-  question: string;
-  answers: iAnswer[];
-  correctAnswerId: string;
-}
+import { iAnswer, iQuestionModel } from '../types/quizTypes'
 
 const AnswerSchema = new Schema<iAnswer>({
   questionId: { type: String, required: true },

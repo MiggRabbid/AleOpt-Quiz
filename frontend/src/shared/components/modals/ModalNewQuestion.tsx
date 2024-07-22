@@ -6,7 +6,10 @@ import * as Yup from 'yup';
 import useAuth from '../../../hooks/useAuth';
 import useActions from '../../../hooks/useActions';
 import { getQuestions } from '../../../selectors/quizSelectors';
-import { useAddNewQuestionMutation } from '../../../app/store/api/quiz.api';
+import {
+  useAddNewQuestionMutation,
+  useEditQuestionMutation,
+} from '../../../app/store/api/quiz.api';
 
 import FormInput from '../forms/InputFabric';
 import MainButton from '../buttons/MainButton';
@@ -45,6 +48,7 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
   const headers = getAuthHeader() as typeApiResponse;
   const { setQuestions } = useActions();
   const [addNewQuestion] = useAddNewQuestionMutation();
+  const [editQuestion] = useEditQuestionMutation();
   const AllQuestions = useSelector(getQuestions);
 
   const formik = useFormik({
@@ -53,13 +57,23 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
+        let response;
+
         const questionId = getNewQuestionId(AllQuestions);
         const body = getResponseBody(values, questionId);
-        console.log('body -', body);
-        const response = await addNewQuestion({
-          headers,
-          body,
-        });
+
+        if (!!question) {
+          response = await editQuestion({
+            headers,
+            body,
+            params: { id: question.id },
+          });
+        } else {
+          response = await addNewQuestion({
+            headers,
+            body,
+          });
+        }
 
         if ('data' in response) {
           setQuestions(response.data);

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import sortAscending from '../utils/sortAscending';
 import { Question } from "../models/models";
 
@@ -28,11 +29,8 @@ class QuizController {
   }
 
   async allQuestions(request: Request, response: Response): Promise<Response> {
-    console.group('----- allQuestions')
     try {
       const sortedQuestions = await this.getSortedQuestions();
-      console.log('sortedQuestions -', sortedQuestions);
-      console.groupEnd()
       return response.json(sortedQuestions);
     } catch (e) {
       return this.handleError(response, e, 'Error in getQuiz:');

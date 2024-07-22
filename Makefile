@@ -1,23 +1,35 @@
 install:
 	npm ci
-	
+
+# front
 lint-front:
 	npm -C frontend run lint
 
 fix-front:
 	npm -C frontend run fix
 
-build:
+dev-front:
+	npm -C frontend run dev
+
+build-front:
 	npm -C frontend run build
 
-start-dev:
-	make -C frontend dev
+# back
+lint-back:
+	npm -C backend run lint
 
-start-backend:
-	npm -C backend start
+fix-front:
+	npm -C backend run fix
 
+dev-back:
+	npm -C backend run dev
+
+build-back:
+	npm -C backend run build
+
+start-back:
+	npm -C backend run start
+
+# dev start
 dev:
-	make start-backend & make start-dev
-
-localstart-back:
-	make start-backend
+	make dev-front & make dev-back

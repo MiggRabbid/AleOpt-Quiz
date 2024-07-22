@@ -83,7 +83,6 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        console.log(values);
         let response;
         if (!!user) {
           response = await editUser({
@@ -96,7 +95,7 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
         }
 
         if ('data' in response) {
-          console.log('response.data -', response.data);
+          console.log('ModalNewUser response.data -', response.data);
           setUsers(response.data);
           onHide();
         } else {
@@ -111,7 +110,7 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
       setSubmitting(false);
     },
   });
-
+  console.log('---- formik', formik.values.role);
   console.groupEnd();
   return (
     <Modal

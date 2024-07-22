@@ -13,8 +13,6 @@ const QuestionsResultVariant: React.FC<QuestionsResultVariantProps> = (
 ) => {
   const { currQuestion, userAnswer } = props;
   console.group('----- QuestionsResultVariant');
-  console.log('currQuestion -', currQuestion);
-  console.log('userAnswer   -', userAnswer);
   const { id, question, answers, correctAnswerId } = currQuestion;
   const { result, userAnswerId } = userAnswer;
 
@@ -22,9 +20,6 @@ const QuestionsResultVariant: React.FC<QuestionsResultVariantProps> = (
     (item) => item.id === correctAnswerId,
   )[0];
   const currentAnswer = answers.filter((item) => item.id === userAnswerId)[0];
-  console.log('correctAnswer -', correctAnswer);
-  console.log('currentAnswer -', currentAnswer);
-  console.log('result        -', result, typeof result);
   console.groupEnd();
   return (
     <ListGroup className="text-center d-flex flex-column">

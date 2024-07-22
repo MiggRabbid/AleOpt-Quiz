@@ -5,10 +5,14 @@ import { useSelector } from 'react-redux';
 import routes from '../../app/routes';
 import useAuth from '../../hooks/useAuth';
 import useActions from '../../hooks/useActions';
-import { getQuestionIndex, getQuestions } from '../../selectors/quizSelectors';
+import {
+  getCurrentResult,
+  getQuestionIndex,
+  getQuestions,
+} from '../../selectors/quizSelectors';
 
-import QuestionsFinished from './ui/QuestionsFinished';
-import QuestionsSection from './ui/QuestionsSection';
+import QuestionsFinished from './ui/QuizFinished';
+import QuestionsSection from './ui/QuizStepSection';
 
 import { iQuestion } from '../../types/interfaces/iQuiz';
 
@@ -20,8 +24,13 @@ const QuizPage = () => {
 
   const questionsIndex = useSelector(getQuestionIndex);
   const questions = useSelector(getQuestions) as iQuestion[];
+  const currentResult = useSelector(getCurrentResult);
   console.log('QuizPage data -', questions);
   const quantityQuestions = Object.keys(questions).length;
+
+  useEffect(() => {
+    console.log('currentResult -', currentResult);
+  }, [currentResult]);
 
   useEffect(() => {
     if (!user || quantityQuestions === 0) navigate(routes.MainPagePath());

@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import useActions from '../../../hooks/useActions';
 import { getQuestionIndex } from '../../../selectors/quizSelectors';
 
-import QuestionsProgress from './QuestionsProgress';
-import QuestionsAnswerVariant from './QuestionsAnswerVariant';
+import QuestionsProgress from './QuizProgress';
+import QuestionsAnswerVariant from './AnswerVariant';
 
 import { typeQuestionAnswer } from '../../../types/types';
 import { iQuestion } from '../../../types/interfaces/iQuiz';

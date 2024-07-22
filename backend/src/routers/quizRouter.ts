@@ -1,7 +1,9 @@
 import { Router } from 'express';
+
 import { quizController } from '../controllers/controllers';
 import { authMiddleware, roleMiddleware } from '../middleware/middleware';
-import { UserRoles } from '../models/Role';
+
+import { UserRoles } from '../types/userTypes';
 
 const quizRouter = Router();
 quizRouter.get('/questions', authMiddleware, quizController.allQuestions);

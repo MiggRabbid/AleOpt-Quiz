@@ -25,11 +25,11 @@ const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
   );
 
   useEffect(() => {
-    console.log('placeholder -', placeholder);
+    console.log('InputSelect placeholder -', placeholder);
   }, [placeholder]);
 
   useEffect(() => {
-    console.log('value -', value);
+    console.log('InputSelect value -', value);
   }, [value]);
 
   return (
@@ -51,7 +51,7 @@ const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
         {options &&
           Object.entries(options).map(([key, currValue]) => {
             return (
-              <option key={key} value={key}>
+              <option key={key} value={key} selected={currValue === value}>
                 {currValue}
               </option>
             );

@@ -1,15 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
-import { iRoleModel } from './Role';
 
-export interface iUserModel extends Document {
-  _id?: string;
-  role: string | iRoleModel;
-  firstName: string;
-  lastName: string;
-  username: string;
-  password: string;
-  results?: Array<Record<string, string>>
-}
+import { iUserModel } from '../types/userTypes';
+
 
 const UserSchema = new Schema<iUserModel>({
   role: { type: String, ref: 'Role' },
