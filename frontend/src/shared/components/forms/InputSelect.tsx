@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { Form, FloatingLabel } from 'react-bootstrap';
 
-import { iInputSelectProps } from '../../../types/interfaces/iInputs';
+import { iInputSelectProps } from '../../../types/iInputs';
 
 const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
   const {

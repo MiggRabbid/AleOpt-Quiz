@@ -6,9 +6,9 @@ import useActions from '../../../hooks/useActions';
 import TrashBucket from '../icons/TrashBucket';
 import PencilSquare from '../icons/PencilSquare';
 
-import { FabricModalType } from '../../../types/interfaces/iModal';
-import { iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUser } from '../../../types/interfaces/iUser';
+import { FabricModalType } from '../../../types/iModal';
+import { iQuestion } from '../../../types/iQuiz';
+import { iUser } from '../../../types/iUser';
 
 interface iChangeButtonsGroupProps {
   data: iUser | iQuestion;

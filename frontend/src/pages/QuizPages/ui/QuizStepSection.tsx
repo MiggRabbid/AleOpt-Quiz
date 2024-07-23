@@ -9,8 +9,8 @@ import QuestionsProgress from './QuizProgress';
 import QuestionsAnswerVariant from './AnswerVariant';
 
 import { typeQuestionAnswer } from '../../../types/types';
-import { iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUserAnswer } from '../../../types/interfaces/iUser';
+import { iQuestion } from '../../../types/iQuiz';
+import { iUserAnswer } from '../../../types/iUser';
 
 interface QuestionsSectionProps {
   questions: iQuestion[];

@@ -12,9 +12,9 @@ import ModalNewUser from './ModalNewUser';
 import ModalNewQuestion from './ModalNewQuestion';
 import ModalDelConfirm from './ModalDelConfirm';
 
-import { FabricModalType } from '../../../types/interfaces/iModal';
-import { iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUser } from '../../../types/interfaces/iUser';
+import { FabricModalType } from '../../../types/iModal';
+import { iQuestion } from '../../../types/iQuiz';
+import { iUser } from '../../../types/iUser';
 
 const ModalFabric = () => {
   console.group('----- ModalFabric');

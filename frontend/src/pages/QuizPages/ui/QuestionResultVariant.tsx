@@ -1,7 +1,7 @@
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
-import { iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUserAnswer } from '../../../types/interfaces/iUser';
+import { iQuestion } from '../../../types/iQuiz';
+import { iUserAnswer } from '../../../types/iUser';
 
 interface QuestionsResultVariantProps {
   currQuestion: iQuestion;

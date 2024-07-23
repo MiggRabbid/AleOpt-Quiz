@@ -1,4 +1,4 @@
-import { iQuestion } from '../types/interfaces/iQuiz';
+import { iQuestion } from '../types/iQuiz';
 import {
   typeAnswers,
   typeAnswersKeys,

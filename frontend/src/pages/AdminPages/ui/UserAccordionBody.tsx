@@ -3,7 +3,7 @@ import { Accordion, Form, InputGroup } from 'react-bootstrap';
 
 import UserChangeButtonsGroup from '../../../shared/components/buttons/ChangeButtonsGroup';
 
-import { iUser } from '../../../types/interfaces/iUser';
+import { iUser } from '../../../types/iUser';
 
 interface iUserAccordionBodyProps {
   user: iUser;

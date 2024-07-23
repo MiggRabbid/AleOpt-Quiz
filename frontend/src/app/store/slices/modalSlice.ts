@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { FabricModalType, iModalSlice } from '../../../types/interfaces/iModal';
+import { FabricModalType, iModalSlice } from '../../../types/iModal';
 import { typeModelData } from '../../../types/types';
 
 interface iPayloadAction {

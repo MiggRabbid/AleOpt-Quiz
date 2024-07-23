@@ -14,7 +14,7 @@ import FormInput from '../forms/InputFabric';
 import MainButton from '../buttons/MainButton';
 
 import { typeApiResponse } from '../../../types/types';
-import { iUser, UserRoles } from '../../../types/interfaces/iUser';
+import { iUser, UserRoles } from '../../../types/iUser';
 
 interface iModalNewUserProps {
   modalState: boolean;

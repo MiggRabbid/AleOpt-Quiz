@@ -26,3 +26,9 @@ export interface iUserAnswer {
 export interface iUsersState {
   users: iUser[] | null;
 }
+
+export interface iResultEntry {
+  data: string;
+  answers: iUserAnswer[];
+  correctAnswers: number;
+}

@@ -6,8 +6,8 @@ import useActions from '../../../hooks/useActions';
 import { useDeleteUserMutation } from '../../../app/store/api/users.api';
 import { useDeleteQuestionMutation } from '../../../app/store/api/quiz.api';
 
-import { iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUser } from '../../../types/interfaces/iUser';
+import { iQuestion } from '../../../types/iQuiz';
+import { iUser } from '../../../types/iUser';
 import { typeApiResponse } from '../../../types/types';
 
 interface iModalDelConfirmProps {

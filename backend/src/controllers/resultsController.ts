@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import { Results } from "../models/models";
 import { iUserAnswer } from '../types/resultTypes';
+import { getUserStats } from '../utils/forStats/userStats';
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const RESULT_NOT_FOUND_MESSAGE = 'Result not found. Check query parameters';
@@ -44,9 +45,12 @@ class ResultController {
       if (!userResults) {
         return response.status(404).json({ message: RESULT_NOT_FOUND_MESSAGE });
       }
-      return response.json(userResults);
+      
+      const userStats = getUserStats(userResults);
+
+      return response.json(userStats);
     } catch (e) {
-      return response.status(400).json({ message: 'Error getting result' });
+      return this.handleError(response, e, 'Error getting result')
     }
   }
 

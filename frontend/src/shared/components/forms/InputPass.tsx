@@ -3,7 +3,7 @@ import { FloatingLabel, InputGroup, Form } from 'react-bootstrap';
 
 import ShowPassButton from '../buttons/ShowPassBtn';
 
-import { iInputPassProps } from '../../../types/interfaces/iInputs';
+import { iInputPassProps } from '../../../types/iInputs';
 
 const InputPass: React.FC<iInputPassProps> = React.memo((props) => {
   const {

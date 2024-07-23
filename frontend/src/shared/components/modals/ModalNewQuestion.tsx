@@ -14,7 +14,7 @@ import {
 import FormInput from '../forms/InputFabric';
 import MainButton from '../buttons/MainButton';
 
-import { iQuestion } from '../../../types/interfaces/iQuiz';
+import { iQuestion } from '../../../types/iQuiz';
 import { typeApiResponse } from '../../../types/types';
 import {
   getAnswersKeys,

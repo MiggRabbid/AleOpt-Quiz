@@ -7,8 +7,8 @@ import useActions from '../../../hooks/useActions';
 import MainButton from '../../../shared/components/buttons/MainButton';
 import UserAccordionBody from './UserAccordionBody';
 
-import { iUser } from '../../../types/interfaces/iUser';
-import { FabricModalType } from '../../../types/interfaces/iModal';
+import { iUser } from '../../../types/iUser';
+import { FabricModalType } from '../../../types/iModal';
 
 const WatchUsers = () => {
   console.group('----- WatchUsers');

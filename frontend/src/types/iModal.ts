@@ -1,4 +1,4 @@
-import { typeModelData } from '../types';
+import { typeModelData } from './types';
 
 // eslint-disable-next-line no-shadow
 export enum FabricModalType {

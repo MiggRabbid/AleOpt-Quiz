@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { iQuizState, iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUserAnswer } from '../../../types/interfaces/iUser';
+import { iQuizState, iQuestion } from '../../../types/iQuiz';
+import { iUserAnswer } from '../../../types/iUser';
 
 const initialState: iQuizState = {
   isStarted: false,

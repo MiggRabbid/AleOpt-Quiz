@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { typeQuestionAnswer } from '../types';
+import { typeQuestionAnswer } from './types';
 
 import { iUserAnswer } from './iUser';
 

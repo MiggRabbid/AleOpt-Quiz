@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import routes, { BASE_SERVER_URL } from '../../routes';
 
-import { iQuestion } from '../../../types/interfaces/iQuiz';
+import { iQuestion } from '../../../types/iQuiz';
 import { typeApiResponse } from '../../../types/types';
 
 type typeAddNewQuestionRequest = {

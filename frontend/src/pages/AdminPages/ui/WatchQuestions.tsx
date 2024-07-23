@@ -7,8 +7,8 @@ import useActions from '../../../hooks/useActions';
 import MainButton from '../../../shared/components/buttons/MainButton';
 import UserChangeButtonsGroup from '../../../shared/components/buttons/ChangeButtonsGroup';
 
-import {  iQuestion } from '../../../types/interfaces/iQuiz';
-import { FabricModalType } from '../../../types/interfaces/iModal';
+import {  iQuestion } from '../../../types/iQuiz';
+import { FabricModalType } from '../../../types/iModal';
 
 const WatchQuestions = () => {
   console.group('----- WatchQuestions');

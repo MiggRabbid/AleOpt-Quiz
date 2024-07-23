@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Form, FloatingLabel } from 'react-bootstrap';
 
-import { iInputTextProps } from '../../../types/interfaces/iInputs';
+import { iInputTextProps } from '../../../types/iInputs';
 
 const InputText: React.FC<iInputTextProps> = React.memo((props) => {
   const {

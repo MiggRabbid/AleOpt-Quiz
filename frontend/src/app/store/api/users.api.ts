@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import routes, { BASE_SERVER_URL } from '../../routes';
 
-import { iUser } from '../../../types/interfaces/iUser';
+import { iUser } from '../../../types/iUser';
 import { typeApiResponse } from '../../../types/types';
 
 type typeAddNewUserRequest = {

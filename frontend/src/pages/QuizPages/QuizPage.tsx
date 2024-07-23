@@ -14,7 +14,7 @@ import {
 import QuestionsFinished from './ui/QuizFinished';
 import QuestionsSection from './ui/QuizStepSection';
 
-import { iQuestion } from '../../types/interfaces/iQuiz';
+import { iQuestion } from '../../types/iQuiz';
 
 const QuizPage = () => {
   console.group('----- QuizPage');

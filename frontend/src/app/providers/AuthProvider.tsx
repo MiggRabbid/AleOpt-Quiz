@@ -2,12 +2,12 @@ import { useState, ReactNode, useMemo } from 'react';
 
 import AuthContext from '../context/index';
 
-import { iUser, UserRoles } from '../../types/interfaces/iUser';
+import { iUser, UserRoles } from '../../types/iUser';
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  console.log('----- AuthProvider');
   const currentUserString = localStorage.getItem('user');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
+
   const [user, setUser] = useState(currentUser);
 
   const UseLogin = (data: iUser) => {

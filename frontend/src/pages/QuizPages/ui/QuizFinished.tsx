@@ -9,8 +9,8 @@ import {
 import SmileHappy from '../../../shared/components/icons/SmileHappy';
 import SmileUnhappy from '../../../shared/components/icons/SmileUnhappy';
 
-import { iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUserAnswer } from '../../../types/interfaces/iUser';
+import { iQuestion } from '../../../types/iQuiz';
+import { iUserAnswer } from '../../../types/iUser';
 
 const getQuestion = (questions: iQuestion[], id: string): iQuestion => {
   const result = questions.filter((item) => item.id === id);

@@ -8,7 +8,7 @@ import { useLogInMutation } from '../../app/store/api/auth.api';
 import LoginForm from './ui/LoginForm';
 import BgLogin from '../../assets/login-img.jpg';
 
-import { iUser } from '../../types/interfaces/iUser';
+import { iUser } from '../../types/iUser';
 
 const LoginPage = () => {
   console.log('----- Login');

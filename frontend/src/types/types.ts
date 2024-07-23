@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
-import { iQuestion } from './interfaces/iQuiz';
-import { iUser } from './interfaces/iUser';
+import { iQuestion } from './iQuiz';
+import { iUser } from './iUser';
 
 export type typeData = { [key: string]: string };
 
