@@ -4,6 +4,7 @@ export type typeAnswerId = 'a' | 'b' | 'c' | 'd';
 
 export interface iAverageAttempts {
   [key: string]: {
+    question: string,
     result: number;
     correctAnswerId: string;
     countAnswers: Record<typeAnswerId, number>;

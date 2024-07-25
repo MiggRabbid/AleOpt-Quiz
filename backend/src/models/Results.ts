@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { iResultModel } from '../types/resultTypes';
 
 const UserAnswerSchema = new Schema({
+  question: { type: String,required: true },
   questionId: { type: String,required: true },
   userAnswerId: { type: String,required: true },
   correctAnswerId: { type: String ,required: true },

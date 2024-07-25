@@ -59,8 +59,8 @@ const AdminPage = () => {
             sm={3}
             className="h-auto p-0 bg-light rounded-start"
             style={{
-              minWidth: '170px',
-              maxWidth: '250px',
+              minWidth: '150px',
+              maxWidth: '200px',
               minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)',
             }}
           >

@@ -10,7 +10,7 @@ const getAverageResult = (attempts: iResultEntry[]): number => {
     return acc
   }, 0);
 
-  return (sumPercentage / currDivisor);
+  return Math.floor(sumPercentage / currDivisor);
 }
 
 const getAverageAttempts = (attempts: iResultEntry[]): iAverageAttempts => {
@@ -20,6 +20,7 @@ const getAverageAttempts = (attempts: iResultEntry[]): iAverageAttempts => {
 
       if (!acc[questionKey]) {
         acc[questionKey] = {
+          question: el.question,
           result: 0,
           correctAnswerId: el.correctAnswerId as typeAnswerId,
           countAnswers: {

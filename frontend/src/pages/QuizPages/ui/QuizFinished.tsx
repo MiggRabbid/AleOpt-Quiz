@@ -11,29 +11,7 @@ import SmileUnhappy from '../../../shared/components/icons/SmileUnhappy';
 
 import { iQuestion } from '../../../types/iQuiz';
 import { iUserAnswer } from '../../../types/iUser';
-
-const getQuestion = (questions: iQuestion[], id: string): iQuestion => {
-  const result = questions.filter((item) => item.id === id);
-  return result[0];
-};
-
-const getAnswerBg = (
-  correctAnswer: string,
-  currentAnswer: string,
-  userAnswer: string,
-) => {
-  if (currentAnswer === correctAnswer) {
-    return correctAnswer === userAnswer
-      ? 'bg-success-subtle'
-      : 'bg-primary-subtle';
-  }
-
-  if (currentAnswer === userAnswer) {
-    return correctAnswer !== userAnswer ? 'bg-danger-subtle' : '';
-  }
-
-  return '';
-};
+import { getAnswerBg, getQuestion } from '../utils/forQuizFinished';
 
 const QuestionsFinished = () => {
   const questions = useSelector(getQuestions) as iQuestion[];
@@ -44,14 +22,14 @@ const QuestionsFinished = () => {
   }, 0);
 
   return (
-    <section className="w-100 rounded d-flex  flex-column justify-content-center align-items-center bg-light-subtle py-5">
+    <section className="w-100 h-100  py-5 rounded d-flex flex-column justify-content-center align-items-center bg-light-subtle">
       <h1 className="mx-auto text-uppercase fw-bold text-center fs-4 mb-3">
         {`Ваш результат - ${resultSum} из ${questions.length} (${((resultSum / questions.length) * 100).toFixed(0)}%)`}
       </h1>
       <Accordion
         defaultActiveKey="0"
         flush
-        className="col-10 border rounded overflow-hidden"
+        className="col-10 h-100 border rounded overflow-hidden"
       >
         {currentResult.map((userAnswer: iUserAnswer) => {
           const currQuestion = getQuestion(questions, userAnswer.id);

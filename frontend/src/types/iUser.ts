@@ -17,7 +17,8 @@ export interface iUser {
 }
 
 export interface iUserAnswer {
-  id: string;
+  questionId: string;
+  question: string;
   userAnswerId: string;
   correctAnswerId: string;
   result: number;

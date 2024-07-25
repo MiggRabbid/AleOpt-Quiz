@@ -19,7 +19,7 @@ const WatchUsers = () => {
   console.groupEnd();
   return (
     <section
-      className="h-100 d-flex flex-column align-items-center"
+      className="h-100 px-4 d-flex flex-column align-items-center"
       style={{
         minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)',
       }}
@@ -39,7 +39,7 @@ const WatchUsers = () => {
       <Accordion
         defaultActiveKey="0"
         flush
-        className="col-10 border rounded overflow-hidden"
+        className="w-100 border rounded overflow-hidden"
       >
         {users?.map((user) => {
           return (
