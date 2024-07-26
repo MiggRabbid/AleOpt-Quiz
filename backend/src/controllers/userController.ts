@@ -28,6 +28,18 @@ class UserController {
     return await User.find();
   }
 
+  async currentUser(request: Request, response: Response): Promise<Response> {
+    try {
+      const { username } = request.query;
+
+      const currentUser = await User.findOne({ username })
+
+      return response.json(currentUser);
+    } catch (e) {
+      return this.handleError(response, e, 'Error in allUsers:');
+    }
+  }
+
   async allUsers(request: Request, response: Response): Promise<Response> {
     try {
       const users = (await this.getAllUsers()).map((user) => {

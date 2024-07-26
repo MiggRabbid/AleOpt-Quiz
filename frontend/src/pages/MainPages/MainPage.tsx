@@ -5,37 +5,68 @@ import routes from '../../app/routes';
 import useAuth from '../../hooks/useAuth';
 import useActions from '../../hooks/useActions';
 import { useGetAllQuestionsQuery } from '../../app/store/api/quiz.api';
+import { useGetCurrentUserQuery } from '../../app/store/api/users.api';
 
 import UserStats from '../../entities/users/UserStats/UserStats';
-import StartQuiz from './ui/StartQuiz';
+import StartQuizCard from './ui/StartQuizCard';
+import CurrUserCard from './ui/CurrUserCard';
 
 import { typeApiResponse } from '../../types/types';
+import ContinueQuizCard from './ui/ContinueQuizCard';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const { setQuestions, setCurrentUser, setCurrentResult } = useActions();
+
   const { user, isAdmin, getAuthHeader } = useAuth();
-  const { setQuestions } = useActions();
   const headers = getAuthHeader() as typeApiResponse;
+
+  const unfinishedAttempt = useLocalStorage.getResult();
+
   const { data: questions } = useGetAllQuestionsQuery(headers);
+  const { data: curUser } = useGetCurrentUserQuery({
+    headers,
+    params: { username: user?.username || '' },
+  });
 
   useEffect(() => {
     if (!!user && isAdmin(user)) navigate(routes.AdminPagePath());
-  }, [user, isAdmin]);
+  }, [user, isAdmin, navigate]);
 
   useEffect(() => {
-    if (questions) setQuestions(questions);
-  }, [headers]);
+    if (!!questions) setQuestions(questions);
+  }, [questions]);
+
+  useEffect(() => {
+    if (!!curUser) setCurrentUser(curUser);
+  }, [curUser]);
+
+  useEffect(() => {
+    if (!!unfinishedAttempt && unfinishedAttempt.answers.length > 0) {
+      setCurrentResult(unfinishedAttempt.answers);
+    }
+  }, [unfinishedAttempt]);
 
   return (
     <main
-      className="container-xxl h-100 p-0 mx-0 rounded-0 mx-0 my-3 d-flex flex-column align-items-center justify-content-between"
+      className="container-xxl h-100 p-0 mx-0 rounded-0 mx-0 my-5 d-flex flex-column align-items-center justify-content-between gap-5"
       style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
-      id="Page"
+      id="MainPage"
     >
-      <div className="w-100 mb-3 d-flex flex-row">
-        <h3 className="w-50 text-uppercase text-center py-3 top-0 fw-semibold">{`${user?.username}, Добро пожаловать`}</h3>
-        <StartQuiz />
+      <div className="w-100 d-flex flex-row">
+        <div className="w-50 d-flex flex-column">
+          <CurrUserCard />
+        </div>
+        <div className="w-50 d-flex flex-column">
+          {!!unfinishedAttempt && unfinishedAttempt.answers.length > 0 ? (
+            <ContinueQuizCard />
+          ) : (
+            <StartQuizCard />
+          )}
+        </div>
       </div>
+
       {!!user && <UserStats username={user?.username} headers={headers} />}
     </main>
   );

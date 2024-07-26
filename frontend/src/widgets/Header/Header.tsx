@@ -10,29 +10,34 @@ import Logo from '../../assets/logo-header.png';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { logout } = useActions();
-  const { user, useLogout } = useAuth();
+  const { logout, clearCurrentResult } = useActions();
+  const { user, userLogout } = useAuth();
 
   const handleLogout = () => {
-    useLogout();
+    clearCurrentResult();
+    userLogout();
     logout();
-    console.groupEnd();
     navigate(routes.loginPagePath());
   };
 
   return (
-    <header className="container-xxl d-flex justify-content-center p-0 mb-2 mx-0">
+    <header className="container-xxl d-flex justify-content-center p-0 mx-0">
       <div className="w-100 rounded-bottom shadow-sm bg-light-subtle">
         <Navbar className="d-flex justify-content-between">
           <NavbarBrand
             className="col-3 m-0 d-flex justify-content-center"
             style={{ minWidth: '170px', maxWidth: '250px' }}
           >
-            <img
-              src={Logo}
-              alt="АлёОпт - лучший магазин аксессуаров для телефонов в Новороссийске"
-              height="70"
-            />
+            <Button
+              onClick={() => navigate(routes.MainPagePath())}
+              variant="outline-light"
+            >
+              <img
+                src={Logo}
+                alt="АлёОпт - лучший магазин аксессуаров для телефонов в Новороссийске"
+                height="70"
+              />
+            </Button>
           </NavbarBrand>
 
           {!!user && (

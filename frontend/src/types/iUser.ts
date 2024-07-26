@@ -26,6 +26,7 @@ export interface iUserAnswer {
 
 export interface iUsersState {
   users: iUser[] | null;
+  currentUser: iUser | null;
 }
 
 export interface iResultEntry {
@@ -33,3 +34,6 @@ export interface iResultEntry {
   answers: iUserAnswer[];
   correctAnswers: number;
 }
+
+export interface iResultEntryRequest
+  extends Omit<iResultEntry, 'correctAnswers'> {}

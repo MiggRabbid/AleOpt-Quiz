@@ -21,6 +21,4 @@ export type typeAuthState = {
   error: { name: string; message: string } | null;
 };
 
-export type typeApiResponse = {
-  [key: string]: string;
-};
+export type typeApiResponse = Record<string, string>;

@@ -6,7 +6,6 @@ import { iResultEntry, iUserAnswer } from '../../../../../../types/iUser';
 
 export const getDataAnswersForDoughnut = (userStats: typeStatFuncsArgs) => {
   if (!userStats) return null;
-  console.log(userStats.attempts);
 
   const questionsStats = userStats.attempts.reduce(
     (acc, attempt: iResultEntry): iQuestionStatsForDoughnut => {
@@ -35,7 +34,6 @@ export const getDataAnswersForDoughnut = (userStats: typeStatFuncsArgs) => {
     },
     {} as iQuestionStatsForDoughnut,
   );
-  console.log(questionsStats);
   return questionsStats;
 };
 

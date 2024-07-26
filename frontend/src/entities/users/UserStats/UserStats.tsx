@@ -1,4 +1,4 @@
-import { Badge, Spinner, Table } from 'react-bootstrap';
+import { Spinner, Table } from 'react-bootstrap';
 import {
   Chart as ChartJS,
   BarElement,
@@ -17,6 +17,7 @@ import UserBar from './ui/UserBar/UserBar';
 import UserDoughnut from './ui/UserDoughnut/UserDoughnut';
 import { iResultEntry } from '../../../types/iUser';
 import { typeDoughnut } from '../../../types/iStats';
+import UserStatBadge from '../../../shared/components/badge/UserStatBadge';
 
 interface iUserStatsProps {
   username: string;
@@ -32,16 +33,6 @@ ChartJS.register(
   Legend,
   Tooltip,
 );
-
-const getBadgeStyle = (numberAttempts: number): string => {
-  if (numberAttempts >= 60) {
-    return 'success';
-  }
-  if (numberAttempts <= 50) {
-    return 'danger';
-  }
-  return 'warning';
-};
 
 const UserStats: React.FC<iUserStatsProps> = (props) => {
   const { username, headers } = props;
@@ -68,15 +59,10 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
                   </p>
                   <p className="p-0 m-0 text-center text-uppercase fs-5 fw-semibold d-flex flex-row justify-content-center">
                     средний балл
-                    <Badge
-                      bg={getBadgeStyle(userStats.averageResult)}
-                      className="ms-2 py-2 px-4"
-                    >
-                      {userStats.averageResult}%
-                    </Badge>
+                    <UserStatBadge averageResult={userStats.averageResult} />
                   </p>
                 </div>
-                <div className="mt-5 d-flex flex-column justify-content-center gap-2">
+                <div className="mt-5 d-flex px- flex-column justify-content-center gap-3">
                   <Table striped bordered className="w-100 m-0 mb-2">
                     <thead>
                       <tr>
@@ -107,16 +93,12 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
                               {item.data}
                             </td>
                             <td className="p-0 m-0 text-center text-uppercase fs-5 fw-semibold">
-                              <Badge
-                                bg={getBadgeStyle(userStats.averageResult)}
-                                className="py-2 px-4 mx-0 my-1"
-                              >
-                                {Math.floor(
+                              <UserStatBadge
+                                averageResult={Math.floor(
                                   (item.correctAnswers / item.answers.length) *
                                     100,
                                 )}
-                                %
-                              </Badge>
+                              />
                             </td>
                           </tr>
                         );

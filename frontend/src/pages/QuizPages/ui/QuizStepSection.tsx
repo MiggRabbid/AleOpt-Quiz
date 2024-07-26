@@ -1,4 +1,4 @@
-import { Button, ListGroup } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -7,6 +7,7 @@ import { getQuestionIndex } from '../../../selectors/quizSelectors';
 
 import QuestionsProgress from './QuizProgress';
 import QuestionsAnswerVariant from './AnswerVariant';
+import MainButton from '../../../shared/components/buttons/MainButton';
 
 import { typeQuestionAnswer } from '../../../types/types';
 import { iQuestion } from '../../../types/iQuiz';
@@ -29,14 +30,15 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = (props) => {
   const handlerClickOnAnswer = (e: React.MouseEvent<HTMLLIElement>) => {
     const id = (e.target as HTMLLIElement).dataset.id as string;
     const userAnswerId = (e.target as HTMLLIElement).dataset.variant as string;
-    const { correctAnswerId } = currentQuestion;
-    const result = {
-      id,
+    const { correctAnswerId, question } = currentQuestion;
+
+    const result: iUserAnswer = {
+      questionId: id,
+      question,
       userAnswerId,
       correctAnswerId,
       result: userAnswerId === correctAnswerId ? 1 : 0,
     };
-    console.log('handlerClickOnAnswer -', result);
     setCurrentAnswer(result);
   };
 
@@ -68,14 +70,13 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = (props) => {
           ))}
         </ListGroup>
         <div className="my-2 d-flex justify-content-end">
-          <Button
+          <MainButton
+            text="Проверить"
+            type="button"
             variant="success"
-            className="mx-4"
             onClick={handelSaveResult}
             disabled={!currentAnswer}
-          >
-            Проверить
-          </Button>
+          />
         </div>
       </div>
     </section>

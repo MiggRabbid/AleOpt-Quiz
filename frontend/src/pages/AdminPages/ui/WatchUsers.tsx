@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Accordion } from 'react-bootstrap';
 
-import getAllUsers from '../../../selectors/usersSelector';
+import { getAllUsers } from '../../../selectors/usersSelector';
 import useActions from '../../../hooks/useActions';
 
 import MainButton from '../../../shared/components/buttons/MainButton';

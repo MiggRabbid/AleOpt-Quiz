@@ -2,9 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import routes, { BASE_SERVER_URL } from '../../routes';
 
-import { iQuestion } from '../../../types/iQuiz';
 import { typeApiResponse } from '../../../types/types';
+import { iQuestion } from '../../../types/iQuiz';
 import { iUserStats } from '../../../types/iStats';
+import { iResultEntryRequest } from '../../../types/iUser';
 
 type typeUserStatsRequest = {
   headers: typeApiResponse;
@@ -13,7 +14,7 @@ type typeUserStatsRequest = {
 
 type typeAddUserStatsRequest = {
   headers: typeApiResponse;
-  body: string;
+  body: iResultEntryRequest;
   params: { username: string };
 };
 
@@ -45,7 +46,7 @@ const statsApi = createApi({
     addUserStats: build.mutation<iUserStats, typeAddUserStatsRequest>({
       query: (request) => ({
         url: routes.userStatsRequestPath(),
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           ...request.headers,

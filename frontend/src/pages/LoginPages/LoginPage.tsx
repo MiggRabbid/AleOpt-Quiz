@@ -13,20 +13,20 @@ import { iUser } from '../../types/iUser';
 const LoginPage = () => {
   console.log('----- Login');
   const navigate = useNavigate();
+  const { user, userLogin } = useAuth();
   const [logIn, { data, error }] = useLogInMutation();
-  const { user, UseLogin } = useAuth();
 
   useEffect(() => {
-    if (user) navigate(routes.MainPagePath());
-  });
+    if (!!user) navigate(routes.MainPagePath());
+  }, [user, navigate]);
 
   useEffect(() => {
     if (error) console.log('auth error -', error);
     if (data) {
-      UseLogin(data as iUser);
+      userLogin(data as iUser);
       navigate(routes.MainPagePath());
     }
-  }, [data, error]);
+  }, [data, error, userLogin, navigate]);
 
   return (
     <div

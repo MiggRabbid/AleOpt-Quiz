@@ -36,7 +36,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     console.log('--- questions -', questions);
-    if (questions) setQuestions(questions);
+    if (!!questions) setQuestions(questions);
   }, [questions]);
 
   useEffect(() => {

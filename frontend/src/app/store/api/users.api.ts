@@ -5,10 +5,15 @@ import routes, { BASE_SERVER_URL } from '../../routes';
 import { iUser } from '../../../types/iUser';
 import { typeApiResponse } from '../../../types/types';
 
-type typeAddNewUserRequest = {
+export type typeAddNewUserRequest = {
   headers: typeApiResponse;
   body: iUser;
   params?: { username: string } | undefined;
+};
+
+export type typeGetCurUserRequest = {
+  headers: typeApiResponse;
+  params: { username: string } | undefined;
 };
 
 const usersApi = createApi({
@@ -24,6 +29,16 @@ const usersApi = createApi({
           'Content-Type': 'application/json',
           ...userHeaders,
         },
+      }),
+    }),
+    getCurrentUser: build.query<iUser, typeGetCurUserRequest>({
+      query: (request) => ({
+        url: routes.curUserRequestPath(),
+        headers: {
+          'Content-Type': 'application/json',
+          ...request.headers,
+        },
+        params: { username: request.params?.username },
       }),
     }),
     addNewUser: build.mutation<iUser[], typeAddNewUserRequest>({
@@ -65,6 +80,8 @@ const usersApi = createApi({
 });
 
 export const {
+  useGetCurrentUserQuery,
+  useLazyGetCurrentUserQuery,
   useGetAllUsersQuery,
   useLazyGetAllUsersQuery,
   useAddNewUserMutation,

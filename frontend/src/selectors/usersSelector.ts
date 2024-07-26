@@ -1,5 +1,5 @@
 import { RootState } from '../app/store/index';
 
-const getAllUsers = (state: RootState) => state.usersReducer.users;
+export const getAllUsers = (state: RootState) => state.usersReducer.users;
 
-export default getAllUsers;
+export const getCurrUser = (state: RootState) => state.usersReducer.currentUser;

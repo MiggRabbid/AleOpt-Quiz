@@ -2,8 +2,8 @@ import { iUser } from './iUser';
 
 export interface iAuthContext {
   user: iUser | null;
-  UseLogin: (data: iUser) => void;
-  useLogout: () => void;
+  userLogin: (data: iUser) => void;
+  userLogout: () => void;
   getAuthHeader: () => unknown;
   isAdmin: (user: iUser) => boolean;
 }

@@ -26,6 +26,15 @@ const quizSlice = createSlice({
         questions: action.payload,
       };
     },
+    setCurrentResult: (state, action: PayloadAction<iUserAnswer[]>) => {
+      console.log('setCurrentResult', action.payload.length);
+      console.log('setCurrentResult', action.payload);
+      return {
+        ...state,
+        questionIndex: action.payload.length,
+        currentResult: action.payload,
+      };
+    },
     addAnswer: (state, action: PayloadAction<iUserAnswer>) => {
       return {
         ...state,
@@ -36,6 +45,13 @@ const quizSlice = createSlice({
       return {
         ...state,
         questionIndex: state.questionIndex + 1,
+      };
+    },
+    clearCurrentResult: (state) => {
+      return {
+        ...state,
+        currentResult: [],
+        questionIndex: 0,
       };
     },
   },

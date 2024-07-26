@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { check } from 'express-validator';
 
 import { userController } from '../controllers/controllers';
-import { roleMiddleware } from '../middleware/middleware';
+import { authMiddleware, roleMiddleware } from '../middleware/middleware';
 
 import { UserRoles } from '../types/userTypes';
 
@@ -24,6 +24,7 @@ const validateName = [
 const validateNewUser = [...validateUsernameAndPassword, ...validateName];
 
 const userRouter = Router();
+userRouter.get('/user', authMiddleware, userController.currentUser);
 userRouter.get('/users', roleMiddleware(UserRoles.Admin), userController.allUsers);
 userRouter.post('/users', roleMiddleware(UserRoles.Admin), validateNewUser, userController.newUser);
 userRouter.put('/users/', roleMiddleware(UserRoles.Admin), validateNewUser, userController.editUser);

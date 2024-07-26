@@ -27,7 +27,6 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
         console.log('LoginPage response values - ', values);
         await logIn(values);
       } catch (e) {
-        if (e) console.log('auth e -', e);
         console.error(e);
       }
       setSubmitting(false);

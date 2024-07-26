@@ -21,3 +21,9 @@ export interface iResponseQuestions {
   status: string;
   data: iQuestion[];
 }
+
+export interface iResultEntry {
+  data: string;
+  answers: iUserAnswer[];
+  correctAnswers: number;
+}

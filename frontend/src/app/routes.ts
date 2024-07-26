@@ -12,6 +12,7 @@ export default {
   loginRequestPath: () => [API_PATH, 'auth', 'login'].join('/'),
   signupRequestPath: () => [API_PATH, 'auth', 'signup'].join('/'),
 
+  curUserRequestPath: () => [API_PATH, 'data', 'user'].join('/'),
   usersRequestPath: () => [API_PATH, 'data', 'users'].join('/'),
 
   questionsRequestPath: () => [API_PATH, 'data', 'questions'].join('/'),

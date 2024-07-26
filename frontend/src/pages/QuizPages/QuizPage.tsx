@@ -15,6 +15,7 @@ import QuestionsFinished from './ui/QuizFinished';
 import QuestionsSection from './ui/QuizStepSection';
 
 import { iQuestion } from '../../types/iQuiz';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const QuizPage = () => {
   console.group('----- QuizPage');
@@ -28,8 +29,11 @@ const QuizPage = () => {
   console.log('QuizPage data -', questions);
   const quantityQuestions = Object.keys(questions).length;
 
+  console.log('questionsIndex -', currentResult);
+
   useEffect(() => {
     console.log('currentResult -', currentResult);
+    if (currentResult.length > 0) useLocalStorage.setResult(currentResult);
   }, [currentResult]);
 
   useEffect(() => {

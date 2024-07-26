@@ -57,16 +57,21 @@ class ResultController {
   async addResult(request: Request, response: Response): Promise<Response> {
     const { answers, data } = request.body;
     const { username } = request.query;
-
+    console.log('----- addResult')
     if (!username || !data || !answers) {
+      console.log('username -', username)
+      console.log('data -', data)
+      console.log('answers -', answers)
       return response.status(400).json({ message: RESULT_NOT_FOUND_MESSAGE });
     }
-
-    const correctAnswers = answers.filter((answer: iUserAnswer) => answer.result === 1).length;
-
     try {
       const userResults = await Results.findOne({ username });
-
+      const correctAnswers = answers.reduce(
+        (acc: number, item: iUserAnswer) => {
+          return acc + item.result;
+        },
+        0,
+      );
       if (!!userResults) {
         userResults.attempts.push({ data, answers, correctAnswers });
 
@@ -85,7 +90,14 @@ class ResultController {
       }
       
       const updatedUserResults = await Results.findOne({ username });
-      return response.status(200).json(updatedUserResults);
+      if (!updatedUserResults) {
+        return response.status(404).json({ message: RESULT_NOT_FOUND_MESSAGE });
+      }
+      
+      const updatedUserStats = getUserStats(updatedUserResults);
+      
+      console.log(updatedUserStats)
+      return response.json(updatedUserStats);
     } catch (e) {
       return this.handleError(response, e, 'Error adding result');
     }
