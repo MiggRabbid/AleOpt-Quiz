@@ -8,27 +8,20 @@ interface QuestionsResultVariantProps {
   userAnswer: iUserAnswer;
 }
 
-const QuestionsResultVariant: React.FC<QuestionsResultVariantProps> = (
-  props,
-) => {
+const QuestionsResultVariant: React.FC<QuestionsResultVariantProps> = (props) => {
   const { currQuestion, userAnswer } = props;
   console.group('----- QuestionsResultVariant');
   const { id, question, answers, correctAnswerId } = currQuestion;
   const { result, userAnswerId } = userAnswer;
 
-  const correctAnswer = answers.filter(
-    (item) => item.id === correctAnswerId,
-  )[0];
+  const correctAnswer = answers.filter((item) => item.id === correctAnswerId)[0];
   const currentAnswer = answers.filter((item) => item.id === userAnswerId)[0];
   console.groupEnd();
   return (
     <ListGroup className="text-center d-flex flex-column">
       <ListGroupItem className="px-2 fw-semibold fs-8">{`${id} - ${question}`}</ListGroupItem>
 
-      <ListGroupItem
-        variant="Light"
-        className="w-100 py-3 fw-medium fs-8 text-start"
-      >
+      <ListGroupItem variant="Light" className="w-100 py-3 fw-medium fs-8 text-start">
         {`${correctAnswer.id.toUpperCase()}: ${correctAnswer.answer}`}
       </ListGroupItem>
 

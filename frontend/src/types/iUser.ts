@@ -35,5 +35,4 @@ export interface iResultEntry {
   correctAnswers: number;
 }
 
-export interface iResultEntryRequest
-  extends Omit<iResultEntry, 'correctAnswers'> {}
+export interface iResultEntryRequest extends Omit<iResultEntry, 'correctAnswers'> {}

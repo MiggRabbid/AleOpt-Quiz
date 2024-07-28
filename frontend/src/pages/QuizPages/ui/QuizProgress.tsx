@@ -1,4 +1,5 @@
 import { ProgressBar } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 interface QuestionsProgressProps {
   now: number;
@@ -10,14 +11,18 @@ const QuestionsProgress: React.FC<QuestionsProgressProps> = ({
   now,
   CurrentQuestion,
   TotalQuestions,
-}) => (
-  <div className="mb-2">
-    <ProgressBar
-      variant="success"
-      now={now}
-      label={`${CurrentQuestion} из ${TotalQuestions}`}
-    />
-  </div>
-);
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="mb-2">
+      <ProgressBar
+        variant="success"
+        now={now}
+        label={`${CurrentQuestion}${t('quizPage.quizProgress.from')}${TotalQuestions}`}
+      />
+    </div>
+  );
+};
 
 export default QuestionsProgress;

@@ -17,6 +17,5 @@
   },
   "homepage": "https://github.com/MiggRabbid/AleOpt-Quiz#readme",
   "dependencies": {
-    "yup": "^1.4.0"
   }
 }

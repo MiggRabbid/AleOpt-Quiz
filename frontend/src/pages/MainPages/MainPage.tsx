@@ -50,7 +50,7 @@ const MainPage = () => {
 
   return (
     <main
-      className="container-xxl h-100 p-0 mx-0 rounded-0 mx-0 my-5 d-flex flex-column align-items-center justify-content-between gap-5"
+      className="container-xxl h-100 p-0 mx-0 rounded-0 mx-0 my-4 d-flex flex-column align-items-center justify-content-between gap-5"
       style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
       id="MainPage"
     >

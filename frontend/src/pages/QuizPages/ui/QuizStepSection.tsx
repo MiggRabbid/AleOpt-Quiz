@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ListGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -21,6 +22,7 @@ interface QuestionsSectionProps {
 const QuestionsSection: React.FC<QuestionsSectionProps> = (props) => {
   const { questions, quantityQuestions } = props;
   const { addAnswer, nextQuestion } = useActions();
+  const { t } = useTranslation();
 
   const [currentAnswer, setCurrentAnswer] = useState<iUserAnswer | null>(null);
 
@@ -71,7 +73,7 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = (props) => {
         </ListGroup>
         <div className="my-2 d-flex justify-content-end">
           <MainButton
-            text="Проверить"
+            text={t('quizPage.quizStep.btn')}
             type="button"
             variant="success"
             onClick={handelSaveResult}

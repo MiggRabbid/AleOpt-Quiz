@@ -1,11 +1,9 @@
 import { useSelector } from 'react-redux';
 import { Accordion } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import {
-  getCurrentResult,
-  getQuestions,
-} from '../../../selectors/quizSelectors';
+import { getCurrentResult, getQuestions } from '../../../selectors/quizSelectors';
 import routes from '../../../app/routes';
 import useAuth from '../../../hooks/useAuth';
 import useActions from '../../../hooks/useActions';
@@ -27,7 +25,7 @@ const getFormattedDate = (): string => {
 
   const options: Intl.DateTimeFormatOptions = {
     day: 'numeric',
-    month: 'long',
+    month: 'short',
     year: '2-digit',
   };
   return date.toLocaleDateString('ru-RU', options).replace(' г.', '');
@@ -35,6 +33,7 @@ const getFormattedDate = (): string => {
 
 const QuestionsFinished = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user, getAuthHeader } = useAuth();
   const { clearCurrentResult } = useActions();
   const headers = getAuthHeader() as typeApiResponse;
@@ -68,30 +67,30 @@ const QuestionsFinished = () => {
     }
   };
   return (
-    <section className="w-100 h-100 p-5 rounded d-flex flex-column justify-content-center align-items-center bg-light-subtle gap-3">
+    <section
+      className="w-100 h-100 p-5 rounded d-flex flex-column justify-content-start align-items-center bg-light-subtle gap-3"
+      style={{ minHeight: 'calc(100vh - 83px - 16px - 16px - 66px)' }}
+    >
       <div className="w-100 h-auto d-flex flex-row justify-content-between align-items-center">
         <div className="w-100 h-auto d-flex flex-row justify-content-center align-items-center">
           <h5 className="me-2 my-0 text-uppercase fw-bold text-center fs-4">
-            {`Ваш результат - ${resultSum} из ${questions.length}`}
+            {t('quizPage.quizFinished.title.main')}
+            {resultSum}
+            {t('quizPage.quizFinished.title.from')}
+            {questions.length}
           </h5>
-          <UserStatBadge
-            averageResult={Math.floor((resultSum / questions.length) * 100)}
-          />
+          <UserStatBadge averageResult={Math.floor((resultSum / questions.length) * 100)} />
         </div>
 
         <MainButton
-          text="Отправить результат"
+          text={t('quizPage.quizFinished.btn')}
           type="button"
-          variant="success"
+          variant="outline-success"
           onClick={handelSaveResult}
         />
       </div>
 
-      <Accordion
-        defaultActiveKey="0"
-        flush
-        className="w-100 h-100 border rounded overflow-hidden"
-      >
+      <Accordion defaultActiveKey="0" flush className="w-100 h-100 border rounded overflow-hidden">
         {currentResult.map((userAnswer: iUserAnswer) => {
           const currQuestion = getQuestion(questions, userAnswer.questionId);
 

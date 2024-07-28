@@ -8,9 +8,7 @@ import {
 
 import { typeStatFuncsArgs } from '../../../../../../types/iStats';
 
-export const getDatasetForBar = (
-  userStats: typeStatFuncsArgs,
-): ChartData<'bar'> => {
+export const getDatasetForBar = (userStats: typeStatFuncsArgs): ChartData<'bar'> => {
   return {
     labels: userStats?.attempts.map((item) => item.data),
     datasets: [
@@ -28,9 +26,7 @@ export const getDatasetForBar = (
   };
 };
 
-export const getOptionsForBar = (
-  userStats: typeStatFuncsArgs,
-): ChartOptions<'bar'> => {
+export const getOptionsForBar = (userStats: typeStatFuncsArgs): ChartOptions<'bar'> => {
   return {
     animation: {
       duration: 1000,
@@ -52,9 +48,6 @@ export const getOptionsForBar = (
           size: 14,
         },
         bodyFont: {
-          size: 16,
-        },
-        footerFont: {
           size: 16,
         },
       },

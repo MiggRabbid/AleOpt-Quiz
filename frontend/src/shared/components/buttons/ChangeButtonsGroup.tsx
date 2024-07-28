@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import React, { MouseEventHandler, ReactNode, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button, ButtonGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import useActions from '../../../hooks/useActions';
 
@@ -14,43 +15,73 @@ interface iChangeButtonsGroupProps {
   data: iUser | iQuestion;
 }
 
-const ChangeButtonsGroup: React.FC<iChangeButtonsGroupProps> = React.memo(
-  ({ data }) => {
-    const { openModal } = useActions();
+interface iCustomOverlay {
+  variant: string;
+  id: string;
+  children: ReactNode;
+  title: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}
 
-    const handleEditButton = useCallback(() => {
-      if ('question' in data) {
-        openModal({
-          modalType: FabricModalType.newQuestion,
-          modalData: data,
-        });
-      } else if ('username' in data) {
-        openModal({
-          modalType: FabricModalType.NewUser,
-          modalData: data,
-        });
-      }
-    }, [data, openModal]);
+enum enumResponseData {
+  question = 'question',
+  username = 'username',
+}
 
-    const handleDeleteButton = useCallback(() => {
+const CustomOverlay: React.FC<iCustomOverlay> = ({ variant, id, children, title, onClick }) => (
+  <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>} placement="bottom">
+    <Button variant={variant} data-bs-toggle="tooltip" data-bs-placement="bottom" onClick={onClick}>
+      {children}
+    </Button>
+  </OverlayTrigger>
+);
+
+const ChangeButtonsGroup: React.FC<iChangeButtonsGroupProps> = React.memo(({ data }) => {
+  const { openModal } = useActions();
+  const { t } = useTranslation();
+
+  const handleEditButton = useCallback(() => {
+    if (enumResponseData.question in data) {
       openModal({
-        modalType: FabricModalType.delConfirm,
+        modalType: FabricModalType.editQuestion,
         modalData: data,
       });
-    }, [data, openModal]);
+    } else if (enumResponseData.username in data) {
+      openModal({
+        modalType: FabricModalType.editUser,
+        modalData: data,
+      });
+    }
+  }, [data, openModal]);
 
-    return (
-      <ButtonGroup>
-        <Button variant="primary" onClick={handleEditButton}>
-          <PencilSquare />
-        </Button>
-        <Button variant="danger" onClick={handleDeleteButton}>
-          <TrashBucket />
-        </Button>
-      </ButtonGroup>
-    );
-  },
-);
+  const handleDeleteButton = useCallback(() => {
+    openModal({
+      modalType: FabricModalType.delConfirm,
+      modalData: data,
+    });
+  }, [data, openModal]);
+
+  return (
+    <ButtonGroup>
+      <CustomOverlay
+        variant="primary"
+        title={t('shared.buttons.changeGroup.edit')}
+        id="btnEdit"
+        onClick={handleEditButton}
+      >
+        <PencilSquare />
+      </CustomOverlay>
+      <CustomOverlay
+        variant="danger"
+        title={t('shared.buttons.changeGroup.del')}
+        id="btnDel"
+        onClick={handleDeleteButton}
+      >
+        <TrashBucket />
+      </CustomOverlay>
+    </ButtonGroup>
+  );
+});
 
 ChangeButtonsGroup.displayName = 'ChangeButtonsGroup';
 

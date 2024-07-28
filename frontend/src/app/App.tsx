@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  Outlet,
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './App.css';
@@ -32,11 +26,7 @@ const PrivateAdminOutlet = () => {
 
   if (user) console.log(isAdmin(user));
 
-  return !!user && isAdmin(user) ? (
-    <Outlet />
-  ) : (
-    <Navigate to={routes.MainPagePath()} />
-  );
+  return !!user && isAdmin(user) ? <Outlet /> : <Navigate to={routes.MainPagePath()} />;
 };
 
 const App = () => {

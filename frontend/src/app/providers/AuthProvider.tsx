@@ -34,8 +34,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return {};
   };
 
-  const isAdmin = (verifiableUser: iUser): boolean =>
-    verifiableUser.role === UserRoles.Admin;
+  const isAdmin = (verifiableUser: iUser): boolean => verifiableUser.role === UserRoles.Admin;
 
   const authValue = useMemo(
     () => ({
@@ -48,9 +47,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     [user],
   );
 
-  return (
-    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

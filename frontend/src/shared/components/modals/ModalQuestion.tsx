@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import { Form, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
@@ -24,6 +25,7 @@ import {
 } from '../../../utils/newQuestionUtils';
 
 interface iModalNewQuestionProps {
+  type: string;
   modalState: boolean;
   onHide: () => void;
   question: iQuestion | null;
@@ -42,14 +44,16 @@ const validationSchema = Yup.object({
 
 const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
   console.group('----- CreateNewQuestion');
-  const { modalState, onHide, question } = props;
+  const { type, modalState, onHide, question } = props;
+  console.log('----- type', type);
 
+  const { t } = useTranslation();
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
   const { setQuestions } = useActions();
+  const AllQuestions = useSelector(getQuestions);
   const [addNewQuestion] = useAddNewQuestionMutation();
   const [editQuestion] = useEditQuestionMutation();
-  const AllQuestions = useSelector(getQuestions);
 
   const formik = useFormik({
     initialValues: getInitialValue(question),
@@ -98,7 +102,7 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
       size="lg"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Создание нового вопроса</Modal.Title>
+        <Modal.Title>{t(`shared.modals.${type}.title`)}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form
@@ -109,11 +113,11 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
             <FormInput
               className="w-100"
               controlId="questionInput"
-              label="Вопрос"
+              label={t(`shared.modals.${type}.inputQuestion`)}
               height="279px"
               as="textarea"
               name="question"
-              placeholder="Вопрос"
+              placeholder={t(`shared.modals.${type}.inputQuestion`)}
               value={formik.values.question}
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.question}
@@ -122,8 +126,12 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
             <FormInput
               className="w-100"
               controlId="roleSelect"
-              label="Варианты ответов"
-              placeholder="Выберите верный"
+              label={t(`shared.modals.${type}.selectCorrectAnswer`)}
+              placeholder={
+                !!question
+                  ? `${t(`shared.modals.${type}.currentCorrectAnswer`)}${question.correctAnswerId.toLocaleUpperCase()}`
+                  : t(`shared.modals.${type}.currentCorrectAnswer`)
+              }
               height="57px"
               as="select"
               name="correctAnswerId"
@@ -145,11 +153,11 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
                 key={key}
                 className="w-100"
                 controlId={`answer${key.toUpperCase()}`}
-                label={`Введите ответ ${key.toUpperCase()}`}
+                label={`${t(`shared.modals.${type}.inputAnswer`)}${key.toUpperCase()}`}
                 height="80px"
                 as="textarea"
                 name={`answers.${key}`}
-                placeholder={`Ответ ${key.toUpperCase()}`}
+                placeholder={`${t(`shared.modals.${type}.selectValue`)}${key.toUpperCase()}`}
                 value={formik.values.answers[key]}
                 onChange={formik.handleChange}
                 isInvalid={!!formik.errors.answers?.[key]}

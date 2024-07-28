@@ -5,15 +5,9 @@ export const getQuestion = (questions: iQuestion[], id: string): iQuestion => {
   return result[0];
 };
 
-export const getAnswerBg = (
-  correctAnswer: string,
-  currentAnswer: string,
-  userAnswer: string,
-) => {
+export const getAnswerBg = (correctAnswer: string, currentAnswer: string, userAnswer: string) => {
   if (currentAnswer === correctAnswer) {
-    return correctAnswer === userAnswer
-      ? 'bg-success-subtle'
-      : 'bg-primary-subtle';
+    return correctAnswer === userAnswer ? 'bg-success-subtle' : 'bg-primary-subtle';
   }
 
   if (currentAnswer === userAnswer) {

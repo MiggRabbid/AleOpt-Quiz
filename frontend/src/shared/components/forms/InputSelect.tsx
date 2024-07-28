@@ -33,11 +33,7 @@ const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
   }, [value]);
 
   return (
-    <FloatingLabel
-      className={className || 'col-11 col-sm-5'}
-      controlId={controlId}
-      label={label}
-    >
+    <FloatingLabel className={className || 'col-11 col-sm-5'} controlId={controlId} label={label}>
       <Form.Select
         required
         name={name}

@@ -1,14 +1,12 @@
 import React from 'react';
 import { Form, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import useAuth from '../../../hooks/useAuth';
 import useActions from '../../../hooks/useActions';
-import {
-  useAddNewUserMutation,
-  useEditUserMutation,
-} from '../../../app/store/api/users.api';
+import { useAddNewUserMutation, useEditUserMutation } from '../../../app/store/api/users.api';
 
 import FormInput from '../forms/InputFabric';
 import MainButton from '../buttons/MainButton';
@@ -16,7 +14,8 @@ import MainButton from '../buttons/MainButton';
 import { typeApiResponse } from '../../../types/types';
 import { iUser, UserRoles } from '../../../types/iUser';
 
-interface iModalNewUserProps {
+interface iModalUserProps {
+  type: string;
   modalState: boolean;
   onHide: () => void;
   user: iUser | null;
@@ -67,13 +66,15 @@ const getInitialValues = (user: iUser | null): iInitialValues => {
       };
 };
 
-const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
+const ModalUser: React.FC<iModalUserProps> = (props) => {
   console.group('----- ModalNewUser');
-  const { modalState, onHide, user } = props;
+  const { type, modalState, onHide, user } = props;
 
+  const { t } = useTranslation();
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
   const { setUsers } = useActions();
+
   const [addNewUser] = useAddNewUserMutation();
   const [editUser] = useEditUserMutation();
 
@@ -110,7 +111,7 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
       setSubmitting(false);
     },
   });
-  console.log('---- formik', formik.values.role);
+
   console.groupEnd();
   return (
     <Modal
@@ -121,7 +122,7 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
       size="lg"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Создание нового пользователя</Modal.Title>
+        <Modal.Title>{t(`shared.modals.${type}.title`)}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form
@@ -131,11 +132,11 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
           <Form.Group className="h-auto w-100 py-4 d-flex flex-wrap justify-content-center align-items-center gap-3 border-bottom">
             <FormInput
               controlId="inputFirstName"
-              label="Введите имя"
+              label={t(`shared.modals.${type}.inputFirstName`)}
               height="50px"
               as="input"
               name="firstName"
-              placeholder="Введите имя"
+              placeholder={t(`shared.modals.${type}.inputFirstName`)}
               value={formik.values.firstName}
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.firstName}
@@ -143,11 +144,11 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
 
             <FormInput
               controlId="inputLastName"
-              label="Введите фамилию"
+              label={t(`shared.modals.${type}.inputLastName`)}
               height="50px"
               as="input"
               name="lastName"
-              placeholder="Введите фамилию"
+              placeholder={t(`shared.modals.${type}.inputLastName`)}
               value={formik.values.lastName}
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.lastName}
@@ -155,11 +156,11 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
 
             <FormInput
               controlId="inputUserName"
-              label="Придумайте логин"
+              label={t(`shared.modals.${type}.inputUsername`)}
               height="50px"
               as="input"
               name="username"
-              placeholder="Придумайте логин"
+              placeholder={t(`shared.modals.${type}.inputUsername`)}
               value={formik.values.username}
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.username}
@@ -167,12 +168,20 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
 
             <FormInput
               controlId="inputPassword"
-              label={!!user ? 'Пароль скрыт' : 'Придумайте пароль'}
+              label={
+                !!user
+                  ? t(`shared.modals.${type}.inputPasswordHidden`)
+                  : t(`shared.modals.${type}.inputPasswordShow`)
+              }
               height="50px"
               as="input"
               type="password"
               name="password"
-              placeholder="Придумайте пароль"
+              placeholder={
+                !!user
+                  ? t(`shared.modals.${type}.inputPasswordHidden`)
+                  : t(`shared.modals.${type}.inputPasswordShow`)
+              }
               value={formik.values.password}
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.password}
@@ -181,8 +190,12 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
 
             <FormInput
               controlId="roleSelect"
-              label="Выберите роль пользователя"
-              placeholder={!!user ? `Текущая роль - ${user.role}` : undefined}
+              label={t(`shared.modals.${type}.selectRole`)}
+              placeholder={
+                !!user
+                  ? `${t(`shared.modals.${type}.currentRole`)}${user.role}`
+                  : t(`shared.modals.${type}.currentRole`)
+              }
               height="55px"
               as="select"
               name="role"
@@ -193,11 +206,11 @@ const ModalNewUser: React.FC<iModalNewUserProps> = (props) => {
             />
           </Form.Group>
 
-          <MainButton text="Создать" type="submit" />
+          <MainButton text={t('shared.modals.btnCreate')} type="submit" />
         </Form>
       </Modal.Body>
     </Modal>
   );
 };
 
-export default ModalNewUser;
+export default ModalUser;

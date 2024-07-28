@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  iQuestionStatsForDoughnut,
-  typeDoughnut,
-} from '../../../../../../../types/iStats';
+import { iQuestionStatsForDoughnut, typeDoughnut } from '../../../../../../../types/iStats';
 
 export const customTooltipTitle = (
   questionsStats: iQuestionStatsForDoughnut | null,
@@ -12,12 +9,12 @@ export const customTooltipTitle = (
   const tooltipData = context[0];
   const questionId = tooltipData.label;
   const currentQuestion = questionsStats[questionId];
-  return `${currentQuestion.question}`;
+  if (currentQuestion.question.length <= 29) return `${currentQuestion.question}`;
+  return `${currentQuestion.question.slice(0, 29)}...`;
 };
 
 export const customTooltipLabel = (type: typeDoughnut, context: any) => {
-  const text =
-    type === typeDoughnut.easy ? 'Правильных ответов' : 'Неправильных ответов';
+  const text = type === typeDoughnut.easy ? 'Правильных ответов' : 'Неправильных ответов';
   return `${text}: ${context.formattedValue}`;
 };
 

@@ -18,7 +18,7 @@ build-front:
 lint-back:
 	npm -C backend run lint
 
-fix-front:
+fix-back:
 	npm -C backend run fix
 
 dev-back:

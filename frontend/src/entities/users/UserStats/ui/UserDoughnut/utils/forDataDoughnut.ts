@@ -1,7 +1,4 @@
-import {
-  iQuestionStatsForDoughnut,
-  typeStatFuncsArgs,
-} from '../../../../../../types/iStats';
+import { iQuestionStatsForDoughnut, typeStatFuncsArgs } from '../../../../../../types/iStats';
 import { iResultEntry, iUserAnswer } from '../../../../../../types/iUser';
 
 export const getDataAnswersForDoughnut = (userStats: typeStatFuncsArgs) => {

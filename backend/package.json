@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node src/index.js",
     "dev": "nodemon",
-    "lint": "npx eslint --ext ts,tsx --no-eslintrc --config .eslintrc.json .",
+    "lint": "npx eslint ts,tsx .",
     "fix": "npx eslint --fix ."
   },
   "repository": {

@@ -1,9 +1,5 @@
 import { iQuestion } from '../types/iQuiz';
-import {
-  typeAnswers,
-  typeAnswersKeys,
-  typeQuestionAnswer,
-} from '../types/types';
+import { typeAnswers, typeAnswersKeys, typeQuestionAnswer } from '../types/types';
 
 export interface iInitialValues {
   question: string;

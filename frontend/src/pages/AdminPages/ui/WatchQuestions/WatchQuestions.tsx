@@ -1,22 +1,21 @@
 import { useSelector } from 'react-redux';
 import { Accordion } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
-import { getQuestions } from '../../../selectors/quizSelectors';
-import useActions from '../../../hooks/useActions';
+import useActions from '../../../../hooks/useActions';
+import { getQuestions } from '../../../../selectors/quizSelectors';
 
-import MainButton from '../../../shared/components/buttons/MainButton';
-import UserChangeButtonsGroup from '../../../shared/components/buttons/ChangeButtonsGroup';
+import MainButton from '../../../../shared/components/buttons/MainButton';
+import ChangeButtonsGroup from '../../../../shared/components/buttons/ChangeButtonsGroup';
 
-import {  iQuestion } from '../../../types/iQuiz';
-import { FabricModalType } from '../../../types/iModal';
+import { iQuestion } from '../../../../types/iQuiz';
+import { FabricModalType } from '../../../../types/iModal';
 
 const WatchQuestions = () => {
-  console.group('----- WatchQuestions');
-
+  const { t } = useTranslation();
   const questions: iQuestion[] = useSelector(getQuestions);
   const { openModal } = useActions();
 
-  console.groupEnd();
   return (
     <section
       className="h-100 d-flex py-4 flex-column align-items-center"
@@ -27,11 +26,11 @@ const WatchQuestions = () => {
     >
       <div className="w-100 mb-3 position-relative">
         <h1 className="text-uppercase text-center fw-bold fs-3">
-          Актуальные вопросы
+          {t('adminPage.questions.title')}
         </h1>
         <div className="position-absolute top-50 translate-middle-y end-0 me-3">
           <MainButton
-            text="Новый вопрос"
+            text={t('adminPage.questions.btnNewUser')}
             onClick={() =>
               openModal({
                 modalType: FabricModalType.newQuestion,
@@ -61,12 +60,12 @@ const WatchQuestions = () => {
                           key={answer.id}
                           className={`col-6 border p-4 m-0 ${question.correctAnswerId === answer.id ? ' bg-primary-subtle' : ''}`}
                         >
-                          {`${answer.id.toLocaleUpperCase()}: ${answer.answer}`}
+                          {`${answer.id.toLocaleUpperCase()})  ${answer.answer}`}
                         </p>
                       );
                     })}
                   </div>
-                  <UserChangeButtonsGroup data={question} />
+                  <ChangeButtonsGroup data={question} />
                 </Accordion.Body>
               </Accordion.Item>
             );

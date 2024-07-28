@@ -2,8 +2,10 @@ import { typeModelData } from './types';
 
 // eslint-disable-next-line no-shadow
 export enum FabricModalType {
-  NewUser = 'showNewUserModal',
-  newQuestion = 'showNewQuestionModal',
+  newUser = 'newUserModal',
+  editUser = 'editUserModal',
+  newQuestion = 'newQuestionModal',
+  editQuestion = 'editQuestionModal',
   delConfirm = 'showDeleteModal',
   defaultValue = '',
 }

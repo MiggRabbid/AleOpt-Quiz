@@ -13,8 +13,7 @@ const useLocalStorage: iUseLocalStorage = {
   setUser: (data) => localStorage.setItem('user', JSON.stringify(data)),
   getUser: () => JSON.parse(localStorage.getItem('user') || 'null'),
   delUser: () => localStorage.removeItem('user'),
-  setResult: (data) =>
-    localStorage.setItem('result', JSON.stringify({ answers: data })),
+  setResult: (data) => localStorage.setItem('result', JSON.stringify({ answers: data })),
   getResult: () => JSON.parse(localStorage.getItem('result') || 'null'),
   delResult: () => localStorage.removeItem('result'),
 };

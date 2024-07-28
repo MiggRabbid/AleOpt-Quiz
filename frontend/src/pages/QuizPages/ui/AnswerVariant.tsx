@@ -8,9 +8,7 @@ interface QuestionsAnswerVariantProps {
   onClick: React.MouseEventHandler<HTMLElement>;
 }
 
-const QuestionsAnswerVariant: React.FC<QuestionsAnswerVariantProps> = (
-  props,
-) => {
+const QuestionsAnswerVariant: React.FC<QuestionsAnswerVariantProps> = (props) => {
   const { item, active, onClick } = props;
   return (
     <ListGroupItem

@@ -1,9 +1,6 @@
 import { ChartData, ChartOptions } from 'chart.js';
+
 import { CHART_COLORS } from './getSegmentColor';
-import {
-  iQuestionStatsForDoughnut,
-  typeDoughnut,
-} from '../../../../../../types/iStats';
 import {
   getDataEasyQuestionsDoughnut,
   getDataHardQuestionsDoughnut,
@@ -13,7 +10,9 @@ import {
   customTooltipTitle,
   customTooltipLabel,
   customTooltipFooter,
-} from '../Tooltip/utils/customTooltip';
+} from '../Tooltip/utils/customDoughnutTooltip';
+
+import { iQuestionStatsForDoughnut, typeDoughnut } from '../../../../../../types/iStats';
 
 export const getDatasetForDoughnut = (
   type: typeDoughnut,
@@ -55,6 +54,7 @@ export const getOptionsForDoughnut = (
         text: currLabel,
       },
       tooltip: {
+        intersect: true,
         titleFont: {
           size: 14,
         },
@@ -76,12 +76,12 @@ export const getOptionsForDoughnut = (
             return customTooltipFooter(questionsStats, context);
           },
         },
-        intersect: true,
         padding: 10,
         boxPadding: 5,
+        xAlign: 'center',
+        yAlign: 'top',
       },
     },
-    responsive: true,
-    cutout: 70,
+    cutout: 60,
   };
 };
