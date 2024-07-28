@@ -1,10 +1,12 @@
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
+
 import FormInput from '../../../shared/components/forms/InputFabric';
+import MainButton from '../../../shared/components/buttons/MainButton';
 
 interface iLoginFormProps {
   logIn: (values: { username: string; password: string }) => void;
@@ -18,6 +20,9 @@ const validationSchema = Yup.object({
 
 const LoginForm: React.FC<iLoginFormProps> = (props) => {
   const { logIn, error } = props;
+
+  const { t } = useTranslation();
+
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     validationSchema,
@@ -27,7 +32,6 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
         console.log('LoginPage response values - ', values);
         await logIn(values);
       } catch (e) {
-        if (e) console.log('auth e -', e);
         console.error(e);
       }
       setSubmitting(false);
@@ -35,48 +39,45 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
   });
 
   return (
-    <Form
-      className="col-12 col-md-6 mt-3 mt-mb-0"
-      onSubmit={formik.handleSubmit}
-    >
-      <h1 className="text-center mb-4">Авторизуйтесь</h1>
+    <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
+      <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
       <Form.Group className="mb-3">
         <FormInput
           className="w-100"
           controlId="inputUserName"
-          label="Введите логин"
+          label={t('loginPage.inputs.username')}
           height="50px"
           as="input"
           name="username"
-          placeholder="Введите логин"
+          placeholder={t('loginPage.inputs.username')}
           value={formik.values.username}
           onChange={formik.handleChange}
           isInvalid={!!formik.errors.username || !!error}
         />
       </Form.Group>
-      <Form.Group className="mb-4">
+
+      <Form.Group className="mb-3">
         <FormInput
           className="w-100"
           controlId="inputPassword"
-          label="Введите пароль"
+          label={t('loginPage.inputs.password')}
           height="50px"
           as="input"
           type="password"
           name="password"
-          placeholder="Введите пароль"
+          placeholder={t('loginPage.inputs.password')}
           value={formik.values.password}
           onChange={formik.handleChange}
           isInvalid={!!formik.errors.password || !!error}
         />
       </Form.Group>
 
-      <Button
+      <MainButton
+        text={t('loginPage.title')}
         type="submit"
-        variant="outline-primary"
-        className="w-100 py-2 mb-3"
-      >
-        Авторизоваться
-      </Button>
+        variant="outline-success"
+        style={{ height: '58px', width: '100%' }}
+      />
     </Form>
   );
 };

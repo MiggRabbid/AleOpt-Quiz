@@ -5,12 +5,13 @@ import { useSelector } from 'react-redux';
 import routes from '../../app/routes';
 import useAuth from '../../hooks/useAuth';
 import useActions from '../../hooks/useActions';
-import { getQuestionIndex, getQuestions } from '../../selectors/quizSelectors';
+import { getCurrentResult, getQuestionIndex, getQuestions } from '../../selectors/quizSelectors';
 
-import QuestionsFinished from './ui/QuestionsFinished';
-import QuestionsSection from './ui/QuestionsSection';
+import QuestionsFinished from './ui/QuizFinished';
+import QuestionsSection from './ui/QuizStepSection';
 
-import { iQuestion } from '../../types/interfaces/iQuiz';
+import { iQuestion } from '../../types/iQuiz';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const QuizPage = () => {
   console.group('----- QuizPage');
@@ -20,8 +21,12 @@ const QuizPage = () => {
 
   const questionsIndex = useSelector(getQuestionIndex);
   const questions = useSelector(getQuestions) as iQuestion[];
-  console.log('QuizPage data -', questions);
+  const currentResult = useSelector(getCurrentResult);
   const quantityQuestions = Object.keys(questions).length;
+
+  useEffect(() => {
+    if (currentResult.length > 0) useLocalStorage.setResult(currentResult);
+  }, [currentResult]);
 
   useEffect(() => {
     if (!user || quantityQuestions === 0) navigate(routes.MainPagePath());
@@ -35,16 +40,13 @@ const QuizPage = () => {
   console.groupEnd();
   return (
     <main
-      className="container-xxl h-100 p-0 mx-0 d-flex align-items-center justify-content-center"
-      style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
+      className="container-xxl h-100 my-2 mx-0 p-0 d-flex align-items-center justify-content-center"
+      style={{ minHeight: 'calc(100vh - 83px - 16px - 16px - 66px)' }}
       id="quizPage"
     >
-      <div className="p-0 w-100 d-flex justify-content-center align-content-center ">
+      <div className="h-100 w-100 p-0 d-flex justify-content-center align-content-center ">
         {questionsIndex < quantityQuestions ? (
-          <QuestionsSection
-            questions={questions}
-            quantityQuestions={quantityQuestions}
-          />
+          <QuestionsSection questions={questions} quantityQuestions={quantityQuestions} />
         ) : (
           <QuestionsFinished />
         )}

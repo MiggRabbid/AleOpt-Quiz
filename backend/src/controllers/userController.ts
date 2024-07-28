@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 
-import { Role, User } from "../models/models";
+import { Role, User } from '../models/models';
+import { iUserModel } from '../types/userTypes';
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const USER_NOT_FOUND_MESSAGE = 'User not found';
@@ -24,8 +25,21 @@ class UserController {
     return response.status(500).json({ message: NETWORK_ERROR_MESSAGE });
   }
 
-  private async getAllUsers(): Promise<any[]> {
-    return await User.find();
+  private async getAllUsers(): Promise<iUserModel[]> {
+    const allUser = await User.find();
+    return allUser;
+  }
+
+  async currentUser(request: Request, response: Response): Promise<Response> {
+    try {
+      const { username } = request.query;
+
+      const currentUser = await User.findOne({ username });
+
+      return response.json(currentUser);
+    } catch (e) {
+      return this.handleError(response, e, 'Error in allUsers:');
+    }
   }
 
   async allUsers(request: Request, response: Response): Promise<Response> {
@@ -34,8 +48,7 @@ class UserController {
         const { firstName, lastName, username, role } = user;
         return { firstName, lastName, username, role };
       });
-      console.log('users -', users);
-      console.groupEnd()
+
       return response.json(users);
     } catch (e) {
       return this.handleError(response, e, 'Error in allUsers:');
@@ -61,7 +74,7 @@ class UserController {
       }
 
       const hashPassword = bcrypt.hashSync(password, 5);
-      const userRole = await Role.findOne({ value: role.toUpperCase() });
+      const userRole = await Role.findOne({ value: role });
 
       const newUser = new User({
         firstName,
@@ -70,6 +83,7 @@ class UserController {
         password: hashPassword,
         role: userRole?.value,
       });
+      console.log('----- newUser newUser', newUser);
 
       await newUser.save();
 
@@ -123,4 +137,3 @@ class UserController {
 }
 
 export default new UserController();
-

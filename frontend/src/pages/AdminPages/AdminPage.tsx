@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 
 import routes from '../../app/routes';
@@ -8,14 +9,15 @@ import useActions from '../../hooks/useActions';
 import { useGetAllUsersQuery } from '../../app/store/api/users.api';
 import { useGetAllQuestionsQuery } from '../../app/store/api/quiz.api';
 
-import WatchUsers from './ui/WatchUsers';
-import WatchQuestions from './ui/WatchQuestions';
+import WatchUsers from './ui/WatchUser/WatchUsers';
+import WatchQuestions from './ui/WatchQuestions/WatchQuestions';
 
 import { typeApiResponse } from '../../types/types';
 
 const AdminPage = () => {
   console.group('----- AdminPage');
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user, isAdmin } = useAuth();
 
   useEffect(() => {
@@ -35,12 +37,10 @@ const AdminPage = () => {
   const { data: users } = useGetAllUsersQuery(headers);
 
   useEffect(() => {
-    console.log('--- questions -', questions);
-    if (questions) setQuestions(questions);
+    if (!!questions) setQuestions(questions);
   }, [questions]);
 
   useEffect(() => {
-    console.log('--- users     -', users);
     if (users) setUsers(users);
   }, [users]);
 
@@ -49,8 +49,8 @@ const AdminPage = () => {
 
   return (
     <main
-      className="container-xxl h-100 p-0 mx-0 rounded-0"
-      style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
+      className="container-xxl my-2 h-100 p-0 mx-0 rounded-0"
+      style={{ minHeight: 'calc(100vh - 83px - 16px - 16px - 66px)' }}
       id="adminPage"
     >
       <Tab.Container transition id="left-tabs-example" defaultActiveKey="users">
@@ -59,20 +59,20 @@ const AdminPage = () => {
             sm={3}
             className="h-auto p-0 bg-light rounded-start"
             style={{
-              minWidth: '170px',
-              maxWidth: '250px',
+              minWidth: '150px',
+              maxWidth: '200px',
               minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)',
             }}
           >
             <Nav variant="pills" className="h-100 flex-column pe-3 py-3">
               <Nav.Item>
                 <Nav.Link eventKey="users" className={navLinkClass}>
-                  Пользователи
+                  {t('adminPage.link.users')}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="questions" className={navLinkClass}>
-                  Вопросы
+                  {t('adminPage.link.questions')}
                 </Nav.Link>
               </Nav.Item>
             </Nav>

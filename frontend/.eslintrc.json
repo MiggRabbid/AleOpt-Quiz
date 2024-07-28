@@ -55,6 +55,7 @@
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
     "no-case-declarations":"off",
-    "react-hooks/exhaustive-deps":"warn"
+    "react-hooks/exhaustive-deps":"warn",
+    "no-shadow": ["warn"]
   }
 }

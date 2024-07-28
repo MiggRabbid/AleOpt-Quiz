@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 
-import { iAuthContext } from '../../types/interfaces/iAuth';
+import { iAuthContext } from '../../types/iAuth';
 
 const AuthContext = createContext<iAuthContext>({
   user: null,
-  UseLogin: () => {},
-  useLogout: () => {},
+  userLogin: () => {},
+  userLogout: () => {},
   getAuthHeader: () => {},
   isAdmin: () => false,
 });

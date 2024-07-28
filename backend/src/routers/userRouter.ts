@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
+
 import { userController } from '../controllers/controllers';
-import { roleMiddleware } from '../middleware/middleware';
-import { UserRoles } from '../models/Role';
+import { authMiddleware, roleMiddleware } from '../middleware/middleware';
+
+import { UserRoles } from '../types/userTypes';
 
 const VALIDATION_ERROR_USERNAME = 'Username must be between 4 and 20 characters';
 const VALIDATION_ERROR_PASSWORD = 'Password must be between 6 and 20 characters';
@@ -22,9 +24,15 @@ const validateName = [
 const validateNewUser = [...validateUsernameAndPassword, ...validateName];
 
 const userRouter = Router();
+userRouter.get('/user', authMiddleware, userController.currentUser);
 userRouter.get('/users', roleMiddleware(UserRoles.Admin), userController.allUsers);
 userRouter.post('/users', roleMiddleware(UserRoles.Admin), validateNewUser, userController.newUser);
-userRouter.put('/users/', roleMiddleware(UserRoles.Admin), validateNewUser, userController.editUser);
+userRouter.put(
+  '/users/',
+  roleMiddleware(UserRoles.Admin),
+  validateNewUser,
+  userController.editUser,
+);
 userRouter.delete('/users/', roleMiddleware(UserRoles.Admin), userController.deleteUser);
 
 export default userRouter;

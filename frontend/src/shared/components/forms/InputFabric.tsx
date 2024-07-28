@@ -4,7 +4,7 @@ import InputSelect from './InputSelect';
 import InputPass from './InputPass';
 import InputText from './InputText';
 
-import { iFormInputProps } from '../../../types/interfaces/iInputs';
+import { iFormInputProps } from '../../../types/iInputs';
 
 const FormInput: React.FC<iFormInputProps> = React.memo((props) => {
   const {

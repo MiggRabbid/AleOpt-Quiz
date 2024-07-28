@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { iUser, iUsersState } from '../../../types/interfaces/iUser';
+import { iUser, iUsersState } from '../../../types/iUser';
 
 const initialState: iUsersState = {
   users: null,
+  currentUser: null,
 };
 
 const userSlice = createSlice({
@@ -14,6 +15,12 @@ const userSlice = createSlice({
       return {
         ...state,
         users: action.payload,
+      };
+    },
+    setCurrentUser: (state, action: PayloadAction<iUser>) => {
+      return {
+        ...state,
+        currentUser: action.payload,
       };
     },
   },

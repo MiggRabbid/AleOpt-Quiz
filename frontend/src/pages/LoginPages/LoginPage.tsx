@@ -8,25 +8,25 @@ import { useLogInMutation } from '../../app/store/api/auth.api';
 import LoginForm from './ui/LoginForm';
 import BgLogin from '../../assets/login-img.jpg';
 
-import { iUser } from '../../types/interfaces/iUser';
+import { iUser } from '../../types/iUser';
 
 const LoginPage = () => {
   console.log('----- Login');
   const navigate = useNavigate();
+  const { user, userLogin } = useAuth();
   const [logIn, { data, error }] = useLogInMutation();
-  const { user, UseLogin } = useAuth();
 
   useEffect(() => {
-    if (user) navigate(routes.MainPagePath());
-  });
+    if (!!user) navigate(routes.MainPagePath());
+  }, [user, navigate]);
 
   useEffect(() => {
     if (error) console.log('auth error -', error);
     if (data) {
-      UseLogin(data as iUser);
+      userLogin(data as iUser);
       navigate(routes.MainPagePath());
     }
-  }, [data, error]);
+  }, [data, error, userLogin, navigate]);
 
   return (
     <div
@@ -38,12 +38,7 @@ const LoginPage = () => {
           <div className="card shadow-sm">
             <div className="card-body row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center position-relative">
-                <img
-                  src={BgLogin}
-                  alt="Simple Chat"
-                  className="rounded"
-                  style={{ width: 300 }}
-                />
+                <img src={BgLogin} alt="Simple Chat" className="rounded" style={{ width: 300 }} />
               </div>
               <LoginForm logIn={logIn} error={error} />
             </div>

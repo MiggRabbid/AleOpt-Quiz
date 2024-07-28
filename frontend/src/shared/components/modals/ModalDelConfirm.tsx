@@ -1,13 +1,16 @@
 import React, { useCallback } from 'react';
-import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { Form, InputGroup, Modal } from 'react-bootstrap';
 
 import useAuth from '../../../hooks/useAuth';
 import useActions from '../../../hooks/useActions';
 import { useDeleteUserMutation } from '../../../app/store/api/users.api';
 import { useDeleteQuestionMutation } from '../../../app/store/api/quiz.api';
 
-import { iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUser } from '../../../types/interfaces/iUser';
+import MainButton from '../buttons/MainButton';
+
+import { iQuestion } from '../../../types/iQuiz';
+import { iUser } from '../../../types/iUser';
 import { typeApiResponse } from '../../../types/types';
 
 interface iModalDelConfirmProps {
@@ -19,8 +22,10 @@ interface iModalDelConfirmProps {
 const ModalDelConfirm: React.FC<iModalDelConfirmProps> = React.memo((props) => {
   const { modalState, onHide, data } = props;
   const { getAuthHeader } = useAuth();
+  const { t } = useTranslation();
   const headers = getAuthHeader() as typeApiResponse;
   const { setUsers, setQuestions } = useActions();
+
   const [deleteUser] = useDeleteUserMutation();
   const [deleteQuestion] = useDeleteQuestionMutation();
 
@@ -48,18 +53,10 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = React.memo((props) => {
     } finally {
       onHide();
     }
-  }, [
-    data,
-    deleteUser,
-    deleteQuestion,
-    headers,
-    onHide,
-    setUsers,
-    setQuestions,
-  ]);
+  }, [data, deleteUser, deleteQuestion, headers, onHide, setUsers, setQuestions]);
 
   const renderUserData = (user: iUser) => (
-    <Modal.Body className="w-100 d-flex flex-row justify-content-center gap-2">
+    <Modal.Body className="w-100 my-3 d-flex flex-row justify-content-center gap-2">
       <InputGroup className="w-50">
         <InputGroup.Text id="firstName">Имя:</InputGroup.Text>
         <Form.Control
@@ -84,8 +81,8 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = React.memo((props) => {
   );
 
   const renderQuestionData = (question: iQuestion) => (
-    <Modal.Body>
-      <InputGroup className="w-auto my-2 mx-5">
+    <Modal.Body className="w-100 my-3 d-flex flex-row justify-content-center gap-2">
+      <InputGroup className="w-100 my-2 mx-3">
         <InputGroup.Text id="question" className="">
           Вопрос:
         </InputGroup.Text>
@@ -113,22 +110,28 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = React.memo((props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title className="ps-4 m-auto text-uppercase fs-5 fw-bold">
-          Подтвердите удаление{' '}
+          {t('shared.modals.confirmDel')}
           {'question' in data
-            ? `вопроса №${data.id}`
-            : `пользователя - ${data.username}`}
+            ? `${t('shared.modals.questionDel')}${data.id}`
+            : `${t('shared.modals.userDel')}${data.username}`}
         </Modal.Title>
       </Modal.Header>
 
       {'question' in data ? renderQuestionData(data) : renderUserData(data)}
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          Отменить
-        </Button>
-        <Button variant="primary" onClick={handleDelButton}>
-          Удалить
-        </Button>
+        <MainButton
+          variant="outline-primary"
+          text={t('shared.modals.btnCancel')}
+          type="button"
+          onClick={onHide}
+        />
+        <MainButton
+          variant="outline-danger"
+          text={t('shared.modals.btnDelete')}
+          type="button"
+          onClick={handleDelButton}
+        />
       </Modal.Footer>
     </Modal>
   );

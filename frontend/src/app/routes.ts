@@ -12,11 +12,11 @@ export default {
   loginRequestPath: () => [API_PATH, 'auth', 'login'].join('/'),
   signupRequestPath: () => [API_PATH, 'auth', 'signup'].join('/'),
 
+  curUserRequestPath: () => [API_PATH, 'data', 'user'].join('/'),
   usersRequestPath: () => [API_PATH, 'data', 'users'].join('/'),
-  editUserRequestPath: (param: string) =>
-    [API_PATH, 'data', `users?username=${param}`].join('/'),
 
   questionsRequestPath: () => [API_PATH, 'data', 'questions'].join('/'),
-  editQuestionRequestPath: (param: string) =>
-    [API_PATH, 'data', `questions?id=${param}`].join('/'),
+
+  allStatsRequestPath: () => [API_PATH, 'data', 'results'].join('/'),
+  userStatsRequestPath: () => [API_PATH, 'data', 'result'].join('/'),
 };

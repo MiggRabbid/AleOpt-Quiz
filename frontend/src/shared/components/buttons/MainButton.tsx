@@ -6,11 +6,12 @@ type typeMainButtonProps = {
   style?: Record<string, string>;
   text: string;
   variant?: string;
+  disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const MainButton: React.FC<typeMainButtonProps> = React.memo((props) => {
-  const { type, style, text, variant, onClick } = props;
+  const { type, style, text, variant, disabled, onClick } = props;
 
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,6 +34,7 @@ const MainButton: React.FC<typeMainButtonProps> = React.memo((props) => {
       style={style}
       className="px-2 py-1m"
       onClick={handleClick}
+      disabled={disabled}
     >
       {text}
     </Button>
@@ -45,6 +47,7 @@ MainButton.defaultProps = {
   type: 'button',
   style: { height: '50px', width: '200px' },
   variant: 'outline-primary',
+  disabled: false,
 };
 
 export default MainButton;

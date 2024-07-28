@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { iQuizState, iQuestion } from '../../../types/interfaces/iQuiz';
-import { iUserAnswer } from '../../../types/interfaces/iUser';
+import { iQuizState, iQuestion } from '../../../types/iQuiz';
+import { iUserAnswer } from '../../../types/iUser';
 
 const initialState: iQuizState = {
   isStarted: false,
@@ -26,6 +26,15 @@ const quizSlice = createSlice({
         questions: action.payload,
       };
     },
+    setCurrentResult: (state, action: PayloadAction<iUserAnswer[]>) => {
+      console.log('setCurrentResult', action.payload.length);
+      console.log('setCurrentResult', action.payload);
+      return {
+        ...state,
+        questionIndex: action.payload.length,
+        currentResult: action.payload,
+      };
+    },
     addAnswer: (state, action: PayloadAction<iUserAnswer>) => {
       return {
         ...state,
@@ -36,6 +45,13 @@ const quizSlice = createSlice({
       return {
         ...state,
         questionIndex: state.questionIndex + 1,
+      };
+    },
+    clearCurrentResult: (state) => {
+      return {
+        ...state,
+        currentResult: [],
+        questionIndex: 0,
       };
     },
   },

@@ -1,18 +1,18 @@
 import { useState, ReactNode, useMemo } from 'react';
 
 import AuthContext from '../context/index';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
-import { iUser, UserRoles } from '../../types/interfaces/iUser';
+import { iUser, UserRoles } from '../../types/iUser';
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  console.log('----- AuthProvider');
-  const currentUserString = localStorage.getItem('user');
-  const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
+  const currentUser = useLocalStorage.getUser();
   const [user, setUser] = useState(currentUser);
 
-  const UseLogin = (data: iUser) => {
+  const userLogin = (data: iUser) => {
     if (data === undefined) return;
-    localStorage.setItem('user', JSON.stringify(data));
+    useLocalStorage.delResult();
+    useLocalStorage.setUser(data);
     setUser({
       role: data.role,
       username: data.username,
@@ -20,36 +20,34 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const useLogout = () => {
-    localStorage.removeItem('user');
+  const userLogout = () => {
+    useLocalStorage.delResult();
+    useLocalStorage.delUser();
     setUser(null);
   };
 
   const getAuthHeader = () => {
-    const localUser = JSON.parse(localStorage.getItem('user') || 'null');
-    if (localUser && localUser.token) {
+    const localUser = useLocalStorage.getUser();
+    if (!!localUser && localUser.token) {
       return { Authorization: `Bearer ${localUser.token}` };
     }
     return {};
   };
 
-  const isAdmin = (verifiableUser: iUser): boolean =>
-    verifiableUser.role === UserRoles.Admin;
+  const isAdmin = (verifiableUser: iUser): boolean => verifiableUser.role === UserRoles.Admin;
 
   const authValue = useMemo(
     () => ({
       user,
-      UseLogin,
-      useLogout,
+      userLogin,
+      userLogout,
       getAuthHeader,
       isAdmin,
     }),
     [user],
   );
 
-  return (
-    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

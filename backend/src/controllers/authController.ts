@@ -5,7 +5,8 @@ import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
 import { User } from '../models/models';
-import { iUserModel } from '../models/User';
+
+import { iUserModel } from '../types/userTypes';
 
 dotenv.config();
 
@@ -21,14 +22,10 @@ const getAccessToken = (role: string, username: string): string => {
 
 class AuthController {
   async login(request: Request, response: Response): Promise<Response> {
-    console.group('----- login', request.body);
-    console.log('request.body', request.body);
     try {
       const validationError = validationResult(request);
 
       if (!validationError.isEmpty()) {
-        console.log(validationError);
-        console.groupEnd();
         return response
           .status(400)
           .json({ message: validationError.array()[0].msg, validationError });
@@ -36,35 +33,24 @@ class AuthController {
 
       const { username, password } = request.body;
       const user = (await User.findOne({ username })) as iUserModel;
-      console.log('----- login user - ', user);
+      console.log(`----- login - ${user.firstName} ${user.lastName} - ${user.username}`);
       const { role } = user;
 
       if (!user) {
-        console.groupEnd();
-        return response
-          .status(400)
-          .json({ message: `User ${username} not found` });
+        return response.status(400).json({ message: `User ${username} not found` });
       }
 
       const isValidPassword = bcrypt.compareSync(password, user.password);
-      console.log('----- login isValidPassword - ', user);
 
       if (!isValidPassword) {
-        console.groupEnd();
-        return response
-          .status(400)
-          .json({ message: 'Incorrect password entered' });
+        return response.status(400).json({ message: 'Incorrect password entered' });
       }
 
-      const token = getAccessToken(
-        user.role as string,
-        user.username,
-      );
+      const token = getAccessToken(user.role as string, user.username);
 
-      console.groupEnd();
       return response.json({ token, username, role });
     } catch (e) {
-      console.log('---- authController', e);
+      console.error('---- authController', e);
       return response.status(400).json({ message: 'Authorization error' });
     }
   }

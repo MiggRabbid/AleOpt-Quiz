@@ -19,10 +19,7 @@ const NotFound = () => {
         </p>
         <p className="lead">Но вы можете перейти на главную страницу</p>
         <br />
-        <Button
-          variant="outline-dark"
-          onClick={() => navigate(routes.MainPagePath())}
-        >
+        <Button variant="outline-dark" onClick={() => navigate(routes.MainPagePath())}>
           Вернуться
         </Button>
       </div>

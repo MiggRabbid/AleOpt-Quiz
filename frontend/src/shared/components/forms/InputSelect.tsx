@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { Form, FloatingLabel } from 'react-bootstrap';
 
-import { iInputSelectProps } from '../../../types/interfaces/iInputs';
+import { iInputSelectProps } from '../../../types/iInputs';
 
 const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
   const {
@@ -25,19 +25,15 @@ const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
   );
 
   useEffect(() => {
-    console.log('placeholder -', placeholder);
+    console.log('InputSelect placeholder -', placeholder);
   }, [placeholder]);
 
   useEffect(() => {
-    console.log('value -', value);
+    console.log('InputSelect value -', value);
   }, [value]);
 
   return (
-    <FloatingLabel
-      className={className || 'col-11 col-sm-5'}
-      controlId={controlId}
-      label={label}
-    >
+    <FloatingLabel className={className || 'col-11 col-sm-5'} controlId={controlId} label={label}>
       <Form.Select
         required
         name={name}
@@ -51,7 +47,7 @@ const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
         {options &&
           Object.entries(options).map(([key, currValue]) => {
             return (
-              <option key={key} value={key}>
+              <option key={key} value={key} selected={currValue === value}>
                 {currValue}
               </option>
             );

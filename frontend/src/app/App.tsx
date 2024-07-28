@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  Outlet,
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './App.css';
@@ -23,35 +17,20 @@ import NotFound from '../pages/404Pages/404NotFound.tsx';
 import ModalFabric from '../shared/components/modals/ModalFabric.tsx';
 
 const PrivateUserOutlet = () => {
-  console.group('----- PrivateUserOutlet');
-
-  const { user, isAdmin } = useAuth();
-  console.log(!!user, user);
-
-  if (user) console.log(isAdmin(user));
-
-  console.groupEnd();
+  const { user } = useAuth();
   return user ? <Outlet /> : <Navigate to={routes.loginPagePath()} />;
 };
 
 const PrivateAdminOutlet = () => {
-  console.group('----- PrivateAdminOutlet');
-
   const { user, isAdmin } = useAuth();
-  console.log(!!user, user);
 
   if (user) console.log(isAdmin(user));
 
-  console.groupEnd();
-  return !!user && isAdmin(user) ? (
-    <Outlet />
-  ) : (
-    <Navigate to={routes.MainPagePath()} />
-  );
+  return !!user && isAdmin(user) ? <Outlet /> : <Navigate to={routes.MainPagePath()} />;
 };
 
 const App = () => {
-  console.group('----- initApp');
+  console.group('----- App');
 
   const modalState = useSelector(getModalState);
 

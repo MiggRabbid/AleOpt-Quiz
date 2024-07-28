@@ -1,19 +1,19 @@
 import { Provider } from 'react-redux';
 
 import { store } from './store/index';
+import { AuthProvider, I18nProvider } from './providers/Providers';
 
-import { AuthProvider } from './providers/Providers';
 import App from './App';
 
 const initApp = () => {
-  console.group('----- initApp');
-  console.groupEnd();
   return (
-    <AuthProvider>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </AuthProvider>
+    <I18nProvider>
+      <AuthProvider>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </AuthProvider>
+    </I18nProvider>
   );
 };
 
