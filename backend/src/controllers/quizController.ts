@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 
 import sortAscending from '../utils/sortAscending';
-import { Question } from "../models/models";
+import { Question } from '../models/models';
+import { iQuestionModel } from '../types/quizTypes';
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const QUESTION_NOT_FOUND_MESSAGE = 'Question not found';
@@ -23,7 +24,7 @@ class QuizController {
     return response.status(500).json({ message: NETWORK_ERROR_MESSAGE });
   }
 
-  private async getSortedQuestions(): Promise<any[]> {
+  private async getSortedQuestions(): Promise<iQuestionModel[]> {
     const questions = await Question.find();
     return sortAscending(questions);
   }
@@ -83,8 +84,6 @@ class QuizController {
       return this.handleError(response, e, 'Error in deleteQuestion:');
     }
   }
-};
+}
 
 export default new QuizController();
-
-

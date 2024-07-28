@@ -1,9 +1,9 @@
-import dotenv from "dotenv";
-import express from "express";
-import mongoose, { ConnectOptions } from "mongoose";
-import cors from "cors";
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose, { ConnectOptions } from 'mongoose';
+import cors from 'cors';
 
-import router from "./routers/router";
+import router from './routers/router';
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ const DB_URI = `${DB_SCHEME}://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_OPT
 // const DB_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@aleopt-quiz.b83cvlz.mongodb.net/?retryWrites=true&w=majority&appName=AleOpt-Quiz`;
 
 const clientOptions: ConnectOptions = {
-  serverApi: { version: "1", strict: true, deprecationErrors: true },
+  serverApi: { version: '1', strict: true, deprecationErrors: true },
 };
 
 const app = express();
@@ -35,11 +35,11 @@ const start = async () => {
   try {
     await mongoose.connect(DB_URI, clientOptions);
     await mongoose.connection.db.admin().command({ ping: 1 });
-    console.log(`START SERVER - mongoose connect is ready`)
+    console.log(`START SERVER - mongoose connect is ready`);
 
     app.listen(PORT, () => console.log(`START SERVER - port: ${PORT}`));
   } catch (e) {
-    console.error("----- start", e);
+    console.error('----- start', e);
   }
 };
 

@@ -1,7 +1,7 @@
 // backend/src/models/Question.ts
 import { Schema, model } from 'mongoose';
 
-import { iAnswer, iQuestionModel } from '../types/quizTypes'
+import { iAnswer, iQuestionModel } from '../types/quizTypes';
 
 const AnswerSchema = new Schema<iAnswer>({
   questionId: { type: String, required: true },

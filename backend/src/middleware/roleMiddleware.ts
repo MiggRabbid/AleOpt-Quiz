@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
 
 dotenv.config();
 
@@ -8,7 +8,7 @@ const secret = process.env.SECRET_KEY || '';
 
 const roleMiddleware = (role: string) => {
   return (request: Request, response: Response, next: NextFunction): void => {
-    if (request.method === "OPTIONS") {
+    if (request.method === 'OPTIONS') {
       next();
     }
 
@@ -16,7 +16,7 @@ const roleMiddleware = (role: string) => {
       const token = request.headers.authorization?.split(' ')[1];
 
       if (!token) {
-        response.status(403).json({ message: "User is not authorized" });
+        response.status(403).json({ message: 'User is not authorized' });
         return;
       }
 
@@ -28,16 +28,16 @@ const roleMiddleware = (role: string) => {
 
       console.log(`----- roleMiddleware - ${JSON.stringify(decodedData)}`);
       if (!isAdmin && !isOwner) {
-        response.status(403).json({ message: "User is not admin or not owner" });
+        response.status(403).json({ message: 'User is not admin or not owner' });
         return;
       }
-      
+
       next();
     } catch (e) {
       console.error('---- roleMiddleware', e);
-      response.status(403).json({ message: "User is not admin" });
+      response.status(403).json({ message: 'User is not admin' });
     }
-  }
+  };
 };
 
 export default roleMiddleware;

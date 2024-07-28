@@ -12,4 +12,3 @@ router.use('/data', quizRouter);
 router.use('/data', resultsRouter);
 
 export default router;
-

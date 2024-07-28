@@ -1,19 +1,18 @@
 import { iResultEntry, iResultModel, iUserAnswer } from '../../types/resultTypes';
 import { iAverageAttempts, iUserStats, typeAnswerId } from '../../types/statsTypes';
 
-const getAverageResult = (attempts: iResultEntry[]): number => {
-  const currDivisor = (attempts.length)
+export const getAverageResult = (attempts: iResultEntry[]): number => {
+  const currDivisor = attempts.length;
 
   const sumPercentage = attempts.reduce((acc, item: iResultEntry) => {
-    const currPercentage = (item.correctAnswers / item.answers.length * 100);
-    acc = acc +  currPercentage;
-    return acc
+    const currPercentage = (item.correctAnswers / item.answers.length) * 100;
+    return acc + currPercentage;
   }, 0);
 
   return Math.floor(sumPercentage / currDivisor);
-}
+};
 
-const getAverageAttempts = (attempts: iResultEntry[]): iAverageAttempts => {
+export const getAverageAttempts = (attempts: iResultEntry[]): iAverageAttempts => {
   const averageAttempts = attempts.reduce((acc: iAverageAttempts, item: iResultEntry) => {
     item.answers.forEach((el: iUserAnswer) => {
       const questionKey = el.questionId;
@@ -40,10 +39,10 @@ const getAverageAttempts = (attempts: iResultEntry[]): iAverageAttempts => {
   }, {});
 
   return averageAttempts;
-}
+};
 
 export const getUserStats = (userResults: iResultModel): iUserStats => {
-  const { username, attempts } = userResults
+  const { username, attempts } = userResults;
   return {
     username,
     attempts,
@@ -51,4 +50,4 @@ export const getUserStats = (userResults: iResultModel): iUserStats => {
     averageResult: getAverageResult(attempts),
     averageAttempts: getAverageAttempts(attempts),
   };
-}
+};

@@ -6,7 +6,7 @@ import { authMiddleware, roleMiddleware } from '../middleware/middleware';
 import { UserRoles } from '../types/userTypes';
 
 const resultsRouter = Router();
-resultsRouter.get('/results', roleMiddleware(UserRoles.Admin),  resultController.allResults);
+resultsRouter.get('/results', roleMiddleware(UserRoles.Admin), resultController.allResults);
 resultsRouter.post('/result', authMiddleware, resultController.addResult);
 resultsRouter.get('/result', authMiddleware, resultController.userResult);
 

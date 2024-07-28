@@ -27,7 +27,12 @@ const userRouter = Router();
 userRouter.get('/user', authMiddleware, userController.currentUser);
 userRouter.get('/users', roleMiddleware(UserRoles.Admin), userController.allUsers);
 userRouter.post('/users', roleMiddleware(UserRoles.Admin), validateNewUser, userController.newUser);
-userRouter.put('/users/', roleMiddleware(UserRoles.Admin), validateNewUser, userController.editUser);
+userRouter.put(
+  '/users/',
+  roleMiddleware(UserRoles.Admin),
+  validateNewUser,
+  userController.editUser,
+);
 userRouter.delete('/users/', roleMiddleware(UserRoles.Admin), userController.deleteUser);
 
 export default userRouter;

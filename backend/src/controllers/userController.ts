@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 
-import { Role, User } from "../models/models";
+import { Role, User } from '../models/models';
+import { iUserModel } from '../types/userTypes';
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const USER_NOT_FOUND_MESSAGE = 'User not found';
@@ -24,15 +25,16 @@ class UserController {
     return response.status(500).json({ message: NETWORK_ERROR_MESSAGE });
   }
 
-  private async getAllUsers(): Promise<any[]> {
-    return await User.find();
+  private async getAllUsers(): Promise<iUserModel[]> {
+    const allUser = await User.find();
+    return allUser;
   }
 
   async currentUser(request: Request, response: Response): Promise<Response> {
     try {
       const { username } = request.query;
 
-      const currentUser = await User.findOne({ username })
+      const currentUser = await User.findOne({ username });
 
       return response.json(currentUser);
     } catch (e) {
@@ -46,7 +48,7 @@ class UserController {
         const { firstName, lastName, username, role } = user;
         return { firstName, lastName, username, role };
       });
-      
+
       return response.json(users);
     } catch (e) {
       return this.handleError(response, e, 'Error in allUsers:');
@@ -81,7 +83,7 @@ class UserController {
         password: hashPassword,
         role: userRole?.value,
       });
-      console.log('----- newUser newUser', newUser)
+      console.log('----- newUser newUser', newUser);
 
       await newUser.save();
 
@@ -135,4 +137,3 @@ class UserController {
 }
 
 export default new UserController();
-

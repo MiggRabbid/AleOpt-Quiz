@@ -17,5 +17,5 @@ export interface iUserModel extends Document {
   lastName: string;
   username: string;
   password: string;
-  results?: Array<Record<string, string>>
+  results?: Array<Record<string, string>>;
 }

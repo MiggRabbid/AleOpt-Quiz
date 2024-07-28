@@ -37,23 +37,16 @@ class AuthController {
       const { role } = user;
 
       if (!user) {
-        return response
-          .status(400)
-          .json({ message: `User ${username} not found` });
+        return response.status(400).json({ message: `User ${username} not found` });
       }
 
       const isValidPassword = bcrypt.compareSync(password, user.password);
 
       if (!isValidPassword) {
-        return response
-          .status(400)
-          .json({ message: 'Incorrect password entered' });
+        return response.status(400).json({ message: 'Incorrect password entered' });
       }
 
-      const token = getAccessToken(
-        user.role as string,
-        user.username,
-      );
+      const token = getAccessToken(user.role as string, user.username);
 
       return response.json({ token, username, role });
     } catch (e) {

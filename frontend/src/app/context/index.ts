@@ -4,8 +4,8 @@ import { iAuthContext } from '../../types/iAuth';
 
 const AuthContext = createContext<iAuthContext>({
   user: null,
-  UseLogin: () => {},
-  useLogout: () => {},
+  userLogin: () => {},
+  userLogout: () => {},
   getAuthHeader: () => {},
   isAdmin: () => false,
 });

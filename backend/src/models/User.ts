@@ -1,7 +1,6 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 import { iUserModel } from '../types/userTypes';
-
 
 const UserSchema = new Schema<iUserModel>({
   role: { type: String, ref: 'Role' },

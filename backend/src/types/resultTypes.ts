@@ -18,4 +18,3 @@ export interface iResultModel extends Document {
   username: string;
   attempts: iResultEntry[];
 }
-
