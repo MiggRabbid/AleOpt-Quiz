@@ -1,6 +1,6 @@
 const API_PATH = '/api';
 
-export const BASE_SERVER_URL = 'http://localhost:5000/';
+export const BASE_SERVER_URL = process.env.VITE_SERVER_URL;
 
 export default {
   MainPagePath: () => '/',
