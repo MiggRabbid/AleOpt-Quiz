@@ -5,8 +5,6 @@
   "main": "src/index.js",
   "type": "commonjs",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
     "dev": "nodemon",
     "lint": "npx eslint --ext ts,tsx --no-eslintrc --config .eslintrc.json .",
     "fix": "npx eslint --fix ."
