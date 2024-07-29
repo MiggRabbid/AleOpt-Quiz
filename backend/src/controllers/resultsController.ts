@@ -57,11 +57,8 @@ class ResultController {
   async addResult(request: Request, response: Response): Promise<Response> {
     const { answers, data } = request.body;
     const { username } = request.query;
-    console.log('----- addResult');
+
     if (!username || !data || !answers) {
-      console.log('username -', username);
-      console.log('data -', data);
-      console.log('answers -', answers);
       return response.status(400).json({ message: RESULT_NOT_FOUND_MESSAGE });
     }
     try {

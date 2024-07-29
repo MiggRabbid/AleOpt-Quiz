@@ -44,7 +44,7 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
   });
 
   return (
-    <section className="w-100 h-100 col-12 col-md-10 h-5em col-xxl-8 col-12 d-flex flex-row flex-wrap align-items-start justify-content-evenly">
+    <section className="w-100 h-100 col-12 col-md-10 h-5em col-xxl-8 col-12 d-flex flex-row flex-wrap align-items-start justify-content-start">
       {!!userStats && (
         <>
           <div className="h-100 w-100 mb-4 d-flex flex-row">
