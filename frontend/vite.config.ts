@@ -1,15 +1,26 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+  import { defineConfig } from 'vite';
+  import react from '@vitejs/plugin-react';
 
-export default defineConfig({
-  plugins: [react()],
-  build: {
-    outDir: 'dist',
-    rollupOptions: {
-      input: {
-        main: 'index.html',
+
+  function changeScriptType() {
+    return {
+      name: 'change-script-type',
+      transformIndexHtml(html) {
+        return html.replace(/<script type="module" /g, '<script type="script" ');
+      }
+    };
+  }
+
+  export default defineConfig({
+    plugins: [react(), changeScriptType()],
+    build: {
+      
+      outDir: 'dist',
+      rollupOptions: {
+        input: {
+          main: 'index.html',
+        },
       },
     },
-  },
-  appType: 'spa',
-});
+    appType: 'spa',
+  });
