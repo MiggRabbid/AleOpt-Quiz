@@ -5,7 +5,7 @@ import { iAnswer, iQuestionModel } from '../types/quizTypes';
 
 const AnswerSchema = new Schema<iAnswer>({
   questionId: { type: String, required: true },
-  id: { type: String, unique: true, required: true },
+  id: { type: String, required: true },
   answer: { type: String, required: true },
 });
 

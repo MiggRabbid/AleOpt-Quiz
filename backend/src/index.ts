@@ -11,7 +11,8 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 
 const DB_USERNAME = process.env.REACT_APP_DB_USERNAME as string;
 const DB_PASSWORD = process.env.REACT_APP_DB_PASSWORD as string;
-const APP_NAME = process.env.REACT_APP_NAME as string;
+const APP_NAME = process.env.REACT_APP_APP_NAME as string;
+const DB_NAME = process.env.REACT_APP_DB_NAME as string;
 
 const DB_SCHEME = process.env.REACT_APP_DB_URI_SCHEME as string;
 const DB_HOST = process.env.REACT_APP_DB_URI_HOST as string;
@@ -19,10 +20,9 @@ const DB_OPTIONS = process.env.REACT_APP_DB_URI_OPTIONS as string;
 
 const DB_URI = `${DB_SCHEME}://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_OPTIONS}${APP_NAME}`;
 
-// const DB_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@aleopt-quiz.b83cvlz.mongodb.net/?retryWrites=true&w=majority&appName=AleOpt-Quiz`;
-
 const clientOptions: ConnectOptions = {
   serverApi: { version: '1', strict: true, deprecationErrors: true },
+  dbName: DB_NAME,
 };
 
 const app = express();

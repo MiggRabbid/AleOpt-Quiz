@@ -12,7 +12,7 @@ const StartQuizCard = () => {
 
   return (
     <section className="w-100 h-100 px-0 col-12 col-md-10 col-xxl-8 col-12 d-flex flex-column align-items-end justify-content-center gap-3">
-      <div className="d-flex flex-row align-items-center justify-content-end gap-2">
+      <div className="d-flex flex-row align-items-center justify-content-center gap-2">
         <p className="p-0 m-0 text-end text-uppercase fs-5 fw-semibold">
           {t('mainPage.startQuiz.title')}
         </p>

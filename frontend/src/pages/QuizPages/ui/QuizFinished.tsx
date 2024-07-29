@@ -53,6 +53,7 @@ const QuestionsFinished = () => {
         data: getFormattedDate(),
         answers: currentResult,
       };
+
       await addUserStats({
         headers,
         body,
