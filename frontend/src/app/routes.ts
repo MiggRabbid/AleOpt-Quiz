@@ -1,6 +1,7 @@
 const API_PATH = '/api';
 
-export const BASE_SERVER_URL = process.env.VITE_SERVER_URL;
+// export const BASE_SERVER_URL = process.env.VITE_SERVER_URL;
+export const BASE_SERVER_URL = 'https://aleoptquizdb.vercel.app';
 
 export default {
   MainPagePath: () => '/',
