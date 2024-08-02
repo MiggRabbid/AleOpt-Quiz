@@ -1,35 +1,31 @@
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
 
-import FormInput from '../../../shared/components/forms/InputFabric';
-import MainButton from '../../../shared/components/buttons/MainButton';
+import FormInput from '../../../../shared/components/forms/InputFabric';
+import MainButton from '../../../../shared/components/buttons/MainButton';
+
+import { iAuthError } from '../../../../types/iAuth';
+import getValidationSchema from './utils/validationSchema';
 
 interface iLoginFormProps {
   logIn: (values: { username: string; password: string }) => void;
-  error?: FetchBaseQueryError | SerializedError | undefined;
+  error: iAuthError;
+  isError: boolean;
+  isLoading: boolean;
 }
 
-const validationSchema = Yup.object({
-  username: Yup.string().required('Логин обязателен'),
-  password: Yup.string().required('Пароль обязателен'),
-});
-
 const LoginForm: React.FC<iLoginFormProps> = (props) => {
-  const { logIn, error } = props;
+  const { logIn, error, isError, isLoading } = props;
 
   const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: { username: '', password: '' },
-    validationSchema,
+    validationSchema: getValidationSchema(t),
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        console.log('LoginPage response values - ', values);
         await logIn(values);
       } catch (e) {
         console.error(e);
@@ -52,11 +48,13 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
           placeholder={t('loginPage.inputs.username')}
           value={formik.values.username}
           onChange={formik.handleChange}
-          isInvalid={!!formik.errors.username || !!error}
+          isInvalid={!!formik.errors.username || !!isError}
+          error={formik.errors.username}
+          isDisable={isLoading}
         />
       </Form.Group>
 
-      <Form.Group className="mb-3">
+      <Form.Group className="mb-4">
         <FormInput
           className="w-100"
           controlId="inputPassword"
@@ -68,7 +66,9 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
           placeholder={t('loginPage.inputs.password')}
           value={formik.values.password}
           onChange={formik.handleChange}
-          isInvalid={!!formik.errors.password || !!error}
+          isInvalid={!!formik.errors.password || !!isError}
+          error={formik.errors.password || t(`errors.${error?.data.errorType}`)}
+          isDisable={isLoading}
         />
       </Form.Group>
 

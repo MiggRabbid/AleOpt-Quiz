@@ -37,13 +37,17 @@ class ResultController {
     const { username } = request.query;
 
     if (!username) {
-      return response.status(400).json({ message: RESULT_NOT_FOUND_MESSAGE });
+      return response
+        .status(400)
+        .json({ message: RESULT_NOT_FOUND_MESSAGE, typeError: 'Request parameters error' });
     }
 
     try {
       const userResults = await Results.findOne({ username });
       if (!userResults) {
-        return response.status(404).json({ message: RESULT_NOT_FOUND_MESSAGE });
+        return response
+          .status(404)
+          .json({ message: RESULT_NOT_FOUND_MESSAGE, typeError: 'Request parameters error' });
       }
 
       const userStats = getUserStats(userResults);

@@ -14,6 +14,8 @@ export interface iFormInputProps {
   options?: Record<string, string>;
   className?: string;
   isDisable?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error: any;
 }
 
 export interface iInputTextProps
@@ -26,6 +28,7 @@ export interface iInputPassProps
   style: Record<string, string>;
 }
 
-export interface iInputSelectProps extends Omit<iFormInputProps, 'height' | 'as' | 'type'> {
+export interface iInputSelectProps
+  extends Omit<iFormInputProps, 'height' | 'as' | 'type' | 'error'> {
   style: Record<string, string>;
 }

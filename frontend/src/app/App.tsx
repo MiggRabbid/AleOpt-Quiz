@@ -23,9 +23,6 @@ const PrivateUserOutlet = () => {
 
 const PrivateAdminOutlet = () => {
   const { user, isAdmin } = useAuth();
-
-  if (user) console.log(isAdmin(user));
-
   return !!user && isAdmin(user) ? <Outlet /> : <Navigate to={routes.MainPagePath()} />;
 };
 

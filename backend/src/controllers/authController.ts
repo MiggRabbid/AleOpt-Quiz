@@ -22,6 +22,7 @@ const getAccessToken = (role: string, username: string): string => {
 
 class AuthController {
   async login(request: Request, response: Response): Promise<Response> {
+    console.log(`----- login start`);
     try {
       const validationError = validationResult(request);
 
@@ -33,25 +34,28 @@ class AuthController {
 
       const { username, password } = request.body;
       const user = (await User.findOne({ username })) as iUserModel;
-      console.log(`----- login - ${user.firstName} ${user.lastName} - ${user.username}`);
-      const { role } = user;
-
       if (!user) {
-        return response.status(400).json({ message: `User ${username} not found` });
+        return response
+          .status(401)
+          .json({ message: `Invalid username or password`, errorType: 'InvalidUserData' });
       }
 
       const isValidPassword = bcrypt.compareSync(password, user.password);
 
       if (!isValidPassword) {
-        return response.status(400).json({ message: 'Incorrect password entered' });
+        return response
+          .status(401)
+          .json({ message: 'Invalid username or password', errorType: 'InvalidUserData' });
       }
 
+      const { role } = user;
       const token = getAccessToken(user.role as string, user.username);
 
+      console.log(`----- login - ${user?.firstName} ${user?.lastName} - ${user?.username}`);
       return response.json({ token, username, role });
     } catch (e) {
       console.error('---- authController', e);
-      return response.status(400).json({ message: 'Authorization error' });
+      return response.status(400).json({ message: 'Authorization error', errorType: 'authError' });
     }
   }
 }

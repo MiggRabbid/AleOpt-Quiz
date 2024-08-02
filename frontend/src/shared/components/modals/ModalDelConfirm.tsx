@@ -56,35 +56,37 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = React.memo((props) => {
   }, [data, deleteUser, deleteQuestion, headers, onHide, setUsers, setQuestions]);
 
   const renderUserData = (user: iUser) => (
-    <Modal.Body className="w-100 my-3 d-flex flex-row justify-content-center gap-2">
-      <InputGroup className="w-50">
-        <InputGroup.Text id="firstName">Имя:</InputGroup.Text>
-        <Form.Control
-          value={user.firstName}
-          placeholder={user.firstName}
-          aria-label="firstName"
-          aria-describedby="firstName"
-          disabled
-        />
-      </InputGroup>
-      <InputGroup className="w-50">
-        <InputGroup.Text id="lastName">Фамилия:</InputGroup.Text>
-        <Form.Control
-          value={user.lastName}
-          placeholder={user.lastName}
-          aria-label="lastName"
-          aria-describedby="lastName"
-          disabled
-        />
-      </InputGroup>
+    <Modal.Body>
+      <div className="col-12 my-2 d-flex flex-column flex-lg-row justify-content-center gap-3">
+        <InputGroup className="w-100 w-lg-50">
+          <InputGroup.Text id="firstName">{t('shared.modals.userDelFirstName')}</InputGroup.Text>
+          <Form.Control
+            value={user.firstName}
+            placeholder={user.firstName}
+            aria-label="firstName"
+            aria-describedby="firstName"
+            disabled
+          />
+        </InputGroup>
+        <InputGroup className="w-100 w-lg-50">
+          <InputGroup.Text id="lastName">{t('shared.modals.userDelLastName')}</InputGroup.Text>
+          <Form.Control
+            value={user.lastName}
+            placeholder={user.lastName}
+            aria-label="lastName"
+            aria-describedby="lastName"
+            disabled
+          />
+        </InputGroup>
+      </div>
     </Modal.Body>
   );
 
   const renderQuestionData = (question: iQuestion) => (
-    <Modal.Body className="w-100 my-3 d-flex flex-row justify-content-center gap-2">
+    <Modal.Body className="col-12 my-2 d-flex flex-row justify-content-center gap-3">
       <InputGroup className="w-100 my-2 mx-3">
         <InputGroup.Text id="question" className="">
-          Вопрос:
+          {t('shared.modals.questionDelQuestion')}
         </InputGroup.Text>
         <Form.Control
           value={question.question}
@@ -101,15 +103,9 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = React.memo((props) => {
   );
 
   return (
-    <Modal
-      show={modalState}
-      onHide={onHide}
-      dialogClassName="modal-dialog-centered"
-      className="col-10 col-lg-8 xl-6"
-      size="lg"
-    >
+    <Modal show={modalState} onHide={onHide} dialogClassName="modal-dialog-centered" size="lg">
       <Modal.Header closeButton>
-        <Modal.Title className="ps-4 m-auto text-uppercase fs-5 fw-bold">
+        <Modal.Title className="px-4 m-auto text-uppercase fs-5 fw-bold">
           {t('shared.modals.confirmDel')}
           {'question' in data
             ? `${t('shared.modals.questionDel')}${data.id}`
@@ -117,7 +113,8 @@ const ModalDelConfirm: React.FC<iModalDelConfirmProps> = React.memo((props) => {
         </Modal.Title>
       </Modal.Header>
 
-      {'question' in data ? renderQuestionData(data) : renderUserData(data)}
+      {'question' in data && renderQuestionData(data)}
+      {'username' in data && renderUserData(data)}
 
       <Modal.Footer>
         <MainButton

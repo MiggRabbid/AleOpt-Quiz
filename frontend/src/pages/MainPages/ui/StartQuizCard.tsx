@@ -11,16 +11,16 @@ const StartQuizCard = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="w-100 h-100 px-0 col-12 col-md-10 col-xxl-8 col-12 d-flex flex-column align-items-end justify-content-center gap-3">
-      <div className="d-flex flex-row align-items-center justify-content-center gap-2">
-        <p className="p-0 m-0 text-end text-uppercase fs-5 fw-semibold">
+    <section className="w-100 h-100 d-flex flex-column align-items-end justify-content-center gap-3">
+      <div className="d-flex flex-column flex-md-row  flex-lg-column align-items-end align-items-md-center align-items-lg-end justify-content-center gap-2">
+        <p className="w-auto p-0 m-0 text-end text-uppercase fs-5 fw-semibold">
           {t('mainPage.startQuiz.title')}
         </p>
-        <p className="p-0 pe-1 m-0 text-end text-uppercase fs-5 fw-semibold">
+        <p className="w-auto p-0 pe-1 m-0 text-end text-uppercase fs-5 fw-semibold">
           {t('mainPage.startQuiz.subTitle')}
         </p>
       </div>
-      <div className="position-relative mx-3 ">
+      <div className="mx-0 mx-lg-3">
         <MainButton
           text={t('mainPage.startQuiz.btn')}
           type="button"

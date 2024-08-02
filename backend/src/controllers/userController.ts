@@ -3,7 +3,8 @@ import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 
 import { Role, User } from '../models/models';
-import { iUserModel } from '../types/userTypes';
+import { iResponseUser, iUpdateUserData } from '../types/userTypes';
+import sortUsersByRole from '../utils/sortAllUser';
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const USER_NOT_FOUND_MESSAGE = 'User not found';
@@ -25,9 +26,12 @@ class UserController {
     return response.status(500).json({ message: NETWORK_ERROR_MESSAGE });
   }
 
-  private async getAllUsers(): Promise<iUserModel[]> {
+  private async getAllUsers(): Promise<iResponseUser[]> {
     const allUser = await User.find();
-    return allUser;
+    return allUser.map((user) => {
+      const { firstName, lastName, username, role } = user;
+      return { firstName, lastName, username, role };
+    });
   }
 
   async currentUser(request: Request, response: Response): Promise<Response> {
@@ -44,12 +48,10 @@ class UserController {
 
   async allUsers(request: Request, response: Response): Promise<Response> {
     try {
-      const users = (await this.getAllUsers()).map((user) => {
-        const { firstName, lastName, username, role } = user;
-        return { firstName, lastName, username, role };
-      });
-
-      return response.json(users);
+      const users = await this.getAllUsers();
+      const sortedUser = sortUsersByRole(users);
+      console.log('sortedUser -', sortedUser);
+      return response.json(sortedUser);
     } catch (e) {
       return this.handleError(response, e, 'Error in allUsers:');
     }
@@ -70,7 +72,7 @@ class UserController {
       const candidate = await User.findOne({ username });
 
       if (candidate) {
-        return response.status(400).json({ message: 'This user exists' });
+        return response.status(400).json({ message: 'This user exists', errorType: 'userExists' });
       }
 
       const hashPassword = bcrypt.hashSync(password, 5);
@@ -82,25 +84,30 @@ class UserController {
         password: hashPassword,
         role: userRole?.value,
       });
-
       await newUser.save();
 
       const users = await this.getAllUsers();
-      return response.json(users);
+      const sortedUser = sortUsersByRole(users);
+      return response.json(sortedUser);
     } catch (e) {
-      return response.status(400).json({ message: 'Registration error' });
+      return response.status(400).json({ message: 'Registration error', errorType: 'regError' });
     }
   }
 
   async editUser(request: Request, response: Response): Promise<Response> {
     try {
       const { username } = request.query;
-      const updateData = {
+      const updateData: iUpdateUserData = {
         role: request.body.role,
         username: request.body.username,
         firstName: request.body.firstName,
         lastName: request.body.lastName,
       };
+
+      if (request.body.password.length > 0) {
+        const hashPassword = bcrypt.hashSync(request.body.password, 5);
+        updateData.password = hashPassword;
+      }
 
       const user = await User.findOneAndUpdate({ username }, updateData, { new: true });
 
@@ -109,7 +116,8 @@ class UserController {
       }
 
       const users = await this.getAllUsers();
-      return response.json(users);
+      const sortedUser = sortUsersByRole(users);
+      return response.json(sortedUser);
     } catch (e) {
       return this.handleError(response, e, 'Error in editUser:');
     }
@@ -126,8 +134,8 @@ class UserController {
       }
 
       const users = await this.getAllUsers();
-
-      return response.json(users);
+      const sortedUser = sortUsersByRole(users);
+      return response.json(sortedUser);
     } catch (e) {
       return this.handleError(response, e, 'Error in deleteUser:');
     }

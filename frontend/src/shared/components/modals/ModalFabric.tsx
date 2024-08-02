@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { getModalType, getModalState, getModalData } from '../../../selectors/modalSelectors';
@@ -13,8 +12,6 @@ import { iQuestion } from '../../../types/iQuiz';
 import { iUser } from '../../../types/iUser';
 
 const ModalFabric = () => {
-  console.group('----- ModalFabric');
-
   const { closedModal } = useActions();
   const modalState = useSelector(getModalState);
   const modalType = useSelector(getModalType);
@@ -24,11 +21,6 @@ const ModalFabric = () => {
     closedModal();
   };
 
-  useEffect(() => {
-    console.log('modalType', modalType);
-  }, [modalType]);
-
-  console.groupEnd();
   switch (modalType) {
     case FabricModalType.newUser:
     case FabricModalType.editUser:

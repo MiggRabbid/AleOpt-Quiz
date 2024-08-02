@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 
 import useAuth from '../../../hooks/useAuth';
 import useActions from '../../../hooks/useActions';
 import { useAddNewUserMutation, useEditUserMutation } from '../../../app/store/api/users.api';
+import { getUserValidationSchema } from './utils/modalsValidationSchema';
+import { getUserInitialValue } from './utils/modalsInitialValue';
 
 import FormInput from '../forms/InputFabric';
 import MainButton from '../buttons/MainButton';
 
 import { typeApiResponse } from '../../../types/types';
 import { iUser, UserRoles } from '../../../types/iUser';
+import { iAuthError } from '../../../types/iAuth';
 
 interface iModalUserProps {
   type: string;
@@ -21,53 +23,7 @@ interface iModalUserProps {
   user: iUser | null;
 }
 
-interface iInitialValues {
-  role: UserRoles;
-  firstName: string;
-  lastName: string;
-  username: string;
-  password: string;
-}
-
-const getValidationSchema = (user: iUser | null) => {
-  const baseSchema = {
-    firstName: Yup.string().required('Имя обязательно'),
-    lastName: Yup.string().required('Фамилия обязательна'),
-    username: Yup.string()
-      .min(4, 'Логин должен быть не менее 4 символов')
-      .max(20, 'Логин должен быть не более 20 символов')
-      .required('Логин обязателен'),
-    role: Yup.mixed().required('Роль обязательна'),
-  };
-
-  if (!!user) {
-    return Yup.object(baseSchema);
-  }
-
-  return Yup.object({
-    ...baseSchema,
-    password: Yup.string()
-      .min(6, 'Пароль должен быть не менее 6 символов')
-      .max(20, 'Пароль должен быть не более 20 символов')
-      .required('Пароль обязателен'),
-  });
-};
-
-const getInitialValues = (user: iUser | null): iInitialValues => {
-  console.log(user);
-  return !!user
-    ? ({ ...user, password: '' } as iInitialValues)
-    : {
-        role: UserRoles.Employee,
-        firstName: '',
-        lastName: '',
-        username: '',
-        password: '',
-      };
-};
-
 const ModalUser: React.FC<iModalUserProps> = (props) => {
-  console.group('----- ModalNewUser');
   const { type, modalState, onHide, user } = props;
 
   const { t } = useTranslation();
@@ -75,17 +31,26 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
   const headers = getAuthHeader() as typeApiResponse;
   const { setUsers } = useActions();
 
-  const [addNewUser] = useAddNewUserMutation();
+  const [addNewUser, { isLoading, isError, error }] = useAddNewUserMutation();
   const [editUser] = useEditUserMutation();
 
+  const [isDisable, setIsDisable] = useState<boolean>(!!user || isLoading);
+
   const formik = useFormik({
-    initialValues: getInitialValues(user),
-    validationSchema: getValidationSchema(user),
+    initialValues: getUserInitialValue(user),
+    validationSchema: getUserValidationSchema(t, user),
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
         let response;
-        if (!!user) {
+        console.log(values);
+        if (!!user && isDisable) {
+          response = await editUser({
+            headers,
+            body: values,
+            params: { username: user.username },
+          });
+        } else if (!!user && !isDisable) {
           response = await editUser({
             headers,
             body: values,
@@ -96,7 +61,6 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
         }
 
         if ('data' in response) {
-          console.log('ModalNewUser response.data -', response.data);
           setUsers(response.data);
           onHide();
         } else {
@@ -104,32 +68,36 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
         }
       } catch (e) {
         console.error(e);
-      } finally {
-        onHide();
       }
 
       setSubmitting(false);
     },
   });
+  // Думаю, что это костыль, а не типизация
+  const handleSubmitWrapper = (
+    event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+    formik.handleSubmit();
+  };
 
-  console.groupEnd();
   return (
     <Modal
       show={modalState}
       onHide={onHide}
       dialogClassName="modal-dialog-centered"
-      className="col-12 col-lg-8 xl-6"
       size="lg"
+      animation
     >
       <Modal.Header closeButton>
         <Modal.Title>{t(`shared.modals.${type}.title`)}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form
-          className="d-flex justify-content-center align-items-end flex-column gap-4"
           onSubmit={formik.handleSubmit}
+          className="d-flex justify-content-center align-items-end flex-column gap-4"
         >
-          <Form.Group className="h-auto w-100 py-4 d-flex flex-wrap justify-content-center align-items-center gap-3 border-bottom">
+          <Form.Group className="h-auto w-100 py-4 d-flex flex-column flex-lg-row flex-wrap justify-content-center align-items-center gap-3">
             <FormInput
               controlId="inputFirstName"
               label={t(`shared.modals.${type}.inputFirstName`)}
@@ -139,9 +107,9 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
               placeholder={t(`shared.modals.${type}.inputFirstName`)}
               value={formik.values.firstName}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.firstName}
+              isInvalid={!!formik.errors.firstName || isError}
+              error={formik.errors.firstName}
             />
-
             <FormInput
               controlId="inputLastName"
               label={t(`shared.modals.${type}.inputLastName`)}
@@ -151,9 +119,10 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
               placeholder={t(`shared.modals.${type}.inputLastName`)}
               value={formik.values.lastName}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.lastName}
+              isDisable={isLoading}
+              isInvalid={!!formik.errors.lastName || isError}
+              error={formik.errors.lastName}
             />
-
             <FormInput
               controlId="inputUserName"
               label={t(`shared.modals.${type}.inputUsername`)}
@@ -163,9 +132,28 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
               placeholder={t(`shared.modals.${type}.inputUsername`)}
               value={formik.values.username}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.username}
+              isDisable={isLoading}
+              isInvalid={!!formik.errors.username || isError}
+              error={formik.errors.username || t(`errors.${(error as iAuthError)?.data.errorType}`)}
             />
-
+            <FormInput
+              controlId="roleSelect"
+              label={t(`shared.modals.${type}.selectRole`)}
+              placeholder={
+                !!user
+                  ? `${t(`shared.modals.${type}.currentRole`)}${user.role}`
+                  : t(`shared.modals.${type}.currentRole`)
+              }
+              height="55px"
+              as="select"
+              name="role"
+              value={formik.values.role}
+              onChange={formik.handleChange}
+              options={UserRoles}
+              isDisable={isLoading}
+              isInvalid={!!formik.errors.role || isError}
+              error={formik.errors.role}
+            />
             <FormInput
               controlId="inputPassword"
               label={
@@ -184,31 +172,29 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
               }
               value={formik.values.password}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.password}
-              isDisable={!!user}
+              isDisable={isDisable}
+              isInvalid={!!formik.errors.password || isError}
+              error={formik.errors.password}
             />
-
-            <FormInput
-              controlId="roleSelect"
-              label={t(`shared.modals.${type}.selectRole`)}
-              placeholder={
-                !!user
-                  ? `${t(`shared.modals.${type}.currentRole`)}${user.role}`
-                  : t(`shared.modals.${type}.currentRole`)
-              }
-              height="55px"
-              as="select"
-              name="role"
-              value={formik.values.role}
-              onChange={formik.handleChange}
-              isInvalid={!!formik.errors.role}
-              options={UserRoles}
-            />
+            {!!user && (
+              <MainButton
+                type="button"
+                style={{ height: '55px', weight: '100%' }}
+                text={t('shared.modals.editUserModal.changePass')}
+                variant="outline-secondary"
+                onClick={() => setIsDisable(!isDisable)}
+              />
+            )}
           </Form.Group>
-
-          <MainButton text={t('shared.modals.btnCreate')} type="submit" />
         </Form>
       </Modal.Body>
+      <Modal.Footer>
+        <MainButton
+          onClick={handleSubmitWrapper}
+          text={t('shared.modals.btnCreate')}
+          type="submit"
+        />
+      </Modal.Footer>
     </Modal>
   );
 };

@@ -15,7 +15,6 @@ const I18nProvider = ({ children }: { children: ReactNode }) => {
     interpolation: {
       escapeValue: false,
     },
-    debug: true,
   });
 
   return <I18nextProvider i18n={i18nextInstance}>{children}</I18nextProvider>;

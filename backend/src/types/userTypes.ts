@@ -19,3 +19,19 @@ export interface iUserModel extends Document {
   password: string;
   results?: Array<Record<string, string>>;
 }
+
+export interface iResponseUser {
+  role: string | iRoleModel;
+  firstName: string;
+  lastName: string;
+  username: string;
+  results?: Array<Record<string, string>>;
+}
+
+export interface iUpdateUserData {
+  role: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  password?: string;
+}

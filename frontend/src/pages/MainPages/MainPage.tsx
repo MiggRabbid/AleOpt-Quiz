@@ -54,11 +54,11 @@ const MainPage = () => {
       style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
       id="MainPage"
     >
-      <div className="w-100 d-flex flex-row">
-        <div className="w-50 d-flex flex-column">
+      <div className="col-12 d-flex flex-column flex-lg-row align-items-center justify-content-center gap-4">
+        <div className="col-11 col-lg-5 d-flex flex-column">
           <CurrUserCard />
         </div>
-        <div className="w-50 d-flex flex-column">
+        <div className="col-11 col-lg-5 d-flex flex-column">
           {!!unfinishedAttempt && unfinishedAttempt.answers.length > 0 ? (
             <ContinueQuizCard />
           ) : (

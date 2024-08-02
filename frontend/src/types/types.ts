@@ -2,6 +2,8 @@
 import { iQuestion } from './iQuiz';
 import { iUser } from './iUser';
 
+export type typeTranslationFunction = (key: string) => string;
+
 export type typeData = { [key: string]: string };
 
 export type typeModelData = null | string | iUser | iQuestion;
