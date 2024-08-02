@@ -69,11 +69,11 @@ const QuestionsFinished = () => {
   };
   return (
     <section
-      className="w-100 h-100 p-5 rounded d-flex flex-column justify-content-start align-items-center bg-light-subtle gap-3"
-      style={{ minHeight: 'calc(100vh - 83px - 16px - 16px - 66px)' }}
+      className="w-100 h-100 p-3 p-sm-5 rounded d-flex flex-column justify-content-start align-items-center bg-light-subtle gap-3"
+      style={{ minHeight: 'calc(100vh - 82px - 8px - 8px - 64px)' }}
     >
-      <div className="w-100 h-auto d-flex flex-row justify-content-between align-items-center">
-        <div className="w-100 h-auto d-flex flex-row justify-content-center align-items-center">
+      <div className="w-100 h-auto d-flex flex-column flex-md-row justify-content-center justify-content-sm-between align-items-end align-items-sm-center gap-3">
+        <div className="w-100 h-auto d-flex flex-row justify-content-center align-items-center gap-2">
           <h5 className="me-2 my-0 text-uppercase fw-bold text-center fs-4">
             {t('quizPage.quizFinished.title.main')}
             {resultSum}
@@ -104,7 +104,7 @@ const QuestionsFinished = () => {
               <Accordion.Body>
                 <div className="d-flex flex-wrap rounded overflow-hidden border">
                   {currQuestion.answers.map((answer) => {
-                    const className = `col-6 border p-3 m-0 ${getAnswerBg(currQuestion.correctAnswerId, answer.id, userAnswer.userAnswerId)}`;
+                    const className = `col-12 col-lg-6 border p-3 m-0 ${getAnswerBg(currQuestion.correctAnswerId, answer.id, userAnswer.userAnswerId)}`;
                     return (
                       <p key={answer.id} className={className}>
                         {`${answer.id.toLocaleUpperCase()}: ${answer.answer}`}

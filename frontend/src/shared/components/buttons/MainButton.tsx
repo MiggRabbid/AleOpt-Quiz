@@ -7,7 +7,7 @@ type typeMainButtonProps = {
   text: string;
   variant?: string;
   disabled?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>) => void;
 };
 
 const MainButton: React.FC<typeMainButtonProps> = React.memo((props) => {
@@ -22,7 +22,7 @@ const MainButton: React.FC<typeMainButtonProps> = React.memo((props) => {
 
   if (!onClick) {
     return (
-      <Button type={type} variant={variant} style={style} className="px-2 py-1">
+      <Button type={type} variant={variant} style={style} className="px-2 py-1 text-wrap">
         {text}
       </Button>
     );
@@ -32,7 +32,7 @@ const MainButton: React.FC<typeMainButtonProps> = React.memo((props) => {
     <Button
       variant={variant}
       style={style}
-      className="px-2 py-1m"
+      className="px-2 py-1m text-wrap text-center"
       onClick={handleClick}
       disabled={disabled}
     >

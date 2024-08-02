@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <header className="container-xxl d-flex justify-content-center p-0 mx-0">
-      <div className="w-100 rounded-bottom shadow-sm bg-light-subtle">
+      <div className="col-12 rounded-bottom shadow-sm bg-light-subtle">
         <Navbar className="p-0 d-flex justify-content-between">
           <NavbarBrand
             className="py-1 col-3 m-0 d-flex justify-content-center align-items-center"

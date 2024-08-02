@@ -10,11 +10,11 @@ const Footer = () => {
 
   return (
     <footer className="container-xxl d-flex justify-content-center p-0 m-0">
-      <div className="container-xxl py-1 px-3 bg-light rounded-top">
+      <div className="col-12 py-0 py-md-1 1 px-1 px-md-3 bg-light rounded-top">
         <Navbar className="d-flex flex-row justify-content-between ">
           <Container>
             <NavbarBrand>
-              <h5 className="fw-semibold text-uppercase text-wrap text-center">
+              <h5 className="fw-semibold m-0 fs-6 text-uppercase text-wrap text-center">
                 {t('footer.title')}
               </h5>
             </NavbarBrand>

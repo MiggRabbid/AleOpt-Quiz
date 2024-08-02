@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Form, FloatingLabel } from 'react-bootstrap';
 
 import { iInputSelectProps } from '../../../types/iInputs';
@@ -24,16 +24,8 @@ const InputSelect: React.FC<iInputSelectProps> = React.memo((props) => {
     [onChange],
   );
 
-  useEffect(() => {
-    console.log('InputSelect placeholder -', placeholder);
-  }, [placeholder]);
-
-  useEffect(() => {
-    console.log('InputSelect value -', value);
-  }, [value]);
-
   return (
-    <FloatingLabel className={className || 'col-11 col-sm-5'} controlId={controlId} label={label}>
+    <FloatingLabel className={className || 'col-11 col-lg-5'} controlId={controlId} label={label}>
       <Form.Select
         required
         name={name}

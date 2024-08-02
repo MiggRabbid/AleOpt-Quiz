@@ -53,7 +53,7 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = (props) => {
   };
 
   return (
-    <section className="col-12 col-md-10 col-xxl-8">
+    <section className="col-11 col-md-10 col-xxl-8">
       <QuestionsProgress
         now={Math.round(((questionsIndex + 1) / quantityQuestions) * 100)}
         CurrentQuestion={questionsIndex + 1}

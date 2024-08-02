@@ -29,13 +29,13 @@ const CurrUserCard = () => {
   }, []);
 
   return (
-    <article className="w-100 px-3 d-flex flex-column align-items-center justify-content-center">
+    <article className="w-100 d-flex flex-column align-items-center justify-content-center">
       <h3 className="w-100 text-uppercase text-center p-0 pb-3 top-0 fw-semibold">
         {curUser?.username}
         {t('mainPage.title')}
       </h3>
-      <div className="w-100 p-4 fs-5 card shadow-sm sd-flex flex-column gap-3">
-        <div className="w-100 d-flex flex-row justify-content-center align-items-center gap-2">
+      <div className="w-100 p-3 p-md-4 fs-5 card shadow-sm sd-flex flex-column gap-3">
+        <div className="w-100 d-flex flex-column flex-md-row flex-lg-column justify-content-center align-items-center gap-2">
           <InputGroup>
             <InputGroup.Text className="fs-5" id="role">
               {t('mainPage.inputs.firstName')}

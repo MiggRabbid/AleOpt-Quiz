@@ -34,7 +34,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return {};
   };
 
-  const isAdmin = (verifiableUser: iUser): boolean => verifiableUser.role === UserRoles.Admin;
+  const isAdmin = (verifiableUser: iUser): boolean =>
+    verifiableUser.role === UserRoles.Admin || verifiableUser.role === UserRoles.Owner;
 
   const authValue = useMemo(
     () => ({

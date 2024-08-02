@@ -44,11 +44,11 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
   });
 
   return (
-    <section className="w-100 h-100 col-12 col-md-10 h-5em col-xxl-8 col-12 d-flex flex-row flex-wrap align-items-start justify-content-start">
+    <section className="w-100 h-100 d-flex flex-row flex-wrap align-items-center align-items-lg-start justify-content-center justify-content-lg-start">
       {!!userStats && (
         <>
-          <div className="h-100 w-100 mb-4 d-flex flex-row">
-            <div className="w-50 h-100 px-2 d-flex justify-content-center align-items-center">
+          <div className="col-12 w-100 mb-4 d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
+            <div className="col-12 col-md-10 col-lg-5 h-100 px-2 d-flex justify-content-center align-items-center">
               <article className="card py-3 shadow-sm w-100 d-flex flex-column">
                 <div className="">
                   <p className="p-0 m-0 me-1 text-center text-uppercase fs-5 fw-semibold d-flex flex-row justify-content-center">
@@ -106,15 +106,15 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
                 </div>
               </article>
             </div>
-            <div className="w-50 h-100 px-2 d-flex justify-content-center align-items-center">
+            <div className="col-12 col-md-10 col-lg-5 h-100 px-2 d-flex justify-content-center align-items-center">
               <UserBar userStats={userStats} />
             </div>
           </div>
-          <div className="w-100 d-flex flex-row">
-            <div className="w-50 px-2 d-flex justify-content-center align-items-center">
+          <div className="col-11 col-md-6 col-lg-12 h-100 mb-4 d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+            <div className="col-11 col-lg-5 d-flex justify-content-center align-items-center">
               <UserDoughnut userStats={userStats} type={typeDoughnut.easy} />
             </div>
-            <div className="w-50 px-2 d-flex justify-content-center align-items-center">
+            <div className="col-11 col-lg-5 d-flex justify-content-center align-items-center">
               <UserDoughnut userStats={userStats} type={typeDoughnut.hard} />
             </div>
           </div>

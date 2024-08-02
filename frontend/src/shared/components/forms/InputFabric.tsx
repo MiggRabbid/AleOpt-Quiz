@@ -21,6 +21,7 @@ const FormInput: React.FC<iFormInputProps> = React.memo((props) => {
     options,
     className,
     isDisable,
+    error,
   } = props;
 
   const style = { height };
@@ -55,6 +56,7 @@ const FormInput: React.FC<iFormInputProps> = React.memo((props) => {
         onChange={onChange}
         isInvalid={isInvalid}
         isDisable={isDisable}
+        error={error}
       />
     );
   }
@@ -71,6 +73,7 @@ const FormInput: React.FC<iFormInputProps> = React.memo((props) => {
       value={value}
       onChange={onChange}
       isInvalid={isInvalid}
+      error={error}
     />
   );
 });

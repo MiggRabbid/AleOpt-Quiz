@@ -47,7 +47,7 @@ export default {
           main: 'Ваш результат - ',
           from: ' из ',
         },
-        btn: 'Отправить результат',
+        btn: 'Отправить',
       },
     },
     adminPage: {
@@ -57,11 +57,11 @@ export default {
       },
       users: {
         title: 'Сотрудники АлёОпт',
-        btnNewUser: 'Новый пользователь',
+        btnNewUser: 'Создать',
       },
       questions: {
         title: 'Актуальные вопросы',
-        btnNewUser: 'Новый вопрос',
+        btnNewUser: 'Добавить',
       },
       userAccordionBody: {
         inputRole: 'Роль:',
@@ -97,7 +97,10 @@ export default {
       },
       modals: {
         userDel: 'пользователя - ',
+        userDelFirstName: 'Имя:',
+        userDelLastName: 'Фамилия:',
         questionDel: 'вопроса № ',
+        questionDelQuestion: 'Вопрос:',
         confirmDel: 'Подтвердите удаление ',
         btnCancel: 'Отменить',
         btnDelete: 'Удалить',
@@ -120,6 +123,7 @@ export default {
           inputPasswordHidden: 'Пароль скрыт',
           selectRole: 'Текущая роль пользователя',
           currentRole: 'Текущая роль - ',
+          changePass: 'Изменить пароль',
         },
         newQuestionModal: {
           title: 'Создание нового вопроса',
@@ -137,8 +141,22 @@ export default {
           selectValue: 'Ответ ',
           currentCorrectAnswer: 'Текущий верный ответ - ',
         },
-        btnCreate: 'Создать',
+        btnCreate: 'Сохранить',
       },
+    },
+    errors: {
+      usernameLength: 'Логин должен быть от 4 до 20 символов',
+      usernameRequired: 'Логин обязателен',
+      passwordLength: 'Пароль должен быть от 6 до 20 символов',
+      passwordRequired: 'Пароль обязателен',
+      firstNameRequired: 'Имя обязательно',
+      lastNameRequired: 'Фамилия обязательна',
+      roleRequired: 'Роль обязательна',
+      questionRequired: 'Вопрос обязателен',
+      correctAnswerRequired: 'Верный ответ обязателен',
+      currentAnswerRequired: 'Ответ обязателен',
+      InvalidUserData: 'Неверный логин или пароль',
+      userExists: 'Логин уже занят',
     },
   },
 };

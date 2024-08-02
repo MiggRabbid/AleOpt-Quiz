@@ -31,27 +31,33 @@ const UserAccordionBody: React.FC<iUserAccordionBodyProps> = (props) => {
 
   return (
     <Accordion.Body>
-      <div className="w-100 mt-2 mb-4 d-flex flex-row justify-content-between align-items-center">
-        <InputGroup className="w-auto me-5">
-          <InputGroup.Text id="role">{t('adminPage.userAccordionBody.inputRole')}</InputGroup.Text>
-          <Form.Control
-            value={user.role}
-            placeholder={user.role}
-            aria-label="role"
-            aria-describedby="role"
-            disabled
-          />
-          <InputGroup.Text id="username">
-            {t('adminPage.userAccordionBody.inputUsername')}
-          </InputGroup.Text>
-          <Form.Control
-            value={user.username}
-            placeholder={user.username}
-            aria-label="Username"
-            aria-describedby="username"
-            disabled
-          />
-        </InputGroup>
+      <div className="w-100 mt-2 mb-4 d-flex flex-column-reverse flex-sm-row justify-content-between align-items-end align-items-sm-center gap-2">
+        <div className="w-100 me-0 mb-3 mt-sm-0 me-sm-5 ">
+          <InputGroup className="w-100 mb-2 me-0 md-sm-0 me-sm-2">
+            <InputGroup.Text id="username">
+              {t('adminPage.userAccordionBody.inputUsername')}
+            </InputGroup.Text>
+            <Form.Control
+              value={user.username}
+              placeholder={user.username}
+              aria-label="Username"
+              aria-describedby="username"
+              disabled
+            />
+          </InputGroup>
+          <InputGroup className="w-100">
+            <InputGroup.Text id="role">
+              {t('adminPage.userAccordionBody.inputRole')}
+            </InputGroup.Text>
+            <Form.Control
+              value={user.role}
+              placeholder={user.role}
+              aria-label="role"
+              aria-describedby="role"
+              disabled
+            />
+          </InputGroup>
+        </div>
         <UserChangeButtonsGroup data={user} />
       </div>
       <div className="w-100 d-flex flex-row justify-content-between align-items-center">

@@ -2,7 +2,6 @@ import { useFormik } from 'formik';
 import { Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import * as Yup from 'yup';
 
 import useAuth from '../../../hooks/useAuth';
 import useActions from '../../../hooks/useActions';
@@ -11,18 +10,15 @@ import {
   useAddNewQuestionMutation,
   useEditQuestionMutation,
 } from '../../../app/store/api/quiz.api';
+import { getAnswersKeys, getNewQuestionId, getResponseBody } from './utils/modalQuestionUtils';
+import { getQuestionValidationSchema } from './utils/modalsValidationSchema';
+import { getQuestionInitialValue } from './utils/modalsInitialValue';
 
 import FormInput from '../forms/InputFabric';
 import MainButton from '../buttons/MainButton';
 
 import { iQuestion } from '../../../types/iQuiz';
 import { typeApiResponse } from '../../../types/types';
-import {
-  getAnswersKeys,
-  getInitialValue,
-  getNewQuestionId,
-  getResponseBody,
-} from '../../../utils/newQuestionUtils';
 
 interface iModalNewQuestionProps {
   type: string;
@@ -31,39 +27,27 @@ interface iModalNewQuestionProps {
   question: iQuestion | null;
 }
 
-const validationSchema = Yup.object({
-  question: Yup.string().required('Вопрос обязателен'),
-  correctAnswerId: Yup.string().required('Выберите верный ответ'),
-  answers: Yup.object({
-    a: Yup.string().required('Ответ A обязателен'),
-    b: Yup.string().required('Ответ B обязателен'),
-    c: Yup.string().required('Ответ C обязателен'),
-    d: Yup.string().required('Ответ D обязателен'),
-  }),
-});
-
 const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
-  console.group('----- CreateNewQuestion');
   const { type, modalState, onHide, question } = props;
-  console.log('----- type', type);
 
   const { t } = useTranslation();
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
   const { setQuestions } = useActions();
   const AllQuestions = useSelector(getQuestions);
+
   const [addNewQuestion] = useAddNewQuestionMutation();
   const [editQuestion] = useEditQuestionMutation();
 
   const formik = useFormik({
-    initialValues: getInitialValue(question),
-    validationSchema,
+    initialValues: getQuestionInitialValue(question),
+    validationSchema: getQuestionValidationSchema(t),
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
         let response;
 
-        const questionId = getNewQuestionId(AllQuestions);
+        const questionId = !!question ? question.id : getNewQuestionId(AllQuestions);
         const body = getResponseBody(values, questionId);
 
         if (!!question) {
@@ -91,6 +75,13 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
       setSubmitting(false);
     },
   });
+  // Думаю, что это костыль, а не типизация
+  const handleSubmitWrapper = (
+    event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+    formik.handleSubmit();
+  };
 
   console.groupEnd();
   return (
@@ -106,10 +97,10 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
       </Modal.Header>
       <Modal.Body>
         <Form
-          className="d-flex flex-wrap justify-content-end position-relative"
+          className="d-flex flex-wrap justify-content-center position-relative"
           onSubmit={formik.handleSubmit}
         >
-          <Form.Group className="col-12 col-md-6 d-flex flex-column gap-2 pe-2 mb-2">
+          <Form.Group className="col-12 col-lg-6 mb-3 mb-lg-0 px-1 d-flex flex-column gap-2">
             <FormInput
               className="w-100"
               controlId="questionInput"
@@ -121,6 +112,7 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
               value={formik.values.question}
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.question}
+              error={formik.errors.question}
             />
 
             <FormInput
@@ -144,10 +136,11 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
                 c: 'Вариант C',
                 d: 'Вариант D',
               }}
+              error={formik.errors.correctAnswerId}
             />
           </Form.Group>
 
-          <Form.Group className="col-11 col-md-6 d-flex flex-column gap-2 ps-2 mb-2">
+          <Form.Group className="col-12 col-lg-6 px-1 d-flex flex-column gap-2">
             {getAnswersKeys(formik.values.answers).map((key) => (
               <FormInput
                 key={key}
@@ -161,13 +154,19 @@ const ModalNewQuestion: React.FC<iModalNewQuestionProps> = (props) => {
                 value={formik.values.answers[key]}
                 onChange={formik.handleChange}
                 isInvalid={!!formik.errors.answers?.[key]}
+                error={formik.errors.answers?.[key]}
               />
             ))}
           </Form.Group>
-
-          <MainButton text="Создать" type="submit" />
         </Form>
       </Modal.Body>
+      <Modal.Footer>
+        <MainButton
+          onClick={handleSubmitWrapper}
+          text={t('shared.modals.btnCreate')}
+          type="submit"
+        />
+      </Modal.Footer>
     </Modal>
   );
 };

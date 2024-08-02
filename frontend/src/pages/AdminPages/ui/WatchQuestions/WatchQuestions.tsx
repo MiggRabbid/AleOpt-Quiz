@@ -6,7 +6,7 @@ import useActions from '../../../../hooks/useActions';
 import { getQuestions } from '../../../../selectors/quizSelectors';
 
 import MainButton from '../../../../shared/components/buttons/MainButton';
-import ChangeButtonsGroup from '../../../../shared/components/buttons/ChangeButtonsGroup';
+import QuestionAccordionBody from './QuestionAccordionBody';
 
 import { iQuestion } from '../../../../types/iQuiz';
 import { FabricModalType } from '../../../../types/iModal';
@@ -20,58 +20,38 @@ const WatchQuestions = () => {
     <section
       className="h-100 d-flex py-4 flex-column align-items-center"
       style={{
-        minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)',
+        minHeight: 'calc(100vh - 82px - 8px - 8px - 64px)',
       }}
       id="adminQuestions"
     >
-      <div className="w-100 mb-3 position-relative">
-        <h1 className="text-uppercase text-center fw-bold fs-3">
-          {t('adminPage.questions.title')}
-        </h1>
-        <div className="position-absolute top-50 translate-middle-y end-0 me-3">
-          <MainButton
-            text={t('adminPage.questions.btnNewUser')}
-            onClick={() =>
-              openModal({
-                modalType: FabricModalType.newQuestion,
-                modalData: null,
-              })
-            }
-          />
-        </div>
+      <div className="col-10 mb-3 d-flex flex-row justify-content-between align-items-center">
+        <h1 className="text-uppercase text-start fw-bold fs-3">{t('adminPage.questions.title')}</h1>
+        <MainButton
+          text={t('adminPage.questions.btnNewUser')}
+          onClick={() =>
+            openModal({
+              modalType: FabricModalType.newQuestion,
+              modalData: null,
+            })
+          }
+        />
       </div>
-      <div className="w-100 mx-auto overflow-y-auto">
-        <Accordion
-          defaultActiveKey="0"
-          flush
-          className="col-10 mx-auto border rounded overflow-hidden"
-        >
-          {questions?.map((question) => {
-            return (
-              <Accordion.Item key={question.id} eventKey={question.id}>
-                <Accordion.Header>
-                  <h6>{`${question.id}) ${question.question}`}</h6>
-                </Accordion.Header>
-                <Accordion.Body className="d-flex justify-content-between align-items-start">
-                  <div className="w-100 d-flex flex-wrap rounded overflow-hidden border me-2">
-                    {question.answers.map((answer) => {
-                      return (
-                        <p
-                          key={answer.id}
-                          className={`col-6 border p-4 m-0 ${question.correctAnswerId === answer.id ? ' bg-primary-subtle' : ''}`}
-                        >
-                          {`${answer.id.toLocaleUpperCase()})  ${answer.answer}`}
-                        </p>
-                      );
-                    })}
-                  </div>
-                  <ChangeButtonsGroup data={question} />
-                </Accordion.Body>
-              </Accordion.Item>
-            );
-          })}
-        </Accordion>
-      </div>
+      <Accordion
+        defaultActiveKey="0"
+        flush
+        className="col-12 col-md-11 col-xl-10 border rounded overflow-hidden"
+      >
+        {questions?.map((question, index) => {
+          return (
+            <Accordion.Item key={question.id} eventKey={question.id}>
+              <Accordion.Header>
+                <h6>{`${index + 1}) ${question.question}`}</h6>
+              </Accordion.Header>
+              <QuestionAccordionBody question={question} />
+            </Accordion.Item>
+          );
+        })}
+      </Accordion>
     </section>
   );
 };
