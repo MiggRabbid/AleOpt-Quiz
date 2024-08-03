@@ -1,7 +1,7 @@
 import { Badge } from 'react-bootstrap';
 
 const getBadgeStyle = (numberAttempts: number): string => {
-  if (numberAttempts >= 60) {
+  if (numberAttempts >= 66) {
     return 'success';
   }
   if (numberAttempts <= 50) {
