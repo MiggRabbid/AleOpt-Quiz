@@ -17,10 +17,9 @@ const QuestionsProgress: React.FC<QuestionsProgressProps> = ({
   return (
     <div className="mb-2">
       <ProgressBar
-        className="fs-6 fs-lg-5"
         variant="success"
         now={now}
-        label={`${CurrentQuestion}${t('quizPage.quizProgress.from')}${TotalQuestions}`}
+        label={` ${CurrentQuestion}${t('quizPage.quizProgress.from')}${TotalQuestions} `}
       />
     </div>
   );

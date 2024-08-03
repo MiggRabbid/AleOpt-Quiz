@@ -52,9 +52,8 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
               <article className="card py-3 shadow-sm w-100 d-flex flex-column">
                 <div className="">
                   <p className="p-0 m-0 me-1 text-center text-uppercase fs-6 fs-lg-5 fw-semibold d-flex flex-row justify-content-center">
-                    {t('entities.userStats.lastAttempts.start')}
+                    {t('entities.userStats.numberAttempts')}
                     {userStats.numberAttempts}
-                    {t('entities.userStats.lastAttempts.end')}
                   </p>
                   <p className="p-0 m-0 text-center text-uppercase fs-6 fs-lg-5 fw-semibold d-flex flex-row justify-content-center">
                     {t('entities.userStats.averageScore')}
