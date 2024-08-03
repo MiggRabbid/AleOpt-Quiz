@@ -18,7 +18,7 @@ const QuestionsAnswerVariant: React.FC<QuestionsAnswerVariantProps> = (props) =>
       active={active}
       variant="success"
       onClick={onClick}
-      className="w-100 py-3 fw-medium fs-5 text-start rounded-2 border-1"
+      className="w-100 py-3 fw-medium fs-6 fs-lg-5 text-start rounded-2 border-1"
     >
       {`${item.id.toUpperCase()}: ${item.answer}`}
     </ListGroupItem>

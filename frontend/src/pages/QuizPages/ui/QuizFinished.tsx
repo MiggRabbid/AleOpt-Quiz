@@ -74,7 +74,7 @@ const QuestionsFinished = () => {
     >
       <div className="w-100 h-auto d-flex flex-column flex-md-row justify-content-center justify-content-sm-between align-items-end align-items-sm-center gap-3">
         <div className="w-100 h-auto d-flex flex-row justify-content-center align-items-center gap-2">
-          <h5 className="me-2 my-0 text-uppercase fw-bold text-center fs-4">
+          <h5 className="me-2 my-0 text-uppercase fw-bold text-center fs-5 fs-lg-4">
             {t('quizPage.quizFinished.title.main')}
             {resultSum}
             {t('quizPage.quizFinished.title.from')}

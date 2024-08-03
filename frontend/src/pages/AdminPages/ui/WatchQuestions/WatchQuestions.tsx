@@ -24,8 +24,10 @@ const WatchQuestions = () => {
       }}
       id="adminQuestions"
     >
-      <div className="col-10 mb-3 d-flex flex-row justify-content-between align-items-center">
-        <h1 className="text-uppercase text-start fw-bold fs-3">{t('adminPage.questions.title')}</h1>
+      <div className="col-11 mb-3 d-flex flex-row justify-content-between align-items-center">
+        <h1 className="text-uppercase text-start fw-bold fs-4 fs-lg-3">
+          {t('adminPage.questions.title')}
+        </h1>
         <MainButton
           text={t('adminPage.questions.btnNewUser')}
           onClick={() =>

@@ -59,9 +59,9 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = (props) => {
         CurrentQuestion={questionsIndex + 1}
         TotalQuestions={quantityQuestions}
       />
-      <div className="card shadow-sm my-3 px-2">
+      <div className="card shadow-sm mt-4 px-2">
         <ListGroup className="d-flex flex-column gap-1 text-center ">
-          <p className="py-2 border-bottom fw-semibold fs-5">{`${currentQuestion.question}:`}</p>
+          <p className="px-1 py-2 border-bottom fw-semibold fs-6 fs-lg-5">{`${currentQuestion.question}`}</p>
           {currentQuestion.answers.map((item: typeQuestionAnswer) => (
             <QuestionsAnswerVariant
               key={`${item.questionId}-${item.id}`}

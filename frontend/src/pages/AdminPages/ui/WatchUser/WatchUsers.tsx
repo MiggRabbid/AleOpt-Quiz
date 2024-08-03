@@ -24,8 +24,10 @@ const WatchUsers = () => {
       }}
       id="adminUsers"
     >
-      <div className="col-10 mb-3 d-flex flex-row justify-content-between align-items-center">
-        <h1 className="text-uppercase text-start fw-bold fs-3">{t('adminPage.users.title')}</h1>
+      <div className="col-11 mb-3 d-flex flex-row justify-content-between align-items-center">
+        <h1 className="w-100 me-2 text-uppercase text-start fw-bold fs-4 fs-lg-3">
+          {t('adminPage.users.title')}
+        </h1>
         <MainButton
           text={t('adminPage.users.btnNewUser')}
           onClick={() => openModal({ modalType: FabricModalType.newUser })}
