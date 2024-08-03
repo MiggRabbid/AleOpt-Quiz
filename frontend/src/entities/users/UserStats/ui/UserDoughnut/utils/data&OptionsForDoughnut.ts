@@ -56,13 +56,13 @@ export const getOptionsForDoughnut = (
       tooltip: {
         intersect: true,
         titleFont: {
-          size: 14,
+          size: 12,
         },
         bodyFont: {
-          size: 16,
+          size: 12,
         },
         footerFont: {
-          size: 16,
+          size: 12,
         },
         footerAlign: 'right',
         callbacks: {

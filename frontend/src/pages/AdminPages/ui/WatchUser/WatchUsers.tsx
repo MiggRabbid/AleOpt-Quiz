@@ -8,8 +8,19 @@ import useActions from '../../../../hooks/useActions';
 import MainButton from '../../../../shared/components/buttons/MainButton';
 import UserAccordionBody from './UserAccordionBody';
 
-import { iUser } from '../../../../types/iUser';
+import { iUser, UserRoles } from '../../../../types/iUser';
 import { FabricModalType } from '../../../../types/iModal';
+
+const getAdminRole = (role: string) => {
+  switch (role) {
+    case UserRoles.Admin:
+      return ` - ${UserRoles.Admin}`;
+    case UserRoles.Owner:
+      return ` - ${UserRoles.Owner}`;
+    default:
+      return '';
+  }
+};
 
 const WatchUsers = () => {
   const { t } = useTranslation();
@@ -25,7 +36,7 @@ const WatchUsers = () => {
       id="adminUsers"
     >
       <div className="col-11 mb-3 d-flex flex-row justify-content-between align-items-center">
-        <h1 className="w-100 me-2 text-uppercase text-start fw-bold fs-4 fs-lg-3">
+        <h1 className="w-100 ms-3 me-2 text-uppercase text-start fw-bold fs-4 fs-lg-3">
           {t('adminPage.users.title')}
         </h1>
         <MainButton
@@ -36,12 +47,12 @@ const WatchUsers = () => {
       <Accordion
         defaultActiveKey="0"
         flush
-        className="col-12 col-md-11 col-xl-10 border rounded overflow-hidden"
+        className="col-12 col-lg-10 px-3 border rounded overflow-hidden"
       >
         {users?.map((user) => {
           return (
             <Accordion.Item key={user.username} eventKey={user.username}>
-              <Accordion.Header>{`${user.firstName} ${user.lastName}`}</Accordion.Header>
+              <Accordion.Header>{`${user.firstName} ${user.lastName}${getAdminRole(user.role)}`}</Accordion.Header>
               <UserAccordionBody user={user} />
             </Accordion.Item>
           );

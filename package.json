@@ -1,6 +1,6 @@
 {
   "name": "aleopt-quiz",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Knowledge test service for \"AleOpt\"",
   "main": "./src/main.tsx",
   "scripts": {

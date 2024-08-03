@@ -71,10 +71,7 @@ export default {
     },
     entities: {
       userStats: {
-        lastAttempts: {
-          start: 'За последние ',
-          end: ' попыток',
-        },
+        numberAttempts: 'Количество попыток -  ',
         averageScore: 'средний балл',
         table: {
           title: 'Результаты последних попыток',
