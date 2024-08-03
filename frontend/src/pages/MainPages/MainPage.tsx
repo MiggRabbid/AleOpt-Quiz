@@ -58,7 +58,7 @@ const MainPage = () => {
         <div className="col-11 col-lg-5 d-flex flex-column">
           <CurrUserCard />
         </div>
-        <div className="col-11 col-lg-5 d-flex flex-column">
+        <div className="col-11 col-lg-6 d-flex flex-column">
           {!!unfinishedAttempt && unfinishedAttempt.answers.length > 0 ? (
             <ContinueQuizCard />
           ) : (
