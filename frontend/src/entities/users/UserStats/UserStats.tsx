@@ -48,7 +48,7 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
       {!!userStats && (
         <>
           <div className="col-12 w-100 mb-4 d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
-            <div className="col-12 col-md-10 col-lg-5 h-100 px-2 d-flex justify-content-center align-items-center">
+            <div className="col-12 col-md-10 col-lg-5 h-100 px-1 d-flex justify-content-center align-items-center">
               <article className="card py-3 shadow-sm w-100 d-flex flex-column">
                 <div className="">
                   <p className="p-0 m-0 me-1 text-center text-uppercase fs-6 fs-lg-5 fw-semibold d-flex flex-row justify-content-center">
@@ -84,7 +84,7 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
                     </thead>
                     <tbody>
                       {userStats.attempts.map((item: iResultEntry, index: number) => {
-                        if (index < userStats.attempts.length - 3) return null;
+                        if (index > 2) return null;
                         return (
                           <tr key={`attempt${index + 1}`}>
                             <td className="p-0 m-0 py-2 text-center align-middle text-uppercase fs-6 fs-lg-5 fw-semibold ">
@@ -105,7 +105,7 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
                 </div>
               </article>
             </div>
-            <div className="col-12 col-md-10 col-lg-5 h-100 px-2 d-flex justify-content-center align-items-center">
+            <div className="col-12 col-md-10 col-lg-6 h-100 px-1 d-flex justify-content-center align-items-center">
               <UserBar userStats={userStats} />
             </div>
           </div>
