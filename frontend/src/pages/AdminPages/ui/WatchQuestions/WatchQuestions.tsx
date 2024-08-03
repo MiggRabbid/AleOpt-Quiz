@@ -25,7 +25,7 @@ const WatchQuestions = () => {
       id="adminQuestions"
     >
       <div className="col-11 mb-3 d-flex flex-row justify-content-between align-items-center">
-        <h1 className="text-uppercase text-start fw-bold fs-4 fs-lg-3">
+        <h1 className="w-100 text-uppercase ms-3 me-2 text-start fw-bold fs-4 fs-lg-3">
           {t('adminPage.questions.title')}
         </h1>
         <MainButton
@@ -41,13 +41,14 @@ const WatchQuestions = () => {
       <Accordion
         defaultActiveKey="0"
         flush
-        className="col-12 col-md-11 col-xl-10 border rounded overflow-hidden"
+        className="col-12 col-lg-10 px-3 border rounded overflow-hidden"
       >
         {questions?.map((question, index) => {
           return (
             <Accordion.Item key={question.id} eventKey={question.id}>
               <Accordion.Header>
-                <h6>{`${index + 1}) ${question.question}`}</h6>
+                <p className="m-0 me-2 fs-6 fs-lg-5">{`${index + 1})`}</p>
+                <p className="m-0 me-2 fs-6 fs-lg-5">{`${question.question}`}</p>
               </Accordion.Header>
               <QuestionAccordionBody question={question} />
             </Accordion.Item>
