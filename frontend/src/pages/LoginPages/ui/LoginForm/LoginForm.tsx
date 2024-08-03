@@ -36,7 +36,7 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
 
   return (
     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-      <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
+      <h1 className="mb-4 text-center fs-3 fs-lg-2">{t('loginPage.title')}</h1>
       <Form.Group className="mb-3">
         <FormInput
           className="w-100"
@@ -77,6 +77,7 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
         type="submit"
         variant="outline-success"
         style={{ height: '58px', width: '100%' }}
+        disabled={isLoading}
       />
     </Form>
   );

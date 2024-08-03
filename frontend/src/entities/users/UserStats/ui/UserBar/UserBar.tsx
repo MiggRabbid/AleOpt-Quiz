@@ -15,7 +15,7 @@ const UserBar: React.FC<{ userStats: typeStatFuncsArgs }> = (props) => {
 
   return (
     <article className="h-100 w-100 p-2 card shadow-sm">
-      <p className="p-0 m-0 text-center text-uppercase fs-5 fw-semibold">
+      <p className="p-0 m-0 text-center text-uppercase fs-6 fs-lg-5 fw-semibold">
         {t('entities.userBar.title')}
       </p>
       <Bar data={dataBar} options={optionsBar} />

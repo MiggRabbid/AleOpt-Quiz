@@ -71,10 +71,10 @@ class ResultController {
         return acc + item.result;
       }, 0);
       if (!!userResults) {
-        userResults.attempts.push({ data, answers, correctAnswers });
+        userResults.attempts.unshift({ data, answers, correctAnswers });
 
         if (userResults.attempts.length > 10) {
-          userResults.attempts = userResults.attempts.slice(-10);
+          userResults.attempts = userResults.attempts.slice(0, 10);
         }
 
         await userResults.save();
@@ -94,7 +94,6 @@ class ResultController {
 
       const updatedUserStats = getUserStats(updatedUserResults);
 
-      console.log(updatedUserStats);
       return response.json(updatedUserStats);
     } catch (e) {
       return this.handleError(response, e, 'Error adding result');

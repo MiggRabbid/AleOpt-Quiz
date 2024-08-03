@@ -22,10 +22,12 @@ const UserDoughnut: React.FC<iUserDoughnutProps> = (props) => {
 
   return (
     <article
-      className={`h-100 w-100 py-3 px-5 card shadow-sm ${bgColor}`}
+      className={`h-100 col-11 py-3 px-5 card shadow-sm ${bgColor}`}
       id={`${type}UserDoughnut`}
     >
-      <p className="p-0 m-0 mb-2 text-center text-uppercase fs-5 fw-semibold">{currLabel}</p>
+      <p className="p-0 m-0 mb-2 text-center text-uppercase fs-6 fs-lg-5 fw-semibold">
+        {currLabel}
+      </p>
       <Doughnut data={dataDoughnut} options={optionsDoughnut} />
     </article>
   );
