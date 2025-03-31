@@ -87,7 +87,9 @@ export default [
       "dist",
       "build",
       "prettier.config.*",
-      "eslint.config.mjs"
+      "eslint.config.mjs",
+      "src/locales/*",
+      'postcss.config.mjs'
     ]
   },
 ];

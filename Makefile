@@ -16,20 +16,24 @@ build-front:
 
 # front next
 nx-i:
-	npm -C frontend ci
+	npm -C frontend-nextjs ci
 
 nx-l:
-	npm -C frontend run lint
+	npm -C frontend-nextjs run lint
 
 nx-f:
-	npm -C frontend run fix
+	npm -C frontend-nextjs run fix
 
 nx-d:
-	npm -C frontend run dev
+	npm -C frontend-nextjs run dev
 
 nx-b:
-	rm -C frontend -rf .next
-	npm -C frontend run build
+	rm -C frontend-nextjs -rf .next
+	npm -C frontend-nextjs run build
+
+
+nx-cl:
+	rm -C frontend-nextjs -rf .next
 
 # back
 lint-back:
