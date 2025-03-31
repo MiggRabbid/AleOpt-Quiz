@@ -1,22 +1,23 @@
 import { Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+
+import { useLogInMutation } from '../../../../app/api/auth.api';
+import getValidationSchema from './utils/validationSchema';
+import useAuth from '../../../../hooks/useAuth';
+import routes from '../../../../app/routes';
 
 import FormInput from '../../../../shared/components/forms/InputFabric';
 import MainButton from '../../../../shared/components/buttons/MainButton';
 
+import { iUser } from '../../../../types/iUser';
 import { iAuthError } from '../../../../types/iAuth';
-import getValidationSchema from './utils/validationSchema';
 
-interface iLoginFormProps {
-  logIn: (values: { username: string; password: string }) => void;
-  error: iAuthError;
-  isError: boolean;
-  isLoading: boolean;
-}
-
-const LoginForm: React.FC<iLoginFormProps> = (props) => {
-  const { logIn, error, isError, isLoading } = props;
+const LoginForm = () => {
+  const { userLogin } = useAuth();
+  const navigate = useNavigate();
+  const [logIn, { error, isError, isLoading }] = useLogInMutation();
 
   const { t } = useTranslation();
 
@@ -26,7 +27,11 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        await logIn(values);
+        const response = await logIn(values);
+        if ('data' in response) {
+          userLogin(response.data as iUser);
+          navigate(routes.MainPagePath());
+        }
       } catch (e) {
         console.error(e);
       }
@@ -36,7 +41,7 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
 
   return (
     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-      <h1 className="mb-4 text-center fs-3 fs-lg-2">{t('loginPage.title')}</h1>
+      <h1 className="mb-4 text-center fw-bold fs-3 fs-lg-2">{t('loginPage.title')}</h1>
       <Form.Group className="mb-3">
         <FormInput
           className="w-100"
@@ -67,15 +72,15 @@ const LoginForm: React.FC<iLoginFormProps> = (props) => {
           value={formik.values.password}
           onChange={formik.handleChange}
           isInvalid={!!formik.errors.password || !!isError}
-          error={formik.errors.password || t(`errors.${error?.data.errorType}`)}
+          error={formik.errors.password || t(`errors.${(error as iAuthError)?.data.errorType}`)}
           isDisable={isLoading}
         />
       </Form.Group>
 
       <MainButton
-        text={t('loginPage.title')}
+        text={t('loginPage.btn')}
         type="submit"
-        variant="outline-success"
+        variant="success"
         style={{ height: '58px', width: '100%' }}
         disabled={isLoading}
       />

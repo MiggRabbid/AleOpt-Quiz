@@ -2,11 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import routes from '../../../app/routes';
-import useActions from '../../../hooks/useActions';
+import routes from '../../../../app/routes';
+import useActions from '../../../../hooks/useActions';
 
-import MainButton from '../../../shared/components/buttons/MainButton';
-import useLocalStorage from '../../../hooks/useLocalStorage';
+import MainButton from '../../../../shared/components/buttons/MainButton';
+import useLocalStorage from '../../../../hooks/useLocalStorage';
 
 const ContinueQuizCard = () => {
   const navigate = useNavigate();

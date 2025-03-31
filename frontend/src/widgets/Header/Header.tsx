@@ -13,7 +13,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { logout, clearCurrentResult } = useActions();
-  const { user, userLogout } = useAuth();
+  const { authUser, userLogout } = useAuth();
 
   const handleLogout = () => {
     clearCurrentResult();
@@ -23,19 +23,19 @@ const Header = () => {
   };
 
   return (
-    <header className="container-xxl d-flex justify-content-center p-0 mx-0">
-      <div className="col-12 rounded-bottom shadow-sm bg-light-subtle">
+    <header className="container-fluid d-flex justify-content-center p-0 mx-0">
+      <div className="col-12 col-xxl-11 rounded-bottom shadow-lg bg-light-subtle">
         <Navbar className="p-0 d-flex justify-content-between">
           <NavbarBrand
-            className="py-1 col-3 m-0 d-flex justify-content-center align-items-center"
-            style={{ minWidth: '170px', maxWidth: '250px' }}
+            className="py-1 col-3 m-0 d-flex justify-content-start align-items-center"
+            style={{ minWidth: '120px', maxWidth: '200px' }}
           >
             <Button onClick={() => navigate(routes.MainPagePath())} variant="outline-light">
               <img src={Logo} alt={t('header.imgAlt')} height="60" />
             </Button>
           </NavbarBrand>
 
-          {!!user && (
+          {!!authUser && (
             <Button
               type="submit"
               variant="success"

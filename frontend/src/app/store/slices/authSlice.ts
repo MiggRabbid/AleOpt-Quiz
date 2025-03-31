@@ -1,12 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { typeAuthState } from '../../../types/types';
+import { iUser } from '../../../types/iUser';
 
 type actionTypeError = { name: string; message: string };
+
+export type typeAuthState = {
+  isAuthenticated: boolean;
+  error: { name: string; message: string } | null;
+  currentUser: iUser | null;
+};
 
 const initialState: typeAuthState = {
   isAuthenticated: false,
   error: null,
+  currentUser: null,
 };
 
 const authSlice = createSlice({
@@ -32,6 +39,12 @@ const authSlice = createSlice({
         ...state,
         isAuthenticated: false,
         error: null,
+      };
+    },
+    setCurrentUser: (state, action: PayloadAction<iUser>) => {
+      return {
+        ...state,
+        currentUser: action.payload,
       };
     },
   },

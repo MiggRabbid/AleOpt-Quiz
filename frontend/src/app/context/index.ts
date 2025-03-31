@@ -3,7 +3,7 @@ import { createContext } from 'react';
 import { iAuthContext } from '../../types/iAuth';
 
 const AuthContext = createContext<iAuthContext>({
-  user: null,
+  authUser: null,
   userLogin: () => {},
   userLogout: () => {},
   getAuthHeader: () => {},

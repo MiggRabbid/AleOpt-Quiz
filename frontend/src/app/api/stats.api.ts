@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import routes, { BASE_SERVER_URL } from '../../routes';
+import routes, { BASE_SERVER_URL } from '../routes';
 
-import { typeApiResponse } from '../../../types/types';
-import { iQuestion } from '../../../types/iQuiz';
-import { iUserStats } from '../../../types/iStats';
-import { iResultEntryRequest } from '../../../types/iUser';
+import { typeApiResponse } from '../../types/types';
+import { iQuestion } from '../../types/iQuiz';
+import { iUserStats } from '../../types/iStats';
+import { iResultEntryRequest } from '../../types/iUser';
 
 type typeUserStatsRequest = {
   headers: typeApiResponse;
@@ -23,6 +23,7 @@ const statsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_SERVER_URL,
   }),
+  tagTypes: ['Stats'],
   endpoints: (build) => ({
     getAllStats: build.query<iQuestion[], typeApiResponse>({
       query: (userHeaders) => ({
@@ -32,6 +33,7 @@ const statsApi = createApi({
           ...userHeaders,
         },
       }),
+      providesTags: ['Stats'],
     }),
     getUserStats: build.query<iUserStats, typeUserStatsRequest>({
       query: (request) => ({
@@ -42,6 +44,7 @@ const statsApi = createApi({
         },
         params: { username: request.params?.username },
       }),
+      providesTags: ['Stats'],
     }),
     addUserStats: build.mutation<iUserStats, typeAddUserStatsRequest>({
       query: (request) => ({
@@ -54,6 +57,7 @@ const statsApi = createApi({
         params: { username: request.params?.username },
         body: request.body,
       }),
+      invalidatesTags: ['Stats'],
     }),
   }),
 });

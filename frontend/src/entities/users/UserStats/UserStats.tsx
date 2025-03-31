@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { useTranslation } from 'react-i18next';
 
-import { useGetUserStatsQuery } from '../../../app/store/api/stats.api';
+import { useGetUserStatsQuery } from '../../../app/api/stats.api';
 
 import UserBar from './ui/UserBar/UserBar';
 import UserDoughnut from './ui/UserDoughnut/UserDoughnut';
@@ -47,20 +47,33 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
     <section className="w-100 h-100 d-flex flex-row flex-wrap align-items-center align-items-lg-start justify-content-center justify-content-lg-start">
       {!!userStats && (
         <>
-          <div className="col-12 w-100 mb-4 d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
-            <div className="col-12 col-md-10 col-lg-5 h-100 px-1 d-flex justify-content-center align-items-center">
-              <article className="card py-3 shadow-sm w-100 d-flex flex-column">
-                <div className="">
+          <div className="col-12 w-100 mb-4 d-flex flex-column justify-content-center align-items-center gap-3">
+            <div className="col-12 h-100 px-1 d-flex justify-content-center align-items-center">
+              <article className="d-flex flex-column">
+                <div
+                  id="attemptsCount"
+                  className="card shadow-sm "
+                  style={{ height: '100px', width: '200px' }}
+                >
                   <p className="p-0 m-0 me-1 text-center text-uppercase fs-6 fs-lg-5 fw-semibold d-flex flex-row justify-content-center">
                     {t('entities.userStats.numberAttempts')}
                     {userStats.numberAttempts}
                   </p>
+                </div>
+                <div
+                  id="averageResult"
+                  className="card shadow-sm "
+                  style={{ height: '100px', width: '200px' }}
+                >
                   <p className="p-0 m-0 text-center text-uppercase fs-6 fs-lg-5 fw-semibold d-flex flex-row justify-content-center">
                     {t('entities.userStats.averageScore')}
                     <UserStatBadge averageResult={userStats.averageResult} />
                   </p>
                 </div>
-                <div className="mt-5 d-flex px- flex-column justify-content-center gap-3">
+                <div
+                  id="tableResults"
+                  className="mt-5 d-flex px- flex-column justify-content-center gap-3"
+                >
                   <Table striped bordered className="w-100 m-0 mb-2">
                     <thead>
                       <tr>
@@ -105,7 +118,7 @@ const UserStats: React.FC<iUserStatsProps> = (props) => {
                 </div>
               </article>
             </div>
-            <div className="col-12 col-md-10 col-lg-6 h-100 px-1 d-flex justify-content-center align-items-center">
+            <div className="col-12 h-100 px-1 d-flex justify-content-center align-items-center">
               <UserBar userStats={userStats} />
             </div>
           </div>

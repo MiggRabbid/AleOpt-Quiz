@@ -7,7 +7,7 @@ import { iUser, UserRoles } from '../../types/iUser';
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const currentUser = useLocalStorage.getUser();
-  const [user, setUser] = useState(currentUser);
+  const [authUser, setUser] = useState(currentUser);
 
   const userLogin = (data: iUser) => {
     if (data === undefined) return;
@@ -39,13 +39,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const authValue = useMemo(
     () => ({
-      user,
+      authUser,
       userLogin,
       userLogout,
       getAuthHeader,
       isAdmin,
     }),
-    [user],
+    [authUser],
   );
 
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;

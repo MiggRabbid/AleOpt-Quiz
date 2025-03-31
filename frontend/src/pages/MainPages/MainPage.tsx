@@ -1,25 +1,28 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Nav, Tab } from 'react-bootstrap';
 
 import routes from '../../app/routes';
 import useAuth from '../../hooks/useAuth';
 import useActions from '../../hooks/useActions';
-import { useGetAllQuestionsQuery } from '../../app/store/api/quiz.api';
-import { useGetCurrentUserQuery } from '../../app/store/api/users.api';
-
-import UserStats from '../../entities/users/UserStats/UserStats';
-import StartQuizCard from './ui/StartQuizCard';
-import CurrUserCard from './ui/CurrUserCard';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { useGetAllQuestionsQuery } from '../../app/api/quiz.api';
+import { useGetCurrentUserQuery } from '../../app/api/users.api';
 
 import { typeApiResponse } from '../../types/types';
-import ContinueQuizCard from './ui/ContinueQuizCard';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import WatchStats from './ui/WatchStats/WatchStats';
 
 const MainPage = () => {
+  console.log('----- MainPage');
   const navigate = useNavigate();
   const { setQuestions, setCurrentUser, setCurrentResult } = useActions();
 
-  const { user, isAdmin, getAuthHeader } = useAuth();
+  const { authUser, isAdmin, getAuthHeader } = useAuth();
+
+  useEffect(() => {
+    if (!!authUser && isAdmin(authUser)) navigate(routes.AdminPagePath());
+  }, [authUser, isAdmin, navigate]);
+
   const headers = getAuthHeader() as typeApiResponse;
 
   const unfinishedAttempt = useLocalStorage.getResult();
@@ -27,47 +30,72 @@ const MainPage = () => {
   const { data: questions } = useGetAllQuestionsQuery(headers);
   const { data: curUser } = useGetCurrentUserQuery({
     headers,
-    params: { username: user?.username || '' },
+    params: { username: authUser?.username || '' },
   });
 
   useEffect(() => {
-    if (!!user && isAdmin(user)) navigate(routes.AdminPagePath());
-  }, [user, isAdmin, navigate]);
-
-  useEffect(() => {
     if (!!questions) setQuestions(questions);
-  }, [questions]);
+  }, [questions, setQuestions]);
 
   useEffect(() => {
     if (!!curUser) setCurrentUser(curUser);
-  }, [curUser]);
+  }, [curUser, setCurrentUser]);
 
   useEffect(() => {
     if (!!unfinishedAttempt && unfinishedAttempt.answers.length > 0) {
       setCurrentResult(unfinishedAttempt.answers);
     }
-  }, [unfinishedAttempt]);
+  }, [unfinishedAttempt, setCurrentResult]);
+
+  const navLinkClass = 'rounded text-center text-md-start';
 
   return (
     <main
-      className="container-xxl h-100 p-0 mx-0 rounded-0 mx-0 my-4 d-flex flex-column align-items-center justify-content-start gap-5"
-      style={{ minHeight: 'calc(100vh - 96px - 8px - 8px - 66px)' }}
+      className="col-12 col-xxl-11 h-100 p-0 m-0 my-2 rounded overflow-hidden bg-danger-subtle"
+      style={{ minHeight: 'calc(100vh - 82px - 8px - 8px - 64px)' }}
       id="MainPage"
     >
-      <div className="col-12 d-flex flex-column flex-lg-row align-items-center justify-content-center gap-4">
-        <div className="col-11 col-lg-5 d-flex flex-column">
-          <CurrUserCard />
+      <Tab.Container transition id="admin-tabs" defaultActiveKey="statistics">
+        <div
+          className="h-100 w-100 m-0 d-flex flex-column flex-md-row justify-content-center align-items-star align-items-md-stretch bg-success-subtle"
+          style={{ minHeight: 'calc(100vh - 82px - 8px - 8px - 64px)' }}
+        >
+          <div
+            className="col-12 col-md-1 py-0 px-2 ps-md-2 pe-md-3 bg-light-subtle border"
+            style={{ minWidth: '170px' }}
+          >
+            <Nav
+              variant="pills"
+              className="h-100 d-flex flex-row flex-md-column pt-2 pt-md-4 pb-2 pb-md-3"
+            >
+              <Nav.Item className="col-6 col-md-12">
+                <Nav.Link eventKey="statistics" className={navLinkClass}>
+                  Статистика
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item className="col-6 col-md-12">
+                <Nav.Link eventKey="lastAttempt" className={navLinkClass}>
+                  Последняя попытка
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </div>
+          <div className="h-100 w-100 ms-0 mt-2 ms-md-2 mt-md-0 p-0 bg-light-subtle">
+            <Tab.Content>
+              <Tab.Pane transition eventKey="statistics">
+                <WatchStats
+                  unfinishedAttempt={unfinishedAttempt}
+                  authUser={authUser}
+                  headers={headers}
+                />
+              </Tab.Pane>
+              <Tab.Pane transition eventKey="lastAttempt">
+                Тут будет последняя попытка
+              </Tab.Pane>
+            </Tab.Content>
+          </div>
         </div>
-        <div className="col-11 col-lg-6 d-flex flex-column">
-          {!!unfinishedAttempt && unfinishedAttempt.answers.length > 0 ? (
-            <ContinueQuizCard />
-          ) : (
-            <StartQuizCard />
-          )}
-        </div>
-      </div>
-
-      {!!user && <UserStats username={user?.username} headers={headers} />}
+      </Tab.Container>
     </main>
   );
 };

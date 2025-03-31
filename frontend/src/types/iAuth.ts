@@ -9,7 +9,7 @@ export interface iAuthError {
 }
 
 export interface iAuthContext {
-  user: iUser | null;
+  authUser: iUser | null;
   userLogin: (data: iUser) => void;
   userLogout: () => void;
   getAuthHeader: () => unknown;

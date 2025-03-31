@@ -1,9 +1,8 @@
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { Accordion } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import useActions from '../../../../hooks/useActions';
-import { getQuestions } from '../../../../selectors/quizSelectors';
 
 import MainButton from '../../../../shared/components/buttons/MainButton';
 import QuestionAccordionBody from './QuestionAccordionBody';
@@ -11,9 +10,9 @@ import QuestionAccordionBody from './QuestionAccordionBody';
 import { iQuestion } from '../../../../types/iQuiz';
 import { FabricModalType } from '../../../../types/iModal';
 
-const WatchQuestions = () => {
+const WatchQuestions: React.FC<{ questions: iQuestion[] | undefined }> = (props) => {
+  const { questions } = props;
   const { t } = useTranslation();
-  const questions: iQuestion[] = useSelector(getQuestions);
   const { openModal } = useActions();
 
   return (
@@ -41,7 +40,7 @@ const WatchQuestions = () => {
       <Accordion
         defaultActiveKey="0"
         flush
-        className="col-12 col-lg-10 px-3 border rounded overflow-hidden"
+        className="col-12 col-lg-10 border rounded overflow-hidden"
       >
         {questions?.map((question, index) => {
           return (

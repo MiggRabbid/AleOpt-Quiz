@@ -4,8 +4,8 @@ import { Form, InputGroup, Modal } from 'react-bootstrap';
 
 import useAuth from '../../../hooks/useAuth';
 import useActions from '../../../hooks/useActions';
-import { useDeleteUserMutation } from '../../../app/store/api/users.api';
-import { useDeleteQuestionMutation } from '../../../app/store/api/quiz.api';
+import { useDeleteUserMutation } from '../../../app/api/users.api';
+import { useDeleteQuestionMutation } from '../../../app/api/quiz.api';
 
 import MainButton from '../buttons/MainButton';
 

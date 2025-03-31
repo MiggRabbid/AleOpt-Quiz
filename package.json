@@ -2,10 +2,6 @@
   "name": "aleopt-quiz",
   "version": "1.0.1",
   "description": "Knowledge test service for \"AleOpt\"",
-  "main": "./src/main.tsx",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MiggRabbid/AleOpt-Quiz.git"

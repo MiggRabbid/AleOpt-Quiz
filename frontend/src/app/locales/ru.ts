@@ -16,6 +16,7 @@ export default {
         username: 'Введите логин',
         password: 'Введите пароль',
       },
+      btn: 'Войти',
     },
     mainPage: {
       title: ', Добро пожаловать',

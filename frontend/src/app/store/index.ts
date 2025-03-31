@@ -2,13 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import authReducer, { actions as authActions } from './slices/authSlice';
 import quizReducer, { actions as quizActions } from './slices/quizSlice';
-import usersReducer, { actions as usersActions } from './slices/usersSlice';
 import modalReducer, { actions as modalActions } from './slices/modalSlice';
 
-import quizApi from './api/quiz.api';
-import authApi from './api/auth.api';
-import usersApi from './api/users.api';
-import statsApi from './api/stats.api';
+import quizApi from '../api/quiz.api';
+import authApi from '../api/auth.api';
+import usersApi from '../api/users.api';
+import statsApi from '../api/stats.api';
 
 const rootReducer = combineReducers({
   [quizApi.reducerPath]: quizApi.reducer,
@@ -17,7 +16,6 @@ const rootReducer = combineReducers({
   [statsApi.reducerPath]: statsApi.reducer,
   authReducer,
   quizReducer,
-  usersReducer,
   modalReducer,
 });
 
@@ -26,7 +24,6 @@ export type RootState = ReturnType<typeof rootReducer>;
 const actions = {
   ...authActions,
   ...quizActions,
-  ...usersActions,
   ...modalActions,
 };
 

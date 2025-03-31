@@ -17,13 +17,13 @@ import NotFound from '../pages/404Pages/404NotFound.tsx';
 import ModalFabric from '../shared/components/modals/ModalFabric.tsx';
 
 const PrivateUserOutlet = () => {
-  const { user } = useAuth();
-  return user ? <Outlet /> : <Navigate to={routes.loginPagePath()} />;
+  const { authUser } = useAuth();
+  return authUser ? <Outlet /> : <Navigate to={routes.loginPagePath()} />;
 };
 
 const PrivateAdminOutlet = () => {
-  const { user, isAdmin } = useAuth();
-  return !!user && isAdmin(user) ? <Outlet /> : <Navigate to={routes.MainPagePath()} />;
+  const { authUser, isAdmin } = useAuth();
+  return !!authUser && isAdmin(authUser) ? <Outlet /> : <Navigate to={routes.MainPagePath()} />;
 };
 
 const App = () => {

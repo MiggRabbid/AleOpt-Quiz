@@ -1,8 +1,7 @@
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { Accordion } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { getAllUsers } from '../../../../selectors/usersSelector';
 import useActions from '../../../../hooks/useActions';
 
 import MainButton from '../../../../shared/components/buttons/MainButton';
@@ -22,10 +21,10 @@ const getAdminRole = (role: string) => {
   }
 };
 
-const WatchUsers = () => {
+const WatchUsers: React.FC<{ users: iUser[] | undefined }> = (props) => {
+  const { users } = props;
   const { t } = useTranslation();
   const { openModal } = useActions();
-  const users: iUser[] | null = useSelector(getAllUsers);
 
   return (
     <section
@@ -47,7 +46,7 @@ const WatchUsers = () => {
       <Accordion
         defaultActiveKey="0"
         flush
-        className="col-12 col-lg-10 px-3 border rounded overflow-hidden"
+        className="col-12 col-lg-10 border rounded overflow-hidden"
       >
         {users?.map((user) => {
           return (

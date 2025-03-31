@@ -13,7 +13,7 @@ const getBadgeStyle = (numberAttempts: number): string => {
 const UserStatBadge: React.FC<{ averageResult: number }> = (props) => {
   const { averageResult } = props;
   return (
-    <Badge bg={getBadgeStyle(averageResult)} className="ms-2 py-2 px-4 fs-6">
+    <Badge bg={getBadgeStyle(averageResult)} className="fs-6 px-3 py-2 text-center py-1">
       {averageResult}%
     </Badge>
   );

@@ -2,13 +2,13 @@ install:
 	npm ci
 
 lint:
-	npm -C frontend run lint
+	npm -run lint
 
 fix:
-	npm -C frontend run fix
+	npm run fix
 
 dev:
-	npm -C frontend run dev
+	npm run dev
 
 build:
-	npm -C frontend run build
+	npm run build

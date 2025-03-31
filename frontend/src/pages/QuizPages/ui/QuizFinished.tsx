@@ -9,7 +9,7 @@ import useAuth from '../../../hooks/useAuth';
 import useActions from '../../../hooks/useActions';
 import useLocalStorage from '../../../hooks/useLocalStorage';
 import { getAnswerBg, getQuestion } from '../utils/forQuizFinished';
-import { useAddUserStatsMutation } from '../../../app/store/api/stats.api';
+import { useAddUserStatsMutation } from '../../../app/api/stats.api';
 
 import MainButton from '../../../shared/components/buttons/MainButton';
 import SmileHappy from '../../../shared/components/icons/SmileHappy';
@@ -54,12 +54,13 @@ const QuestionsFinished = () => {
         answers: currentResult,
       };
 
-      await addUserStats({
+      const request = await addUserStats({
         headers,
         body,
         params: { username: user?.username || '' },
       });
 
+      if ('data' in request) console.log(request.data);
       clearCurrentResult();
       useLocalStorage.delResult();
       navigate(routes.MainPagePath());
@@ -67,6 +68,7 @@ const QuestionsFinished = () => {
       console.error(e);
     }
   };
+
   return (
     <section
       className="w-100 h-100 p-3 p-sm-5 rounded d-flex flex-column justify-content-start align-items-center bg-light-subtle gap-3"

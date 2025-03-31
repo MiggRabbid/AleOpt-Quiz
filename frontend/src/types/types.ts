@@ -18,9 +18,4 @@ export type typeQuestionAnswer = {
   answer: string;
 };
 
-export type typeAuthState = {
-  isAuthenticated: boolean;
-  error: { name: string; message: string } | null;
-};
-
 export type typeApiResponse = Record<string, string>;

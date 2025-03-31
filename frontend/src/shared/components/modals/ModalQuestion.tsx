@@ -9,7 +9,7 @@ import { getQuestions } from '../../../selectors/quizSelectors';
 import {
   useAddNewQuestionMutation,
   useEditQuestionMutation,
-} from '../../../app/store/api/quiz.api';
+} from '../../../app/api/quiz.api';
 import { getAnswersKeys, getNewQuestionId, getResponseBody } from './utils/modalQuestionUtils';
 import { getQuestionValidationSchema } from './utils/modalsValidationSchema';
 import { getQuestionInitialValue } from './utils/modalsInitialValue';

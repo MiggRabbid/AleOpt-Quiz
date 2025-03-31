@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
 import useAuth from '../../../hooks/useAuth';
-import useActions from '../../../hooks/useActions';
-import { useAddNewUserMutation, useEditUserMutation } from '../../../app/store/api/users.api';
+// import useActions from '../../../hooks/useActions';
+import { useAddNewUserMutation, useEditUserMutation } from '../../../app/api/users.api';
 import { getUserValidationSchema } from './utils/modalsValidationSchema';
 import { getUserInitialValue } from './utils/modalsInitialValue';
 
@@ -29,7 +29,7 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
   const { t } = useTranslation();
   const { getAuthHeader } = useAuth();
   const headers = getAuthHeader() as typeApiResponse;
-  const { setUsers } = useActions();
+  // const { setUsers } = useActions();
 
   const [addNewUser, { isLoading, isError, error }] = useAddNewUserMutation();
   const [editUser] = useEditUserMutation();
@@ -42,30 +42,31 @@ const ModalUser: React.FC<iModalUserProps> = (props) => {
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        let response;
+        // let response;
         console.log(values);
         if (!!user && isDisable) {
-          response = await editUser({
+          await editUser({
             headers,
             body: values,
             params: { username: user.username },
           });
         } else if (!!user && !isDisable) {
-          response = await editUser({
+          await editUser({
             headers,
             body: values,
             params: { username: user.username },
           });
         } else {
-          response = await addNewUser({ headers, body: values });
+          await addNewUser({ headers, body: values });
         }
 
-        if ('data' in response) {
-          setUsers(response.data);
-          onHide();
-        } else {
-          console.error('Unexpected response structure:', response);
-        }
+        // if ('data' in response) {
+        //   setUsers(response.data);
+        //   onHide();
+        // } else {
+        //   console.error('Unexpected response structure:', response);
+        // }
+        onHide();
       } catch (e) {
         console.error(e);
       }

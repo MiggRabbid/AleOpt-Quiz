@@ -7,7 +7,7 @@ import UserChangeButtonsGroup from '../../../../shared/components/buttons/Change
 import { iUser } from '../../../../types/iUser';
 import { typeApiResponse } from '../../../../types/types';
 import useAuth from '../../../../hooks/useAuth';
-import { useGetUserStatsQuery } from '../../../../app/store/api/stats.api';
+import { useGetUserStatsQuery } from '../../../../app/api/stats.api';
 import UserStats from '../../../../entities/users/UserStats/UserStats';
 
 interface iUserAccordionBodyProps {

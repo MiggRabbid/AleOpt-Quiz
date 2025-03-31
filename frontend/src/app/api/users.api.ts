@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import routes, { BASE_SERVER_URL } from '../../routes';
+import routes, { BASE_SERVER_URL } from '../routes';
 
-import { iUser } from '../../../types/iUser';
-import { typeApiResponse } from '../../../types/types';
+import { iUser } from '../../types/iUser';
+import { typeApiResponse } from '../../types/types';
 
 export type typeAddNewUserRequest = {
   headers: typeApiResponse;
@@ -21,6 +21,7 @@ const usersApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_SERVER_URL,
   }),
+  tagTypes: ['Users'],
   endpoints: (build) => ({
     getAllUsers: build.query<iUser[], typeApiResponse>({
       query: (userHeaders) => ({
@@ -30,6 +31,7 @@ const usersApi = createApi({
           ...userHeaders,
         },
       }),
+      providesTags: ['Users'],
     }),
     getCurrentUser: build.query<iUser, typeGetCurUserRequest>({
       query: (request) => ({
@@ -40,6 +42,7 @@ const usersApi = createApi({
         },
         params: { username: request.params?.username },
       }),
+      providesTags: ['Users'],
     }),
     addNewUser: build.mutation<iUser[], typeAddNewUserRequest>({
       query: (request) => ({
@@ -51,6 +54,7 @@ const usersApi = createApi({
         },
         body: request.body,
       }),
+      invalidatesTags: ['Users'],
     }),
     editUser: build.mutation<iUser[], typeAddNewUserRequest>({
       query: (request) => ({
@@ -63,6 +67,7 @@ const usersApi = createApi({
         params: { username: request.params?.username },
         body: request.body,
       }),
+      invalidatesTags: ['Users'],
     }),
     deleteUser: build.mutation<iUser[], typeAddNewUserRequest>({
       query: (request) => ({
@@ -75,6 +80,7 @@ const usersApi = createApi({
         params: { username: request.params?.username },
         body: request.body,
       }),
+      invalidatesTags: ['Users'],
     }),
   }),
 });
