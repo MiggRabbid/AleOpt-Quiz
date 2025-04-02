@@ -7,9 +7,12 @@ export interface iAuthError {
 }
 
 export interface iResponseLogin {
+  id: string;
   token: string;
   username: string;
+  firstName: string;
   role: UserRoles;
+  image: string;
 }
 
 export interface iRequestLogin {

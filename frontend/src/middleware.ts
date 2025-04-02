@@ -1,5 +1,6 @@
 import { withAuth, NextRequestWithAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
+import { IAuthorizedArgs } from './types/next-auth';
 
 export default withAuth(
   function middleware(req: NextRequestWithAuth) {
@@ -23,7 +24,7 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => {
+      authorized: ({ token }: IAuthorizedArgs) => {
         return !!token;
       },
     },

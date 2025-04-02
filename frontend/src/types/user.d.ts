@@ -13,6 +13,7 @@ export interface iUser {
   username: string;
   password?: string;
   token?: string;
+  image?: string;
   results?: Array<Record<string, string>>;
 }
 
