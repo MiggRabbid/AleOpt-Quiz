@@ -1,39 +1,22 @@
-install:
-	npm ci
-
 # front
-lint-front:
-	npm -C frontend run lint
-
-fix-front:
-	npm -C frontend run fix
-
-dev-front:
-	npm -C frontend run dev
-
-build-front:
-	npm -C frontend run build
-
-# front next
 nx-i:
-	npm -C frontend-nextjs ci
+	npm -C frontend ci
 
 nx-l:
-	npm -C frontend-nextjs run lint
+	npm -C frontend run lint
 
 nx-f:
-	npm -C frontend-nextjs run fix
+	npm -C frontend run fix
 
 nx-d:
-	npm -C frontend-nextjs run dev
+	npm -C frontend run dev
 
 nx-b:
-	rm -C frontend-nextjs -rf .next
-	npm -C frontend-nextjs run build
-
+	rm -rf frontend/.next
+	npm -C frontend run build
 
 nx-cl:
-	rm -C frontend-nextjs -rf .next
+	rm -C frontend -rf .next
 
 # back
 lint-back:
@@ -51,11 +34,7 @@ build-back:
 start-back:
 	npm -C backend run start
 
-# dev start with react
-dev:
-	make dev-front & make dev-back
 
-
-# dev start with next
-dev-nx:
+# dev start back and front
+d:
 	make nx-d & make dev-back

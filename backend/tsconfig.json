@@ -9,6 +9,6 @@
     "outDir": "./dist",
     "rootDir": "./src",
   },
-  "include": ["src/**/*.ts", "src/index.ts"],
+  "include": ["src/**/*.ts", "src/index.ts", "src/providers/index.ts", "src/providers/SessionProvider.tsx"],
   "exclude": ["node_modules"]
 }

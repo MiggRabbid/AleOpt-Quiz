@@ -1,9 +1,0 @@
-@import 'tailwindcss';
-
-@theme {
-  --font-sans: var(--font-sans), sans-serif;
-  --font-mono: var(--font-mono), sans-serif;
-
-  --shadow-main: 0px 0px 8px 0px rgba(0, 89, 0, 0.4);
-  --shadow-block: 0px 0px 10px 0px rgba(0, 89, 0, 0.4);
-}
