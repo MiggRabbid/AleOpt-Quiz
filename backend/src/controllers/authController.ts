@@ -48,11 +48,11 @@ class AuthController {
           .json({ message: 'Invalid username or password', errorType: 'InvalidUserData' });
       }
 
-      const { role, image = '' } = user;
+      const { role, _id: id, image = '' } = user;
       const token = getAccessToken(user.role as string, user.username);
 
       console.log(`----- login - ${user?.firstName} ${user?.lastName} - ${user?.username}`);
-      return response.json({ token, username, role, image });
+      return response.json({ token, id, username, role, image });
     } catch (e) {
       console.error('---- authController', e);
       return response.status(400).json({ message: 'Authorization error', errorType: 'authError' });
