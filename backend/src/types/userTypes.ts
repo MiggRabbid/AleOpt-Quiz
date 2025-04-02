@@ -18,6 +18,7 @@ export interface iUserModel extends Document {
   username: string;
   password: string;
   results?: Array<Record<string, string>>;
+  image?: string;
 }
 
 export interface iResponseUser {
@@ -26,6 +27,7 @@ export interface iResponseUser {
   lastName: string;
   username: string;
   results?: Array<Record<string, string>>;
+  image?: string;
 }
 
 export interface iUpdateUserData {
@@ -34,4 +36,5 @@ export interface iUpdateUserData {
   firstName: string;
   lastName: string;
   password?: string;
+  image?: string;
 }

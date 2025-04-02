@@ -29,8 +29,8 @@ class UserController {
   private async getAllUsers(): Promise<iResponseUser[]> {
     const allUser = await User.find();
     return allUser.map((user) => {
-      const { firstName, lastName, username, role } = user;
-      return { firstName, lastName, username, role };
+      const { firstName, lastName, username, role, image = '' } = user;
+      return { firstName, lastName, username, role, image };
     });
   }
 
@@ -49,9 +49,9 @@ class UserController {
   async allUsers(request: Request, response: Response): Promise<Response> {
     try {
       const users = await this.getAllUsers();
-      const sortedUser = sortUsersByRole(users);
-      console.log('sortedUser -', sortedUser);
-      return response.json(sortedUser);
+      const sortedUsers = sortUsersByRole(users);
+      console.log('sortedUser -', sortedUsers);
+      return response.json(sortedUsers);
     } catch (e) {
       return this.handleError(response, e, 'Error in allUsers:');
     }
@@ -83,12 +83,13 @@ class UserController {
         username,
         password: hashPassword,
         role: userRole?.value,
+        image: '',
       });
       await newUser.save();
 
       const users = await this.getAllUsers();
-      const sortedUser = sortUsersByRole(users);
-      return response.json(sortedUser);
+      const sortedUsers = sortUsersByRole(users);
+      return response.json(sortedUsers);
     } catch (e) {
       return response.status(400).json({ message: 'Registration error', errorType: 'regError' });
     }
