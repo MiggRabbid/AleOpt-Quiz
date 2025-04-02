@@ -7,7 +7,7 @@ import { SideFull } from '@/components/layouts/SideFull/SideFull';
 export default function Home() {
   return (
     <SideFull>
-      <Box className="w-4/12 h-full p-12 absolute left-0 top-0 grow shrink flex items-center justify-center">
+      <Box className="absolute top-0 left-0 flex h-full w-4/12 shrink grow items-center justify-center p-12">
         <LoginForm />
       </Box>
       <LoginImg />

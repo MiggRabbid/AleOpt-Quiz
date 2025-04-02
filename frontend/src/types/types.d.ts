@@ -19,3 +19,11 @@ export type typeQuestionAnswer = {
 };
 
 export type typeApiResponse = Record<string, string>;
+
+export interface IResponseError {
+  status: number;
+  data: {
+    message: string;
+    errorType: string;
+  };
+}

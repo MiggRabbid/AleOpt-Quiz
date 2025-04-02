@@ -6,7 +6,7 @@ interface ISideMainProps {
 
 const SideMain = ({ children }: ISideMainProps) => {
   return (
-    <Box className="grow-4 flex p-3.5 rounded-2xl shadow-block relative bg-white">
+    <Box className="shadow-block relative flex grow-4 rounded-2xl bg-white p-3.5">
       {children}
     </Box>
   );

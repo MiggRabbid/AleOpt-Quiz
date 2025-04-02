@@ -1,6 +1,8 @@
+// библиотеки
 import type { Metadata } from 'next';
+// стили
 import './styles/globals.css';
-import './styles/tailwindcss.css';
+// компоненты
 import { AppHeader } from '@/components/layouts/Header/AppHeader';
 import { SessionProvider } from '@/providers';
 
@@ -16,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className="flex flex-col justify-start text-slate-900 bg-green-50">
+      <body className="flex flex-col justify-start bg-green-50 text-slate-900">
         <SessionProvider>
           <AppHeader />
           {children}

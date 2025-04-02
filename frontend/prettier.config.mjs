@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   singleQuote: true,
   semi: true,
   jsxSingleQuote: false,
@@ -9,4 +9,5 @@ module.exports = {
   tabWidth: 2,
   arrowParens: 'always',
   endOfLine: 'lf',
+  plugins: ['prettier-plugin-tailwindcss'],
 };

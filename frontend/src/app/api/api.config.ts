@@ -1,4 +1,13 @@
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
 import axiosInstance from './api.client';
+import { IResponseError } from '@/types/types';
+
+export const getUserToken = async () => {
+  const session = await getServerSession(authOptions);
+  return session?.user?.token || null;
+};
 
 export enum TypeAxiosMethod {
   // eslint-disable-next-line no-unused-vars
@@ -22,7 +31,8 @@ export const headersForm = {
 export async function sendRequest(props: {
   method: string;
   endpoint: string;
-  data: any;
+  data?: any;
+  params?: any;
   headers?: any;
 }) {
   const {
@@ -33,11 +43,14 @@ export async function sendRequest(props: {
       Accept: '*/*',
       'Content-Type': 'application/json',
     },
+    params = {},
   } = props;
+
   const response = await axiosInstance.request({
     method,
     url: endpoint,
-    data: data,
+    data,
+    params,
     headers,
   });
   return { data: response.data };

@@ -1,7 +1,8 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
-import prettierConfig from "./prettier.config.cjs"; import tsParser from "@typescript-eslint/parser";
+import tsParser from "@typescript-eslint/parser";
+import prettierConfig from "./prettier.config.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

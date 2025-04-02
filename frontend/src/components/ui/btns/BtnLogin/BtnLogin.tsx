@@ -16,18 +16,22 @@ const BtnLogin = (props: IBtnLoginProps) => {
       color="success"
       fullWidth
       disabled={isSubmitting || isDisabled}
-      className="min-h-14! h-14! rounded-xl!"
+      className="h-14! min-h-14! rounded-xl!"
     >
       {isSubmitting && (
         <>
           <CircularProgress
             color="success"
-            className="min-w-6! w-6! min-h-6! h-6! mr-4"
+            className="mr-4 h-6! min-h-6! w-6! min-w-6!"
           />
-          <p>Проверяем данные...</p>
+          <p>Вхожу...</p>
         </>
       )}
-      {!isSubmitting && 'Войти'}
+      {!isSubmitting && (
+        <>
+          <p>Войти</p>
+        </>
+      )}
     </Button>
   );
 };

@@ -6,7 +6,7 @@ interface ISideSecondProps {
 
 const SideSecond = ({ children }: ISideSecondProps) => {
   return (
-    <Box className="max-w-2xs grow p-3.5 rounded-2xl shadow-block bg-white">
+    <Box className="shadow-block max-w-2xs grow rounded-2xl bg-white p-3.5">
       {children}
     </Box>
   );

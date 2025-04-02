@@ -5,7 +5,7 @@ import type { User as nextAuthUser } from 'next-auth';
 
 declare module 'next-auth' {
   interface Session {
-    user: iResponseLogin & DefaultSession['user'];
+    user: iResponseLogin & Omit<DefaultSession['user'], 'email'>;
   }
 
   interface User extends iResponseLogin {}

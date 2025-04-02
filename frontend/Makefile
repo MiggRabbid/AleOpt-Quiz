@@ -5,7 +5,7 @@ l:
 	npm run lint
 
 f:
-	npm run fix
+	npm run format
 
 d:
 	npm run dev
@@ -13,7 +13,6 @@ d:
 b:
 	rm -rf .next
 	npm run build
-
 	
 cl:
 	rm -rf .next

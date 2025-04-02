@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 
 export default function Home() {
   return (
-    <Box id="admin" className="flex grow gap-3.5 m-3.5">
+    <Box id="admin" className="m-3.5 flex grow gap-3.5">
       <SideSecond>
         <Box>SideSecond</Box>
       </SideSecond>

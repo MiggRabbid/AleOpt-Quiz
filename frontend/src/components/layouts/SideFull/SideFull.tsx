@@ -6,7 +6,7 @@ interface ISideFullProps {
 
 const SideFull = ({ children }: ISideFullProps) => {
   return (
-    <Box className="flex flex-row grow m-3.5 min-h-full rounded-2xl shadow-block relative overflow-hidden bg-white">
+    <Box className="shadow-block relative m-3.5 flex min-h-full grow flex-row overflow-hidden rounded-2xl bg-white">
       {children}
     </Box>
   );

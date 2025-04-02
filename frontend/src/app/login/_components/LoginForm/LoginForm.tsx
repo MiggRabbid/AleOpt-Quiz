@@ -15,20 +15,21 @@ const LoginForm = () => {
 
   useEffect(() => {
     redirect((session?.user as any)?.role || '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   return (
-    <Box className="flex flex-col w-full gap-10 rounded-2xl px-9 py-12 shadow-main">
+    <Box className="shadow-main flex w-full flex-col gap-10 rounded-2xl px-9 py-12">
       <Typography
         component="h1"
-        className="w-full text-center uppercase text-2xl! font-bold!"
+        className="w-full text-center text-2xl! font-bold! uppercase"
       >
         Авторизуйтесь
       </Typography>
       <FormControl
         component="form"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col w-full gap-1!"
+        className="flex w-full flex-col gap-1!"
       >
         <CustomInput
           type="text"

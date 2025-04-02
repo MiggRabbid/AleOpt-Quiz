@@ -1,9 +1,11 @@
 import NextAuth from 'next-auth';
+import type { SessionStrategy } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { api } from '../../api';
 import { ICallbackJwtArgs, ICallbackSessionArgs } from '@/types/next-auth';
+import { iResponseLogin } from '@/types/auth';
 
-const handler = NextAuth({
+export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
@@ -26,36 +28,58 @@ const handler = NextAuth({
       },
     }),
   ],
-  session: { strategy: 'jwt' },
+  session: { strategy: 'jwt' as SessionStrategy, maxAge: 7 * 24 * 60 * 60 },
   callbacks: {
     async jwt({ token, user }: ICallbackJwtArgs) {
-      console.group('------------------------------ callbacks jwt');
-      console.log('token    -', token);
       if (!user) {
-        console.groupEnd();
         return token;
       }
 
-      const newToken = { ...token, ...user };
-      console.log('newToken -', newToken);
+      const {
+        firstName,
+        role,
+        image,
+        token: userToken,
+        id,
+        username,
+      } = user as iResponseLogin;
+
+      const newToken = {
+        ...token,
+        email: 'null',
+        name: firstName,
+        token: userToken,
+        role,
+        image,
+        id,
+        username,
+      };
       return newToken;
     },
     async session({ session, token }: ICallbackSessionArgs) {
-      console.group('------------------------------ callbacks session');
-      console.log('token      -', token);
-      console.log('session    -', session);
       if (token && session.user) {
-        const newSession = { ...session, user: { ...session.user } };
-        console.log('newSession -', newSession);
+        const newSession = {
+          ...session,
+          user: {
+            ...session.user,
+            id: token.id,
+            role: token.role,
+            username: token.username,
+            name: token.name,
+            token: token.token,
+            image: token.image,
+            email: 'null',
+          },
+        };
         return newSession;
       }
-      console.groupEnd();
       return session;
     },
   },
   pages: {
     signIn: '/login',
   },
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

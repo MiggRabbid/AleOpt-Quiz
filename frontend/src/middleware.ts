@@ -1,12 +1,15 @@
 import { withAuth, NextRequestWithAuth } from 'next-auth/middleware';
+import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
+
 import { IAuthorizedArgs } from './types/next-auth';
 
 export default withAuth(
-  function middleware(req: NextRequestWithAuth) {
+  async function middleware(req: NextRequestWithAuth) {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const role = req.nextauth.token?.role;
     const pathname = req.nextUrl.pathname;
-    if (!role) {
+    if (!role || !token) {
       return NextResponse.redirect(new URL('/login', req.url));
     }
     if (pathname === '/admin' && role === 'Employee') {

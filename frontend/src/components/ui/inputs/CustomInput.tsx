@@ -43,7 +43,7 @@ const CustomInput = (props: ICustomInputProps) => {
           },
         }}
       />
-      <FormHelperText error={!!error} className="h-6 text-xs! mx-3! mt-1! min-h-8 h-8">
+      <FormHelperText error={!!error} className="mx-3! mt-1! h-6 h-8 min-h-8 text-xs!">
         {error && helperText && helperText}
         {error && !helperText && 'Неизвестная ошибка'}
       </FormHelperText>
