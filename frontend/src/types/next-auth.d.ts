@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import NextAuth, { DefaultSession, DefaultUser } from 'next-auth';
-import { JWT } from 'next-auth/jwt';
+import { JWT as JwtNExtAuth } from 'next-auth/jwt';
 import type { User as nextAuthUser } from 'next-auth';
 
 declare module 'next-auth' {
@@ -16,15 +16,15 @@ declare module 'next-auth/jwt' {
 }
 
 export interface IAuthorizedArgs {
-  token: JWT | null;
+  token: JwtNExtAuth | null;
 }
 
 export interface ICallbackJwtArgs {
-  token: JWT;
+  token: JwtNExtAuth;
   user?: nextAuthUser;
 }
 
 export interface ICallbackSessionArgs {
   session: Session;
-  token: JWT;
+  token: JwtNExtAuth;
 }
