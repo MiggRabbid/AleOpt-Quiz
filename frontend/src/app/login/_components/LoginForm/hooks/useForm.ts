@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 import { FormData, schema } from '../config/schema';
+import { routes } from '@/app/_config/routes';
 
 export const useLoginForm = () => {
   const router = useRouter();
@@ -24,7 +25,6 @@ export const useLoginForm = () => {
       password: data.password,
     });
 
-    // router.push('/');
     if (response?.error) {
       console.error('Ошибка авторизации -', response);
       setError('username', { message: 'Пользователь не найден' });
@@ -35,13 +35,13 @@ export const useLoginForm = () => {
 
   const redirect = (role: any) => {
     if (!!role && role === 'Employee') {
-      router.push('/');
+      router.push(routes.main);
     }
     if (!!role && role !== 'Admin') {
-      router.push('/admin');
+      router.push(routes.admin);
     }
     if (!!role && role !== 'Owner') {
-      router.push('/admin');
+      router.push(routes.admin);
     }
   };
 

@@ -1,10 +1,12 @@
 'use client';
-
-import { CustomInput } from '@/components/ui/inputs/CustomInput';
-import { Box, FormControl, Typography } from '@mui/material';
-import { useSession } from 'next-auth/react';
+// Библиотеки
 import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { Box, FormControl, Typography } from '@mui/material';
+// Логика
 import { useLoginForm } from './hooks/useForm';
+// Компоненты
+import { CustomInput } from '@/components/ui/inputs/CustomInput';
 import { BtnLogin } from '@/components/ui/btns/BtnLogin/BtnLogin';
 
 const LoginForm = () => {

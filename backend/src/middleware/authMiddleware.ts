@@ -15,7 +15,6 @@ dotenv.config();
 const secret = process.env.SECRET_KEY || '';
 
 const authMiddleware = (request: CustomRequest, response: Response, next: NextFunction): void => {
-  console.log(request.user);
   if (request.method === 'OPTIONS') {
     next();
   }

@@ -5,6 +5,12 @@ export enum UserRoles {
   Owner = 'Owner',
 }
 
+export const userRolesMap: Record<UserRoles, string> = {
+  Admin: 'Администратор',
+  Employee: 'Сотрудник',
+  Owner: 'Владелец',
+};
+
 export interface iUser {
   _id?: string;
   role: UserRoles;

@@ -1,0 +1,25 @@
+import { Box } from '@mui/material';
+
+import { iUserStats } from '@/types/stats';
+import { ResultTable } from '../components/ResultTable';
+import { LastResultTable } from '../components/LastResultTable';
+
+interface ISummaryResultProps {
+  userStats: iUserStats | null;
+}
+
+const SummaryResults = (props: ISummaryResultProps) => {
+  const { userStats } = props;
+
+  return (
+    <Box
+      className="mt-4 rounded-xl border-2 border-slate-200 px-4 pt-4 pb-8"
+      id="SummaryResults"
+    >
+      <ResultTable userStats={userStats} />
+      <LastResultTable attempts={userStats?.attempts || null} />
+    </Box>
+  );
+};
+
+export { SummaryResults };

@@ -35,6 +35,7 @@ export const authOptions = {
         return token;
       }
 
+      console.log('jwt user -', user);
       const {
         firstName,
         role,

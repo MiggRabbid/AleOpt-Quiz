@@ -3,26 +3,28 @@ import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 
 import { IAuthorizedArgs } from './types/next-auth';
+import { UserRoles } from './types/staff';
+import { routes } from './app/_config/routes';
 
 export default withAuth(
   async function middleware(req: NextRequestWithAuth) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    const role = req.nextauth.token?.role;
+    const role = req.nextauth.token?.role as UserRoles;
     const pathname = req.nextUrl.pathname;
     if (!role || !token) {
-      return NextResponse.redirect(new URL('/login', req.url));
+      return NextResponse.redirect(new URL(routes.login, req.url));
     }
-    if (pathname === '/admin' && role === 'Employee') {
-      return NextResponse.redirect(new URL('/', req.url));
+    if (pathname === '/admin' && role === UserRoles.Employee) {
+      return NextResponse.redirect(new URL(routes.main, req.url));
     }
-    if (pathname === '/login' && role === 'Employee') {
-      return NextResponse.redirect(new URL('/', req.url));
+    if (pathname === '/login' && role === UserRoles.Employee) {
+      return NextResponse.redirect(new URL(routes.main, req.url));
     }
-    if (pathname === '/login' && role === 'Admin') {
-      return NextResponse.redirect(new URL('/admin', req.url));
+    if (pathname === '/login' && role === UserRoles.Admin) {
+      return NextResponse.redirect(new URL(routes.admin, req.url));
     }
-    if (pathname === '/login' && role === 'Owner') {
-      return NextResponse.redirect(new URL('/admin', req.url));
+    if (pathname === '/login' && role === UserRoles.Owner) {
+      return NextResponse.redirect(new URL(routes.admin, req.url));
     }
   },
   {

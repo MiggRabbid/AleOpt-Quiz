@@ -1,12 +1,25 @@
 'use client';
-
-import { Button } from '@mui/material';
+// Библиотеки
+import React from 'react';
 import Image from 'next/image';
+import { Button } from '@mui/material';
+import { useRouter, usePathname } from 'next/navigation';
+// Компоненты
+import { routes } from '@/app/_config/routes';
 
 const BtnLogo = () => {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handelClick = () => {
+    if (pathname !== routes.main) {
+      router.push(routes.main);
+    }
+  };
+
   return (
     <Button
-      onClick={() => {}}
+      onClick={handelClick}
       variant="outlined"
       sx={{
         outline: 'none',
@@ -27,9 +40,12 @@ const BtnLogo = () => {
         alt="АлёОпт - лучший магазин аксессуаров"
         width={142}
         height={50}
+        draggable={false}
+        className="pointer-events-none! select-none!"
       />
     </Button>
   );
 };
 
-export { BtnLogo };
+const MemoizedBtnLogo = React.memo(BtnLogo);
+export { MemoizedBtnLogo as BtnLogo };

@@ -1,6 +1,6 @@
 import { typeQuestionAnswer } from './types';
 
-import { iUserAnswer } from './user';
+import { iUserAnswer } from './staff';
 
 export interface iQuestion {
   id: string;

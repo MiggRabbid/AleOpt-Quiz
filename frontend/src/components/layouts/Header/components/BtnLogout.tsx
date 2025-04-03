@@ -3,7 +3,7 @@
 import { Button, CircularProgress } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { signOut, useSession } from 'next-auth/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const BtnLogout = () => {
   const { data: session } = useSession();
@@ -11,10 +11,10 @@ const BtnLogout = () => {
 
   if (!session?.user) return null;
 
-  const handelClickSignOut = () => {
+  const handelClickSignOut = async () => {
     setIsLoading(true);
     try {
-      signOut();
+      await signOut();
     } catch (error) {
       console.error(error);
     } finally {
@@ -49,4 +49,5 @@ const BtnLogout = () => {
   );
 };
 
-export { BtnLogout };
+const MemoizedBtnLogout = React.memo(BtnLogout);
+export { MemoizedBtnLogout as BtnLogout };
