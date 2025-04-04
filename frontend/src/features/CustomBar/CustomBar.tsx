@@ -8,7 +8,7 @@ import { Box, Typography } from '@mui/material';
 import { getBarData } from './utils/getBarData';
 import { getBarOptions } from './utils/getBarOptions';
 // Компоненты
-import { lastTenAttemptsTooltip } from '../UserStats/components/CustomTooltip';
+import { lastTenAttemptsTooltip } from '../../entities/UserStats/components/CustomTooltip';
 
 Chart.register(...registerables);
 
@@ -53,14 +53,14 @@ const CustomBar = (props: ICustomLineProps) => {
   });
 
   return (
-    <Box className="flex h-fit! w-full! flex-col justify-center gap-1">
+    <Box className="flex h-fit! min-h-full flex-col justify-center gap-1">
       <Typography
         align="center"
         className="ms-4! w-fit! text-base! font-semibold! uppercase"
       >
-        Динамика ответов
+        Динамика попыток
       </Typography>
-      <Box className="h-64! rounded-xl border-2 border-slate-200 p-4">
+      <Box className="h-64! grow rounded-xl border-2 border-slate-200 p-4">
         <Bar data={data} options={options} />
       </Box>
     </Box>

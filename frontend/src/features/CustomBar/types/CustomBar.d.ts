@@ -1,4 +1,5 @@
-import { Chart, ChartData, ChartOptions, TooltipItem, TooltipModel } from 'chart.js';
+import { Chart } from 'chart.js';
+import type { ChartData, ChartOptions, TooltipItem, TooltipModel } from 'chart.js';
 
 export type barData = ChartData<'bar'>;
 export type barOptions = ChartOptions<'bar'>;

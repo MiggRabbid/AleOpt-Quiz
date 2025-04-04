@@ -1,5 +1,8 @@
 import { Chart } from 'chart.js';
-import { ICustomBarTooltip, TypeTooltipItem } from '../../CustomBar/types/CustomBar';
+import {
+  ICustomBarTooltip,
+  TypeTooltipItem,
+} from '../../../features/CustomBar/types/CustomBar';
 
 interface ITooltipValue {
   correctCount: number;

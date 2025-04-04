@@ -15,16 +15,14 @@ const QuestionBlock = (props: IEasiestQuestionProps) => {
   const titleText = isEasiest ? 'Самые лёгкий вопросы' : 'Самый сложные вопросы';
 
   return (
-    <Box className="flex h-full! min-h-64! w-1/2! grow flex-col justify-start gap-1">
+    <Box className="flex h-full! min-h-64! w-1/2! grow flex-col justify-start gap-2">
       <Typography
         align="center"
         className="ms-4! w-fit! text-base! font-semibold! uppercase"
       >
         {titleText}
       </Typography>
-      <Box
-        className={`p-4" flex min-h-fit grow flex-col justify-between divide-y divide-y-2 rounded-xl border-2 ${isEasiest ? 'divide-emerald-200 border-emerald-200 bg-emerald-100' : 'divide-rose-200 border-rose-200 bg-rose-100'} `}
-      >
+      <Box className="flex min-h-fit grow flex-col justify-between gap-2">
         {!questions && (
           <QuestionBlockItem isEasiest={isEasiest} question={null} index={3} />
         )}

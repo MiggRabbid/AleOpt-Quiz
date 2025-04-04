@@ -8,9 +8,10 @@ import {
 } from './utils/getQuestionSummaryFromAttempts';
 // Компоненты
 import { QuestionBlock } from './components/QuestionBlock';
-import CustomBar from '../CustomBar/CustomBar';
+import CustomBar from '../../features/CustomBar/CustomBar';
 // Типизация
 import { iUserStats } from '@/types/stats';
+import { CustomDoughnut } from '@/features/CustomDoughnut/CustomDoughnut';
 
 interface IUserStatsProps {
   userStats: iUserStats | null;
@@ -28,19 +29,24 @@ const UserStats = (props: IUserStatsProps) => {
 
   return (
     <Box className="flex h-full w-full flex-col gap-5" id="UserStats">
-      <Box className="flex gap-5">
+      <Box className="flex w-full grow gap-6">
         <QuestionBlock type="easiest" questions={easiestQuestions} />
         <QuestionBlock type="hardest" questions={hardestQuestions} />
       </Box>
-      <Box className="max-w-1/2">
-        <CustomBar
-          dataLineOne={dataLineOne}
-          labelLineOne={labelLineOne}
-          dataLineTwo={dataLineTwo}
-          labelLineTwo={labelLineTwo}
-          xLabels={xLabels}
-          customTooltipType="lastTenAttemptsTooltip"
-        />
+      <Box className="flex w-full shrink-1 grow-3 gap-6">
+        <Box className="max-w-3/12 shrink-0 grow-1">
+          <CustomDoughnut userStats={userStats} />
+        </Box>
+        <Box className="max-w-9/12 shrink grow">
+          <CustomBar
+            dataLineOne={dataLineOne}
+            labelLineOne={labelLineOne}
+            dataLineTwo={dataLineTwo}
+            labelLineTwo={labelLineTwo}
+            xLabels={xLabels}
+            customTooltipType="lastTenAttemptsTooltip"
+          />
+        </Box>
       </Box>
     </Box>
   );
