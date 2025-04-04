@@ -15,7 +15,7 @@ const QuestionBlock = (props: IEasiestQuestionProps) => {
   const titleText = isEasiest ? 'Самые лёгкий вопросы' : 'Самый сложные вопросы';
 
   return (
-    <Box className="flex h-full! min-h-64! w-1/2! grow flex-col justify-start gap-2">
+    <Box className="flex max-h-150 min-h-64 w-1/2 grow flex-col justify-start gap-2">
       <Typography
         align="center"
         className="ms-4! w-fit! text-base! font-semibold! uppercase"

@@ -23,7 +23,8 @@ export default [
     "plugin:prettier/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:import/errors",
-    "plugin:import/warnings"
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ),
   {
     files: ["**/*.{js,jsx,ts,tsx}"],

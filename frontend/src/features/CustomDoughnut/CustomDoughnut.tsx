@@ -34,8 +34,8 @@ const CustomDoughnut: React.FC<iCustomDoughnutProps> = (props: iCustomDoughnutPr
       >
         Диаграмма ответов
       </Typography>
-      <Box className="relative! w-full grow rounded-xl border-2 border-slate-200 px-4">
-        <Doughnut data={dataDoughnut} options={optionsDoughnut} className="" />
+      <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl border-2 border-cyan-100 bg-cyan-50 px-4">
+        <Doughnut data={dataDoughnut} options={optionsDoughnut} />
       </Box>
     </Box>
   );

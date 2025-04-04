@@ -16,6 +16,11 @@ export interface iQuizState {
   currentResult: iUserAnswer[];
 }
 
+export interface IPayloadSetQuizStateField<K extends keyof iQuizState> {
+  field: K;
+  data: iQuizState[K];
+}
+
 export interface iResponseQuestions {
   status: string;
   data: iQuestion[];

@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import './styles/globals.css';
 // компоненты
 import { AppHeader } from '@/components/layouts/Header/AppHeader';
-import { SessionProvider } from '@/providers';
+import { StoreProvider, SessionProvider } from '@/providers';
 
 export const metadata: Metadata = {
   title: 'АлёОпт',
@@ -20,8 +20,10 @@ export default function RootLayout({
     <html lang="ru">
       <body className="flex flex-col justify-start bg-green-50 text-slate-900">
         <SessionProvider>
-          <AppHeader />
-          {children}
+          <StoreProvider>
+            <AppHeader />
+            {children}
+          </StoreProvider>
         </SessionProvider>
       </body>
     </html>

@@ -18,7 +18,7 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
 
   return (
     <Box
-      className={`flex h-fit! w-full! shrink-0 grow flex-col justify-center gap-2 rounded-xl border-2 px-4 py-1 ${isEasiest ? 'border-emerald-100 bg-emerald-50' : 'border-rose-100 bg-rose-50'}`}
+      className={`flex h-fit! w-full! shrink-0 grow flex-col justify-center gap-2 rounded-xl border-2 px-2 py-1 ${isEasiest ? 'border-emerald-100 bg-emerald-50' : 'border-rose-100 bg-rose-50'}`}
     >
       <Box
         className={`flex flex-row gap-2 border-b-2 pb-2 ${isEasiest ? 'border-emerald-100' : 'border-rose-100'}`}

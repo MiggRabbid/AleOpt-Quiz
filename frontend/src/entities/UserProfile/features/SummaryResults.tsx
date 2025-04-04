@@ -1,8 +1,9 @@
 import { Box } from '@mui/material';
 
-import { iUserStats } from '@/types/stats';
 import { ResultTable } from '../components/ResultTable';
 import { LastResultTable } from '../components/LastResultTable';
+
+import { iUserStats } from '@/types/stats';
 
 interface ISummaryResultProps {
   userStats: iUserStats | null;

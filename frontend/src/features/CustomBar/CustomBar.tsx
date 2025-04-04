@@ -60,7 +60,7 @@ const CustomBar = (props: ICustomLineProps) => {
       >
         Динамика попыток
       </Typography>
-      <Box className="h-64! grow rounded-xl border-2 border-slate-200 p-4">
+      <Box className="h-80 rounded-xl border-2 border-cyan-100 bg-cyan-50 p-4">
         <Bar data={data} options={options} />
       </Box>
     </Box>

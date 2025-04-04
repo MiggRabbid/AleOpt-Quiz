@@ -12,6 +12,8 @@ export const getDoughnutOptions = (
   customTooltip?: (context: ICustomDoughnutTooltip) => void,
 ): doughnutOptions => {
   return {
+    aspectRatio: 1,
+    responsive: true,
     animation: {
       duration: 1000,
       easing: 'easeInCubic',

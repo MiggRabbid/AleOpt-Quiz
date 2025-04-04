@@ -6,6 +6,7 @@ export const getDoughnutData = (
   questionsStats: iQuestionStatsForDoughnut | null,
 ): doughnutData => {
   const dataset = getDataEasyQuestionsDoughnut(questionsStats);
+  console.log('getDoughnutData dataset        -', dataset.length);
   return {
     labels: getLabelQuestionsDoughnut(questionsStats),
     datasets: [
@@ -30,5 +31,9 @@ const getDataEasyQuestionsDoughnut = (
   questionsStats: iQuestionStatsForDoughnut | null,
 ): number[] => {
   if (!questionsStats) return [];
+  console.log(
+    'getDoughnutData questionsStats -',
+    Object.values(questionsStats).map((item) => item.correctAnswers).length,
+  );
   return Object.values(questionsStats).map((item) => item.correctAnswers);
 };
