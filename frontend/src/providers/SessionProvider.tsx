@@ -6,7 +6,7 @@ interface IStoreProviderProps {
   children: React.ReactNode;
 }
 
-function Providers({ children }: { children: React.ReactNode }) {
+function Providers({ children }: IStoreProviderProps) {
   return <SessionProvider>{children}</SessionProvider>;
 }
 

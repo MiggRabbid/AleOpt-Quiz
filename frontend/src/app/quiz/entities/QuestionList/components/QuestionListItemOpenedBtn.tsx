@@ -14,7 +14,10 @@ const QuestionListItemOpenedBtn = (props: IQuestionListItemOpenedBtnProps) => {
       disabled={disabled}
       className="rounded-xl! border-0! bg-green-600! px-4! py-4! hover:bg-green-500! disabled:bg-green-50! disabled:bg-green-200!"
     >
-      <Typography align="left" className="w-full font-semibold! text-white">
+      <Typography
+        align="left"
+        className={`${disabled ? 'font-medium! text-green-300!' : 'font-semibold! text-white!'} w-full font-semibold! text-white`}
+      >
         Подтвердить
       </Typography>
     </Button>

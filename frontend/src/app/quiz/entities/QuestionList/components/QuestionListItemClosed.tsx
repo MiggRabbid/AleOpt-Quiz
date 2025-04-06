@@ -3,6 +3,8 @@ import React from 'react';
 import { Chip, Typography } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import { iQuestion } from '@/types/quiz';
+import { useAppSelector } from '@/hooks';
+import { getQuizStateField } from '@/selectors';
 
 interface IQuestionItemProps {
   question: iQuestion;
@@ -12,6 +14,10 @@ interface IQuestionItemProps {
 
 const QuestionListItemClosed = (props: IQuestionItemProps) => {
   const { question, type, index } = props;
+
+  const userAnswers = useAppSelector(getQuizStateField('currentResult')).find(
+    (item) => item.questionId === question.id,
+  )?.userAnswerId;
 
   const isNext = type === 'next';
 
@@ -25,10 +31,17 @@ const QuestionListItemClosed = (props: IQuestionItemProps) => {
         variant="filled"
       />
       <Typography
-        className={`h-full! truncate! font-semibold! ${isNext ? 'text-blue-400!' : 'text-slate-400!'}`}
+        className={`h-full! grow truncate! font-semibold! ${isNext ? 'text-blue-400!' : 'text-slate-400!'}`}
       >
         {question.question}
       </Typography>
+      {!isNext && (
+        <Chip
+          label={userAnswers || '-'}
+          className={`h-11! w-fit! min-w-11! rounded-full! text-base! font-bold! uppercase ${isNext ? 'bg-blue-100! text-blue-400!' : 'bg-slate-100! text-slate-400!'}`}
+          variant="filled"
+        />
+      )}
     </ListItem>
   );
 };

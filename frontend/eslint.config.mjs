@@ -92,7 +92,8 @@ export default [
       "prettier.config.*",
       "eslint.config.mjs",
       "src/locales/*",
-      'postcss.config.mjs'
+      'postcss.config.mjs',
+      'tailwind.config.js'
     ]
   },
 ];

@@ -27,12 +27,12 @@ const QuizPage = async () => {
       </SideSecond>
       <SideMain>
         <Box
-          className="mx-auto h-full w-full max-w-5xl overflow-y-auto!"
+          className="h-full w-full overflow-y-auto!"
           sx={{
             height: 'calc(100dvh - 71px - 14px - 14px - 20px - 20px - 20px)',
           }}
         >
-          <QuestionList questions={questions} />
+          <QuestionList questions={questions?.slice(0, 3) ?? []} />
         </Box>
       </SideMain>
     </Box>

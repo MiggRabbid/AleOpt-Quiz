@@ -4,6 +4,7 @@
   --font-sans: var(--font-sans), sans-serif;
   --font-mono: var(--font-mono), sans-serif;
 
+  --shadow-small: 0px 0px 6px 0px rgba(0, 130, 54, 0.3);
   --shadow-main: 0px 0px 8px 0px rgba(0, 130, 54, 0.3);
   --shadow-block: 0px 0px 10px 0px rgba(0, 130, 54, 0.4);
 }

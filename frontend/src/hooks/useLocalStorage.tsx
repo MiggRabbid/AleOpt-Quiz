@@ -1,3 +1,5 @@
+'use client';
+
 import { iUser, iUserAnswer } from '@/types/staff';
 
 export const useLocalStorage = () => {

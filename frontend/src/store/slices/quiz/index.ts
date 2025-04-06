@@ -5,6 +5,7 @@ import { iUserAnswer } from '@/types/staff';
 
 const initialState: iQuizState = {
   isStarted: false,
+  allQuestionsCompleted: false,
   questionIndex: 0,
   questions: [],
   currentResult: [],

@@ -11,6 +11,7 @@ export interface iQuestion {
 
 export interface iQuizState {
   isStarted: boolean;
+  allQuestionsCompleted: boolean;
   questionIndex: number;
   questions: iQuestion[];
   currentResult: iUserAnswer[];
