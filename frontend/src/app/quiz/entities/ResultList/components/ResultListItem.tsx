@@ -44,8 +44,8 @@ const ResultListItem = (props: IResultListItemProps) => {
           />
         </Box>
 
-        <Box className="flex h-11! min-h-fit grow items-center">
-          <Typography className="h-fit! grow truncate! font-semibold! text-slate-800!">
+        <Box className="flex h-fit min-h-11! grow items-center">
+          <Typography className="h-fit! w-full grow truncate! font-semibold! text-wrap! text-slate-800!">
             {question.question}
           </Typography>
         </Box>

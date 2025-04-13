@@ -1,9 +1,9 @@
 'use client';
 // Библиотеки
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
 import List from '@mui/material/List';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 // Логика
 import { useAppActions, useAppSelector, useLocalStorage } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
@@ -21,14 +21,37 @@ interface IQuestionListProps {
 const QuestionList = (props: IQuestionListProps) => {
   const { questions } = props;
 
-  const { setQuizStateField } = useAppActions();
-  const { setResult } = useLocalStorage();
+  const { setQuizStateField, setMaxQuizTime } = useAppActions();
+  const { setResult, getResult, getTimer } = useLocalStorage();
 
   const questionsIndex = useAppSelector(getQuizStateField('questionIndex'));
   const currentResult = useSelector(getQuizStateField('currentResult'));
   const allQuestionsCompleted = useSelector(getQuizStateField('allQuestionsCompleted'));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const oldTimer = getTimer();
+    const oldResult = getResult();
+    if (!!oldTimer && !!oldResult) {
+      setQuizStateField({
+        field: 'quizTimer',
+        data: oldTimer.timer,
+      });
+      setQuizStateField({
+        field: 'currentResult',
+        data: oldResult.answers,
+      });
+
+      setQuizStateField({
+        field: 'questionIndex',
+        data: oldResult.answers.length,
+      });
+      setQuizStateField({
+        field: 'allQuestionsCompleted',
+        data: questions?.length === oldResult.answers.length,
+      });
+    } else {
+      setMaxQuizTime({ questionsCounter: questions?.length ?? 0 });
+    }
     setQuizStateField({
       field: 'isStarted',
       data: true,
@@ -69,7 +92,7 @@ const QuestionList = (props: IQuestionListProps) => {
     >
       {questions.map((question, index) => {
         return (
-          <React.Fragment key={`QuestionListItem-${index}`}>
+          <Box key={`QuestionListItem-${index}`}>
             {index < questionsIndex && (
               <QuestionListItemClosed question={question} index={index + 1} type="prev" />
             )}
@@ -80,7 +103,7 @@ const QuestionList = (props: IQuestionListProps) => {
             {index > questionsIndex && (
               <QuestionListItemClosed question={question} index={index + 1} type="next" />
             )}
-          </React.Fragment>
+          </Box>
         );
       })}
     </List>

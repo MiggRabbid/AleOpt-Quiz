@@ -6,10 +6,14 @@ import { Button } from '@mui/material';
 import { useRouter, usePathname } from 'next/navigation';
 // Компоненты
 import { routes } from '@/app/_config/routes';
+import { useAppSelector } from '@/hooks';
+import { getQuizStateField } from '@/selectors';
 
 const BtnLogo = () => {
   const pathname = usePathname();
   const router = useRouter();
+
+  const isStarted = useAppSelector(getQuizStateField('isStarted'));
 
   const handelClick = () => {
     if (pathname !== routes.main) {
@@ -20,15 +24,21 @@ const BtnLogo = () => {
   return (
     <Button
       onClick={handelClick}
+      disabled={isStarted}
       variant="outlined"
       sx={{
-        outline: 'none',
-        border: 'none',
-        backgroundColor: 'transparent',
+        outline: 'none !important',
+        border: 'none !important',
+        backgroundColor: 'transparent !important',
         '&:hover': {
-          outline: 'none',
-          border: 'none',
-          backgroundColor: 'transparent',
+          outline: 'none !important',
+          border: 'none !important',
+          backgroundColor: 'transparent !important',
+        },
+        '&:Mui-disabled': {
+          outline: 'none !important',
+          border: 'none !important',
+          backgroundColor: 'transparent !important',
         },
         '.MuiTouchRipple-root': {
           display: 'none',

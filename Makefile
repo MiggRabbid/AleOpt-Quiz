@@ -11,6 +11,9 @@ nx-f:
 nx-d:
 	npm -C frontend run dev
 
+nx-s:
+	npm -C frontend run start
+
 nx-b:
 	rm -rf frontend/.next
 	npm -C frontend run build
@@ -37,4 +40,7 @@ start-back:
 
 # dev start back and front
 d:
-	make nx-d & make dev-back
+	make dev-back & make nx-d
+
+s:
+	make dev-back & make nx-s 

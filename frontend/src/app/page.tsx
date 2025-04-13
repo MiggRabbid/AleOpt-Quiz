@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { getServerSession } from 'next-auth';
 import type { Session } from 'next-auth';
 // Логика
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/authOptions';
 import { api } from '@/app/api/api';
 // Компоненты
 import { SideMain } from '@/components/layouts/SideMain/SideMain';
@@ -13,7 +13,6 @@ import { UserProfile } from '@/entities/UserProfile/UserProfile';
 
 const Main = async () => {
   const session: Session | null = await getServerSession(authOptions);
-
   const user = await api.getCurrentUser({
     username: session?.user.username || '',
   });

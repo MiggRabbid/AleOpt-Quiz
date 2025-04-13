@@ -9,7 +9,7 @@ const AppHeader = () => {
       className="shadow-main shadow-block! flex h-fit w-full flex-row items-center justify-between bg-white px-3.5 py-2.5"
     >
       <Box component="nav">
-        <Box sx={{ minWidth: '120px', maxWidth: '200px' }}>
+        <Box sx={{ minWidth: '120px', maxWidth: '200px', border: 'none' }}>
           <BtnLogo />
         </Box>
       </Box>

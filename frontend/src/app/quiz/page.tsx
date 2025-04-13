@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { getServerSession } from 'next-auth';
 import type { Session } from 'next-auth';
 // Логика
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/authOptions';
 import { api } from '../api/api';
 // Компоненты
 import { SideMain } from '@/components/layouts/SideMain/SideMain';
@@ -18,7 +18,6 @@ const QuizPage = async () => {
     username: session?.user.username || '',
   });
   const questions = await api.getAllQuestions();
-  console.log('QuizPage questions        -', questions?.length);
 
   return (
     <Box id="QuizPage" className="m-3.5 flex grow gap-3.5">
@@ -32,7 +31,7 @@ const QuizPage = async () => {
             height: 'calc(100dvh - 71px - 14px - 14px - 20px - 20px - 20px)',
           }}
         >
-          <QuestionList questions={questions?.slice(0, 3) ?? []} />
+          <QuestionList questions={questions ?? []} />
         </Box>
       </SideMain>
     </Box>

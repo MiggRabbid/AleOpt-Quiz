@@ -9,17 +9,28 @@ export interface iQuestion {
   correctAnswerId: string;
 }
 
+export interface iTimer {
+  seconds: string;
+  minutes: string;
+  currTime: number;
+  maxTime: number;
+}
+
 export interface iQuizState {
   isStarted: boolean;
   allQuestionsCompleted: boolean;
   questionIndex: number;
   questions: iQuestion[];
   currentResult: iUserAnswer[];
+  quizTimer: iTimer;
 }
 
-export interface IPayloadSetQuizStateField<K extends keyof iQuizState> {
+export interface IPayloadSetQuizStateField<
+  K extends keyof iQuizState,
+  V extends iQuizState[K],
+> {
   field: K;
-  data: iQuizState[K];
+  data: V;
 }
 
 export interface iResponseQuestions {

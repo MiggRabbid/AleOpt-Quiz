@@ -1,5 +1,12 @@
+'use client';
+// Библиотеки
+import { useLayoutEffect } from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
+// Логика
+import { useAppActions, useLocalStorage } from '@/hooks';
+// Компоненты
 import { UserAvatar } from '@/components/ui/UserAvatar/UserAvatar';
+// Типизация
 import { UserRoles, userRolesMap } from '@/types/staff';
 
 interface ProfileHeader {
@@ -12,6 +19,25 @@ interface ProfileHeader {
 
 const ProfileHeader = (props: ProfileHeader) => {
   const { role, firstname, lastname, avatarAlt, avatarSrc } = props;
+
+  const { clearCurrentResult, setQuizStateField } = useAppActions();
+  useLayoutEffect(() => {
+    clearCurrentResult();
+    setQuizStateField({
+      field: 'isStarted',
+      data: false,
+    });
+    setQuizStateField({
+      field: 'quizTimer',
+      data: {
+        seconds: '00',
+        minutes: '00',
+        currTime: 0,
+        maxTime: 0,
+      },
+    });
+  }, []);
+
   return (
     <Box className="flex flex-row items-center justify-start gap-4">
       <UserAvatar src={avatarSrc} alt={avatarAlt} />

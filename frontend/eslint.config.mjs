@@ -24,7 +24,7 @@ export default [
     "plugin:jsx-a11y/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
   ),
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
@@ -74,14 +74,11 @@ export default [
           project: "./tsconfig.json",
         },
         alias: {
-          map: [
-            ["@", "./src"],
-          ],
+          map: [["@", "./src"]],
           extensions: [".js", ".jsx", ".ts", ".tsx"],
         },
       },
     },
-
   },
   {
     ignores: [
@@ -92,8 +89,8 @@ export default [
       "prettier.config.*",
       "eslint.config.mjs",
       "src/locales/*",
-      'postcss.config.mjs',
-      'tailwind.config.js'
+      "postcss.config.mjs",
+      "tailwind.config.js"
     ]
   },
 ];

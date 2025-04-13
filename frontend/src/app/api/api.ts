@@ -3,7 +3,7 @@ import { sendRequest, TypeAxiosMethod } from './api.config';
 import { requestsPath } from './api.endpoints';
 import { IResponseError } from '@/types/types';
 import { iUserStats } from '@/types/stats';
-import { iUser } from '@/types/staff';
+import { iResultEntryRequest, iUser } from '@/types/staff';
 import { iQuestion } from '@/types/quiz';
 
 export const api = {
@@ -21,7 +21,7 @@ export const api = {
     }
   },
   getCurrentUser: async (params: { username: string }): Promise<iUser | null> => {
-    console.log('------------------------------ api getUserStats');
+    console.log('------------------------------ api getCurrentUser');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.get,
@@ -53,6 +53,7 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
+      console.log('getUserStats / error    -', error);
       const errorData: IResponseError['data'] = error?.response?.data || {
         message: 'Unknown error',
         errorType: 'Unknown error type',
@@ -61,7 +62,36 @@ export const api = {
         status: error.status || 500,
         data: { ...errorData },
       };
-      console.error('getUserStats / error    -', throwError);
+      console.error('getUserStats / throwError    -', throwError);
+      return null;
+    }
+  },
+  addUserStats: async (props: {
+    data: iResultEntryRequest;
+    params: { username: string };
+  }): Promise<iUserStats | null> => {
+    console.log('------------------------------ api addUserStats');
+    const { params, data } = props;
+
+    try {
+      const response = await sendRequest({
+        method: TypeAxiosMethod.post,
+        endpoint: requestsPath.userStats(),
+        data: data,
+        params: params,
+      });
+      return response?.data;
+    } catch (error: any) {
+      console.log('addUserStats / error -', error);
+      const errorData: IResponseError['data'] = error?.response?.data || {
+        message: 'Unknown error',
+        errorType: 'Unknown error type',
+      };
+      const throwError: IResponseError = {
+        status: error.status || 500,
+        data: { ...errorData },
+      };
+      console.error('addUserStats / error    -', throwError);
       return null;
     }
   },

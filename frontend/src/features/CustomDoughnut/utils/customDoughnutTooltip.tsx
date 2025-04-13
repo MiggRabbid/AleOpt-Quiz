@@ -60,14 +60,7 @@ export const customDoughnutTooltip = (context: ICustomDoughnutTooltip) => {
   const tooltipEl = getOrCreateTooltip(chart);
   const { title, body, footer } = tooltip;
 
-  console.group('--------------- customDoughnutTooltip start');
-  console.log('title  -', title);
-  console.log('body   -', body);
-  console.log('footer -', footer);
   if (tooltip.opacity === 0) {
-    console.log('--------------- customDoughnutTooltip end');
-    console.groupEnd();
-    tooltipEl.style.opacity = '0';
     return;
   }
 
@@ -109,7 +102,6 @@ export const customDoughnutTooltip = (context: ICustomDoughnutTooltip) => {
   const tooltipBody = document.createElement('tbody');
   if (body) {
     const bodyLines = body || [];
-    console.log('bodyLines -', bodyLines);
     tooltipBody.style.width = '100%';
     tooltipBody.style.borderCollapse = 'collapse';
     tooltipBody.style.borderSpacing = '0';
@@ -190,7 +182,4 @@ export const customDoughnutTooltip = (context: ICustomDoughnutTooltip) => {
   tooltipEl.style.borderRadius = '16px';
   tooltipEl.style.backgroundColor = 'rgba(255, 255, 255, 1)';
   tooltipEl.style.boxShadow = '0px 0px 8px 0px rgba(159, 179, 200, 0.5)';
-
-  console.log('--------------- customDoughnutTooltip end');
-  console.groupEnd();
 };

@@ -15,7 +15,7 @@ interface IQuestionItemProps {
 const QuestionListItemClosed = (props: IQuestionItemProps) => {
   const { question, type, index } = props;
 
-  const userAnswers = useAppSelector(getQuizStateField('currentResult')).find(
+  const userAnswers = useAppSelector(getQuizStateField('currentResult'))?.find(
     (item) => item.questionId === question.id,
   )?.userAnswerId;
 

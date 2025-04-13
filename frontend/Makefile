@@ -10,6 +10,9 @@ f:
 d:
 	npm run dev
 
+s:
+	npm run start
+
 b:
 	rm -rf .next
 	npm run build

@@ -5,6 +5,7 @@ import { SummaryResults } from './features/SummaryResults';
 import { ProfileHeader } from './features/ProfileHeader';
 // Типизация
 import { iUser, UserRoles } from '@/types/staff';
+import { BtnEndQuiz } from './features/BtnEndQuiz';
 
 interface IUserProfileForQuizProps {
   user: iUser | null;
@@ -14,7 +15,7 @@ const UserProfileForQuiz = (props: IUserProfileForQuizProps) => {
   const { user } = props;
   return (
     <Box
-      className="flex h-full w-full flex-col gap-5.5 pt-2 pb-3.5"
+      className="flex h-full w-full flex-col justify-between gap-5.5 pt-2 pb-3.5"
       id="UserProfileForQuiz"
     >
       <ProfileHeader
@@ -26,6 +27,8 @@ const UserProfileForQuiz = (props: IUserProfileForQuizProps) => {
       />
 
       <SummaryResults />
+
+      <BtnEndQuiz />
     </Box>
   );
 };

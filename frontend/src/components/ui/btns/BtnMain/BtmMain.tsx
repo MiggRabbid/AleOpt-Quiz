@@ -1,10 +1,11 @@
 'use client';
 
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 
 interface IBtmMainProps {
   btnText: string;
   btnClick?: () => void;
+  isLoading?: boolean;
   fullWidth?: boolean;
   variant?: 'text' | 'contained' | 'outlined';
   color?: 'success' | 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'warning';
@@ -15,6 +16,7 @@ const BtmMain = (props: IBtmMainProps) => {
     btnText,
     btnClick,
     fullWidth,
+    isLoading,
     variant = 'contained',
     color = 'success',
   } = props;
@@ -26,7 +28,8 @@ const BtmMain = (props: IBtmMainProps) => {
       color={color}
       className="h-14! min-h-14! rounded-xl!"
     >
-      {btnText}
+      {isLoading && <CircularProgress sx={{ color: 'white !important' }} size={30} />}
+      {!isLoading && btnText}
     </Button>
   );
 };

@@ -1,3 +1,5 @@
+'use client';
+
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 
