@@ -9,7 +9,7 @@ const SideMain = ({ children }: ISideMainProps) => {
     <Box
       className="shadow-block relative flex shrink rounded-2xl bg-white p-5"
       sx={{
-        maxWidth: 'calc(100% - 320px - 14px) !important',
+        width: 'calc(100% - 320px - 14px) !important',
       }}
     >
       {children}
