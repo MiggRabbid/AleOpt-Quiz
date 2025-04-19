@@ -1,46 +1,43 @@
 # front
-nx-i:
-	npm -C frontend ci
+i-f:
+	npm -C frontend install
 
-nx-l:
+l-f:
 	npm -C frontend run lint
 
-nx-f:
+f-f:
 	npm -C frontend run fix
 
-nx-d:
+d-f:
 	npm -C frontend run dev
 
-nx-s:
+s-f:
 	npm -C frontend run start
 
-nx-b:
+b-f:
 	rm -rf frontend/.next
 	npm -C frontend run build
 
-nx-cl:
+cl-f:
 	rm -C frontend -rf .next
 
 # back
-lint-back:
-	npm -C backend run lint
+i-b:
+	npm -C backend install
 
-fix-back:
+f-b:
 	npm -C backend run fix
 
-dev-back:
+d-b:
 	npm -C backend run dev
 
-build-back:
-	npm -C backend run build
-
-start-back:
+s-b:
 	npm -C backend run start
 
 
 # dev start back and front
 d:
-	make dev-back & make nx-d
+	make d-b & make d-f
 
 s:
-	make dev-back & make nx-s 
+	make s-b & make s-f 

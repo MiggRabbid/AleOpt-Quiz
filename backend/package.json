@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon",
+    "start": "ts-node src/index.ts",
     "lint": "npx eslint --ext ts,tsx --no-eslintrc --config .eslintrc.json .",
     "fix": "npx eslint --fix ."
   },
