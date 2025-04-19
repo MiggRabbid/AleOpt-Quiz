@@ -5,7 +5,7 @@ import { Box, Skeleton, Typography } from '@mui/material';
 // Логика
 import { useAppActions, useLocalStorage } from '@/hooks';
 // Компоненты
-import { UserAvatar } from '@/components/ui/UserAvatar/UserAvatar';
+import { UserAvatar } from '@/shared/components/ui/UserAvatar/UserAvatar';
 // Типизация
 import { UserRoles, userRolesMap } from '@/types/staff';
 

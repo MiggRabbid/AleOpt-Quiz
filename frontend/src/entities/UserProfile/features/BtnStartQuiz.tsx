@@ -4,10 +4,10 @@ import { useLayoutEffect, useState, useTransition } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 // Логика
-import { routes } from '@/app/_config/routes';
+import { routes } from '@/shared/config/routes';
 import { useLocalStorage } from '@/hooks';
 // Компоненты
-import { BtmMain } from '@/components/ui/btns/BtnMain/BtmMain';
+import { BtmMain } from '@/shared/components/ui/btns/BtnMain';
 
 const BtnStartQuiz = () => {
   const router = useRouter();

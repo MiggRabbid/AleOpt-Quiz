@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 // стили
 import './styles/globals.css';
 // компоненты
-import { AppHeader } from '@/components/layouts/Header/AppHeader';
+import { AppHeader } from '@/shared/components/layouts/Header/AppHeader';
 import { StoreProvider, SessionProvider } from '@/providers';
 
 export const metadata: Metadata = {

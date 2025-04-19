@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Button } from '@mui/material';
 import { useRouter, usePathname } from 'next/navigation';
 // Компоненты
-import { routes } from '@/app/_config/routes';
+import { routes } from '@/shared/config/routes';
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 

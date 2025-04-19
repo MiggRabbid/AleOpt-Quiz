@@ -4,15 +4,15 @@ import { useEffect, useTransition } from 'react';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
 // Логика
-import { routes } from '@/app/_config/routes';
+import { routes } from '@/shared/config/routes';
 import { useAppSelector, useLocalStorage } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 // Компоненты
-import { BtmMain } from '@/components/ui/btns/BtnMain/BtmMain';
+import { BtmMain } from '@/shared/components/ui/btns/BtnMain';
 import { useSession } from 'next-auth/react';
 import { iResultEntryRequest } from '@/types/staff';
-import { getFormattedDate } from '@/lib/getFormattedDate';
-import { api } from '@/app/api/api';
+import { getFormattedDate } from '@/shared/lib/getFormattedDate';
+import { api } from '@/shared/components/api/api';
 
 const BtnEndQuiz = () => {
   const router = useRouter();

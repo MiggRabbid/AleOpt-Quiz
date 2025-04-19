@@ -1,7 +1,7 @@
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 // eslint-disable-next-line no-unused-vars
-import { getAvatarPaths } from '@/lib/getAvatarPaths';
+import { getAvatarPaths } from '@/shared/lib/getAvatarPaths';
 import Image from 'next/image';
 
 interface IUserAvatarProps {

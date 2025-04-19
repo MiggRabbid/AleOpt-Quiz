@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 import { FormData, schema } from '../config/schema';
-import { routes } from '@/app/_config/routes';
+import { routes } from '@/shared/config/routes';
 
 export const useLoginForm = () => {
   const router = useRouter();

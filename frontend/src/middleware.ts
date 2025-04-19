@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 import { IAuthorizedArgs } from './types/next-auth';
 import { UserRoles } from './types/staff';
-import { routes } from './app/_config/routes';
+import { routes } from './shared/config/routes';
 
 export default withAuth(
   async function middleware(req: NextRequestWithAuth) {
