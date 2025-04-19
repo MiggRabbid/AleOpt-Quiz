@@ -30,7 +30,7 @@ const SummaryResults = () => {
 
   return (
     <Box
-      className="flex w-full flex-col gap-2 rounded-xl border-2 border-slate-200 px-4 pt-4 pb-8"
+      className="flex w-full flex-col gap-2 rounded-xl border-2 border-slate-200 p-4"
       id="SummaryResults"
     >
       <Box className="flex grow flex-col justify-start gap-2">
@@ -38,7 +38,7 @@ const SummaryResults = () => {
           align="center"
           className="ms-4! w-fit! text-base! font-semibold! uppercase"
         >
-          Самые самые...
+          Самые и самые
         </Typography>
         <TopResultsList sortedResults={sortedResults} />
       </Box>

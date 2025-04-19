@@ -1,9 +1,9 @@
-import { iUserStatsLastTreeAttempt } from '@/types/stats';
 import { Box } from '@mui/material';
 import { TopResultsListItem } from './TopResultsListItem';
+import { iUserStats } from '@/types/stats';
 
 interface ITopResultsListProps {
-  sortedResults: iUserStatsLastTreeAttempt[];
+  sortedResults: iUserStats[];
 }
 
 const TopResultsList = ({ sortedResults }: ITopResultsListProps) => {
