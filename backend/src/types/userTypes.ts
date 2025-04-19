@@ -18,7 +18,8 @@ export interface iUserModel extends Document {
   username: string;
   password: string;
   results?: Array<Record<string, string>>;
-  image?: string;
+  image: string;
+  gender: 'male' | 'female';
 }
 
 export interface iResponseUser {
@@ -28,6 +29,7 @@ export interface iResponseUser {
   username: string;
   results?: Array<Record<string, string>>;
   image?: string;
+  gender: 'male' | 'female';
 }
 
 export interface iUpdateUserData {

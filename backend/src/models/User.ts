@@ -8,7 +8,8 @@ const UserSchema = new Schema<iUserModel>({
   lastName: { type: String, required: true },
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  image:  { type: String, required: false} 
+  image: { type: String, required: false },
+  gender: { type: String, required: false },
 });
 
 const User = model<iUserModel>('User', UserSchema);
