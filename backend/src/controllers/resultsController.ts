@@ -27,7 +27,8 @@ class ResultController {
   async allResults(request: Request, response: Response): Promise<Response> {
     try {
       const allResults = await Results.find();
-      return response.json(allResults);
+      const allStats = allResults.map((result) => getUserStats(result));
+      return response.json(allStats);
     } catch (e) {
       return this.handleError(response, e, 'Error getting all results');
     }
