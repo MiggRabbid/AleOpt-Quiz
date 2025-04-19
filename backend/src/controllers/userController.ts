@@ -29,8 +29,8 @@ class UserController {
   private async getAllUsers(): Promise<iResponseUser[]> {
     const allUser = await User.find();
     return allUser.map((user) => {
-      const { firstName, lastName, username, role, image = '' } = user;
-      return { firstName, lastName, username, role, image };
+      const { firstName, lastName, username, role, image = '', gender } = user;
+      return { firstName, lastName, username, role, image, gender };
     });
   }
 
@@ -84,6 +84,7 @@ class UserController {
         password: hashPassword,
         role: userRole?.value,
         image: '',
+        gender: 'male',
       });
       await newUser.save();
 
