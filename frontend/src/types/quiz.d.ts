@@ -21,6 +21,8 @@ export interface iQuizState {
   allQuestionsCompleted: boolean;
   questionIndex: number;
   questions: iQuestion[];
+  users: iUser[];
+  results: iUserStats[];
   currentResult: iUserAnswer[];
   quizTimer: iTimer;
 }

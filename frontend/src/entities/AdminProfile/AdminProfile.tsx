@@ -1,19 +1,37 @@
+'use client';
 // Библиотеки
 import { Box } from '@mui/material';
 // Компоненты
-import { ProfileHeader } from './features/ProfileHeader';
+import { ProfileHeader } from './ui/ProfileHeader';
 // Типизация
 import { iUser, UserRoles } from '@/types/staff';
+import { iUserStats } from '@/types/stats';
+import { SummaryResults } from './ui/SummaryResults/SummaryResults';
+import { useEffect } from 'react';
+import { useAppActions } from '@/hooks';
 
 interface IAdminProfileProps {
   user: iUser | null;
+  results: iUserStats[] | null;
 }
 
 const AdminProfile = (props: IAdminProfileProps) => {
-  const { user } = props;
+  const { user, results } = props;
+  const { setQuizStateField } = useAppActions();
+
+  useEffect(() => {
+    if (!!results) {
+      setQuizStateField({
+        field: 'results',
+        data: results,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [results]);
+
   return (
     <Box
-      className="flex h-full w-full flex-col justify-between gap-5.5 pt-2 pb-3.5"
+      className="flex h-full w-full flex-col justify-start gap-5.5 pt-2 pb-3.5"
       id="AdminProfile"
     >
       <ProfileHeader
@@ -23,6 +41,8 @@ const AdminProfile = (props: IAdminProfileProps) => {
         avatarAlt={user?.username}
         avatarSrc={user?.image}
       />
+
+      <SummaryResults />
     </Box>
   );
 };

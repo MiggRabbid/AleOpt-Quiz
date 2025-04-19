@@ -12,14 +12,18 @@ import { AdminProfile } from '@/entities/AdminProfile/AdminProfile';
 
 const AdminPage = async () => {
   const session: Session | null = await getServerSession(authOptions);
+
   const user = await api.getCurrentUser({
     username: session?.user.username || '',
   });
 
+  const questions = await api.getAllQuestions();
+  const results = await api.getAllUsersStats();
+
   return (
     <Box id="AdminPage" className="m-3.5 flex grow gap-3.5">
       <SideSecond>
-        <AdminProfile user={user} />
+        <AdminProfile user={user} results={results} />
       </SideSecond>
       <SideMain>
         <Box>SadeMain</Box>

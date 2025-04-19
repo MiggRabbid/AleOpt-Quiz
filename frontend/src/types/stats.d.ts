@@ -22,6 +22,10 @@ export interface iUserStats {
   averageAttempts: iAverageAttempts;
 }
 
+export interface iUserStatsLastTreeAttempt extends iUserStats {
+  averageResultLastTree: number;
+}
+
 export type typeStatFuncsArgs = iUserStats | undefined;
 
 export interface iQuestionStatsForDoughnut {

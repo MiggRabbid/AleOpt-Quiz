@@ -24,6 +24,7 @@ const BtnStartQuiz = () => {
     } else {
       setUnfinishedAttempt(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handelClickBtn = () => {

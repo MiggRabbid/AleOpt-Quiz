@@ -18,12 +18,14 @@ const BtnStartQuiz = () => {
   useLayoutEffect(() => {
     const oldTimer = getTimer();
     const oldResult = getResult();
+
     if (!!oldTimer && !!oldResult) {
       console.log('IF   -', !!oldTimer, !!oldResult);
       setUnfinishedAttempt(true);
     } else {
       setUnfinishedAttempt(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handelClickBtn = () => {

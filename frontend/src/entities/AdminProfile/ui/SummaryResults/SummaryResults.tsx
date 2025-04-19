@@ -1,0 +1,49 @@
+'use client';
+import { Box, Typography } from '@mui/material';
+import { useAppSelector } from '@/hooks';
+import { getQuizStateField } from '@/selectors';
+import { sortUsersByResult } from '@/shared/lib/sortUsersByResult';
+import { TopResultsList } from './ui/TopResultsList';
+
+const SummaryResults = () => {
+  const results = useAppSelector(getQuizStateField('results'));
+
+  const sortedResults = sortUsersByResult(results);
+  const sortedResultsLength = sortedResults.length;
+
+  const topResults = sortedResults
+    .filter((result, index: number) => {
+      if (sortedResultsLength > 4 && index >= sortedResultsLength - 2) return result;
+      if (sortedResultsLength > 1 && index === sortedResultsLength - 1) return result;
+    })
+    .reverse();
+
+  const bottomResults = sortedResults
+    .filter((result, index: number) => {
+      if (sortedResultsLength > 4 && index < 2) return result;
+      if (sortedResultsLength > 1 && index === 0) return result;
+    })
+    .reverse();
+
+  console.log('topResults -', topResults);
+  console.log('bottomResults -', bottomResults);
+
+  return (
+    <Box
+      className="flex w-full flex-col gap-2 rounded-xl border-2 border-slate-200 px-4 pt-4 pb-8"
+      id="SummaryResults"
+    >
+      <Box className="flex grow flex-col justify-start gap-2">
+        <Typography
+          align="center"
+          className="ms-4! w-fit! text-base! font-semibold! uppercase"
+        >
+          Самые самые...
+        </Typography>
+        <TopResultsList sortedResults={sortedResults} />
+      </Box>
+    </Box>
+  );
+};
+
+export { SummaryResults };

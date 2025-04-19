@@ -20,6 +20,7 @@ export const api = {
       console.error('login / error -', error);
     }
   },
+
   getCurrentUser: async (params: { username: string }): Promise<iUser | null> => {
     console.log('------------------------------ api getCurrentUser');
     try {
@@ -66,6 +67,7 @@ export const api = {
       return null;
     }
   },
+
   addUserStats: async (props: {
     data: iResultEntryRequest;
     params: { username: string };
@@ -96,8 +98,30 @@ export const api = {
     }
   },
 
+  getAllUsersStats: async (): Promise<iUserStats[] | null> => {
+    console.log('------------------------------ api getAllUsersStats');
+    try {
+      const response = await sendRequest({
+        method: TypeAxiosMethod.get,
+        endpoint: requestsPath.allStats(),
+      });
+      return response?.data;
+    } catch (error: any) {
+      const errorData: IResponseError['data'] = error?.response?.data || {
+        message: 'Unknown error',
+        errorType: 'Unknown error type',
+      };
+      const throwError: IResponseError = {
+        status: error.status || 500,
+        data: { ...errorData },
+      };
+      console.error('getAllUsersStats / error    -', throwError);
+      return null;
+    }
+  },
+
   getAllQuestions: async (): Promise<iQuestion[] | null> => {
-    console.log('------------------------------ api getUserStats');
+    console.log('------------------------------ api getAllQuestions');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.get,

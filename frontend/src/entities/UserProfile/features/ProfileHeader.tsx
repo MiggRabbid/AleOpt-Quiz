@@ -3,7 +3,7 @@
 import { useLayoutEffect } from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
 // Логика
-import { useAppActions, useLocalStorage } from '@/hooks';
+import { useAppActions } from '@/hooks';
 // Компоненты
 import { UserAvatar } from '@/shared/ui/ui/UserAvatar/UserAvatar';
 // Типизация
@@ -36,6 +36,7 @@ const ProfileHeader = (props: ProfileHeader) => {
         maxTime: 0,
       },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
