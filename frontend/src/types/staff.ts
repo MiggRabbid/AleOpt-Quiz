@@ -20,6 +20,7 @@ export interface iUser {
   password?: string;
   token?: string;
   image?: string;
+  gender?: 'male' | 'female';
   results?: Array<Record<string, string>>;
 }
 

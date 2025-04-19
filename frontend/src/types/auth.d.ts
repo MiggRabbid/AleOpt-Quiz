@@ -13,6 +13,7 @@ export interface iResponseLogin {
   firstName: string;
   role: UserRoles;
   image: string;
+  gender: 'male' | 'female';
 }
 
 export interface iRequestLogin {
