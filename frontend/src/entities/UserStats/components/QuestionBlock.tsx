@@ -12,6 +12,8 @@ const QuestionBlock = (props: IEasiestQuestionProps) => {
 
   const isEasiest = type === 'easiest';
 
+  console.log(questions);
+
   const titleText = isEasiest ? 'Самые лёгкий вопросы' : 'Самый сложные вопросы';
 
   return (
@@ -22,9 +24,9 @@ const QuestionBlock = (props: IEasiestQuestionProps) => {
       >
         {titleText}
       </Typography>
-      <Box className="flex min-h-fit grow flex-col justify-between gap-2">
+      <Box className="flex min-h-fit grow flex-col justify-start gap-2">
         {!questions && (
-          <QuestionBlockItem isEasiest={isEasiest} question={null} index={3} />
+          <QuestionBlockItem isEasiest={isEasiest} question={null} index={0} />
         )}
         {!!questions &&
           questions.map((question, index: number) => {
