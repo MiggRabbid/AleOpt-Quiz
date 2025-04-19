@@ -1,4 +1,4 @@
-import { MainPage } from '@/pages';
+import { MainPage } from '@/layouts';
 
 const Main = async () => {
   return <MainPage />;

@@ -17,9 +17,10 @@ export const BtnRedirect = ({ isAdminOrOwner }: IBtnRedirectProps) => {
   const handelClickBtn = () => {
     if (pathname === routes.admin) {
       router.push(routes.main);
+      return;
     }
-
     router.push(routes.admin);
+    return;
   };
 
   const getBtnText = () => {
