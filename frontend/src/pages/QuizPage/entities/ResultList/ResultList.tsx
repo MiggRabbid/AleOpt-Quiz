@@ -4,7 +4,7 @@ import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 
 import { Box } from '@mui/material';
-import { ResultListItem } from './components/ResultListItem';
+import { ResultListItem } from './ui/ResultListItem';
 
 const ResultList = () => {
   const currentResult = useAppSelector(getQuizStateField('currentResult'));

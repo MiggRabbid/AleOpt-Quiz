@@ -8,11 +8,11 @@ import { routes } from '@/shared/config/routes';
 import { useAppSelector, useLocalStorage } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 // Компоненты
-import { BtmMain } from '@/shared/components/ui/btns/BtnMain';
+import { BtmMain } from '@/shared/ui/ui/btns/BtnMain';
 import { useSession } from 'next-auth/react';
 import { iResultEntryRequest } from '@/types/staff';
 import { getFormattedDate } from '@/shared/lib/getFormattedDate';
-import { api } from '@/shared/components/api/api';
+import { api } from '@/shared/api/api';
 
 const BtnEndQuiz = () => {
   const router = useRouter();

@@ -8,8 +8,8 @@ import { Box, Typography } from '@mui/material';
 import { useAppActions, useAppSelector, useLocalStorage } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 // Компоненты
-import { QuestionListItemOpened } from './components/QuestionListItemOpened';
-import { QuestionListItemClosed } from './components/QuestionListItemClosed';
+import { QuestionListItemOpened } from './ui/QuestionListItemOpened';
+import { QuestionListItemClosed } from './ui/QuestionListItemClosed';
 //Типизация
 import { iQuestion } from '@/types/quiz';
 import { ResultList } from '../ResultList/ResultList';

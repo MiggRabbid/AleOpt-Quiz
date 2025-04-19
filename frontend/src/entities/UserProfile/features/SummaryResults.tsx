@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
-import { ResultTable } from '../components/ResultTable';
-import { LastResultTable } from '../components/LastResultTable';
+import { ResultTable } from '../ui/ResultTable';
+import { LastResultTable } from '../ui/LastResultTable';
 
 import { iUserStats } from '@/types/stats';
 

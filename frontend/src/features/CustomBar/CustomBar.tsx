@@ -8,7 +8,7 @@ import { Box, Typography } from '@mui/material';
 import { getBarData } from './utils/getBarData';
 import { getBarOptions } from './utils/getBarOptions';
 // Компоненты
-import { lastTenAttemptsTooltip } from '../../entities/UserStats/components/CustomTooltip';
+import { lastTenAttemptsTooltip } from '../../entities/UserStats/ui/CustomTooltip';
 
 Chart.register(...registerables);
 

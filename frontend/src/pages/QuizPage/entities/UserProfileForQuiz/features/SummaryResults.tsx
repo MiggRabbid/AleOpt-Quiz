@@ -3,10 +3,10 @@
 import { Box, CircularProgress } from '@mui/material';
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
-import { AnswerCounter } from '../Components/AnswerCounter';
-import { TimeCounter } from '../Components/TimeCounter';
-import { CorrectAnswerCounter } from '../Components/CorrectAnswerCounter';
-import { TimeCounterEnded } from '../Components/TimeCounterEnded';
+import { AnswerCounter } from '../ui/AnswerCounter';
+import { TimeCounter } from '../ui/TimeCounter';
+import { CorrectAnswerCounter } from '../ui/CorrectAnswerCounter';
+import { TimeCounterEnded } from '../ui/TimeCounterEnded';
 import { useSession } from 'next-auth/react';
 
 const SummaryResults = () => {

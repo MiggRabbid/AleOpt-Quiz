@@ -4,10 +4,10 @@ import { getServerSession } from 'next-auth';
 import type { Session } from 'next-auth';
 // Логика
 import { authOptions } from '@/shared/lib/authOptions';
-import { api } from '@/shared/components/api/api';
+import { api } from '@/shared/api/api';
 // Компоненты
-import { SideMain } from '@/shared/components/layouts/SideMain/SideMain';
-import { SideSecond } from '@/shared/components/layouts/SideSecond/SideSecond';
+import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
+import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
 import { UserStats } from '@/entities/UserStats/UserStats';
 import { UserProfile } from '@/entities/UserProfile/UserProfile';
 

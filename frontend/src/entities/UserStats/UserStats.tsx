@@ -7,7 +7,7 @@ import {
   getIncorrectAnswersSummary,
 } from './utils/getQuestionSummaryFromAttempts';
 // Компоненты
-import { QuestionBlock } from './components/QuestionBlock';
+import { QuestionBlock } from './ui/QuestionBlock';
 import CustomBar from '../../features/CustomBar/CustomBar';
 // Типизация
 import { iUserStats } from '@/types/stats';

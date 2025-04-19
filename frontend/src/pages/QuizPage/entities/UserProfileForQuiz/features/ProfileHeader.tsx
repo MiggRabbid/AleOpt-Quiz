@@ -1,5 +1,5 @@
 import { Box, Skeleton, Typography } from '@mui/material';
-import { UserAvatar } from '@/shared/components/ui/UserAvatar/UserAvatar';
+import { UserAvatar } from '@/shared/ui/ui/UserAvatar/UserAvatar';
 import { UserRoles, userRolesMap } from '@/types/staff';
 
 interface ProfileHeader {

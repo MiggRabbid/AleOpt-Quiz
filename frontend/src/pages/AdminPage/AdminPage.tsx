@@ -1,5 +1,5 @@
-import { SideMain } from '@/shared/components/layouts/SideMain/SideMain';
-import { SideSecond } from '@/shared/components/layouts/SideSecond/SideSecond';
+import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
+import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
 import { Box } from '@mui/material';
 
 export default function AdminPage() {

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { routes } from '@/shared/config/routes';
 import { useLocalStorage } from '@/hooks';
 // Компоненты
-import { BtmMain } from '@/shared/components/ui/btns/BtnMain';
+import { BtmMain } from '@/shared/ui/ui/btns/BtnMain';
 
 const BtnStartQuiz = () => {
   const router = useRouter();

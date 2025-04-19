@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
 
-import { LoginForm } from './components/LoginForm/LoginForm';
-import { LoginImg } from './components/LoginImg/LoginImg';
-import { SideFull } from '@/shared/components/layouts/SideFull/SideFull';
+import { LoginForm } from './ui/LoginForm/LoginForm';
+import { LoginImg } from './ui/LoginImg/LoginImg';
+import { SideFull } from '@/shared/ui/layouts/SideFull/SideFull';
 
 export default function LoginPage() {
   return (
