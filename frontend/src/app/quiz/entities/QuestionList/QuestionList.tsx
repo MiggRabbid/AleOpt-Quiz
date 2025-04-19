@@ -92,7 +92,7 @@ const QuestionList = (props: IQuestionListProps) => {
     >
       {questions.map((question, index) => {
         return (
-          <Box key={`QuestionListItem-${index}`}>
+          <Box key={`QuestionListItem-${index}`} className="w-full">
             {index < questionsIndex && (
               <QuestionListItemClosed question={question} index={index + 1} type="prev" />
             )}

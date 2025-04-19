@@ -20,7 +20,7 @@ const QuizPage = async () => {
   const questions = await api.getAllQuestions();
 
   return (
-    <Box id="QuizPage" className="m-3.5 flex grow gap-3.5">
+    <Box id="QuizPage" className="flex w-full gap-3.5 p-3.5">
       <SideSecond>
         <UserProfileForQuiz user={user} />
       </SideSecond>
