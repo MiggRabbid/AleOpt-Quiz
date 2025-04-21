@@ -26,7 +26,7 @@ const QuizPage = async () => {
       </SideSecond>
       <SideMain>
         <Box
-          className="h-full w-full overflow-y-auto!"
+          className="w-full overflow-y-auto!"
           sx={{
             height: 'calc(100dvh - 71px - 14px - 14px - 20px - 20px - 20px)',
           }}

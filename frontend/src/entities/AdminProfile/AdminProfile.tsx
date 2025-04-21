@@ -1,14 +1,15 @@
 'use client';
 // Библиотеки
+import { useLayoutEffect } from 'react';
 import { Box } from '@mui/material';
+// Логика
+import { useAppActions } from '@/hooks';
 // Компоненты
 import { ProfileHeader } from './ui/ProfileHeader';
+import { SummaryResults } from './ui/SummaryResults/SummaryResults';
 // Типизация
 import { iUser, UserRoles } from '@/types/staff';
 import { iUserStats } from '@/types/stats';
-import { SummaryResults } from './ui/SummaryResults/SummaryResults';
-import { useEffect } from 'react';
-import { useAppActions } from '@/hooks';
 
 interface IAdminProfileProps {
   user: iUser | null;
@@ -19,7 +20,7 @@ const AdminProfile = (props: IAdminProfileProps) => {
   const { user, results } = props;
   const { setQuizStateField } = useAppActions();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!!results) {
       setQuizStateField({
         field: 'results',

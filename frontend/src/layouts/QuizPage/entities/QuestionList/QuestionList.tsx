@@ -13,6 +13,7 @@ import { QuestionListItemClosed } from './ui/QuestionListItemClosed';
 //Типизация
 import { iQuestion } from '@/types/quiz';
 import { ResultList } from '../ResultList/ResultList';
+import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
 
 interface IQuestionListProps {
   questions: iQuestion[] | null;
@@ -70,15 +71,7 @@ const QuestionList = (props: IQuestionListProps) => {
   }, [currentResult]);
 
   if (!questions) {
-    return (
-      <Typography
-        align="center"
-        component="h4"
-        className="mt-10! w-full! text-4xl! font-bold! text-slate-300 uppercase!"
-      >
-        Нет данных для отображения
-      </Typography>
-    );
+    return <PlugForEmptyData />;
   }
 
   if (allQuestionsCompleted) {

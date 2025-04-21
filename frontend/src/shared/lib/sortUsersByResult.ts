@@ -18,7 +18,5 @@ export const sortUsersByResult = (results: iUserStats[]): iUserStats[] => {
     );
     return lastResultA - lastResultB;
   });
-
-  console.log('sortedResults -', sortedResults);
   return sortedResults;
 };

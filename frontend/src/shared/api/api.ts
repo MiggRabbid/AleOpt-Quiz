@@ -98,6 +98,28 @@ export const api = {
     }
   },
 
+  getAllUsers: async (): Promise<iUser[] | null> => {
+    console.log('------------------------------ api getAllUsers');
+    try {
+      const response = await sendRequest({
+        method: TypeAxiosMethod.get,
+        endpoint: requestsPath.users(),
+      });
+      return response?.data;
+    } catch (error: any) {
+      const errorData: IResponseError['data'] = error?.response?.data || {
+        message: 'Unknown error',
+        errorType: 'Unknown error type',
+      };
+      const throwError: IResponseError = {
+        status: error.status || 500,
+        data: { ...errorData },
+      };
+      console.error('getAllUsers / error    -', throwError);
+      return null;
+    }
+  },
+
   getAllUsersStats: async (): Promise<iUserStats[] | null> => {
     console.log('------------------------------ api getAllUsersStats');
     try {

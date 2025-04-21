@@ -75,7 +75,7 @@ const TopResultsListItem = (props: ITopResultsListItemProps) => {
             align="right"
             className="w-fit! text-sm! font-semibold! text-slate-500"
           >
-            {result.averageResult}
+            {result.averageResult}%
           </Typography>
         </Box>
       </Box>

@@ -1,7 +1,7 @@
 'use client';
 
 import { routes } from '@/shared/config/routes';
-import { BtmSmall } from '@/shared/ui/ui/btns/BtnSmall';
+import { BtnSmall } from '@/shared/ui/ui/btns/BtnSmall';
 import { useRouter, usePathname } from 'next/navigation';
 
 interface IBtnRedirectProps {
@@ -30,5 +30,5 @@ export const BtnRedirect = ({ isAdminOrOwner }: IBtnRedirectProps) => {
     return 'В админку';
   };
 
-  return <BtmSmall btnText={getBtnText()} btnClick={handelClickBtn} variant="outlined" />;
+  return <BtnSmall btnText={getBtnText()} btnClick={handelClickBtn} variant="outlined" />;
 };

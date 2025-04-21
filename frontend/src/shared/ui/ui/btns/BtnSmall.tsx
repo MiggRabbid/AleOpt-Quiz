@@ -2,7 +2,7 @@
 
 import { Button, CircularProgress } from '@mui/material';
 
-interface IBtmSmallProps {
+interface IBtnSmallProps {
   btnText: string;
   btnClick?: () => void;
   isLoading?: boolean;
@@ -11,7 +11,7 @@ interface IBtmSmallProps {
   color?: 'success' | 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'warning';
 }
 
-const BtmSmall = (props: IBtmSmallProps) => {
+const BtnSmall = (props: IBtnSmallProps) => {
   const {
     btnText,
     btnClick,
@@ -34,4 +34,4 @@ const BtmSmall = (props: IBtmSmallProps) => {
   );
 };
 
-export { BtmSmall };
+export { BtnSmall };

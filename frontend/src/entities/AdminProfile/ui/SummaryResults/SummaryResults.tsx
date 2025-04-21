@@ -9,24 +9,6 @@ const SummaryResults = () => {
   const results = useAppSelector(getQuizStateField('results'));
 
   const sortedResults = sortUsersByResult(results);
-  const sortedResultsLength = sortedResults.length;
-
-  const topResults = sortedResults
-    .filter((result, index: number) => {
-      if (sortedResultsLength > 4 && index >= sortedResultsLength - 2) return result;
-      if (sortedResultsLength > 1 && index === sortedResultsLength - 1) return result;
-    })
-    .reverse();
-
-  const bottomResults = sortedResults
-    .filter((result, index: number) => {
-      if (sortedResultsLength > 4 && index < 2) return result;
-      if (sortedResultsLength > 1 && index === 0) return result;
-    })
-    .reverse();
-
-  console.log('topResults -', topResults);
-  console.log('bottomResults -', bottomResults);
 
   return (
     <Box

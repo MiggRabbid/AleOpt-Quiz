@@ -9,6 +9,7 @@ import { api } from '@/shared/api/api';
 import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
 import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
 import { AdminProfile } from '@/entities/AdminProfile/AdminProfile';
+import { AdminStats } from './features/AdminStats/AdminStats';
 
 const AdminPage = async () => {
   const session: Session | null = await getServerSession(authOptions);
@@ -16,7 +17,7 @@ const AdminPage = async () => {
   const user = await api.getCurrentUser({
     username: session?.user.username || '',
   });
-
+  const users = await api.getAllUsers();
   const questions = await api.getAllQuestions();
   const results = await api.getAllUsersStats();
 
@@ -26,7 +27,7 @@ const AdminPage = async () => {
         <AdminProfile user={user} results={results} />
       </SideSecond>
       <SideMain>
-        <Box>SadeMain</Box>
+        <AdminStats questions={questions} users={users} />
       </SideMain>
     </Box>
   );
