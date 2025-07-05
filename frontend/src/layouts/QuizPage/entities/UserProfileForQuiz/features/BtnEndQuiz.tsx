@@ -8,7 +8,7 @@ import { routes } from '@/shared/config/routes';
 import { useAppSelector, useLocalStorage } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 // Компоненты
-import { BtmMain } from '@/shared/ui/ui/btns/BtnMain';
+import { BtnMain } from '@/shared/ui/ui/btns';
 import { useSession } from 'next-auth/react';
 import { iResultEntryRequest } from '@/types/staff';
 import { getFormattedDate } from '@/shared/lib/getFormattedDate';
@@ -63,7 +63,7 @@ const BtnEndQuiz = () => {
   return (
     <Box className="flex flex-col justify-end">
       {allQuestionsCompleted && (
-        <BtmMain
+        <BtnMain
           btnText="Сохранить результат?"
           btnClick={handelClickSaveBtn}
           isLoading={isPending}
@@ -72,7 +72,7 @@ const BtnEndQuiz = () => {
       )}
 
       {isStarted && !allQuestionsCompleted && (
-        <BtmMain
+        <BtnMain
           btnText="Закончить попытку?"
           btnClick={handelClickEndBtn}
           isLoading={isPending}

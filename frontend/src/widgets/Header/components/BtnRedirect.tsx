@@ -1,7 +1,7 @@
 'use client';
 
 import { routes } from '@/shared/config/routes';
-import { BtnSmall } from '@/shared/ui/ui/btns/BtnSmall';
+import { BtnSmall } from '@/shared/ui/ui/btns';
 import { useRouter, usePathname } from 'next/navigation';
 
 interface IBtnRedirectProps {

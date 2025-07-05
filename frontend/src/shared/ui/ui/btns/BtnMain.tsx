@@ -2,7 +2,7 @@
 
 import { Button, CircularProgress } from '@mui/material';
 
-interface IBtmMainProps {
+interface IBtnMainProps {
   btnText: string;
   btnClick?: () => void;
   isLoading?: boolean;
@@ -11,7 +11,7 @@ interface IBtmMainProps {
   color?: 'success' | 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'warning';
 }
 
-const BtmMain = (props: IBtmMainProps) => {
+const BtnMain = (props: IBtnMainProps) => {
   const {
     btnText,
     btnClick,
@@ -34,4 +34,4 @@ const BtmMain = (props: IBtmMainProps) => {
   );
 };
 
-export { BtmMain };
+export { BtnMain };

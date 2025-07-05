@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { routes } from '@/shared/config/routes';
 import { useLocalStorage } from '@/hooks';
 // Компоненты
-import { BtmMain } from '@/shared/ui/ui/btns/BtnMain';
+import { BtnMain } from '@/shared/ui/ui/btns';
 
 const BtnStartQuiz = () => {
   const router = useRouter();
@@ -44,7 +44,7 @@ const BtnStartQuiz = () => {
           >
             Попробуешь еще раз?
           </Typography>
-          <BtmMain
+          <BtnMain
             btnText="Начать тест"
             btnClick={handelClickBtn}
             fullWidth
@@ -59,7 +59,7 @@ const BtnStartQuiz = () => {
           >
             Найден незавершённый тест
           </Typography>
-          <BtmMain
+          <BtnMain
             btnText="Продолжить тест"
             btnClick={handelClickBtn}
             fullWidth
