@@ -14,10 +14,11 @@ export const getAvatarPaths = (): TypeAvatarsMap => {
   };
   const getPathsFromSubfolder = (subfolder: TypeSubfolders) => {
     const dir = path.join(baseDir, subfolder);
-    console.log('---------------- getPathsFromSubfolder');
-    console.log('dir -', dir);
+
     if (!fs.existsSync(dir)) return [];
+
     const files = fs.readdirSync(dir);
+
     return files.forEach((file) => {
       avatarsMap[subfolder][file.replace('.jpg', '')] =
         `/assets/avatars/${subfolder}/${file}`;
