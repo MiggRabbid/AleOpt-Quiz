@@ -1,4 +1,5 @@
 // Библиотеки
+import React from 'react';
 import { Box } from '@mui/material';
 // Компоненты
 import { SummaryResults } from './features/SummaryResults';
@@ -35,4 +36,4 @@ const UserProfile = (props: IUserProfileProps) => {
   );
 };
 
-export { UserProfile };
+export default React.memo(UserProfile);

@@ -1,5 +1,6 @@
 // Библиотеки
 import { Box } from '@mui/material';
+import React from 'react';
 // Логика
 import { preparingLastTenAttempts } from './utils/preparingDataForBar';
 import {
@@ -8,10 +9,10 @@ import {
 } from './utils/getQuestionSummaryFromAttempts';
 // Компоненты
 import { QuestionBlock } from './ui/QuestionBlock';
-import CustomBar from '../../features/CustomBar/CustomBar';
+import { CustomDoughnut } from '@/features/CustomDoughnut';
+import { CustomBar } from '@/features/CustomBar';
 // Типизация
 import { iUserStats } from '@/types/stats';
-import { CustomDoughnut } from '@/features/CustomDoughnut/CustomDoughnut';
 
 interface IUserStatsProps {
   userStats: iUserStats | null;
@@ -52,4 +53,4 @@ const UserStats = (props: IUserStatsProps) => {
   );
 };
 
-export { UserStats };
+export default React.memo(UserStats);

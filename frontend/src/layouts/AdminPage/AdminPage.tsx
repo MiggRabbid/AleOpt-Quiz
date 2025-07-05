@@ -8,7 +8,7 @@ import { api } from '@/shared/api/api';
 // Компоненты
 import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
 import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
-import { AdminProfile } from '@/entities/AdminProfile/AdminProfile';
+import { AdminProfile } from '@/entities/AdminProfile';
 import { AdminStats } from './features/AdminStats/AdminStats';
 
 const AdminPage = async () => {

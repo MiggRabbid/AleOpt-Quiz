@@ -1,6 +1,6 @@
 'use client';
 // Библиотеки
-import { useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Box } from '@mui/material';
 // Логика
 import { useAppActions } from '@/hooks';
@@ -48,4 +48,4 @@ const AdminProfile = (props: IAdminProfileProps) => {
   );
 };
 
-export { AdminProfile };
+export default React.memo(AdminProfile);

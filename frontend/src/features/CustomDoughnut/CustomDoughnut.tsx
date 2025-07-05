@@ -10,6 +10,7 @@ import { getDoughnutOptions } from './utils/getDoughnutOptions';
 // Типизация
 import { typeStatFuncsArgs } from '@/types/stats';
 import { customDoughnutTooltip } from './utils/customDoughnutTooltip';
+import React from 'react';
 
 interface iCustomDoughnutProps {
   userStats: typeStatFuncsArgs | null;
@@ -41,4 +42,4 @@ const CustomDoughnut: React.FC<iCustomDoughnutProps> = (props: iCustomDoughnutPr
   );
 };
 
-export { CustomDoughnut };
+export default React.memo(CustomDoughnut);

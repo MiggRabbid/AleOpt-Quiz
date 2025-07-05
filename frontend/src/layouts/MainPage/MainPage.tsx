@@ -8,8 +8,8 @@ import { api } from '@/shared/api/api';
 // Компоненты
 import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
 import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
-import { UserStats } from '@/entities/UserStats/UserStats';
-import { UserProfile } from '@/entities/UserProfile/UserProfile';
+import { UserProfile } from '@/entities/UserProfile';
+import { UserStats } from '@/entities/UserStats';
 
 const MainPage = async () => {
   const session: Session | null = await getServerSession(authOptions);
