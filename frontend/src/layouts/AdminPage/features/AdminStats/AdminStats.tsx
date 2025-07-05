@@ -5,13 +5,12 @@ import { Box } from '@mui/material';
 // Логика
 import { useAppActions } from '@/hooks';
 // Компоненты
-import { ButtonGroup } from './ui/ButtonGroup';
+import { UsersList } from '../../entities/UsersList/UsersList';
+import { Header } from './components/Header';
 // Типизация
 import { iUser } from '@/types/staff';
 import { iQuestion } from '@/types/quiz';
 import { TypeStatsTab } from '../../types/AdminStats';
-import { BtnAdd } from './ui/BtnAdd';
-import { UsersList } from '../../entities/UsersList/UsersList';
 
 interface IAdminStatsProps {
   users: iUser[] | null;
@@ -48,10 +47,8 @@ const AdminStats = (props: IAdminStatsProps) => {
 
   return (
     <Box className="h-full w-full p-2" id="AdminStats">
-      <Box className="mb-5 flex w-full justify-between gap-4!">
-        <ButtonGroup activeTab={activeTab} setState={setActiveTab} />
-        <BtnAdd activeTab={activeTab} />
-      </Box>
+      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+
       <Box
         className="w-full! overflow-y-auto!"
         sx={{

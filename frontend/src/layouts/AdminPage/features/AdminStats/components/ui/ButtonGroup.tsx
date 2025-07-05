@@ -1,7 +1,8 @@
+import { Dispatch, SetStateAction } from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import { Dispatch, SetStateAction } from 'react';
-import { TypeStatsTab } from '../../../types/AdminStats';
+
+import { TypeStatsTab } from '@/layouts/AdminPage/types/AdminStats';
 
 interface ICustomButtonGroupProps {
   activeTab: TypeStatsTab;
