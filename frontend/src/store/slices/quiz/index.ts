@@ -1,20 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+
+import { initialState, TIME_FOR_ONE_QUESTION } from './index.config';
+
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IPayloadSetQuizStateField, iQuizState } from '@/types/quiz';
-import { iUserAnswer } from '@/types/staff';
-
-const TIME_FOR_ONE_QUESTION = 60;
-
-const initialState: iQuizState = {
-  isStarted: false,
-  allQuestionsCompleted: false,
-  questionIndex: 0,
-  questions: [],
-  users: [],
-  results: [],
-  currentResult: [],
-  quizTimer: { seconds: '00', minutes: '00', currTime: 0, maxTime: 0 },
-};
+import { iUserAnswer } from '@/types/staff.types';
 
 const quiz = createSlice({
   name: 'quiz',
