@@ -16,6 +16,7 @@ const MainPage = async () => {
   const user = await api.getCurrentUser({
     username: session?.user.username || '',
   });
+
   const userStats = await api.getUserStats({
     username: session?.user.username || '',
   });

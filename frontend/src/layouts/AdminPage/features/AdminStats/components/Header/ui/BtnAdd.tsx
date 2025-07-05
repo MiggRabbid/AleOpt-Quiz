@@ -9,7 +9,9 @@ interface IBtnAddProps {
 
 const BtnAdd = (props: IBtnAddProps) => {
   const { activeTab, openEditor } = props;
+
   const btnText = `Добавить ${activeTab === TypeStatsTab.users ? 'сотрудника' : 'вопрос'}`;
+
   return <BtnSmall btnText={btnText} variant="outlined" btnClick={openEditor} />;
 };
 

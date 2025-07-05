@@ -23,9 +23,6 @@ const TopResultsList = ({ sortedResults }: ITopResultsListProps) => {
     })
     .reverse();
 
-  console.log('topResults -', topResults);
-  console.log('bottomResults -', bottomResults);
-
   return (
     <Box className="flex min-h-fit grow flex-col justify-start gap-2">
       {topResults.map((result, index: number) => {

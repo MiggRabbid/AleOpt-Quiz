@@ -12,8 +12,6 @@ const QuestionBlock = (props: IEasiestQuestionProps) => {
 
   const isEasiest = type === 'easiest';
 
-  console.log(questions);
-
   const titleText = isEasiest ? 'Самые лёгкий вопросы' : 'Самый сложные вопросы';
 
   return (

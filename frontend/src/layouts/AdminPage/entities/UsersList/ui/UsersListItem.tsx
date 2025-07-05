@@ -17,7 +17,6 @@ interface IUsersListItemProps {
 const UsersListItem = ({ user, index }: IUsersListItemProps) => {
   const usersStats = useAppSelector(getQuizStateField('results'));
   const currStats = usersStats?.find((stat) => stat.username === user.username);
-  console.log();
 
   return (
     <Accordion className="rounded-md! border-2! border-green-200! bg-green-50!">
