@@ -53,10 +53,9 @@ const AdminStats = (props: IAdminStatsProps) => {
         <BtnAdd activeTab={activeTab} />
       </Box>
       <Box
-        className="w-full! overflow-y-auto! bg-red-50"
+        className="w-full! overflow-y-auto!"
         sx={{
-          height: 'calc(100% - 40px - 20px)',
-          maxHeight: 'calc(100% - 40px - 20px)',
+          height: 'calc(100dvh - 91px - 14px - 14px - 20px - 40px - 20px - 20px - 16px)',
         }}
       >
         {activeTab === TypeStatsTab.users && <UsersList />}
