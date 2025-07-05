@@ -1,10 +1,13 @@
-import { iUser } from '@/types/staff';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { UserStats } from '@/entities/UserStats/UserStats';
+
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
+
+import { UserStats } from '@/entities/UserStats';
 import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
+
+import { iUser } from '@/types/staff';
 
 interface IUsersListItemProps {
   user: iUser;
