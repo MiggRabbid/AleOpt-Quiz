@@ -7,7 +7,7 @@ import { Box, FormControl, Typography } from '@mui/material';
 import { useLoginForm } from './hooks/useForm';
 // Компоненты
 import { CustomInput } from '@/shared/ui/ui/inputs/CustomInput';
-import { BtnLogin } from '@/shared/ui/ui/btns/BtnLogin';
+import { BtnLogin } from './ui/BtnLogin';
 
 const LoginForm = () => {
   const { data: session } = useSession();
