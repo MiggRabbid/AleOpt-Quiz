@@ -1,4 +1,4 @@
-import { iResultEntry } from '@/types/staff';
+import { iResultEntry } from '@/types/staff.types';
 
 interface ILastTenAttempts {
   labelLineOne: 'Правильные';

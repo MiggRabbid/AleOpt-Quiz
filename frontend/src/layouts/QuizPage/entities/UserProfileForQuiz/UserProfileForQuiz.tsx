@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { SummaryResults } from './features/SummaryResults';
 import { ProfileHeader } from './features/ProfileHeader';
 // Типизация
-import { iUser, UserRoles } from '@/types/staff';
+import { iUser, UserRoles } from '@/types/staff.types';
 import { BtnEndQuiz } from './features/BtnEndQuiz';
 
 interface IUserProfileForQuizProps {

@@ -7,7 +7,7 @@ import { typeQuestionAnswer } from '@/types/types';
 import { QuestionListItemOpenedAnswer } from './QuestionListItemOpenedAnswer';
 import { QuestionListItemOpenedBtn } from './QuestionListItemOpenedBtn';
 import { useAppActions, useAppSelector, useLocalStorage } from '@/hooks';
-import { iUserAnswer } from '@/types/staff';
+import { iUserAnswer } from '@/types/staff.types';
 import { getQuizStateField } from '@/selectors';
 
 interface IQuestionItemProps {

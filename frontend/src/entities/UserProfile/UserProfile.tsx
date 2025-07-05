@@ -7,7 +7,7 @@ import { ProfileHeader } from './features/ProfileHeader';
 import { BtnStartQuiz } from './features/BtnStartQuiz';
 // Типизация
 import { iUserStats } from '@/types/stats';
-import { iUser, UserRoles } from '@/types/staff';
+import { iUser, UserRoles } from '@/types/staff.types';
 
 interface IUserProfileProps {
   user: iUser | null;

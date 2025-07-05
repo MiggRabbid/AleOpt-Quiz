@@ -1,7 +1,7 @@
 'use client';
 
 import { iTimer } from '@/types/quiz';
-import { iUser, iUserAnswer } from '@/types/staff';
+import { iUser, iUserAnswer } from '@/types/staff.types';
 
 export const useLocalStorage = () => {
   const setUser = (data: iUser) => {

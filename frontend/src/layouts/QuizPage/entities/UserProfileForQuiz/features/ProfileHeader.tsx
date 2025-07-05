@@ -1,6 +1,6 @@
 import { Box, Skeleton, Typography } from '@mui/material';
 import { UserAvatar } from '@/shared/ui/ui/UserAvatar/UserAvatar';
-import { UserRoles, userRolesMap } from '@/types/staff';
+import { UserRoles, userRolesMap } from '@/types/staff.types';
 
 interface ProfileHeader {
   role: UserRoles;

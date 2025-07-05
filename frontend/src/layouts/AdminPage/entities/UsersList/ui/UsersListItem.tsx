@@ -7,7 +7,7 @@ import { getQuizStateField } from '@/selectors';
 import { UserStats } from '@/entities/UserStats';
 import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
 
-import { iUser } from '@/types/staff';
+import { iUser } from '@/types/staff.types';
 
 interface IUsersListItemProps {
   user: iUser;

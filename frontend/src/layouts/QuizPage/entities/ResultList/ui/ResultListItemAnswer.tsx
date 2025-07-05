@@ -1,4 +1,4 @@
-import { iUserAnswer } from '@/types/staff';
+import { iUserAnswer } from '@/types/staff.types';
 import { typeQuestionAnswer } from '@/types/types';
 import { AccordionDetails, Typography } from '@mui/material';
 import React from 'react';

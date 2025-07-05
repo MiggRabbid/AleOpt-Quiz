@@ -7,7 +7,7 @@ import { useAppActions } from '@/hooks';
 // Компоненты
 import { UserAvatar } from '@/shared/ui/ui/UserAvatar/UserAvatar';
 // Типизация
-import { UserRoles, userRolesMap } from '@/types/staff';
+import { UserRoles, userRolesMap } from '@/types/staff.types';
 
 interface ProfileHeader {
   role: UserRoles;

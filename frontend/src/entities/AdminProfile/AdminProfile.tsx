@@ -8,7 +8,7 @@ import { useAppActions } from '@/hooks';
 import { ProfileHeader } from './ui/ProfileHeader';
 import { SummaryResults } from './ui/SummaryResults/SummaryResults';
 // Типизация
-import { iUser, UserRoles } from '@/types/staff';
+import { iUser, UserRoles } from '@/types/staff.types';
 import { iUserStats } from '@/types/stats';
 
 interface IAdminProfileProps {

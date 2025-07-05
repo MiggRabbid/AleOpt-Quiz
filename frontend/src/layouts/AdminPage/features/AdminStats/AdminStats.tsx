@@ -8,7 +8,7 @@ import { useAppActions } from '@/hooks';
 import { UsersList } from '../../entities/UsersList/UsersList';
 import { Header } from './components/Header';
 // Типизация
-import { iUser } from '@/types/staff';
+import { iUser } from '@/types/staff.types';
 import { iQuestion } from '@/types/quiz';
 import { TypeStatsTab } from '../../types/AdminStats';
 

@@ -10,7 +10,7 @@ import { getQuizStateField } from '@/selectors';
 // Компоненты
 import { BtnMain } from '@/shared/ui/ui/btns';
 import { useSession } from 'next-auth/react';
-import { iResultEntryRequest } from '@/types/staff';
+import { iResultEntryRequest } from '@/types/staff.types';
 import { getFormattedDate } from '@/shared/lib/getFormattedDate';
 import { api } from '@/shared/api/api';
 

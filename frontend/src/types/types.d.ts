@@ -1,5 +1,5 @@
 import { iQuestion } from './quiz';
-import { iUser } from './staff';
+import { iUser } from './staff.types';
 
 // eslint-disable-next-line no-unused-vars
 export type typeTranslationFunction = (key: string) => string;

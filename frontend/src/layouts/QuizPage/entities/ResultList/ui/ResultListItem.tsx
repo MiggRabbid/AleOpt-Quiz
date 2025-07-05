@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
-import { iUserAnswer } from '@/types/staff';
+import { iUserAnswer } from '@/types/staff.types';
 import { Accordion, AccordionSummary, Box, Chip, Typography } from '@mui/material';
 import React from 'react';
 import { ResultListItemAnswer } from './ResultListItemAnswer';

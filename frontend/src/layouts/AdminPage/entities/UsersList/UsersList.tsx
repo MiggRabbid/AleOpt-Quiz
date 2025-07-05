@@ -3,7 +3,7 @@ import { getQuizStateField } from '@/selectors';
 import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
 import { Box } from '@mui/material';
 import { UsersListItem } from './ui/UsersListItem';
-import { iUser } from '@/types/staff';
+import { iUser } from '@/types/staff.types';
 
 const UsersList = () => {
   const users = useAppSelector(getQuizStateField('users'));

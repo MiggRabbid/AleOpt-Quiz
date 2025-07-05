@@ -3,7 +3,7 @@ import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 
 import { IAuthorizedArgs } from './types/next-auth';
-import { UserRoles } from './types/staff';
+import { UserRoles } from './types/staff.types';
 import { routes } from './shared/config/routes';
 
 export default withAuth(

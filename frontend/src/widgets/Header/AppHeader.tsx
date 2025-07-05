@@ -8,7 +8,7 @@ import { BtnLogo } from './components/BtnLogo';
 import { BtnRedirect } from './components/BtnRedirect';
 import { BtnLogout } from './components/BtnLogout';
 
-import { UserRoles } from '@/types/staff';
+import { UserRoles } from '@/types/staff.types';
 
 const AppHeader = async () => {
   const session: Session | null = await getServerSession(authOptions);

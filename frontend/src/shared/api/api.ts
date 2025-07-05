@@ -3,7 +3,7 @@ import { sendRequest, TypeAxiosMethod } from './api.config';
 import { requestsPath } from './api.endpoints';
 import { IResponseError } from '@/types/types';
 import { iUserStats } from '@/types/stats';
-import { iResultEntryRequest, iUser } from '@/types/staff';
+import { iResultEntryRequest, iUser } from '@/types/staff.types';
 import { iQuestion } from '@/types/quiz';
 
 export const api = {
