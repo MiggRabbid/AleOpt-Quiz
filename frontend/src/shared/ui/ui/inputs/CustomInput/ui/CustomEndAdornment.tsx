@@ -5,7 +5,7 @@ import { ICustomEndAdornmentProps } from '../types/CustomInput';
 import type { SxProps, Theme } from '@mui/material';
 
 const CustomEndAdornment = (props: ICustomEndAdornmentProps) => {
-  const { type, showPassword, setShowPassword, error } = props;
+  const { type, showPassword, setShowPassword, error, disabled } = props;
 
   if (type === 'text') return undefined;
 
@@ -20,7 +20,11 @@ const CustomEndAdornment = (props: ICustomEndAdornmentProps) => {
   };
 
   const iconSx: SxProps<Theme> = {
-    color: error ? 'oklch(50.5% 0.213 27.518)' : 'rgb(45, 125, 50)',
+    color: disabled
+      ? 'rgba(0, 0, 0, 0.38)'
+      : error
+        ? 'oklch(50.5% 0.213 27.518)'
+        : 'rgb(45, 125, 50)',
   };
 
   return (
@@ -30,6 +34,7 @@ const CustomEndAdornment = (props: ICustomEndAdornmentProps) => {
         onClick={handleClickShowPassword}
         onMouseDown={handleMouseDownPassword}
         onMouseUp={handleMouseUpPassword}
+        disabled={disabled}
       >
         {showPassword ? <VisibilityOff sx={iconSx} /> : <Visibility sx={iconSx} />}
       </IconButton>

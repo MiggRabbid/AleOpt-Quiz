@@ -8,9 +8,11 @@ export interface ICustomInputProps {
   error?: any;
   helperText?: string;
   register?: UseFormRegister<FormData>;
+  disabled?: boolean;
 }
 
 export interface ICustomEndAdornmentProps {
+  disabled?: boolean;
   error?: boolean;
   type: TypeCustomInput;
   showPassword: boolean;

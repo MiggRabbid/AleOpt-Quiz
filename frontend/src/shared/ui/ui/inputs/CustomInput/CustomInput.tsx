@@ -8,7 +8,7 @@ import { CustomEndAdornment } from './ui/CustomEndAdornment';
 import { ICustomInputProps } from './types/CustomInput';
 
 const CustomInput = (props: ICustomInputProps) => {
-  const { label, type, error, helperText, register } = props;
+  const { label, type, error, helperText, register, disabled } = props;
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -22,6 +22,7 @@ const CustomInput = (props: ICustomInputProps) => {
         className="rounded-xl!"
         {...register}
         error={!!error}
+        disabled={disabled}
         sx={{
           borderRadius: '50% !important',
           '.MuiInputBase-root': {
@@ -36,6 +37,7 @@ const CustomInput = (props: ICustomInputProps) => {
           input: {
             endAdornment: (
               <CustomEndAdornment
+                disabled={disabled}
                 error={!!error}
                 type={type}
                 showPassword={showPassword}
