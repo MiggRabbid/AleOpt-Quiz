@@ -11,6 +11,7 @@ export interface ICustomInputProps {
 }
 
 export interface ICustomEndAdornmentProps {
+  error?: boolean;
   type: TypeCustomInput;
   showPassword: boolean;
   setShowPassword: Dispatch<SetStateAction<boolean>>;

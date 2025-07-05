@@ -26,6 +26,7 @@ const CustomInput = (props: ICustomInputProps) => {
           borderRadius: '50% !important',
           '.MuiInputBase-root': {
             borderRadius: '12px !important',
+            padding: '0',
           },
           '.MuiOutlinedInput-notchedOutline': {
             borderRadius: '12px !important',
@@ -35,6 +36,7 @@ const CustomInput = (props: ICustomInputProps) => {
           input: {
             endAdornment: (
               <CustomEndAdornment
+                error={!!error}
                 type={type}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
