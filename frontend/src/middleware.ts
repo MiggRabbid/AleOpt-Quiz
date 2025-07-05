@@ -14,16 +14,16 @@ export default withAuth(
     if (!role || !token) {
       return NextResponse.redirect(new URL(routes.login, req.url));
     }
-    if (pathname === '/admin' && role === UserRoles.Employee) {
+    if (pathname === routes.admin && role === UserRoles.Employee) {
       return NextResponse.redirect(new URL(routes.main, req.url));
     }
-    if (pathname === '/login' && role === UserRoles.Employee) {
+    if (pathname === routes.login && role === UserRoles.Employee) {
       return NextResponse.redirect(new URL(routes.main, req.url));
     }
-    if (pathname === '/login' && role === UserRoles.Admin) {
+    if (pathname === routes.login && role === UserRoles.Admin) {
       return NextResponse.redirect(new URL(routes.admin, req.url));
     }
-    if (pathname === '/login' && role === UserRoles.Owner) {
+    if (pathname === routes.login && role === UserRoles.Owner) {
       return NextResponse.redirect(new URL(routes.admin, req.url));
     }
   },
