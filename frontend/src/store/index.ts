@@ -1,21 +1,18 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import quizReducer, { actions as quizActions } from './slices/quiz/index';
-// import usersReducer, { actions as usersActions } from './slices/usersSlice';
-// import modalReducer, { actions as modalActions } from './slices/modalSlice';
+import quizReducer, { actions as quizActions } from './slices/quiz';
+import globalReducer, { actions as globalActions } from './slices/global';
 
 const rootReducer = combineReducers({
   quizReducer,
-  // usersReducer,
-  // modalReducer,
+  globalReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
 const actions = {
   ...quizActions,
-  // ...usersActions,
-  // ...modalActions,
+  ...globalActions,
 };
 
 const store = configureStore({
