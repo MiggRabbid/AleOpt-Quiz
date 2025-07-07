@@ -2,7 +2,7 @@ import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 import { iUserAnswer } from '@/types/staff.types';
 import { Accordion, AccordionSummary, Box, Chip, Typography } from '@mui/material';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { ResultListItemAnswer } from './ResultListItemAnswer';
 
 interface IResultListItemProps {
