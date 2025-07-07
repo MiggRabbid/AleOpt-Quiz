@@ -24,15 +24,10 @@ const validateName = [
 const validateNewUser = [...validateUsernameAndPassword, ...validateName];
 
 const userRouter = Router();
-userRouter.get('/user', authMiddleware, userController.currentUser);
 userRouter.get('/users', roleMiddleware(UserRoles.Admin), userController.allUsers);
-userRouter.post('/users', validateNewUser, roleMiddleware(UserRoles.Admin), userController.newUser);
-userRouter.put(
-  '/users/',
-  roleMiddleware(UserRoles.Admin),
-  validateNewUser,
-  userController.editUser,
-);
+userRouter.get('/user', authMiddleware, userController.currentUser);
+userRouter.post('/user', validateNewUser, roleMiddleware(UserRoles.Admin), userController.newUser);
+userRouter.put('/user', roleMiddleware(UserRoles.Admin), validateNewUser, userController.editUser);
 userRouter.delete('/users/', roleMiddleware(UserRoles.Admin), userController.deleteUser);
 
 export default userRouter;

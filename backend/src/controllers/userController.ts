@@ -2,9 +2,10 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 
-import { Role, User } from '../models/models';
-import { iResponseUser, iUpdateUserData } from '../types/userTypes';
 import sortUsersByRole from '../utils/sortAllUser';
+
+import { Role, User } from '../models/models';
+import { iResponseUser, iUpdateUserData, UserRoles } from '../types/userTypes';
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const USER_NOT_FOUND_MESSAGE = 'User not found';
@@ -28,10 +29,13 @@ class UserController {
 
   private async getAllUsers(): Promise<iResponseUser[]> {
     const allUser = await User.find();
-    return allUser.map((user) => {
+
+    const preparedUsers = allUser.map((user) => {
       const { firstName, lastName, username, role, image = '', gender } = user;
       return { firstName, lastName, username, role, image, gender };
     });
+
+    return preparedUsers;
   }
 
   async currentUser(request: Request, response: Response): Promise<Response> {
@@ -50,7 +54,6 @@ class UserController {
     try {
       const users = await this.getAllUsers();
       const sortedUsers = sortUsersByRole(users);
-      console.log('sortedUser -', sortedUsers);
       return response.json(sortedUsers);
     } catch (e) {
       return this.handleError(response, e, 'Error in allUsers:');
@@ -67,7 +70,7 @@ class UserController {
           .json({ message: validationError.array()[0].msg, validationError });
       }
 
-      const { firstName, lastName, username, password, role } = request.body;
+      const { firstName, lastName, username, password, role, image, gender } = request.body;
 
       const candidate = await User.findOne({ username });
 
@@ -77,19 +80,21 @@ class UserController {
 
       const hashPassword = bcrypt.hashSync(password, 5);
       const userRole = await Role.findOne({ value: role });
+
       const newUser = new User({
         firstName,
         lastName,
         username,
         password: hashPassword,
         role: userRole?.value,
-        image: '',
-        gender: 'male',
+        image: image,
+        gender: gender,
       });
       await newUser.save();
 
       const users = await this.getAllUsers();
       const sortedUsers = sortUsersByRole(users);
+
       return response.json(sortedUsers);
     } catch (e) {
       return response.status(400).json({ message: 'Registration error', errorType: 'regError' });
