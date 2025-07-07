@@ -16,6 +16,7 @@ interface IUserProfileProps {
 
 const UserProfile = (props: IUserProfileProps) => {
   const { user, userStats } = props;
+
   return (
     <Box
       className="flex h-full w-full flex-col justify-between gap-5.5 pt-2 pb-3.5"

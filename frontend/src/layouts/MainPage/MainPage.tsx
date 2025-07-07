@@ -13,6 +13,7 @@ import { UserStats } from '@/entities/UserStats';
 
 const MainPage = async () => {
   const session: Session | null = await getServerSession(authOptions);
+
   const user = await api.getCurrentUser({
     username: session?.user.username || '',
   });

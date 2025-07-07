@@ -14,27 +14,28 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.group('------------------------------ authorize');
+        // console.group('------------------------------ authorize');
         const response = await api.login({
           username: credentials?.username || '',
           password: credentials?.password || '',
         });
 
-        if (response?.token) {
-          return { ...response, id: response.username };
-        }
-        return null;
+        // console.log('response -', response?.username, response?.role);
+        // console.groupEnd();
+
+        if (!response?.token) return null;
+
+        return { ...response };
       },
     }),
   ],
   session: { strategy: 'jwt' as SessionStrategy, maxAge: 7 * 24 * 60 * 60 },
   callbacks: {
     async jwt({ token, user }: ICallbackJwtArgs) {
-      if (!user) {
-        return token;
-      }
+      if (!user) return token;
 
-      console.log('jwt user -', user);
+      // console.group('callbacks jwt');
+      // console.log('user     -', (user as iResponseLogin).username, user.id);
       const {
         firstName,
         role,
@@ -54,6 +55,10 @@ export const authOptions = {
         id,
         username,
       };
+
+      // console.log('newToken -', newToken);
+      // console.groupEnd();
+
       return newToken;
     },
     async session({ session, token }: ICallbackSessionArgs) {
@@ -71,6 +76,10 @@ export const authOptions = {
             email: 'null',
           },
         };
+
+        // console.group('callbacks session');
+        // console.log('new session  -', newSession);
+        // console.groupEnd();
         return newSession;
       }
       return session;

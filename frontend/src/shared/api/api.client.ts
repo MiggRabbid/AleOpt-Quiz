@@ -19,17 +19,13 @@ axiosInstance.interceptors.request.use(async (config: InternalAxiosRequestConfig
   }
 
   if (config.method === 'get' || config.method === 'post') {
-    console.group('--------------- axiosInstance start');
-    // console.log('baseURL   -', config.baseURL);
-    // console.log('url       -', config.url);
-    // console.log('headers   -', JSON.stringify(config.headers['Authorization']));
-    // console.log('params    -', JSON.stringify(config.params));
-    // console.log('data      -', JSON.stringify(config.data));
+    console.group('axiosInstance start');
+
     if (token) {
       console.log('token     -', token);
     }
     // console.log('config    -', config);
-    console.log('--------------- axiosInstance end');
+    console.log('axiosInstance end');
     console.groupEnd();
   }
 

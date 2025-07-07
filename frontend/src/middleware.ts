@@ -11,6 +11,7 @@ export default withAuth(
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const role = req.nextauth.token?.role as UserRoles;
     const pathname = req.nextUrl.pathname;
+
     if (!role || !token) {
       return NextResponse.redirect(new URL(routes.login, req.url));
     }

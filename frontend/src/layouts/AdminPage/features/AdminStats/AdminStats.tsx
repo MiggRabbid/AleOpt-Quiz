@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 // Логика
 import { useAppActions } from '@/hooks';
 // Компоненты
-import { UsersList } from '../../entities/UsersList/UsersList';
+import { UsersList } from '../../entities/UsersList';
 import { Header } from './components/Header';
 // Типизация
 import { iUser } from '@/types/staff.types';
@@ -25,7 +25,7 @@ const AdminStats = (props: IAdminStatsProps) => {
   const { setQuizStateField } = useAppActions();
 
   useLayoutEffect(() => {
-    console.log('users -', users);
+    // console.log('users -', users);
     if (!!users) {
       setQuizStateField({
         field: 'users',

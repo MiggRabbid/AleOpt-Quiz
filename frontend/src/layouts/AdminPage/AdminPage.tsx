@@ -17,6 +17,7 @@ const AdminPage = async () => {
   const user = await api.getCurrentUser({
     username: session?.user.username || '',
   });
+
   const users = await api.getAllUsers();
   const questions = await api.getAllQuestions();
   const results = await api.getAllUsersStats();
