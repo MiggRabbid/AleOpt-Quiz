@@ -1,24 +1,35 @@
+'use client';
+// Библиотеки
 import { useEffect, useState } from 'react';
-import { Box, FormControl } from '@mui/material';
+import { Box } from '@mui/material';
 import Divider from '@mui/material/Divider';
-
-import { useAppSelector } from '@/hooks';
+// Логика
+import { useAppSelector, useAvatars } from '@/hooks';
 import { getGlobalStateField } from '@/selectors';
 import { useUserForm } from './hooks/useUserForm';
-
+import { getRandomNumber } from '@/shared/lib/getRandomNumber';
+import { TypeSubfolders } from '@/shared/lib/getAvatarPaths';
+// Компоненты
 import { CustomInput } from '@/shared/ui/ui/inputs/CustomInput';
 import { BtnGroup, BtnMain } from '@/shared/ui/ui/btns';
 import { CustomSelect } from '@/shared/ui/ui/select/CustomSelect';
-
+// Типизация
 import type { TCustomSelectItems } from '@/shared/ui/ui/select/CustomSelect';
-import { UserRoles, userRolesMap } from '@/types/staff.types';
+import { UserGender, userGenderMap, UserRoles, userRolesMap } from '@/types/staff.types';
 import { TTypeModal } from '@/types/modal.types';
 
 interface IEditorUserProps {
   clickOnClose: () => void;
 }
 
-const selectItems: TCustomSelectItems = Object.entries(userRolesMap).map(
+const roleItems: TCustomSelectItems = Object.entries(userRolesMap).map(
+  ([key, value]) => ({
+    value: key,
+    text: value,
+  }),
+);
+
+const genderItems: TCustomSelectItems = Object.entries(userGenderMap).map(
   ([key, value]) => ({
     value: key,
     text: value,
@@ -28,25 +39,50 @@ const selectItems: TCustomSelectItems = Object.entries(userRolesMap).map(
 const EditorUser = (props: IEditorUserProps) => {
   const { clickOnClose } = props;
 
+  const { avatarsMap } = useAvatars();
   const userEditorModal = useAppSelector(getGlobalStateField('userEditorType'));
   const editableUser = useAppSelector(getGlobalStateField('editableUser'));
+
   const isNewUser = !editableUser && userEditorModal === TTypeModal.newUser;
+  const [passIsActive, setPassIsActive] = useState<boolean>(false);
 
   const { handleSubmit, onSubmit, errors, register, watch, setValue, isSubmitting } =
-    useUserForm(isNewUser);
-  const [passIsActive, setPassIsActive] = useState<boolean>(false);
+    useUserForm({ isNewUser, requiredPass: isNewUser || (!isNewUser && passIsActive) });
 
   useEffect(() => {
     setPassIsActive(isNewUser);
 
     if (editableUser) {
-      setValue('firstname', editableUser.firstName ?? '');
-      setValue('lastname', editableUser.lastName ?? '');
+      setValue('firstName', editableUser.firstName ?? '');
+      setValue('lastName', editableUser.lastName ?? '');
       setValue('username', editableUser.username);
-      setValue('userRole', editableUser.role);
+      setValue('role', editableUser.role);
+      setValue(
+        'gender',
+        editableUser.gender ? UserGender[editableUser.gender] : UserGender.female,
+      );
+      setValue('image', editableUser.image ?? '');
+      setPassIsActive(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!editableUser?.image) {
+      const userGender = watch('gender') as UserGender;
+
+      const genderKey: TypeSubfolders =
+        userGender === UserGender.male ? 'males' : 'females';
+      const avatars = avatarsMap[genderKey];
+      const avatarCount = Object.keys(avatars).length;
+
+      if (avatarCount > 0) {
+        const fileName = userGender + getRandomNumber(avatarCount);
+        setValue('image', avatars[fileName]);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [avatarsMap]);
 
   return (
     <Box className="flex h-fit w-170 flex-col gap-10">
@@ -54,27 +90,27 @@ const EditorUser = (props: IEditorUserProps) => {
         <h4 className="text-3xl font-bold">Создание пользователя</h4>
         <Divider />
       </Box>
-      <FormControl
+      <Box
         component="form"
-        className="lex! h-fit w-full flex-row! flex-wrap! items-center justify-center gap-x-5 gap-y-2"
+        className="flex! h-fit w-full flex-row! flex-wrap! items-center justify-center gap-x-5 gap-y-2"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Box className="w-80">
           <CustomInput
             type="text"
             label="Введите Имя"
-            register={register('firstname')}
-            error={!!errors.firstname}
-            helperText={errors.firstname?.message}
+            register={register('firstName')}
+            error={!!errors.firstName}
+            helperText={errors.firstName?.message}
           />
         </Box>
         <Box className="w-80">
           <CustomInput
             type="text"
             label="Введите Фамилию"
-            register={register('lastname')}
-            error={!!errors.lastname}
-            helperText={errors.lastname?.message}
+            register={register('lastName')}
+            error={!!errors.lastName}
+            helperText={errors.lastName?.message}
           />
         </Box>
         <Box className="w-80">
@@ -96,26 +132,43 @@ const EditorUser = (props: IEditorUserProps) => {
             disabled={!passIsActive}
           />
         </Box>
-        <Box className="w-80">
-          <CustomSelect
-            label="Выберите роль"
-            items={selectItems}
-            value={watch('userRole')}
-            onChange={(event) => {
-              const value = event.target.value as UserRoles;
-              register('userRole').onChange({
-                target: { name: 'userRole', value },
-                type: 'change',
-              } as any);
-            }}
-            error={!!errors.userRole}
-          />
+        <Box className="flex w-100 gap-x-5 gap-y-2">
+          <Box className="w-50">
+            <CustomSelect
+              label="Выберите роль"
+              items={roleItems}
+              value={watch('role')}
+              onChange={(event) => {
+                const value = event.target.value as UserRoles;
+                register('role').onChange({
+                  target: { name: 'role', value },
+                  type: 'change',
+                } as any);
+              }}
+              error={!!errors.role}
+            />
+          </Box>
+          <Box className="grow-1">
+            <CustomSelect
+              label="Пол"
+              items={genderItems}
+              value={watch('gender')}
+              onChange={(event) => {
+                const value = event.target.value as UserGender;
+                register('gender').onChange({
+                  target: { name: 'gender', value },
+                  type: 'change',
+                } as any);
+              }}
+              error={!!errors.gender}
+            />
+          </Box>
         </Box>
         {!isNewUser && (
-          <Box className="w-80">
+          <Box className="w-60">
             <BtnMain
               btnClick={() => setPassIsActive(!passIsActive)}
-              btnText={passIsActive ? 'Отменить изменение пароля' : 'Сменить пароль'}
+              btnText={passIsActive ? 'Не изменять пароль' : 'Изменить пароль'}
               fullWidth
               color="inherit"
               variant={passIsActive ? 'contained' : 'outlined'}
@@ -137,7 +190,7 @@ const EditorUser = (props: IEditorUserProps) => {
             rightBtnVariant="contained"
           />
         </Box>
-      </FormControl>
+      </Box>
     </Box>
   );
 };

@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-type TypeSubfolders = 'males' | 'females';
+export type TypeSubfolders = 'males' | 'females';
 type TypeMapItem = Record<string, string>;
-type TypeAvatarsMap = Record<TypeSubfolders, TypeMapItem>;
+export type TypeAvatarsMap = Record<TypeSubfolders, TypeMapItem>;
 
 export const getAvatarPaths = (): TypeAvatarsMap => {
   const baseDir = path.join(process.cwd(), 'public/assets/avatars');

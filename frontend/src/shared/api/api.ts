@@ -3,7 +3,7 @@ import { sendRequest, TypeAxiosMethod } from './api.config';
 import { requestsPath } from './api.endpoints';
 import { IResponseError } from '@/types/types';
 import { iUserStats } from '@/types/stats';
-import { iResultEntryRequest, iUser } from '@/types/staff.types';
+import { iResultEntryRequest, iUser, IUserRequest } from '@/types/staff.types';
 import { iQuestion } from '@/types/quiz';
 
 export const api = {
@@ -26,7 +26,7 @@ export const api = {
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.get,
-        endpoint: requestsPath.curUser(),
+        endpoint: requestsPath.user(),
         params: params,
       });
       return response?.data;
@@ -59,6 +59,8 @@ export const api = {
         message: 'Unknown error',
         errorType: 'Unknown error type',
       };
+
+      console.error('getUserStats / errorData    -', errorData);
       const throwError: IResponseError = {
         status: error.status || 500,
         data: { ...errorData },
@@ -162,5 +164,41 @@ export const api = {
       console.error('getAllQuestions / error    -', throwError);
       return null;
     }
+  },
+
+  createUser: async (user: IUserRequest, token: string): Promise<iUser[] | null> => {
+    console.log('------------------------------ api createUser');
+    try {
+      console.log('createUser -', user);
+      const response = await sendRequest({
+        method: TypeAxiosMethod.post,
+        endpoint: requestsPath.user(),
+        data: user,
+        params: { username: user.lastname },
+        token,
+      });
+      return response?.data;
+      return null;
+    } catch (error: any) {
+      console.log('getAllQuestions / error    -', error);
+      const errorData: IResponseError['data'] = error?.response?.data || {
+        message: 'Unknown error',
+        errorType: 'Unknown error type',
+      };
+      const throwError: IResponseError = {
+        status: error.status || 500,
+        data: { ...errorData },
+      };
+      console.log('getAllQuestions / error    -', throwError);
+      return null;
+    }
+  },
+
+  updateUser: async (): Promise<null> => {
+    return null;
+  },
+
+  deleteUser: async (): Promise<null> => {
+    return null;
   },
 };

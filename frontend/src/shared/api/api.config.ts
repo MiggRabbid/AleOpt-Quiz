@@ -33,6 +33,7 @@ export async function sendRequest(props: {
   data?: any;
   params?: any;
   headers?: any;
+  token?: string;
 }) {
   const {
     method,
@@ -43,14 +44,20 @@ export async function sendRequest(props: {
       'Content-Type': 'application/json',
     },
     params = {},
+    token,
   } = props;
+
+  const headerWithToken = {
+    ...headers,
+    Authorization: `Bearer ${token}`,
+  };
 
   const response = await axiosInstance.request({
     method,
     url: endpoint,
     data,
     params,
-    headers: headers,
+    headers: !!token ? headerWithToken : headers,
   });
   return { data: response.data };
 }

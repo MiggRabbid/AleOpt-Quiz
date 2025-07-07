@@ -1,13 +1,13 @@
 import * as z from 'zod';
-import { UserRoles } from '@/types/staff.types';
+import { UserGender, UserRoles } from '@/types/staff.types';
 
-export const getUserSchema = (isNewUser: boolean) => {
+export const getUserSchema = (requiredPass: boolean) => {
   return z.object({
-    firstname: z
+    firstName: z
       .string()
       .min(1, 'Имя должно быть от 1 до 20 символов')
       .max(20, 'Имя должно быть от 1 до 20 символов'),
-    lastname: z
+    lastName: z
       .string()
       .min(1, 'Фамилия должна быть от 1 до 20 символов')
       .max(20, 'Фамилия должна быть от 1 до 20 символов'),
@@ -15,7 +15,7 @@ export const getUserSchema = (isNewUser: boolean) => {
       .string()
       .min(6, 'Логин должен быть от 6 до 20 символов')
       .max(20, 'Логин должен быть от 6 до 20 символов'),
-    password: isNewUser
+    password: requiredPass
       ? z
           .string()
           .min(6, 'Пароль должен быть от 6 до 20 символов')
@@ -25,10 +25,15 @@ export const getUserSchema = (isNewUser: boolean) => {
           .max(20, 'Пароль должен быть от 6 до 20 символов')
           .optional()
           .or(z.literal('')),
-    userRole: z.nativeEnum(UserRoles, {
+    role: z.nativeEnum(UserRoles, {
       required_error: 'Выберите роль пользователя',
       invalid_type_error: 'Неверная роль',
     }),
+    gender: z.nativeEnum(UserGender, {
+      required_error: 'Выберите пол пользователя',
+      invalid_type_error: 'Неверный пол',
+    }),
+    image: z.string().min(1, 'Аватар не выбран'),
   });
 };
 

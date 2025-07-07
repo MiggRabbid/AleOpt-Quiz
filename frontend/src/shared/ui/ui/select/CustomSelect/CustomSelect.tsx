@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Box, InputLabel, MenuItem, Select } from '@mui/material';
+import React from 'react';
+import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import type { SelectChangeEvent } from '@mui/material';
 
@@ -23,7 +23,7 @@ const CustomSelect = (props: ICustomSelectProps) => {
   const { label, value, onChange, items, error } = props;
 
   return (
-    <Box className="relative h-fit w-full">
+    <FormControl fullWidth error={!!error}>
       <InputLabel id="custom-select-label" className="w-full" color="success">
         {label}
       </InputLabel>
@@ -32,7 +32,6 @@ const CustomSelect = (props: ICustomSelectProps) => {
         id="custom-select"
         value={value}
         label={label}
-        error={!!error}
         onChange={onChange}
         className="w-full rounded-xl!"
         color="success"
@@ -43,7 +42,7 @@ const CustomSelect = (props: ICustomSelectProps) => {
           </MenuItem>
         ))}
       </Select>
-    </Box>
+    </FormControl>
   );
 };
 

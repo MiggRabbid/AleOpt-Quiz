@@ -5,11 +5,31 @@ export enum UserRoles {
   Owner = 'Owner',
 }
 
+export enum UserGender {
+  male = 'male',
+  female = 'female',
+}
+
+export const userGenderMap: Record<UserGender, string> = {
+  male: 'Муж.',
+  female: 'Жен.',
+};
+
 export const userRolesMap: Record<UserRoles, string> = {
   Admin: 'Администратор',
   Employee: 'Сотрудник',
   Owner: 'Владелец',
 };
+
+export interface IUserRequest {
+  role: UserRoles;
+  firstName: string;
+  lastname: string;
+  username: string;
+  password?: string | undefined;
+  image: string;
+  gender: UserGender;
+}
 
 export interface iUser {
   _id?: string;
@@ -20,7 +40,7 @@ export interface iUser {
   password?: string;
   token?: string;
   image?: string;
-  gender?: 'male' | 'female';
+  gender?: UserGender;
   results?: Array<Record<string, string>>;
 }
 
