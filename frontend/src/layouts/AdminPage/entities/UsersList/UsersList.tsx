@@ -1,11 +1,21 @@
+// Библиотеки
+import { useSession } from 'next-auth/react';
+import { Box } from '@mui/material';
+// Логика
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
+// Компоненты
 import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
-import { Box } from '@mui/material';
-import { UsersListItem } from './ui/UsersListItem';
+import UsersListItem from './ui/UsersListItem';
+// Типизация
 import { iUser } from '@/types/staff.types';
+import type { Session } from 'next-auth';
 
 const UsersList = () => {
+  const { data } = useSession();
+
+  const currUser: Session['user'] = data?.user;
+
   const users = useAppSelector(getQuizStateField('users'));
 
   if (!users) {
@@ -20,6 +30,7 @@ const UsersList = () => {
             key={`UsersListItem-${user.username}-${index}`}
             user={user}
             index={index + 1}
+            activeUser={user.username === currUser?.username}
           />
         );
       })}
