@@ -10,6 +10,7 @@ interface IModalContainerProps {
 }
 
 const ModalContainer = (props: IModalContainerProps) => {
+  console.log('render ModalContainer -', props.isOpen);
   const { isOpen, onClose, children, withoutExitBtn } = props;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {

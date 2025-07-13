@@ -6,7 +6,7 @@ import type { TypeAvatarsMap } from '@/shared/lib/getAvatarPaths';
 import { console } from 'inspector';
 
 export async function GET(): Promise<NextResponse<TypeAvatarsMap | null>> {
-  console.log('----- api getAvatarPaths');
+  console.group('----- api getAvatarPaths');
   try {
     const response = getAvatarPaths();
     console.log('response -', response);

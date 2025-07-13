@@ -3,12 +3,18 @@ import { sendRequest, TypeAxiosMethod } from './api.config';
 import { requestsPath } from './api.endpoints';
 import { IResponseError } from '@/types/types';
 import { iUserStats } from '@/types/stats';
-import { iResultEntryRequest, iUser, IUserRequest } from '@/types/staff.types';
+import {
+  iResultEntryRequest,
+  iUser,
+  IUserRequest,
+  iUsersResponse,
+} from '@/types/staff.types';
 import { iQuestion } from '@/types/quiz';
+import { getHandledError } from './api.service';
 
 export const api = {
-  login: async (data: iRequestLogin): Promise<iResponseLogin | undefined> => {
-    console.log('------------------------------ api login');
+  /* Авторизация */
+  login: async (data: iRequestLogin): Promise<iResponseLogin | null> => {
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.post,
@@ -16,13 +22,18 @@ export const api = {
         data: data,
       });
       return response.data;
-    } catch (error) {
-      console.error('login / error -', error);
+    } catch (error: any) {
+      const throwError = {
+        status: error?.status || 500,
+        data: getHandledError(error),
+      };
+      console.error('login', throwError);
+      return null;
     }
   },
 
+  /* Получение данных пользователя */
   getCurrentUser: async (params: { username: string }): Promise<iUser | null> => {
-    console.log('------------------------------ api getCurrentUser');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.get,
@@ -31,21 +42,17 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const errorData: IResponseError['data'] = error?.response?.data || {
-        message: 'Unknown error',
-        errorType: 'Unknown error type',
-      };
       const throwError: IResponseError = {
         status: error.status || 500,
-        data: { ...errorData },
+        data: getHandledError(error),
       };
-      console.error('getCurrentUser / error    -', throwError);
+      console.error('getCurrentUser -', throwError);
       return null;
     }
   },
 
+  /* Получение статистики пользователя */
   getUserStats: async (params: { username: string }): Promise<iUserStats | null> => {
-    console.log('------------------------------ api getUserStats');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.get,
@@ -54,27 +61,20 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      console.log('getUserStats / error    -', error);
-      const errorData: IResponseError['data'] = error?.response?.data || {
-        message: 'Unknown error',
-        errorType: 'Unknown error type',
-      };
-
-      console.error('getUserStats / errorData    -', errorData);
       const throwError: IResponseError = {
         status: error.status || 500,
-        data: { ...errorData },
+        data: getHandledError(error),
       };
-      console.error('getUserStats / throwError    -', throwError);
+      console.error('getUserStats -', throwError);
       return null;
     }
   },
 
+  /* Обновление статистики пользователя */
   addUserStats: async (props: {
     data: iResultEntryRequest;
     params: { username: string };
   }): Promise<iUserStats | null> => {
-    console.log('------------------------------ api addUserStats');
     const { params, data } = props;
 
     try {
@@ -86,20 +86,16 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      console.log('addUserStats / error -', error);
-      const errorData: IResponseError['data'] = error?.response?.data || {
-        message: 'Unknown error',
-        errorType: 'Unknown error type',
-      };
       const throwError: IResponseError = {
         status: error.status || 500,
-        data: { ...errorData },
+        data: getHandledError(error),
       };
-      console.error('addUserStats / error    -', throwError);
+      console.error('addUserStats -', throwError);
       return null;
     }
   },
 
+  /* Получение всех пользователей */
   getAllUsers: async (): Promise<iUser[] | null> => {
     console.log('------------------------------ api getAllUsers');
     try {
@@ -109,21 +105,17 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const errorData: IResponseError['data'] = error?.response?.data || {
-        message: 'Unknown error',
-        errorType: 'Unknown error type',
-      };
       const throwError: IResponseError = {
         status: error.status || 500,
-        data: { ...errorData },
+        data: getHandledError(error),
       };
-      console.error('getAllUsers / error    -', throwError);
+      console.error('getAllUsers -', throwError);
       return null;
     }
   },
 
+  /* Получение статистики всех пользователей */
   getAllUsersStats: async (): Promise<iUserStats[] | null> => {
-    console.log('------------------------------ api getAllUsersStats');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.get,
@@ -131,21 +123,17 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const errorData: IResponseError['data'] = error?.response?.data || {
-        message: 'Unknown error',
-        errorType: 'Unknown error type',
-      };
       const throwError: IResponseError = {
         status: error.status || 500,
-        data: { ...errorData },
+        data: getHandledError(error),
       };
-      console.error('getAllUsersStats / error    -', throwError);
+      console.error('getAllUsersStats -', throwError);
       return null;
     }
   },
 
+  /* Получение всех вопросов */
   getAllQuestions: async (): Promise<iQuestion[] | null> => {
-    console.log('------------------------------ api getAllQuestions');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.get,
@@ -153,52 +141,89 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const errorData: IResponseError['data'] = error?.response?.data || {
-        message: 'Unknown error',
-        errorType: 'Unknown error type',
-      };
       const throwError: IResponseError = {
         status: error.status || 500,
-        data: { ...errorData },
+        data: getHandledError(error),
       };
-      console.error('getAllQuestions / error    -', throwError);
+      console.error('getAllQuestions -', throwError);
       return null;
     }
   },
 
-  createUser: async (user: IUserRequest, token: string): Promise<iUser[] | null> => {
-    console.log('------------------------------ api createUser');
+  /* Создание пользователя */
+  createUser: async (user: IUserRequest, token: string): Promise<iUsersResponse> => {
     try {
-      console.log('createUser -', user);
       const response = await sendRequest({
         method: TypeAxiosMethod.post,
         endpoint: requestsPath.user(),
         data: user,
-        params: { username: user.lastname },
+        params: { username: user.username },
         token,
       });
-      return response?.data;
-      return null;
+
+      return {
+        status: 200,
+        error: null,
+        data: response?.data,
+      };
     } catch (error: any) {
-      console.log('getAllQuestions / error    -', error);
-      const errorData: IResponseError['data'] = error?.response?.data || {
-        message: 'Unknown error',
-        errorType: 'Unknown error type',
+      return {
+        status: error.status,
+        error: getHandledError(error),
+        data: null,
       };
-      const throwError: IResponseError = {
-        status: error.status || 500,
-        data: { ...errorData },
-      };
-      console.log('getAllQuestions / error    -', throwError);
-      return null;
     }
   },
 
-  updateUser: async (): Promise<null> => {
-    return null;
+  /* Обновление пользователя */
+  updateUser: async (user: IUserRequest, token: string): Promise<iUsersResponse> => {
+    try {
+      const response = await sendRequest({
+        method: TypeAxiosMethod.put,
+        endpoint: requestsPath.user(),
+        data: user,
+        params: { username: user.username },
+        token,
+      });
+
+      return {
+        status: 200,
+        error: null,
+        data: response?.data,
+      };
+    } catch (error: any) {
+      return {
+        status: error.status,
+        error: getHandledError(error),
+        data: null,
+      };
+    }
   },
 
-  deleteUser: async (): Promise<null> => {
-    return null;
+  /* Удаление пользователя */
+  deleteUser: async (username: string, token: string): Promise<iUsersResponse> => {
+    console.log('------------------------------ api deleteUser');
+    try {
+      console.log('username -', username);
+      const response = await sendRequest({
+        method: TypeAxiosMethod.delete,
+        endpoint: requestsPath.user(),
+        params: { username },
+        token,
+      });
+      console.log('deleteUser / response -', response);
+
+      return {
+        status: 200,
+        error: null,
+        data: response?.data,
+      };
+    } catch (error: any) {
+      return {
+        status: error.status,
+        error: getHandledError(error),
+        data: null,
+      };
+    }
   },
 };

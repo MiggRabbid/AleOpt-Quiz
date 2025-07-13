@@ -5,6 +5,7 @@ import { FormData, getUserSchema } from '../config/schema';
 import { IUserRequest, UserGender, UserRoles } from '@/types/staff.types';
 import { api } from '@/shared/api/api';
 import { useSession } from 'next-auth/react';
+import { useAppActions } from '@/hooks';
 
 interface IUseUserFormProps {
   isNewUser: boolean;
@@ -13,6 +14,8 @@ interface IUseUserFormProps {
 
 export const useUserForm = (props: IUseUserFormProps) => {
   const { isNewUser, requiredPass } = props;
+
+  const { setQuizStateField } = useAppActions();
 
   const { data } = useSession();
   const token = data?.user?.token;
@@ -34,40 +37,42 @@ export const useUserForm = (props: IUseUserFormProps) => {
   });
 
   const onSubmit = async (user: FormData) => {
-    console.group('----- onSubmit');
-    console.log('user -', user);
-    console.groupEnd();
-    const { createUser } = api;
+    const { createUser, updateUser } = api;
 
-    if (!token) {
-      return;
-    }
+    if (!token) return;
 
     if (isNewUser) {
       const response = await createUser(user as unknown as IUserRequest, token);
-      console.log('response -', response);
+
+      if (response.data) {
+        setQuizStateField({ field: 'users', data: response.data });
+      }
+
+      if (!response.data) {
+        const userExists = response.error?.errorType === 'userExists';
+        setError('username', {
+          message: userExists ? 'Такой пользователь уже существует' : ' ',
+        });
+        setError('firstName', { message: ' ' });
+        setError('lastName', { message: ' ' });
+        setError('password', { message: ' ' });
+      }
     }
+
     if (!isNewUser) {
+      const response = await updateUser(user as unknown as IUserRequest, token);
+
+      if (response.data) {
+        setQuizStateField({ field: 'users', data: response.data });
+      }
+
+      if (!response.data) {
+        setError('firstName', { message: 'Ошибка создания, проверьте данные' });
+        setError('lastName', { message: ' ' });
+        setError('username', { message: ' ' });
+        setError('password', { message: ' ' });
+      }
     }
-
-    // const response = await signIn('credentials', {
-    //   redirect: false,
-    //   firstname: data.firstname,
-    //   lastname: data.lastname,
-    //   username: data.username,
-    //   password: data.password,
-    //   userRole: data.userRole,
-    // });
-
-    // if (response?.error) {
-    //   console.error('Ошибка авторизации -', response);
-    //   setError('username', { message: 'Проверьте введенные данные' });
-    //   setError('password', { message: 'Проверьте введенные данные' });
-    //   setError('firstname', { message: 'Проверьте введенные данные' });
-    //   setError('lastname', { message: 'Проверьте введенные данные' });
-    //   setError('userRole', { message: 'Проверьте введенные данные' });
-    //   console.error('Ошибка авторизации -', response.error);
-    // }
   };
 
   return { setValue, watch, register, handleSubmit, errors, isSubmitting, onSubmit };

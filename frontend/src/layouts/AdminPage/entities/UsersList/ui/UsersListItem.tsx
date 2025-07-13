@@ -49,12 +49,14 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
   };
 
   const handelClickOnDelete = (e: React.MouseEvent) => {
+    console.group('handelClickOnDelete');
     e.preventDefault();
     e.stopPropagation();
     openUserEditor({
       type: TTypeModal.deleteUser,
       editableUser: user,
     });
+    console.groupEnd();
   };
 
   return (

@@ -13,6 +13,7 @@ import { ModalContainer } from '@/shared/ui/layouts/ModalContainer';
 
 import { TTypeModal } from '@/types/modal.types';
 import { TypeStatsTab } from '@/layouts/AdminPage/types/AdminStats';
+import { DeleteUser } from '@/features/DeleteUser';
 
 interface IHeaderProps {
   activeTab: TypeStatsTab;
@@ -26,8 +27,24 @@ const Header = (props: IHeaderProps) => {
 
   const userEditorModal = useAppSelector(getGlobalStateField('userEditorType'));
   const userEditorOpen = !!userEditorModal && userEditorModal !== TTypeModal.deleteUser;
+  const userDeleteOpen = !!userEditorModal && userEditorModal === TTypeModal.deleteUser;
 
   const [questionEditorOpen, setQuestionEditorOpen] = useState<boolean>(false);
+
+  const modalContainerIsOpen = userEditorOpen || userDeleteOpen || questionEditorOpen;
+
+  useEffect(() => {
+    console.log('Change userEditorModal -', userEditorModal);
+  }, [userEditorModal]);
+
+  useEffect(() => {
+    console.log('Change userEditorOpen -', userEditorOpen);
+    console.log('Change userDeleteOpen -', userDeleteOpen);
+  }, [userEditorOpen, userDeleteOpen]);
+
+  useEffect(() => {
+    console.log('Change modalContainerIsOpen -', modalContainerIsOpen);
+  }, [modalContainerIsOpen]);
 
   const handelOpenEditor = () => {
     console.log('handelOpenEditor -');
@@ -57,12 +74,10 @@ const Header = (props: IHeaderProps) => {
         <BtnAdd activeTab={activeTab} openEditor={handelOpenEditor} />
       </Box>
 
-      {(userEditorOpen || questionEditorOpen) && (
-        <ModalContainer
-          isOpen={userEditorOpen || questionEditorOpen}
-          onClose={handelCloseEditor}
-        >
+      {modalContainerIsOpen && (
+        <ModalContainer isOpen={modalContainerIsOpen} onClose={handelCloseEditor}>
           {userEditorOpen && <EditorUser clickOnClose={handelCloseEditor} />}
+          {userDeleteOpen && <DeleteUser clickOnClose={handelCloseEditor} />}
           {questionEditorOpen && <EditorQuestion />}
         </ModalContainer>
       )}

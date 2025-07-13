@@ -63,4 +63,15 @@ export interface iResultEntry {
   correctAnswers: number;
 }
 
+export interface iUsersResponse {
+  status: number;
+  data: iUser[] | null;
+  error: iHandledError | null;
+}
+
+export interface iHandledError {
+  message: string;
+  errorType: string;
+}
+
 export interface iResultEntryRequest extends Omit<iResultEntry, 'correctAnswers'> {}
