@@ -7,8 +7,19 @@ import sortUsersByRole from '../utils/sortAllUser';
 import { Role, User } from '../models/models';
 import { iResponseUser, iUpdateUserData, UserRoles } from '../types/userTypes';
 
-const NETWORK_ERROR_MESSAGE = 'Network error';
-const USER_NOT_FOUND_MESSAGE = 'User not found';
+const errorTypeMap = {
+  userExists: 'userExists',
+  networkError: 'networkError',
+  notFound: 'notFound',
+  regError: 'regError',
+};
+
+const errorMsgMap = {
+  userExists: 'This user exists',
+  networkError: 'Network error',
+  notFound: 'User not found',
+  regError: 'Registration error',
+};
 
 class UserController {
   constructor() {
@@ -18,13 +29,22 @@ class UserController {
     this.deleteUser = this.deleteUser.bind(this);
   }
 
+  private prepareError(message: unknown, errorType: string) {
+    return {
+      message: message,
+      errorType: errorType,
+    };
+  }
+
   private handleError(response: Response, error: unknown, message: string) {
     if (error instanceof Error) {
       console.error(message, error);
-      return response.status(500).json({ message });
+      const errorData = this.prepareError(message, error.name);
+      return response.status(500).json(errorData);
     }
     console.error(message, error);
-    return response.status(500).json({ message: NETWORK_ERROR_MESSAGE });
+    const errorData = this.prepareError(errorMsgMap.networkError, errorTypeMap.networkError);
+    return response.status(500).json(errorData);
   }
 
   private async getAllUsers(): Promise<iResponseUser[]> {
@@ -65,9 +85,10 @@ class UserController {
       const validationError = validationResult(request);
 
       if (!validationError.isEmpty()) {
-        return response
-          .status(400)
-          .json({ message: validationError.array()[0].msg, validationError });
+        const { msg, type } = validationError.array()[0];
+
+        const errorData = this.prepareError(msg, type);
+        return response.status(400).json(errorData);
       }
 
       const { firstName, lastName, username, password, role, image, gender } = request.body;
@@ -75,7 +96,8 @@ class UserController {
       const candidate = await User.findOne({ username });
 
       if (candidate) {
-        return response.status(400).json({ message: 'This user exists', errorType: 'userExists' });
+        const errorData = this.prepareError(errorMsgMap.userExists, errorTypeMap.userExists);
+        return response.status(400).json(errorData);
       }
 
       const hashPassword = bcrypt.hashSync(password, 5);
@@ -97,7 +119,8 @@ class UserController {
 
       return response.json(sortedUsers);
     } catch (e) {
-      return response.status(400).json({ message: 'Registration error', errorType: 'regError' });
+      const errorData = this.prepareError(errorMsgMap.regError, errorTypeMap.regError);
+      return response.status(400).json(errorData);
     }
   }
 
@@ -119,7 +142,8 @@ class UserController {
       const user = await User.findOneAndUpdate({ username }, updateData, { new: true });
 
       if (!user) {
-        return response.status(404).json({ message: USER_NOT_FOUND_MESSAGE });
+        const errorData = this.prepareError(errorMsgMap.notFound, errorTypeMap.notFound);
+        return response.status(404).json(errorData);
       }
 
       const users = await this.getAllUsers();
@@ -131,13 +155,15 @@ class UserController {
   }
 
   async deleteUser(request: Request, response: Response): Promise<Response> {
+    console.group('----- deleteUser');
     try {
       const { username } = request.query;
-
+      console.log('username -', username);
       const user = await User.findOneAndDelete({ username });
 
       if (!user) {
-        return response.status(404).json({ message: USER_NOT_FOUND_MESSAGE });
+        const errorData = this.prepareError(errorMsgMap.notFound, errorTypeMap.notFound);
+        return response.status(404).json(errorData);
       }
 
       const users = await this.getAllUsers();
@@ -145,6 +171,8 @@ class UserController {
       return response.json(sortedUser);
     } catch (e) {
       return this.handleError(response, e, 'Error in deleteUser:');
+    } finally {
+      console.groupEnd();
     }
   }
 }

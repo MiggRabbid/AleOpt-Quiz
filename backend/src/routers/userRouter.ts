@@ -28,6 +28,6 @@ userRouter.get('/users', roleMiddleware(UserRoles.Admin), userController.allUser
 userRouter.get('/user', authMiddleware, userController.currentUser);
 userRouter.post('/user', validateNewUser, roleMiddleware(UserRoles.Admin), userController.newUser);
 userRouter.put('/user', roleMiddleware(UserRoles.Admin), validateNewUser, userController.editUser);
-userRouter.delete('/users/', roleMiddleware(UserRoles.Admin), userController.deleteUser);
+userRouter.delete('/user/', roleMiddleware(UserRoles.Admin), userController.deleteUser);
 
 export default userRouter;
