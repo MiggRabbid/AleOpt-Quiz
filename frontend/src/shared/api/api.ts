@@ -74,8 +74,9 @@ export const api = {
   addUserStats: async (props: {
     data: iResultEntryRequest;
     params: { username: string };
+    token: string;
   }): Promise<iUserStats | null> => {
-    const { params, data } = props;
+    const { params, data, token } = props;
 
     try {
       const response = await sendRequest({
@@ -83,6 +84,7 @@ export const api = {
         endpoint: requestsPath.userStats(),
         data: data,
         params: params,
+        token,
       });
       return response?.data;
     } catch (error: any) {

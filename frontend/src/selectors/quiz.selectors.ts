@@ -4,4 +4,4 @@ import { iQuizState } from '@/types/quiz';
 export const getQuizStateField =
   <K extends keyof iQuizState>(field: K) =>
   (state: RootState) =>
-    state.quizReducer[field];
+    state.quiz[field];

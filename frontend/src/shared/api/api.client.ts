@@ -12,14 +12,14 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
-  console.log('config    -', config);
+  // console.log('config    -', config);
 
   if (config.headers.Authorization) {
     if (config.method === 'get' || config.method === 'post') {
-      console.group('axiosInstance start / CLIENT');
-      // console.log('config    -', config);
-      console.log('axiosInstance end');
-      console.groupEnd();
+      // console.group('axiosInstance start / CLIENT');
+      // // console.log('config    -', config);
+      // console.log('axiosInstance end');
+      // console.groupEnd();
     }
     return config;
   }
@@ -31,10 +31,10 @@ axiosInstance.interceptors.request.use(async (config: InternalAxiosRequestConfig
   }
 
   if (config.method === 'get' || config.method === 'post') {
-    console.group('axiosInstance start / SERVER');
-    console.log('token     -', token ?? 'нет');
-    console.log('axiosInstance end');
-    console.groupEnd();
+    // console.group('axiosInstance start / SERVER');
+    // console.log('token     -', token ?? 'нет');
+    // console.log('axiosInstance end');
+    // console.groupEnd();
   }
 
   return config;

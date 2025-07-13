@@ -1,9 +1,8 @@
 'use client';
 // Библиотеки
 import React, { useEffect, useLayoutEffect } from 'react';
-import { useSelector } from 'react-redux';
 import List from '@mui/material/List';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 // Логика
 import { useAppActions, useAppSelector, useLocalStorage } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
@@ -26,12 +25,15 @@ const QuestionList = (props: IQuestionListProps) => {
   const { setResult, getResult, getTimer } = useLocalStorage();
 
   const questionsIndex = useAppSelector(getQuizStateField('questionIndex'));
-  const currentResult = useSelector(getQuizStateField('currentResult'));
-  const allQuestionsCompleted = useSelector(getQuizStateField('allQuestionsCompleted'));
+  const currentResult = useAppSelector(getQuizStateField('currentResult'));
+  const allQuestionsCompleted = useAppSelector(
+    getQuizStateField('allQuestionsCompleted'),
+  );
 
   useLayoutEffect(() => {
     const oldTimer = getTimer();
     const oldResult = getResult();
+
     if (!!oldTimer && !!oldResult) {
       setQuizStateField({
         field: 'quizTimer',
@@ -66,7 +68,6 @@ const QuestionList = (props: IQuestionListProps) => {
 
   useEffect(() => {
     if (currentResult.length > 0) setResult(currentResult);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentResult]);
 

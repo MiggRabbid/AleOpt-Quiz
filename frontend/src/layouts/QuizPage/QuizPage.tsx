@@ -29,7 +29,6 @@ const QuizPage = async () => {
           className="w-full overflow-y-auto!"
           sx={{
             height: 'calc(100dvh - 91px - 14px - 14px - 20px - 20px)',
-            backgroundColor: 'red',
           }}
         >
           <QuestionList questions={questions ?? []} />

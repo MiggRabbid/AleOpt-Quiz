@@ -1,18 +1,19 @@
 'use client';
 // Библиотеки
-import { useEffect, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
-// Логика
-import { routes } from '@/shared/config/routes';
-import { useAppSelector, useLocalStorage } from '@/hooks';
-import { getQuizStateField } from '@/selectors';
-// Компоненты
 import { BtnMain } from '@/shared/ui/ui/btns';
 import { useSession } from 'next-auth/react';
-import { iResultEntryRequest } from '@/types/staff.types';
-import { getFormattedDate } from '@/shared/lib/getFormattedDate';
+// Логика
+import { routes } from '@/shared/config/routes';
+import { useAppActions, useAppSelector, useLocalStorage } from '@/hooks';
+import { getQuizStateField } from '@/selectors';
 import { api } from '@/shared/api/api';
+// Компоненты
+import { getFormattedDate } from '@/shared/lib/getFormattedDate';
+// Типизация
+import { iResultEntryRequest } from '@/types/staff.types';
 
 const BtnEndQuiz = () => {
   const router = useRouter();
@@ -20,32 +21,51 @@ const BtnEndQuiz = () => {
   const [isPending, startTransition] = useTransition();
   const { delResult, delTimer } = useLocalStorage();
 
+  const { clearResultState } = useAppActions();
   const currentResult = useAppSelector(getQuizStateField('currentResult'));
   const isStarted = useAppSelector(getQuizStateField('isStarted'));
-
   const allQuestionsCompleted = useAppSelector(
     getQuizStateField('allQuestionsCompleted'),
   );
 
-  useEffect(() => {}, [currentResult]);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const handelClickSaveBtn = async () => {
-    const params = { username: session?.user.username || '' };
-    const data: iResultEntryRequest = {
-      data: getFormattedDate(),
-      answers: currentResult,
-    };
+    setIsFetching(true);
 
-    await api.addUserStats({
-      params,
-      data,
-    });
+    const username = session?.user.username;
+    const token = session?.user.token;
 
-    // startTransition(() => {
-    //   router.push(routes.main);
-    // });
-    // delResult();
-    // delTimer();
+    if (!username || !token) {
+      setIsFetching(false);
+      return;
+    }
+
+    try {
+      const data: iResultEntryRequest = {
+        data: getFormattedDate(),
+        answers: currentResult,
+      };
+
+      await api.addUserStats({
+        data,
+        token,
+        params: {
+          username,
+        },
+      });
+
+      delResult();
+      delTimer();
+      clearResultState();
+      startTransition(() => {
+        router.push(routes.main);
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsFetching(false);
+    }
   };
 
   const handelClickEndBtn = () => {
@@ -56,17 +76,13 @@ const BtnEndQuiz = () => {
     delTimer();
   };
 
-  useEffect(() => {
-    console.log('BtnEndQuiz / isPending-', isPending);
-  }, [isPending]);
-
   return (
     <Box className="flex flex-col justify-end">
       {allQuestionsCompleted && (
         <BtnMain
           btnText="Сохранить результат?"
           btnClick={handelClickSaveBtn}
-          isLoading={isPending}
+          isLoading={isFetching || isPending}
           fullWidth
         />
       )}
@@ -75,7 +91,7 @@ const BtnEndQuiz = () => {
         <BtnMain
           btnText="Закончить попытку?"
           btnClick={handelClickEndBtn}
-          isLoading={isPending}
+          isLoading={isFetching || isPending}
           fullWidth
           color="warning"
         />

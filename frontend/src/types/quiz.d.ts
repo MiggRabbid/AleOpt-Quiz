@@ -17,12 +17,12 @@ export interface iTimer {
 }
 
 export interface iQuizState {
-  isStarted: boolean;
-  allQuestionsCompleted: boolean;
-  questionIndex: number;
   questions: iQuestion[];
   users: iUser[];
   results: iUserStats[];
+  isStarted: boolean;
+  allQuestionsCompleted: boolean;
+  questionIndex: number;
   currentResult: iUserAnswer[];
   quizTimer: iTimer;
 }

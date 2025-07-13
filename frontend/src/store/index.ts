@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import quizReducer, { actions as quizActions } from './slices/quiz';
-import globalReducer, { actions as globalActions } from './slices/global';
+import quiz, { actions as quizActions } from './slices/quiz';
+import global, { actions as globalActions } from './slices/global';
 
 const rootReducer = combineReducers({
-  quizReducer,
-  globalReducer,
+  quiz,
+  global,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

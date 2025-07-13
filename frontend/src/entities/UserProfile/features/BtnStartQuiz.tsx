@@ -13,6 +13,7 @@ const BtnStartQuiz = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { getResult, getTimer } = useLocalStorage();
+
   const [unfinishedAttempt, setUnfinishedAttempt] = useState<boolean>(false);
 
   useLayoutEffect(() => {
