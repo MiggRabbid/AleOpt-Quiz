@@ -4,9 +4,6 @@ import sortAscending from '../utils/sortAscending';
 import { Question } from '../models/models';
 import { iQuestionModel } from '../types/quizTypes';
 
-const NETWORK_ERROR_MESSAGE = 'Network error';
-const QUESTION_NOT_FOUND_MESSAGE = 'Question not found';
-
 const errorTypeMap = {
   userExists: 'userExists',
   networkError: 'networkError',
@@ -30,8 +27,8 @@ class QuizController {
 
   private prepareError(message: unknown, errorType: string) {
     return {
-      message: message,
-      errorType: errorType,
+      message,
+      errorType,
     };
   }
 

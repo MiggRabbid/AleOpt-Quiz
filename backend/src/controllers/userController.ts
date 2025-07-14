@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import sortUsersByRole from '../utils/sortAllUser';
 
 import { Role, User } from '../models/models';
-import { iResponseUser, iUpdateUserData, UserRoles } from '../types/userTypes';
+import { iResponseUser, iUpdateUserData } from '../types/userTypes';
 
 const errorTypeMap = {
   userExists: 'userExists',
@@ -31,8 +31,8 @@ class UserController {
 
   private prepareError(message: unknown, errorType: string) {
     return {
-      message: message,
-      errorType: errorType,
+      message,
+      errorType,
     };
   }
 
@@ -109,8 +109,8 @@ class UserController {
         username,
         password: hashPassword,
         role: userRole?.value,
-        image: image,
-        gender: gender,
+        image,
+        gender,
       });
       await newUser.save();
 
@@ -169,7 +169,6 @@ class UserController {
       return response.json(sortedUser);
     } catch (e) {
       return this.handleError(response, e, 'Error in deleteUser:');
-    } finally {
     }
   }
 }
