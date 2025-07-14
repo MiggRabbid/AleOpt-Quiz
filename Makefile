@@ -6,7 +6,7 @@ l-f:
 	npm -C frontend run lint
 
 f-f:
-	npm -C frontend run fix
+	npm -C frontend run format
 
 d-f:
 	npm -C frontend run dev
@@ -25,8 +25,12 @@ cl-f:
 i-b:
 	npm -C backend install
 
-f-b:
+
+l-b:
 	npm -C backend run fix
+
+f-b:
+	npm -C backend run format
 
 d-b:
 	npm -C backend run dev
