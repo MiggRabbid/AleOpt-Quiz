@@ -1,4 +1,4 @@
-import { iQuestion } from './quiz';
+import { iQuestion } from './quiz.types';
 import { iUser } from './staff.types';
 
 // eslint-disable-next-line no-unused-vars
@@ -7,6 +7,8 @@ export type typeTranslationFunction = (key: string) => string;
 export type typeData = { [key: string]: string };
 
 export type typeModelData = null | string | iUser | iQuestion;
+
+export const answersKeys = ['a', 'b', 'c', 'd'] as const;
 
 export type typeAnswersKeys = 'a' | 'b' | 'c' | 'd';
 

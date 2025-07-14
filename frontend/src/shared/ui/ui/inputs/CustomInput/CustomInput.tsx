@@ -5,7 +5,7 @@ import { Box, TextField, FormHelperText } from '@mui/material';
 // Компоненты
 import { CustomEndAdornment } from './ui/CustomEndAdornment';
 // Типизация
-import { ICustomInputProps } from './types/CustomInput';
+import type { ICustomInputProps } from './types/CustomInput';
 
 const CustomInput = (props: ICustomInputProps) => {
   const { label, type, error, helperText, register, disabled } = props;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Typography } from '@mui/material';
-import { typeQuestionAnswer } from '@/types/types';
+import { typeQuestionAnswer } from '@/types/types.types';
 
 interface IQuestionListItemOpenedAnswerProps {
   answer: typeQuestionAnswer;

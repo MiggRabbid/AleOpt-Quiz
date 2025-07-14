@@ -1,4 +1,4 @@
-import { iQuizState } from '@/types/quiz';
+import { iQuizState } from '@/types/quiz.types';
 
 export const TIME_FOR_ONE_QUESTION = 60;
 

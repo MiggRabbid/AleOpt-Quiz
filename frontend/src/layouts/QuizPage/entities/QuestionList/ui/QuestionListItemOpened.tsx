@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { Box, Chip, Typography } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
-import { iQuestion } from '@/types/quiz';
-import { typeQuestionAnswer } from '@/types/types';
+import { iQuestion } from '@/types/quiz.types';
+import { typeQuestionAnswer } from '@/types/types.types';
 import { QuestionListItemOpenedAnswer } from './QuestionListItemOpenedAnswer';
 import { QuestionListItemOpenedBtn } from './QuestionListItemOpenedBtn';
 import { useAppActions, useAppSelector, useLocalStorage } from '@/hooks';

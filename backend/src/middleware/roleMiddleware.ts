@@ -34,7 +34,7 @@ const roleMiddleware = (role: string) => {
 
       next();
     } catch (e) {
-      console.error('---- roleMiddleware', e);
+      console.error('----- roleMiddleware', e);
       response.status(403).json({ message: 'User is not admin' });
     }
   };

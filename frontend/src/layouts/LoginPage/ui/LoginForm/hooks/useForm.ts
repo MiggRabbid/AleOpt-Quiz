@@ -26,10 +26,8 @@ export const useLoginForm = () => {
     });
 
     if (response?.error) {
-      console.error('Ошибка авторизации -', response);
       setError('username', { message: 'Пользователь не найден' });
       setError('password', { message: 'Или неправильный пароль' });
-      console.error('Ошибка авторизации -', response.error);
     }
   };
 

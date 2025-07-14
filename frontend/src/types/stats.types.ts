@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { iResultEntry } from './staff.types';
+import { typeAnswersKeys } from './types.types';
 
 export enum typeDoughnut {
   hard = 'hard',
@@ -10,7 +11,7 @@ export interface iAverageAttempts {
   [key: string]: {
     result: number;
     correctAnswerId: string;
-    countAnswers: Record<typeAnswerId, number>;
+    countAnswers: Record<typeAnswersKeys, number>;
   };
 }
 

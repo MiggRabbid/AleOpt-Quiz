@@ -1,4 +1,4 @@
-import { iUserStats } from '@/types/stats';
+import { iUserStats } from '@/types/stats.types';
 import { Box, Typography } from '@mui/material';
 
 interface ITopResultsListItemProps {

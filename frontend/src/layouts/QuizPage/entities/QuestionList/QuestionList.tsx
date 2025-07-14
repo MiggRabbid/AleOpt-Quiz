@@ -10,7 +10,7 @@ import { getQuizStateField } from '@/selectors';
 import { QuestionListItemOpened } from './ui/QuestionListItemOpened';
 import { QuestionListItemClosed } from './ui/QuestionListItemClosed';
 //Типизация
-import { iQuestion } from '@/types/quiz';
+import { iQuestion } from '@/types/quiz.types';
 import { ResultList } from '../ResultList/ResultList';
 import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
 
@@ -94,6 +94,7 @@ const QuestionList = (props: IQuestionListProps) => {
             {index === questionsIndex && (
               <QuestionListItemOpened question={question} index={index + 1} />
             )}
+
             {index > questionsIndex && (
               <QuestionListItemClosed question={question} index={index + 1} type="next" />
             )}

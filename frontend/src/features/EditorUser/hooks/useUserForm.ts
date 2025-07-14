@@ -18,7 +18,7 @@ interface IUseUserFormProps {
 export const useUserForm = (props: IUseUserFormProps) => {
   const { isNewUser, requiredPass } = props;
 
-  const { setQuizStateField } = useAppActions();
+  const { setQuizStateField, closeUserEditor } = useAppActions();
 
   const { data } = useSession();
   const token = data?.user?.token;
@@ -79,6 +79,7 @@ export const useUserForm = (props: IUseUserFormProps) => {
 
       if (response.data) {
         setQuizStateField({ field: 'users', data: response.data });
+        closeUserEditor();
       }
 
       if (!response.data) {
@@ -97,6 +98,7 @@ export const useUserForm = (props: IUseUserFormProps) => {
 
       if (response.data) {
         setQuizStateField({ field: 'users', data: response.data });
+        closeUserEditor();
       }
 
       if (!response.data) {

@@ -6,7 +6,7 @@ import { SummaryResults } from './features/SummaryResults';
 import { ProfileHeader } from './features/ProfileHeader';
 import { BtnStartQuiz } from './features/BtnStartQuiz';
 // Типизация
-import { iUserStats } from '@/types/stats';
+import { iUserStats } from '@/types/stats.types';
 import { iUser, UserRoles } from '@/types/staff.types';
 
 interface IUserProfileProps {

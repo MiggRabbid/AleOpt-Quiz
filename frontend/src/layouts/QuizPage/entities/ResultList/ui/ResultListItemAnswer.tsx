@@ -1,5 +1,5 @@
 import { iUserAnswer } from '@/types/staff.types';
-import { typeQuestionAnswer } from '@/types/types';
+import { typeQuestionAnswer } from '@/types/types.types';
 import { AccordionDetails, Typography } from '@mui/material';
 import React from 'react';
 

@@ -1,4 +1,4 @@
-import { iQuestionStatsForDoughnut, typeStatFuncsArgs } from '@/types/stats';
+import { iQuestionStatsForDoughnut, typeStatFuncsArgs } from '@/types/stats.types';
 import { barData } from '../types/CustomBar';
 import { iResultEntry, iUserAnswer } from '@/types/staff.types';
 

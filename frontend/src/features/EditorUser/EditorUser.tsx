@@ -44,7 +44,10 @@ const EditorUser = (props: IEditorUserProps) => {
   const editableUser = useAppSelector(getGlobalStateField('editableUser'));
 
   const isNewUser = !editableUser && userEditorModal === TTypeModal.new;
+
   const [passIsActive, setPassIsActive] = useState<boolean>(false);
+
+  const requiredPass = isNewUser || (!isNewUser && passIsActive);
 
   const {
     savingAvailable,
@@ -55,7 +58,10 @@ const EditorUser = (props: IEditorUserProps) => {
     watch,
     setValue,
     isSubmitting,
-  } = useUserForm({ isNewUser, requiredPass: isNewUser || (!isNewUser && passIsActive) });
+  } = useUserForm({
+    isNewUser,
+    requiredPass,
+  });
 
   useLayoutEffect(() => {
     setPassIsActive(isNewUser);

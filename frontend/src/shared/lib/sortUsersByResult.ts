@@ -1,4 +1,4 @@
-import { iUserStats } from '@/types/stats';
+import { iUserStats } from '@/types/stats.types';
 
 const gerPercent = (a: number, b: number): number => (a / b) * 100;
 

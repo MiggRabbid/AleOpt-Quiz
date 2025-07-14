@@ -12,7 +12,7 @@ import { QuestionBlock } from './ui/QuestionBlock';
 import { CustomDoughnut } from '@/features/CustomDoughnut';
 import { CustomBar } from '@/features/CustomBar';
 // Типизация
-import { iUserStats } from '@/types/stats';
+import { iUserStats } from '@/types/stats.types';
 
 interface IUserStatsProps {
   userStats: iUserStats | null;

@@ -155,10 +155,8 @@ class UserController {
   }
 
   async deleteUser(request: Request, response: Response): Promise<Response> {
-    console.group('----- deleteUser');
     try {
       const { username } = request.query;
-      console.log('username -', username);
       const user = await User.findOneAndDelete({ username });
 
       if (!user) {
@@ -172,7 +170,6 @@ class UserController {
     } catch (e) {
       return this.handleError(response, e, 'Error in deleteUser:');
     } finally {
-      console.groupEnd();
     }
   }
 }

@@ -14,6 +14,7 @@ import { ModalContainer } from '@/shared/ui/layouts/ModalContainer';
 import { TTypeModal } from '@/types/modal.types';
 import { TypeStatsTab } from '@/layouts/AdminPage/types/AdminStats';
 import { DeleteUser } from '@/features/DeleteUser';
+import { DeleteQuestion } from '@/features/DeleteQuestion';
 
 interface IHeaderProps {
   activeTab: TypeStatsTab;
@@ -23,48 +24,42 @@ interface IHeaderProps {
 const Header = (props: IHeaderProps) => {
   const { activeTab, setActiveTab } = props;
 
-  const { openUserEditor, closeUserEditor } = useAppActions();
+  const { openUserEditor, closeUserEditor, openQuestionEditor, closeQuestionEditor } =
+    useAppActions();
 
   const userEditorModal = useAppSelector(getGlobalStateField('userEditorType'));
-  const userEditorOpen = !!userEditorModal && userEditorModal !== TTypeModal.deleteUser;
-  const userDeleteOpen = !!userEditorModal && userEditorModal === TTypeModal.deleteUser;
+  const userEditorOpen = !!userEditorModal && userEditorModal !== TTypeModal.delete;
+  const userDeleteOpen = !!userEditorModal && userEditorModal === TTypeModal.delete;
 
-  const [questionEditorOpen, setQuestionEditorOpen] = useState<boolean>(false);
+  const questionEditorModal = useAppSelector(getGlobalStateField('questionEditorType'));
+  const questionEditorOpen =
+    !!questionEditorModal && questionEditorModal !== TTypeModal.delete;
+  const questionDeleteOpen =
+    !!questionEditorModal && questionEditorModal === TTypeModal.delete;
 
-  const modalContainerIsOpen = userEditorOpen || userDeleteOpen || questionEditorOpen;
-
-  useEffect(() => {
-    console.log('Change userEditorModal -', userEditorModal);
-  }, [userEditorModal]);
-
-  useEffect(() => {
-    console.log('Change userEditorOpen -', userEditorOpen);
-    console.log('Change userDeleteOpen -', userDeleteOpen);
-  }, [userEditorOpen, userDeleteOpen]);
-
-  useEffect(() => {
-    console.log('Change modalContainerIsOpen -', modalContainerIsOpen);
-  }, [modalContainerIsOpen]);
+  const modalContainerIsOpen =
+    userEditorOpen || userDeleteOpen || questionEditorOpen || questionDeleteOpen;
 
   const handelOpenEditor = () => {
-    console.log('handelOpenEditor -');
     if (activeTab === TypeStatsTab.users) {
+      closeQuestionEditor();
       openUserEditor({
-        type: TTypeModal.newUser,
+        type: TTypeModal.new,
         editableUser: null,
       });
-      setQuestionEditorOpen(false);
     }
     if (activeTab === TypeStatsTab.questions) {
       closeUserEditor();
-      setQuestionEditorOpen(true);
+      openQuestionEditor({
+        type: TTypeModal.new,
+        editableQuestion: null,
+      });
     }
   };
 
   const handelCloseEditor = () => {
-    console.log('handelOpenEditor -');
     closeUserEditor();
-    setQuestionEditorOpen(false);
+    closeQuestionEditor();
   };
 
   return (
@@ -78,7 +73,8 @@ const Header = (props: IHeaderProps) => {
         <ModalContainer isOpen={modalContainerIsOpen} onClose={handelCloseEditor}>
           {userEditorOpen && <EditorUser clickOnClose={handelCloseEditor} />}
           {userDeleteOpen && <DeleteUser clickOnClose={handelCloseEditor} />}
-          {questionEditorOpen && <EditorQuestion />}
+          {questionEditorOpen && <EditorQuestion clickOnClose={handelCloseEditor} />}
+          {questionDeleteOpen && <DeleteQuestion clickOnClose={handelCloseEditor} />}
         </ModalContainer>
       )}
     </>

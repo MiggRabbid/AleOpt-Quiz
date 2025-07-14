@@ -1,7 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { SessionStrategy } from 'next-auth';
 import { api } from '@/shared/api/api';
-import { iResponseLogin } from '@/types/auth';
+import { iResponseLogin } from '@/types/auth.types';
 import { ICallbackJwtArgs, ICallbackSessionArgs } from '@/types/next-auth';
 
 export const authOptions = {
@@ -14,14 +14,10 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        // console.group('------------------------------ authorize');
         const response = await api.login({
           username: credentials?.username || '',
           password: credentials?.password || '',
         });
-
-        // console.log('response -', response?.username, response?.role);
-        // console.groupEnd();
 
         if (!response?.token) return null;
 
@@ -34,8 +30,6 @@ export const authOptions = {
     async jwt({ token, user }: ICallbackJwtArgs) {
       if (!user) return token;
 
-      // console.group('callbacks jwt');
-      // console.log('user     -', (user as iResponseLogin).username, user.id);
       const {
         firstName,
         role,
@@ -56,9 +50,6 @@ export const authOptions = {
         username,
       };
 
-      // console.log('newToken -', newToken);
-      // console.groupEnd();
-
       return newToken;
     },
     async session({ session, token }: ICallbackSessionArgs) {
@@ -76,10 +67,6 @@ export const authOptions = {
             email: 'null',
           },
         };
-
-        // console.group('callbacks session');
-        // console.log('new session  -', newSession);
-        // console.groupEnd();
         return newSession;
       }
       return session;

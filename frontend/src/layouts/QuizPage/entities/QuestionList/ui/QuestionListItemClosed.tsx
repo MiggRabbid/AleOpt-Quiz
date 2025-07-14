@@ -2,7 +2,7 @@
 import React from 'react';
 import { Chip, Typography } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
-import { iQuestion } from '@/types/quiz';
+import { iQuestion } from '@/types/quiz.types';
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 

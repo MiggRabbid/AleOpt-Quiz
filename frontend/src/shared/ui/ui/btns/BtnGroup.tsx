@@ -1,4 +1,5 @@
 import { Box, Button, CircularProgress } from '@mui/material';
+import { useEffect } from 'react';
 
 type btnVariant = 'text' | 'contained' | 'outlined';
 type btnColor =
@@ -21,6 +22,7 @@ interface IBtnGroupProps {
   rightBtnVariant?: btnVariant;
   rightBtnColor?: btnColor;
   rightBtnType?: btnType;
+  disabledRight?: boolean;
   isLoading?: boolean;
 }
 
@@ -35,7 +37,8 @@ const BtnGroup = (props: IBtnGroupProps) => {
     rightBtnClick,
     rightBtnColor,
     rightBtnVariant,
-    rightBtnType,
+    rightBtnType = 'button',
+    disabledRight,
   } = props;
 
   return (
@@ -54,7 +57,7 @@ const BtnGroup = (props: IBtnGroupProps) => {
         variant={rightBtnVariant}
         color={rightBtnColor}
         type={rightBtnType}
-        disabled={isLoading}
+        disabled={isLoading || disabledRight}
         className="min-h-10! flex-1! items-center justify-center gap-2 rounded-xl!"
       >
         {isLoading && <CircularProgress sx={{ color: 'white !important' }} size={30} />}

@@ -3,26 +3,37 @@ import { createSlice } from '@reduxjs/toolkit';
 import { initialState } from './index.config';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IOpenUserEditorPayload } from './index.types';
+import { IOpenQuestionEditorPayload, IOpenUserEditorPayload } from './index.types';
 
 const global = createSlice({
   name: 'global',
   initialState,
   reducers: {
+    /*Редактор пользователя - открыть*/
     openUserEditor: (state, action: PayloadAction<IOpenUserEditorPayload>) => {
-      console.group('handelClickOnDelete');
       const { type, editableUser } = action.payload;
-      console.log('type         -', type);
-      console.log('editableUser -', editableUser);
+
       state.userEditorType = type;
       state.editableUser = editableUser;
-      console.groupEnd();
     },
+    /*Редактор пользователя - закрыть*/
     closeUserEditor: (state) => {
       state.userEditorType = null;
       state.editableUser = null;
     },
+    /*Редактор вопроса - открыть*/
+    openQuestionEditor: (state, action: PayloadAction<IOpenQuestionEditorPayload>) => {
+      const { type, editableQuestion } = action.payload;
 
+      state.questionEditorType = type;
+      state.editableQuestion = editableQuestion;
+    },
+    /*Редактор вопроса - закрыть*/
+    closeQuestionEditor: (state) => {
+      state.questionEditorType = null;
+      state.editableQuestion = null;
+    },
+    /*Сбросить состояние*/
     clearCurrentResult: () => {
       return {
         ...initialState,

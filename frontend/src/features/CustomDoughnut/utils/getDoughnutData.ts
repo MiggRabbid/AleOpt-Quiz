@@ -1,4 +1,4 @@
-import { iQuestionStatsForDoughnut } from '@/types/stats';
+import { iQuestionStatsForDoughnut } from '@/types/stats.types';
 import { doughnutData } from '../types/CustomDoughnut';
 import { BG_COLORS } from './getSegmentColor';
 

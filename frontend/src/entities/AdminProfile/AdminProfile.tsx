@@ -9,7 +9,7 @@ import { ProfileHeader } from './ui/ProfileHeader';
 import { SummaryResults } from './ui/SummaryResults/SummaryResults';
 // Типизация
 import { iUser, UserRoles } from '@/types/staff.types';
-import { iUserStats } from '@/types/stats';
+import { iUserStats } from '@/types/stats.types';
 
 interface IAdminProfileProps {
   user: iUser | null;

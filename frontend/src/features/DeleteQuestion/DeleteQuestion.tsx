@@ -13,34 +13,33 @@ import { BtnGroup } from '@/shared/ui/ui/btns';
 // Типизация
 import { TTypeModal } from '@/types/modal.types';
 
-interface IDeleteUserProps {
+interface IDeleteQuestionProps {
   clickOnClose: () => void;
 }
 
-const DeleteUser = ({ clickOnClose }: IDeleteUserProps) => {
+const DeleteQuestion = ({ clickOnClose }: IDeleteQuestionProps) => {
   const { data } = useSession();
   const { setQuizStateField } = useAppActions();
 
-  const userEditorModal = useAppSelector(getGlobalStateField('userEditorType'));
-  const editableUser = useAppSelector(getGlobalStateField('editableUser'));
+  const questionEditorType = useAppSelector(getGlobalStateField('questionEditorType'));
+  const editableQuestion = useAppSelector(getGlobalStateField('editableQuestion'));
 
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  if (!editableUser || userEditorModal !== TTypeModal.delete) return null;
+  if (!editableQuestion || questionEditorType !== TTypeModal.delete) return null;
 
   const clickOnDelete = async () => {
     const token = data?.user?.token;
-
     if (!token) return;
 
     try {
       setIsFetching(true);
 
-      const response = await api.deleteUser(editableUser.username, token);
+      const response = await api.deleteQuestion(editableQuestion.id, token);
 
       if (response.data) {
         setQuizStateField({
-          field: 'users',
+          field: 'questions',
           data: response.data,
         });
       }
@@ -56,13 +55,13 @@ const DeleteUser = ({ clickOnClose }: IDeleteUserProps) => {
   return (
     <Box className="flex h-fit w-120 flex-col gap-5">
       <Box className="flex h-fit w-full flex-col gap-5">
-        <h4 className="text-3xl font-bold">Удаление пользователя</h4>
+        <h4 className="text-3xl font-bold">Удаление вопроса</h4>
         <Divider />
       </Box>
       <Box className="flex! h-fit w-full flex-row! flex-wrap! items-center justify-center gap-x-5 gap-y-2">
         <Box className="w-full">
-          <p className="text-lg">Вы точно хотите удалить пользователя:</p>
-          <p className="text-lg font-semibold">{`${editableUser.firstName ?? '-'} ${editableUser.lastName ?? '-'} (${editableUser?.username})`}</p>
+          <p className="text-lg">Вы точно хотите удалить вопрос:</p>
+          <p className="text-lg font-semibold">{`${editableQuestion.question}`}</p>
         </Box>
 
         <Box className="mt-3 flex w-full flex-col gap-5">
@@ -85,4 +84,4 @@ const DeleteUser = ({ clickOnClose }: IDeleteUserProps) => {
   );
 };
 
-export default DeleteUser;
+export default DeleteQuestion;

@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
-import { iQuestion } from '@/types/quiz';
+import { iQuestion } from '@/types/quiz.types';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import React from 'react';
 

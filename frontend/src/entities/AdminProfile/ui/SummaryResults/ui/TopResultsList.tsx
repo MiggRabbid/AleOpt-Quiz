@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { TopResultsListItem } from './TopResultsListItem';
-import { iUserStats } from '@/types/stats';
+import { iUserStats } from '@/types/stats.types';
 
 interface ITopResultsListProps {
   sortedResults: iUserStats[];

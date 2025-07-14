@@ -5,11 +5,12 @@ import { Box } from '@mui/material';
 // Логика
 import { useAppActions } from '@/hooks';
 // Компоненты
-import { UsersList } from '../../entities/UsersList';
 import { Header } from './components/Header';
+import { UsersList } from '../../entities/UsersList';
+import { QuestionList } from '../../entities/QuestionList';
 // Типизация
 import { iUser } from '@/types/staff.types';
-import { iQuestion } from '@/types/quiz';
+import { iQuestion } from '@/types/quiz.types';
 import { TypeStatsTab } from '../../types/AdminStats';
 
 interface IAdminStatsProps {
@@ -25,7 +26,6 @@ const AdminStats = (props: IAdminStatsProps) => {
   const { setQuizStateField } = useAppActions();
 
   useLayoutEffect(() => {
-    // console.log('users -', users);
     if (!!users) {
       setQuizStateField({
         field: 'users',
@@ -56,6 +56,7 @@ const AdminStats = (props: IAdminStatsProps) => {
         }}
       >
         {activeTab === TypeStatsTab.users && <UsersList />}
+        {activeTab === TypeStatsTab.questions && <QuestionList />}
       </Box>
     </Box>
   );

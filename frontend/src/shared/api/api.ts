@@ -87,7 +87,6 @@ export const api = {
 
   /* Получение всех пользователей */
   getAllUsers: async (): Promise<iUser[] | null> => {
-    console.log('------------------------------ api getAllUsers');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.get,
@@ -160,16 +159,13 @@ export const api = {
 
   /* Удаление пользователя */
   deleteUser: async (username: string, token: string): Promise<iUsersResponse> => {
-    console.log('------------------------------ api deleteUser');
     try {
-      console.log('username -', username);
       const response = await sendRequest({
         method: TypeAxiosMethod.delete,
         endpoint: requestsPath.user(),
         params: { username },
         token,
       });
-      console.log('deleteUser / response -', response);
 
       return {
         status: 200,
@@ -225,7 +221,6 @@ export const api = {
     question: iQuestion,
     token: string,
   ): Promise<iQuestionResponse> => {
-    console.group('----- updateQuestion');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.put,

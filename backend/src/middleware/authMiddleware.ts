@@ -33,7 +33,7 @@ const authMiddleware = (request: CustomRequest, response: Response, next: NextFu
     console.log(`----- authMiddleware - ${JSON.stringify(request.user)}`);
     next();
   } catch (e) {
-    console.error('---- authMiddleware', e);
+    console.error('----- authMiddleware', e);
     response.status(403).json({ message: 'User is not authorized' });
   }
 };

@@ -6,15 +6,11 @@ import type { TypeAvatarsMap } from '@/shared/lib/getAvatarPaths';
 import { console } from 'inspector';
 
 export async function GET(): Promise<NextResponse<TypeAvatarsMap | null>> {
-  console.group('----- api getAvatarPaths');
   try {
     const response = getAvatarPaths();
-    console.log('response -', response);
     return NextResponse.json(response as TypeAvatarsMap);
   } catch (error) {
     console.error('getAvatarPaths / error -', error);
     return NextResponse.json(null);
-  } finally {
-    console.groupEnd();
   }
 }

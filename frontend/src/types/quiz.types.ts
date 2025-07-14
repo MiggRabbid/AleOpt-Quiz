@@ -1,6 +1,6 @@
-import { typeQuestionAnswer } from './types';
-
-import { iUserAnswer } from './staff.types';
+import { typeQuestionAnswer } from './types.types';
+import { iHandledError, iUser, iUserAnswer } from './staff.types';
+import { iUserStats } from './stats.types';
 
 export interface iQuestion {
   id: string;
@@ -35,13 +35,14 @@ export interface IPayloadSetQuizStateField<
   data: V;
 }
 
-export interface iResponseQuestions {
-  status: string;
-  data: iQuestion[];
-}
-
 export interface iResultEntry {
   data: string;
   answers: iUserAnswer[];
   correctAnswers: number;
+}
+
+export interface iQuestionResponse {
+  status: number;
+  data: iQuestion[] | null;
+  error: iHandledError | null;
 }

@@ -27,12 +27,13 @@ interface IBtnGroupEditProps {
 const BtnGroupEdit = (props: IBtnGroupEditProps) => {
   const { onClickEdit, onClickDelete, colorEdit, colorDelete, size } = props;
   return (
-    <Box className="me-4 flex w-fit items-center gap-2">
+    <Box className="me-3 flex w-fit items-center gap-2">
       <IconButton
         color={colorEdit}
         size={size}
         onClick={onClickEdit}
         id="btn-group-edit__edit"
+        className="p-0!"
       >
         <EditSquareIcon />
       </IconButton>
@@ -41,6 +42,7 @@ const BtnGroupEdit = (props: IBtnGroupEditProps) => {
         size={size}
         onClick={onClickDelete}
         id="btn-group-edit__delete"
+        className="p-0!"
       >
         <DeleteIcon />
       </IconButton>

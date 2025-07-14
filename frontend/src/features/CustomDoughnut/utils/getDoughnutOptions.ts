@@ -1,4 +1,4 @@
-import { iQuestionStatsForDoughnut } from '@/types/stats';
+import { iQuestionStatsForDoughnut } from '@/types/stats.types';
 import { doughnutOptions, ICustomDoughnutTooltip } from '../types/CustomDoughnut';
 import {
   customTooltipFooter,

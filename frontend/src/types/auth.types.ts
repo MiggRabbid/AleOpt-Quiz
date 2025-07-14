@@ -1,3 +1,5 @@
+import { UserRoles } from './staff.types';
+
 export interface iAuthError {
   data: {
     message: string;

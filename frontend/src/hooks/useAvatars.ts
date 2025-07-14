@@ -12,19 +12,14 @@ export const useAvatars = () => {
   });
 
   useEffect(() => {
-    console.log('----- useAvatars useEffect');
     fetch('/api/avatars')
       .then((res) => res.json())
       .then((data) => {
-        console.log('data -', !!data);
         if (!data) {
-          console.log('if  -', !data);
           return;
         }
-        console.log('else -', !!data);
         setAvatarsMap(data);
       });
-    console.groupEnd();
   }, []);
 
   return { avatarsMap };

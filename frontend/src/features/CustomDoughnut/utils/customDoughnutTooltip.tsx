@@ -1,4 +1,4 @@
-import { iQuestionStatsForDoughnut } from '@/types/stats';
+import { iQuestionStatsForDoughnut } from '@/types/stats.types';
 import { Chart } from 'chart.js';
 import { ICustomDoughnutTooltip } from '../types/CustomDoughnut';
 

@@ -20,7 +20,6 @@ const BtnStartQuiz = () => {
     const oldTimer = getTimer();
     const oldResult = getResult();
     if (!!oldTimer && !!oldResult) {
-      console.log('IF   -', !!oldTimer, !!oldResult);
       setUnfinishedAttempt(true);
     } else {
       setUnfinishedAttempt(false);

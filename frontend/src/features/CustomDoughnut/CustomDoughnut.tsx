@@ -8,7 +8,7 @@ import { getDoughnutData } from './utils/getDoughnutData';
 import { getDoughnutOptions } from './utils/getDoughnutOptions';
 // Компоненты
 // Типизация
-import { typeStatFuncsArgs } from '@/types/stats';
+import { typeStatFuncsArgs } from '@/types/stats.types';
 import { customDoughnutTooltip } from './utils/customDoughnutTooltip';
 import React from 'react';
 

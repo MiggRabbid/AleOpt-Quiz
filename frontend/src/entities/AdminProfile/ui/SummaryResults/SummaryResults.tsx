@@ -10,6 +10,8 @@ const SummaryResults = () => {
 
   const sortedResults = sortUsersByResult(results);
 
+  if (results.length === 0) return null;
+
   return (
     <Box
       className="flex w-full flex-col gap-2 rounded-xl border-2 border-slate-200 p-4"
@@ -18,7 +20,7 @@ const SummaryResults = () => {
       <Box className="flex grow flex-col justify-start gap-2">
         <Typography
           align="center"
-          className="ms-4! w-fit! text-base! font-semibold! uppercase"
+          className="align-center! w-full! text-base! font-semibold! uppercase"
         >
           Самые и самые
         </Typography>

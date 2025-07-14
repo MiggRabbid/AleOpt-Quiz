@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { initialState, TIME_FOR_ONE_QUESTION } from './index.config';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IPayloadSetQuizStateField, iQuizState } from '@/types/quiz';
+import { IPayloadSetQuizStateField, iQuizState } from '@/types/quiz.types';
 import { iUserAnswer } from '@/types/staff.types';
 
 const quiz = createSlice({
@@ -14,15 +14,10 @@ const quiz = createSlice({
       state: iQuizState,
       action: PayloadAction<IPayloadSetQuizStateField<K, iQuizState[K]>>,
     ) => {
-      console.groupCollapsed('setQuizStateField -', action.payload.field);
-      console.log('data -', action.payload.data);
-      console.groupEnd();
-
       const { field, data } = action.payload;
       state[field] = data;
     },
     setCurrentResult: (state, action: PayloadAction<iUserAnswer[]>) => {
-      console.log('setCurrentResult');
       return {
         ...state,
         questionIndex: action.payload.length,
@@ -30,21 +25,18 @@ const quiz = createSlice({
       };
     },
     addAnswer: (state, action: PayloadAction<iUserAnswer>) => {
-      console.log('addAnswer');
       return {
         ...state,
         currentResult: [...state.currentResult, action.payload],
       };
     },
     nextQuestion: (state) => {
-      console.log('nextQuestion');
       return {
         ...state,
         questionIndex: state.questionIndex + 1,
       };
     },
     setMaxQuizTime: (state, action: PayloadAction<{ questionsCounter: number }>) => {
-      console.log('setMaxQuizTime');
       if (state.quizTimer.maxTime <= 0) {
         const { questionsCounter } = action.payload;
         const newMaxTime = TIME_FOR_ONE_QUESTION * questionsCounter;
@@ -55,11 +47,9 @@ const quiz = createSlice({
       }
     },
     clearAllState: () => {
-      console.log('clearState');
       return structuredClone(initialState);
     },
     clearResultState: (state) => {
-      console.log('clearResultState');
       return {
         ...structuredClone(initialState),
         questions: state.questions,

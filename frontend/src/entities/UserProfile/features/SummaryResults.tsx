@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { ResultTable } from '../ui/ResultTable';
 import { LastResultTable } from '../ui/LastResultTable';
 
-import { iUserStats } from '@/types/stats';
+import { iUserStats } from '@/types/stats.types';
 
 interface ISummaryResultProps {
   userStats: iUserStats | null;
