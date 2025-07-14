@@ -1,9 +1,12 @@
+import React from 'react';
+
+import { Accordion, AccordionSummary, Box, Chip, Typography } from '@mui/material';
+
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
-import { iUserAnswer } from '@/types/staff.types';
-import { Accordion, AccordionSummary, Box, Chip, Typography } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+
 import { ResultListItemAnswer } from './ResultListItemAnswer';
+import { iUserAnswer } from '@/types/staff.types';
 
 interface IResultListItemProps {
   question: iUserAnswer;

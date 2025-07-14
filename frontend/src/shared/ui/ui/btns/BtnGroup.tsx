@@ -1,5 +1,4 @@
 import { Box, Button, CircularProgress } from '@mui/material';
-import { useEffect } from 'react';
 
 type btnVariant = 'text' | 'contained' | 'outlined';
 type btnColor =

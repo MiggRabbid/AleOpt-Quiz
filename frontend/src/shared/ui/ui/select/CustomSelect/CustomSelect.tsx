@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import type { SelectChangeEvent } from '@mui/material';
 

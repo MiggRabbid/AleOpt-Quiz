@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Box } from '@mui/material';
 
 import { useAppActions, useAppSelector } from '@/hooks';
