@@ -7,6 +7,19 @@ import { iQuestionModel } from '../types/quizTypes';
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const QUESTION_NOT_FOUND_MESSAGE = 'Question not found';
 
+const errorTypeMap = {
+  userExists: 'userExists',
+  networkError: 'networkError',
+  notFound: 'notFound',
+  regError: 'regError',
+};
+
+const errorMsgMap = {
+  questionExists: 'This question exists',
+  networkError: 'Network error',
+  notFound: 'User not found',
+};
+
 class QuizController {
   constructor() {
     this.allQuestions = this.allQuestions.bind(this);
@@ -15,13 +28,22 @@ class QuizController {
     this.deleteQuestion = this.deleteQuestion.bind(this);
   }
 
+  private prepareError(message: unknown, errorType: string) {
+    return {
+      message: message,
+      errorType: errorType,
+    };
+  }
+
   private handleError(response: Response, error: unknown, message: string) {
     if (error instanceof Error) {
       console.error(message, error);
-      return response.status(500).json({ message });
+      const errorData = this.prepareError(message, error.name);
+      return response.status(500).json(errorData);
     }
     console.error(message, error);
-    return response.status(500).json({ message: NETWORK_ERROR_MESSAGE });
+    const errorData = this.prepareError(errorMsgMap.networkError, errorTypeMap.networkError);
+    return response.status(500).json(errorData);
   }
 
   private async getSortedQuestions(): Promise<iQuestionModel[]> {
@@ -58,10 +80,12 @@ class QuizController {
       const question = await Question.findOneAndUpdate({ id }, updateData, { new: true });
 
       if (!question) {
-        return response.status(404).json({ message: QUESTION_NOT_FOUND_MESSAGE });
+        const errorData = this.prepareError(errorMsgMap.notFound, errorTypeMap.notFound);
+        return response.status(404).json(errorData);
       }
 
       const sortedQuestions = await this.getSortedQuestions();
+
       return response.json(sortedQuestions);
     } catch (e) {
       return this.handleError(response, e, 'Error in editQuestion:');
@@ -75,7 +99,8 @@ class QuizController {
       const question = await Question.findOneAndDelete({ id });
 
       if (!question) {
-        return response.status(404).json({ message: QUESTION_NOT_FOUND_MESSAGE });
+        const errorData = this.prepareError(errorMsgMap.notFound, errorTypeMap.notFound);
+        return response.status(404).json(errorData);
       }
 
       const sortedQuestions = await this.getSortedQuestions();
