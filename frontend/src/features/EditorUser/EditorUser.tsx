@@ -1,6 +1,6 @@
 'use client';
 // Библиотеки
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import Divider from '@mui/material/Divider';
 // Логика
@@ -43,13 +43,21 @@ const EditorUser = (props: IEditorUserProps) => {
   const userEditorModal = useAppSelector(getGlobalStateField('userEditorType'));
   const editableUser = useAppSelector(getGlobalStateField('editableUser'));
 
-  const isNewUser = !editableUser && userEditorModal === TTypeModal.newUser;
+  const isNewUser = !editableUser && userEditorModal === TTypeModal.new;
   const [passIsActive, setPassIsActive] = useState<boolean>(false);
 
-  const { handleSubmit, onSubmit, errors, register, watch, setValue, isSubmitting } =
-    useUserForm({ isNewUser, requiredPass: isNewUser || (!isNewUser && passIsActive) });
+  const {
+    savingAvailable,
+    handleSubmit,
+    onSubmit,
+    errors,
+    register,
+    watch,
+    setValue,
+    isSubmitting,
+  } = useUserForm({ isNewUser, requiredPass: isNewUser || (!isNewUser && passIsActive) });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setPassIsActive(isNewUser);
 
     if (editableUser) {
@@ -87,13 +95,15 @@ const EditorUser = (props: IEditorUserProps) => {
   return (
     <Box className="flex h-fit w-170 flex-col gap-10">
       <Box className="flex h-fit w-full flex-col gap-5">
-        <h4 className="text-3xl font-bold">Создание пользователя</h4>
+        <h4 className="text-3xl font-bold">
+          {isNewUser ? 'Создание пользователя' : 'Редактирование пользователя'}
+        </h4>
         <Divider />
       </Box>
       <Box
         component="form"
-        className="flex! h-fit w-full flex-row! flex-wrap! items-center justify-center gap-x-5 gap-y-2"
         onSubmit={handleSubmit(onSubmit)}
+        className="flex! h-fit w-full flex-row! flex-wrap! items-center justify-center gap-x-5 gap-y-2"
       >
         <Box className="w-80">
           <CustomInput
@@ -188,6 +198,7 @@ const EditorUser = (props: IEditorUserProps) => {
             rightBtnType="submit"
             rightBtnColor="success"
             rightBtnVariant="contained"
+            disabledRight={!savingAvailable}
           />
         </Box>
       </Box>

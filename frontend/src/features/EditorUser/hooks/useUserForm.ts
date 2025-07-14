@@ -1,11 +1,14 @@
+// Библиотеки
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormData, getUserSchema } from '../config/schema';
-import { IUserRequest, UserGender, UserRoles } from '@/types/staff.types';
-import { api } from '@/shared/api/api';
 import { useSession } from 'next-auth/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+// Логика
+import { api } from '@/shared/api/api';
+import { FormData, getUserSchema } from '../config/schema';
 import { useAppActions } from '@/hooks';
+// Типизация
+import { IUserRequest, UserGender, UserRoles } from '@/types/staff.types';
 
 interface IUseUserFormProps {
   isNewUser: boolean;
@@ -21,6 +24,8 @@ export const useUserForm = (props: IUseUserFormProps) => {
   const token = data?.user?.token;
   const userSchema = getUserSchema(requiredPass);
 
+  const [savingAvailable, setSavingAvailable] = useState<boolean>(false);
+
   const {
     setValue,
     watch,
@@ -35,6 +40,34 @@ export const useUserForm = (props: IUseUserFormProps) => {
       gender: UserGender.female,
     },
   });
+
+  const username = watch('username');
+  const firstName = watch('firstName');
+  const lastName = watch('lastName');
+  const password = watch('password');
+  const role = watch('role');
+  const gender = watch('gender');
+  const image = watch('image');
+
+  useEffect(() => {
+    const usernameIsEmpty = !username || username.length === 0;
+    const firstNameIsEmpty = !firstName || firstName.length === 0;
+    const lastNameIsEmpty = !lastName || lastName.length === 0;
+    const passwordIsEmpty = !password || password.length === 0;
+    const roleIsEmpty = !role || role.length === 0;
+    const genderIsEmpty = !gender || gender.length === 0;
+    const imageEmpty = !image || image.length === 0;
+
+    setSavingAvailable(
+      !usernameIsEmpty &&
+        !firstNameIsEmpty &&
+        !lastNameIsEmpty &&
+        !passwordIsEmpty &&
+        !roleIsEmpty &&
+        !genderIsEmpty &&
+        !imageEmpty,
+    );
+  }, [username, firstName, lastName, password, role, gender, image]);
 
   const onSubmit = async (user: FormData) => {
     const { createUser, updateUser } = api;
@@ -75,5 +108,14 @@ export const useUserForm = (props: IUseUserFormProps) => {
     }
   };
 
-  return { setValue, watch, register, handleSubmit, errors, isSubmitting, onSubmit };
+  return {
+    savingAvailable,
+    setValue,
+    watch,
+    register,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    onSubmit,
+  };
 };

@@ -27,7 +27,7 @@ const DeleteUser = ({ clickOnClose }: IDeleteUserProps) => {
 
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  if (!editableUser || userEditorModal !== TTypeModal.deleteUser) return null;
+  if (!editableUser || userEditorModal !== TTypeModal.delete) return null;
 
   const clickOnDelete = async () => {
     console.group('clickOnDelete');
