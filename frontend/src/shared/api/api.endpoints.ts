@@ -11,6 +11,7 @@ export const requestsPath = {
   user: () => [API_PATH, 'data', 'user'].join('/'),
   users: () => [API_PATH, 'data', 'users'].join('/'),
   questions: () => [API_PATH, 'data', 'questions'].join('/'),
+  question: () => [API_PATH, 'data', 'question'].join('/'),
   allStats: () => [API_PATH, 'data', 'results'].join('/'),
   userStats: () => [API_PATH, 'data', 'result'].join('/'),
 };

@@ -1,16 +1,16 @@
-import { iRequestLogin, iResponseLogin } from '@/types/auth';
 import { sendRequest, TypeAxiosMethod } from './api.config';
 import { requestsPath } from './api.endpoints';
-import { IResponseError } from '@/types/types';
-import { iUserStats } from '@/types/stats';
+import { getReturnedError } from './api.service';
+
+import { iRequestLogin, iResponseLogin } from '@/types/auth.types';
+import { iUserStats } from '@/types/stats.types';
 import {
   iResultEntryRequest,
   iUser,
   IUserRequest,
   iUsersResponse,
 } from '@/types/staff.types';
-import { iQuestion } from '@/types/quiz';
-import { getHandledError } from './api.service';
+import { iQuestion, iQuestionResponse } from '@/types/quiz.types';
 
 export const api = {
   /* Авторизация */
@@ -23,10 +23,7 @@ export const api = {
       });
       return response.data;
     } catch (error: any) {
-      const throwError = {
-        status: error?.status || 500,
-        data: getHandledError(error),
-      };
+      const throwError = getReturnedError<iResponseLogin>(error);
       console.error('login', throwError);
       return null;
     }
@@ -42,10 +39,7 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const throwError: IResponseError = {
-        status: error.status || 500,
-        data: getHandledError(error),
-      };
+      const throwError = getReturnedError<iUser>(error);
       console.error('getCurrentUser -', throwError);
       return null;
     }
@@ -61,10 +55,7 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const throwError: IResponseError = {
-        status: error.status || 500,
-        data: getHandledError(error),
-      };
+      const throwError = getReturnedError<iUserStats>(error);
       console.error('getUserStats -', throwError);
       return null;
     }
@@ -88,10 +79,7 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const throwError: IResponseError = {
-        status: error.status || 500,
-        data: getHandledError(error),
-      };
+      const throwError = getReturnedError<iUserStats>(error);
       console.error('addUserStats -', throwError);
       return null;
     }
@@ -107,10 +95,7 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const throwError: IResponseError = {
-        status: error.status || 500,
-        data: getHandledError(error),
-      };
+      const throwError = getReturnedError<iUser[]>(error);
       console.error('getAllUsers -', throwError);
       return null;
     }
@@ -125,29 +110,8 @@ export const api = {
       });
       return response?.data;
     } catch (error: any) {
-      const throwError: IResponseError = {
-        status: error.status || 500,
-        data: getHandledError(error),
-      };
+      const throwError = getReturnedError<iUserStats[]>(error);
       console.error('getAllUsersStats -', throwError);
-      return null;
-    }
-  },
-
-  /* Получение всех вопросов */
-  getAllQuestions: async (): Promise<iQuestion[] | null> => {
-    try {
-      const response = await sendRequest({
-        method: TypeAxiosMethod.get,
-        endpoint: requestsPath.questions(),
-      });
-      return response?.data;
-    } catch (error: any) {
-      const throwError: IResponseError = {
-        status: error.status || 500,
-        data: getHandledError(error),
-      };
-      console.error('getAllQuestions -', throwError);
       return null;
     }
   },
@@ -169,11 +133,7 @@ export const api = {
         data: response?.data,
       };
     } catch (error: any) {
-      return {
-        status: error.status,
-        error: getHandledError(error),
-        data: null,
-      };
+      return getReturnedError<iUsersResponse>(error);
     }
   },
 
@@ -194,11 +154,7 @@ export const api = {
         data: response?.data,
       };
     } catch (error: any) {
-      return {
-        status: error.status,
-        error: getHandledError(error),
-        data: null,
-      };
+      return getReturnedError<iUsersResponse>(error);
     }
   },
 
@@ -221,11 +177,91 @@ export const api = {
         data: response?.data,
       };
     } catch (error: any) {
+      return getReturnedError<iUsersResponse>(error);
+    }
+  },
+
+  /* Получение всех вопросов */
+  getAllQuestions: async (): Promise<iQuestion[] | null> => {
+    try {
+      const response = await sendRequest({
+        method: TypeAxiosMethod.get,
+        endpoint: requestsPath.questions(),
+      });
+      return response?.data;
+    } catch (error: any) {
+      const throwError = getReturnedError<iQuestion[]>(error);
+      console.error('getAllQuestions -', throwError);
+      return null;
+    }
+  },
+
+  /* Создание вопроса */
+  createQuestion: async (
+    question: iQuestion,
+    token: string,
+  ): Promise<iQuestionResponse> => {
+    try {
+      const response = await sendRequest({
+        method: TypeAxiosMethod.post,
+        endpoint: requestsPath.question(),
+        data: question,
+        params: { id: question.id },
+        token,
+      });
+
       return {
-        status: error.status,
-        error: getHandledError(error),
-        data: null,
+        status: 200,
+        error: null,
+        data: response?.data,
       };
+    } catch (error: any) {
+      return getReturnedError<iQuestionResponse>(error);
+    }
+  },
+
+  /* Обновление вопроса */
+  updateQuestion: async (
+    question: iQuestion,
+    token: string,
+  ): Promise<iQuestionResponse> => {
+    console.group('----- updateQuestion');
+    try {
+      const response = await sendRequest({
+        method: TypeAxiosMethod.put,
+        endpoint: requestsPath.question(),
+        data: question,
+        params: { id: question.id },
+        token,
+      });
+
+      return {
+        status: 200,
+        error: null,
+        data: response?.data,
+      };
+    } catch (error: any) {
+      return getReturnedError<iQuestionResponse>(error);
+    }
+  },
+
+  /* Удаление вопроса */
+  deleteQuestion: async (id: string, token: string): Promise<iQuestionResponse> => {
+    try {
+      const response = await sendRequest({
+        method: TypeAxiosMethod.delete,
+        endpoint: requestsPath.question(),
+        params: { id },
+        token,
+      });
+
+      return {
+        status: 200,
+        error: null,
+        data: response?.data,
+      };
+    } catch (error: any) {
+      return getReturnedError<iQuestionResponse>(error);
     }
   },
 };

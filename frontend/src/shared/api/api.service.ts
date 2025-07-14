@@ -19,3 +19,11 @@ export const getHandledError = (error: any): iHandledError => {
 
   return errorData;
 };
+
+export const getReturnedError = <T>(error: any): T => {
+  return {
+    status: error.status,
+    error: getHandledError(error),
+    data: null,
+  } as T;
+};
