@@ -53,7 +53,9 @@ export const useUserForm = (props: IUseUserFormProps) => {
     const usernameIsEmpty = !username || username.length === 0;
     const firstNameIsEmpty = !firstName || firstName.length === 0;
     const lastNameIsEmpty = !lastName || lastName.length === 0;
-    const passwordIsEmpty = !password || password.length === 0;
+    const passwordIsEmpty = requiredPass
+      ? !password || password.length === 0
+      : requiredPass;
     const roleIsEmpty = !role || role.length === 0;
     const genderIsEmpty = !gender || gender.length === 0;
     const imageEmpty = !image || image.length === 0;
@@ -67,7 +69,7 @@ export const useUserForm = (props: IUseUserFormProps) => {
         !genderIsEmpty &&
         !imageEmpty,
     );
-  }, [username, firstName, lastName, password, role, gender, image]);
+  }, [username, firstName, lastName, password, requiredPass, role, gender, image]);
 
   const onSubmit = async (user: FormData) => {
     const { createUser, updateUser } = api;
