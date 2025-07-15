@@ -23,7 +23,6 @@ export const api = {
       });
       return response.data;
     } catch (error: any) {
-      console.error('login error /', error);
       const throwError = getReturnedError<iResponseLogin>(error);
       console.error('login', throwError);
       return null;
