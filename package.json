@@ -1,6 +1,6 @@
 {
   "name": "aleopt-quiz",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Knowledge test service for \"AleOpt\"",
   "repository": {
     "type": "git",

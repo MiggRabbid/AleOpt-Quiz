@@ -1,20 +1,10 @@
 import { Box } from '@mui/material';
-import type { Session } from 'next-auth';
-import { getServerSession } from 'next-auth';
-
-import { authOptions } from '@/shared/lib/authOptions';
 
 import { BtnLogo } from './components/BtnLogo';
 import { BtnRedirect } from './components/BtnRedirect';
 import { BtnLogout } from './components/BtnLogout';
 
-import { UserRoles } from '@/types/staff.types';
-
 const AppHeader = async () => {
-  const session: Session | null = await getServerSession(authOptions);
-  const isAdminOrOwner =
-    session?.user.role === UserRoles.Admin || session?.user.role === UserRoles.Owner;
-
   return (
     <Box
       component="header"
@@ -26,7 +16,7 @@ const AppHeader = async () => {
         </Box>
       </Box>
       <Box className="flex items-center justify-end gap-4">
-        {isAdminOrOwner && <BtnRedirect isAdminOrOwner={isAdminOrOwner} />}
+        <BtnRedirect />
         <BtnLogout />
       </Box>
     </Box>
