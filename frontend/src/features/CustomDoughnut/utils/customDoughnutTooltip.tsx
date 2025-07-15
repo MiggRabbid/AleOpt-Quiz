@@ -60,7 +60,17 @@ export const customDoughnutTooltip = (context: ICustomDoughnutTooltip) => {
   const tooltipEl = getOrCreateTooltip(chart);
   const { title, body, footer } = tooltip;
 
+  let hideTooltipTimeout: ReturnType<typeof setTimeout> | null = null;
+
   if (tooltip.opacity === 0) {
+    if (hideTooltipTimeout) {
+      clearTimeout(hideTooltipTimeout);
+    }
+
+    hideTooltipTimeout = setTimeout(() => {
+      tooltipEl.style.opacity = '0';
+    }, 50);
+
     return;
   }
 

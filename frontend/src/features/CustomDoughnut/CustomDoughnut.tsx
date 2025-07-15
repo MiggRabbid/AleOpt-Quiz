@@ -1,16 +1,15 @@
 'use client';
 // Библиотеки
+import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Typography } from '@mui/material';
 // Логика
 import { getDataAnswersForDoughnut } from '../CustomBar/utils/getBarData';
 import { getDoughnutData } from './utils/getDoughnutData';
 import { getDoughnutOptions } from './utils/getDoughnutOptions';
-// Компоненты
+import { customDoughnutTooltip } from './utils/customDoughnutTooltip';
 // Типизация
 import { typeStatFuncsArgs } from '@/types/stats.types';
-import { customDoughnutTooltip } from './utils/customDoughnutTooltip';
-import React from 'react';
 
 interface iCustomDoughnutProps {
   userStats: typeStatFuncsArgs | null;
@@ -18,10 +17,6 @@ interface iCustomDoughnutProps {
 
 const CustomDoughnut: React.FC<iCustomDoughnutProps> = (props: iCustomDoughnutProps) => {
   const { userStats } = props;
-
-  // const questionsStats = getDataAnswersForDoughnut(userStats);
-  // const dataDoughnut = getDatasetForDoughnut(type, currLabel, questionsStats);
-  // const optionsDoughnut = getOptionsForDoughnut(questionsStats, currLabel, type);
 
   const questionsStats = getDataAnswersForDoughnut(userStats);
   const dataDoughnut = getDoughnutData(questionsStats);
