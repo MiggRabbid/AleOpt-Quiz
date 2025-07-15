@@ -36,7 +36,7 @@ const UserStats = (props: IUserStatsProps) => {
       </Box>
       <Box className="flex h-fit shrink-1 grow-0 gap-10">
         <Box className="h-fit w-fit shrink-0 grow-0">
-          <CustomDoughnut userStats={userStats} />
+          <CustomDoughnut userStats={userStats} isEmpty={!attempts} />
         </Box>
         <Box className="h-fit grow">
           <CustomBar
@@ -46,6 +46,7 @@ const UserStats = (props: IUserStatsProps) => {
             labelLineTwo={labelLineTwo}
             xLabels={xLabels}
             customTooltipType="lastTenAttemptsTooltip"
+            isEmpty={!attempts}
           />
         </Box>
       </Box>
