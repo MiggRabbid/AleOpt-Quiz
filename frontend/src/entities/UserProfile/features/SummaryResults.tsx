@@ -18,7 +18,7 @@ const SummaryResults = (props: ISummaryResultProps) => {
       id="SummaryResults"
     >
       <ResultTable userStats={userStats} />
-      <LastResultTable attempts={userStats?.attempts || null} />
+      {!!userStats && <LastResultTable attempts={userStats.attempts} />}
     </Box>
   );
 };
