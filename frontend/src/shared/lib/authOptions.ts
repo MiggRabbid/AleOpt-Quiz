@@ -14,26 +14,17 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.group('authorize /');
-        console.log('credentials', credentials);
         try {
           const response = await api.login({
             username: credentials?.username || '',
             password: credentials?.password || '',
           });
 
-          console.log('response', response);
+          if (!response?.token) return null;
 
-          if (!response?.token) {
-            console.groupEnd();
-            return null;
-          }
-
-          console.groupEnd();
           return { ...response };
         } catch (error) {
           console.error('authorize error /', error);
-          console.groupEnd();
           return null;
         }
       },
