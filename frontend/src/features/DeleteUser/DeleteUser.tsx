@@ -7,7 +7,7 @@ import Divider from '@mui/material/Divider';
 // Логика
 import { useAppActions, useAppSelector } from '@/hooks';
 import { getGlobalStateField } from '@/selectors';
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 // Компоненты
 import { BtnGroup } from '@/shared/ui/ui/btns';
 // Типизация

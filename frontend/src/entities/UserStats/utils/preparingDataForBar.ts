@@ -8,12 +8,22 @@ interface ILastTenAttempts {
   xLabels: Array<number | string>;
 }
 
+function fillArrayToLength<T>(arr: T[], length: number, filler: T): T[] {
+  const result = [...arr];
+  while (result.length < length) {
+    result.push(filler);
+  }
+  return result;
+}
+
+const MAX_LENGTH = 10;
+
 const initialData: ILastTenAttempts = {
   labelLineOne: 'Правильные',
-  dataLineOne: [],
+  dataLineOne: new Array(MAX_LENGTH).fill(0),
   labelLineTwo: 'Неправильные',
-  dataLineTwo: [],
-  xLabels: ['', '', '', '', '', '', '', '', '', ''],
+  dataLineTwo: new Array(MAX_LENGTH).fill(0),
+  xLabels: new Array(MAX_LENGTH).fill(''),
 };
 
 export const preparingLastTenAttempts = (props: {
@@ -36,5 +46,11 @@ export const preparingLastTenAttempts = (props: {
     xLabels.push(data);
   });
 
-  return { dataLineOne, labelLineOne, dataLineTwo, labelLineTwo, xLabels };
+  return {
+    dataLineOne: fillArrayToLength(dataLineOne, MAX_LENGTH, 0),
+    labelLineOne,
+    dataLineTwo: fillArrayToLength(dataLineTwo, MAX_LENGTH, 0),
+    labelLineTwo,
+    xLabels: fillArrayToLength(xLabels, MAX_LENGTH, ''),
+  };
 };

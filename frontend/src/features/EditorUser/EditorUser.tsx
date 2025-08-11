@@ -7,8 +7,7 @@ import Divider from '@mui/material/Divider';
 import { useAppSelector, useAvatars } from '@/hooks';
 import { getGlobalStateField } from '@/selectors';
 import { useUserForm } from './hooks/useUserForm';
-import { getRandomNumber } from '@/shared/lib/getRandomNumber';
-import { TypeSubfolders } from '@/shared/lib/getAvatarPaths';
+import { getRandomNumber } from '@/shared/lib';
 // Компоненты
 import { CustomInput } from '@/shared/ui/ui/inputs/CustomInput';
 import { BtnGroup, BtnMain } from '@/shared/ui/ui/btns';
@@ -17,6 +16,7 @@ import { CustomSelect } from '@/shared/ui/ui/select/CustomSelect';
 import type { TCustomSelectItems } from '@/shared/ui/ui/select/CustomSelect';
 import { UserGender, userGenderMap, UserRoles, userRolesMap } from '@/types/staff.types';
 import { TTypeModal } from '@/types/modal.types';
+import { TypeSubfolders } from '@/app/api/avatars/lib';
 
 interface IEditorUserProps {
   clickOnClose: () => void;

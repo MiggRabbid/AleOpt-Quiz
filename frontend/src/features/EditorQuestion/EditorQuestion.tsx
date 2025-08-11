@@ -6,13 +6,13 @@ import { Box, Divider } from '@mui/material';
 import { useAppSelector } from '@/hooks';
 import { useQuestionForm } from './hooks/useQuestionForm';
 import { getGlobalStateField, getQuizStateField } from '@/selectors';
-import { answersKeys } from '@/types/types.types';
-import { getNewQuestionId } from '@/shared/lib/getNewQuestionId';
+import { getNewQuestionId } from '@/shared/lib';
 // Компоненты
 import { BtnGroup } from '@/shared/ui/ui/btns';
 import { CustomSelect, TCustomSelectItems } from '@/shared/ui/ui/select/CustomSelect';
 import { CustomMultilineInput } from '@/shared/ui/ui/inputs/CustomMultilineInput';
 // Типизация
+import { answersKeys } from '@/types/types.types';
 import { TTypeModal } from '@/types/modal.types';
 import type { typeAnswersKeys } from '@/types/types.types';
 

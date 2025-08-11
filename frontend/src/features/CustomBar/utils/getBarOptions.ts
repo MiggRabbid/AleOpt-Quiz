@@ -32,6 +32,9 @@ export const getBarOptions = (props: {
           display: false,
         },
         stacked: true,
+        offset: true,
+        suggestedMax: 10,
+        suggestedMin: 10,
       },
       y: {
         title: { display: false },

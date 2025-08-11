@@ -22,12 +22,17 @@ interface IBtnGroupEditProps {
   colorEdit?: TBtnColor;
   colorDelete?: TBtnColor;
   size?: TBtnSize;
+  withoutMargin?: boolean;
+  col?: boolean;
 }
 
 const BtnGroupEdit = (props: IBtnGroupEditProps) => {
-  const { onClickEdit, onClickDelete, colorEdit, colorDelete, size } = props;
+  const { onClickEdit, onClickDelete, colorEdit, colorDelete, size, withoutMargin, col } =
+    props;
   return (
-    <Box className="me-3 flex w-fit items-center gap-2">
+    <Box
+      className={`flex h-fit w-fit items-center gap-2 ${withoutMargin ? 'me-0' : 'me-3'} ${col ? 'flex-col' : 'flex-row'}`}
+    >
       <IconButton
         color={colorEdit}
         size={size}

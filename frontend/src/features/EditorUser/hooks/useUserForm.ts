@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 // Логика
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 import { FormData, getUserSchema } from '../config/schema';
 import { useAppActions } from '@/hooks';
 // Типизация

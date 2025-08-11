@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 
 import axiosInstance from './api.client';
-import { authOptions } from '@/shared/lib/authOptions';
+import { authOptions } from '@/shared/lib';
 
 export const getUserToken = async () => {
   const session = await getServerSession(authOptions);

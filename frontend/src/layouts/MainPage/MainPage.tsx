@@ -3,8 +3,8 @@ import { Box } from '@mui/material';
 import { getServerSession } from 'next-auth';
 import type { Session } from 'next-auth';
 // Логика
-import { authOptions } from '@/shared/lib/authOptions';
-import { api } from '@/shared/api/api';
+import { authOptions } from '@/shared/lib';
+import { api } from '@/shared/api';
 // Компоненты
 import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
 import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
