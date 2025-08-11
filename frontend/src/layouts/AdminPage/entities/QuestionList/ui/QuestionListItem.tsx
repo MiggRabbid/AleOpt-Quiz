@@ -3,6 +3,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Divider,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -65,26 +66,42 @@ const QuestionListItem = (props: IQuestionListItemProps) => {
               {`${question.question}`}
             </Typography>
           </Box>
-
-          <BtnGroupEdit
-            onClickDelete={handelClickOnDelete}
-            colorDelete="error"
-            onClickEdit={handelClickOnEdit}
-            colorEdit="success"
-            size="small"
-          />
         </Box>
       </AccordionSummary>
-      <AccordionDetails className="flex w-full! flex-col gap-2 p-4!">
-        {question.answers.map((answer) => {
-          return (
-            <AnswerListItem
-              key={`AnswerListItem-${question.id}-${answer.id}`}
-              answer={answer}
-              isCorrect={answer.id === question.correctAnswerId}
+      <AccordionDetails className="flex w-full! flex-col justify-start gap-4 p-4!">
+        <Box className="w-full!">
+          <Box className="flex w-full! justify-between py-2! ps-6!">
+            <Typography component="p" className="font-semibold! text-slate-500!">
+              Текущий верный ответ:
+              <Typography
+                component="span"
+                className="font-semibold! text-slate-500! uppercase!"
+              >
+                {' '}
+                {question.correctAnswerId}
+              </Typography>
+            </Typography>
+            <BtnGroupEdit
+              onClickDelete={handelClickOnDelete}
+              colorDelete="error"
+              onClickEdit={handelClickOnEdit}
+              colorEdit="success"
+              size="small"
             />
-          );
-        })}
+          </Box>
+          <Divider />
+        </Box>
+        <Box className="flex w-full! flex-col gap-2">
+          {question.answers.map((answer) => {
+            return (
+              <AnswerListItem
+                key={`AnswerListItem-${question.id}-${answer.id}`}
+                answer={answer}
+                isCorrect={answer.id === question.correctAnswerId}
+              />
+            );
+          })}
+        </Box>
       </AccordionDetails>
     </Accordion>
   );
