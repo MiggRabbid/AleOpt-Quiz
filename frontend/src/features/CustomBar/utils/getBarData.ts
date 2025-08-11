@@ -1,6 +1,7 @@
 import { iQuestionStatsForDoughnut, typeStatFuncsArgs } from '@/types/stats.types';
 import { barData } from '../types/CustomBar';
 import { iResultEntry, iUserAnswer } from '@/types/staff.types';
+import { map } from 'zod';
 
 export const getBarData = (props: {
   labelLineOne: string;

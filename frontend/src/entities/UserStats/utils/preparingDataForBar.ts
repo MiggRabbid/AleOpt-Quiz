@@ -10,9 +10,9 @@ interface ILastTenAttempts {
 
 const initialData: ILastTenAttempts = {
   labelLineOne: 'Правильные',
-  dataLineOne: [],
+  dataLineOne: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   labelLineTwo: 'Неправильные',
-  dataLineTwo: [],
+  dataLineTwo: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   xLabels: ['', '', '', '', '', '', '', '', '', ''],
 };
 
@@ -20,20 +20,26 @@ export const preparingLastTenAttempts = (props: {
   attempts: iResultEntry[] | null;
 }): ILastTenAttempts => {
   const { attempts } = props;
-  const { labelLineOne, labelLineTwo } = initialData;
+  const {
+    labelLineOne,
+    dataLineOne: initDataLineOne,
+    labelLineTwo,
+    dataLineTwo: initDataLineTwo,
+    xLabels: initXLabels,
+  } = initialData;
 
   if (!attempts || attempts.length === 0) return initialData;
 
-  const dataLineOne: number[] = [];
-  const dataLineTwo: number[] = [];
-  const xLabels: Array<number | string> = [];
+  const dataLineOne: number[] = initDataLineOne;
+  const dataLineTwo: number[] = initDataLineTwo;
+  const xLabels: Array<number | string> = initXLabels;
 
-  attempts.forEach((item: iResultEntry) => {
+  attempts.forEach((item: iResultEntry, index: number) => {
     const { data, correctAnswers, answers } = item;
     const incorrectAnswers = answers.length - correctAnswers;
-    dataLineOne.push(correctAnswers);
-    dataLineTwo.push(incorrectAnswers);
-    xLabels.push(data);
+    dataLineOne[index] = correctAnswers;
+    dataLineTwo[index] = incorrectAnswers;
+    xLabels[index] = data;
   });
 
   return { dataLineOne, labelLineOne, dataLineTwo, labelLineTwo, xLabels };

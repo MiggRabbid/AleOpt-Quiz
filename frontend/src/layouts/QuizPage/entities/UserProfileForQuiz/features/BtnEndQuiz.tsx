@@ -9,9 +9,9 @@ import { useSession } from 'next-auth/react';
 import { routes } from '@/shared/config/routes';
 import { useAppActions, useAppSelector, useLocalStorage } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 // Компоненты
-import { getFormattedDate } from '@/shared/lib/getFormattedDate';
+import { getFormattedDate } from '@/shared/lib';
 // Типизация
 import { iResultEntryRequest } from '@/types/staff.types';
 

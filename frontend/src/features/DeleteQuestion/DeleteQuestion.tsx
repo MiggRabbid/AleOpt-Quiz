@@ -7,11 +7,11 @@ import Divider from '@mui/material/Divider';
 // Логика
 import { useAppActions, useAppSelector } from '@/hooks';
 import { getGlobalStateField } from '@/selectors';
-import { api } from '@/shared/api/api';
 // Компоненты
 import { BtnGroup } from '@/shared/ui/ui/btns';
 // Типизация
 import { TTypeModal } from '@/types/modal.types';
+import { api } from '@/shared/api';
 
 interface IDeleteQuestionProps {
   clickOnClose: () => void;

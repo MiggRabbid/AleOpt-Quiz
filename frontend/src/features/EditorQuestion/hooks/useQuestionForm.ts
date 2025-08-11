@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 // Логика
 import { FormData, userSchema } from '../config/schema';
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 import { useAppActions } from '@/hooks';
 // Типизация
 import { iQuestion } from '@/types/quiz.types';

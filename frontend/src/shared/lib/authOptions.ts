@@ -1,6 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { SessionStrategy } from 'next-auth';
-import { api } from '@/shared/api/api';
+import { api } from '@/shared/api';
 import { iResponseLogin } from '@/types/auth.types';
 import { ICallbackJwtArgs, ICallbackSessionArgs } from '@/types/next-auth';
 

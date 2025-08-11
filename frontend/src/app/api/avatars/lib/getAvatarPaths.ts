@@ -12,6 +12,7 @@ export const getAvatarPaths = (): TypeAvatarsMap => {
     females: {},
     males: {},
   };
+
   const getPathsFromSubfolder = (subfolder: TypeSubfolders) => {
     const dir = path.join(baseDir, subfolder);
 

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 
-import { getAvatarPaths } from '@/shared/lib/getAvatarPaths';
+import { getAvatarPaths } from './lib';
+import type { TypeAvatarsMap } from './lib';
 
-import type { TypeAvatarsMap } from '@/shared/lib/getAvatarPaths';
 import { console } from 'inspector';
 
 export async function GET(): Promise<NextResponse<TypeAvatarsMap | null>> {

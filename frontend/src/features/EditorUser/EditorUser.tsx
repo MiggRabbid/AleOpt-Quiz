@@ -7,8 +7,7 @@ import Divider from '@mui/material/Divider';
 import { useAppSelector, useAvatars } from '@/hooks';
 import { getGlobalStateField } from '@/selectors';
 import { useUserForm } from './hooks/useUserForm';
-import { getRandomNumber } from '@/shared/lib/getRandomNumber';
-import { TypeSubfolders } from '@/shared/lib/getAvatarPaths';
+import { getRandomNumber, TypeSubfolders } from '@/shared/lib';
 // Компоненты
 import { CustomInput } from '@/shared/ui/ui/inputs/CustomInput';
 import { BtnGroup, BtnMain } from '@/shared/ui/ui/btns';

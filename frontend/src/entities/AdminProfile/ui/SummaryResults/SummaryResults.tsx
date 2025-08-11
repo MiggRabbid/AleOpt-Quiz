@@ -1,8 +1,10 @@
 'use client';
 import { Box, Typography } from '@mui/material';
+
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
-import { sortUsersByResult } from '@/shared/lib/sortUsersByResult';
+import { sortUsersByResult } from '@/shared/lib';
+
 import { TopResultsList } from './ui/TopResultsList';
 
 const SummaryResults = () => {
