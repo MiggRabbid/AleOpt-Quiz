@@ -1,5 +1,7 @@
-import { iUserStats } from '@/types/stats.types';
 import { Box, Typography } from '@mui/material';
+import clsx from 'clsx';
+
+import { iUserStats } from '@/types/stats.types';
 
 interface ITopResultsListItemProps {
   result: iUserStats;
@@ -14,18 +16,30 @@ const TopResultsListItem = (props: ITopResultsListItemProps) => {
     (result.attempts[0].correctAnswers / result.attempts[0].answers.length) * 100,
   );
 
+  const wrapperClass = clsx(
+    'flex h-fit! w-full! shrink-0 grow flex-col justify-center gap-2 rounded-xl border-2 p-2',
+    isEasiest ? 'border-emerald-100 bg-emerald-50' : 'border-rose-100 bg-rose-50',
+  );
+
+  const indexWrapperClass = clsx(
+    'flex w-full! flex-row items-center gap-2 border-b-2 pb-2',
+    isEasiest ? 'border-emerald-100' : 'border-rose-100',
+  );
+
+  const indexTextClass = clsx(
+    'flex size-5 shrink-0 items-center justify-center rounded-full text-sm!',
+    isEasiest ? 'bg-emerald-100' : 'bg-rose-100',
+  );
+
+  const attemptClass = clsx(
+    'w-fit! text-base! font-semibold!',
+    isEasiest ? 'text-emerald-700' : 'text-rose-700',
+  );
+
   return (
-    <Box
-      key={`${result.username}-${index}`}
-      className={`flex h-fit! w-full! shrink-0 grow flex-col justify-center gap-2 rounded-xl border-2 p-2 ${isEasiest ? 'border-emerald-100 bg-emerald-50' : 'border-rose-100 bg-rose-50'}`}
-    >
-      <Box
-        className={`flex w-full! flex-row items-center gap-2 border-b-2 pb-2 ${isEasiest ? 'border-emerald-100' : 'border-rose-100'}`}
-      >
-        <Typography
-          align="left"
-          className={`flex size-5 shrink-0 items-center justify-center rounded-full text-sm! ${isEasiest ? 'bg-emerald-100' : 'bg-rose-100'}`}
-        >
+    <Box key={`${result.username}-${index}`} className={wrapperClass}>
+      <Box className={indexWrapperClass}>
+        <Typography align="left" className={indexTextClass}>
           {index + 1}
         </Typography>
 
@@ -35,17 +49,10 @@ const TopResultsListItem = (props: ITopResultsListItemProps) => {
       </Box>
       <Box className="flex h-fit! w-full! flex-col items-center justify-start gap-1">
         <Box className="flex w-full! flex-row items-center justify-between gap-4">
-          <Typography
-            align="left"
-            className={`w-fit! text-base! font-semibold! ${isEasiest ? 'text-emerald-700' : 'text-rose-700'}`}
-          >
+          <Typography align="left" className={attemptClass}>
             Последняя попытка:
           </Typography>
-          <Typography
-            component="span"
-            align="left"
-            className={`w-fit! text-base! font-semibold! ${isEasiest ? 'text-emerald-700' : 'text-rose-700'}`}
-          >
+          <Typography component="span" align="left" className={attemptClass}>
             {lastResult}%
           </Typography>
         </Box>
