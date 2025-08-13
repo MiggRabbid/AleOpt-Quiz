@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import clsx from 'clsx';
 import { QuestionSummary } from '../utils/getQuestionSummaryFromAttempts';
 
 interface IQuestionBlockItemProps {
@@ -16,17 +17,33 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
 
   const answerCountText = isEasiest ? 'Верных ответов:' : 'Неверных ответов:';
 
+  const wrapperClass = clsx(
+    'flex h-fit w-full shrink-0 grow flex-col justify-start gap-2 rounded-xl border-2 px-2 py-1',
+    {
+      'border-emerald-100 bg-emerald-50': isEasiest,
+      'border-rose-100 bg-rose-50': !isEasiest,
+    },
+  );
+
+  const headerClass = clsx('flex flex-row gap-2 border-b-2 pb-2', {
+    'border-emerald-100': isEasiest,
+    'border-rose-100': !isEasiest,
+  });
+
+  const indexClass = clsx(
+    'flex size-7 shrink-0 items-center justify-center rounded-full text-base',
+    { 'bg-emerald-100': isEasiest, 'bg-rose-100': !isEasiest },
+  );
+
+  const answerCountClass = clsx('text-normal ms-1 w-fit font-semibold', {
+    'text-emerald-700': isEasiest,
+    'text-rose-700': !isEasiest,
+  });
+
   return (
-    <Box
-      className={`flex h-fit! w-full! shrink-0 grow flex-col justify-start gap-2 rounded-xl border-2 px-2 py-1 ${isEasiest ? 'border-emerald-100 bg-emerald-50' : 'border-rose-100 bg-rose-50'}`}
-    >
-      <Box
-        className={`flex flex-row gap-2 border-b-2 pb-2 ${isEasiest ? 'border-emerald-100' : 'border-rose-100'}`}
-      >
-        <Typography
-          align="left"
-          className={`flex size-7 shrink-0 items-center justify-center rounded-full text-base! ${isEasiest ? 'bg-emerald-100' : 'bg-rose-100'}`}
-        >
+    <Box className={wrapperClass}>
+      <Box className={headerClass}>
+        <Typography align="left" className={indexClass}>
           {index + 1}
         </Typography>
 
@@ -40,11 +57,7 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
           className={`text-normal! w-fit! font-semibold! text-slate-500`}
         >
           {`${answerCountText} `}
-          <Typography
-            component="span"
-            align="left"
-            className={`text-normal! ms-1! w-fit! font-semibold! ${isEasiest ? 'text-emerald-700' : 'text-rose-700'}`}
-          >
+          <Typography component="span" align="left" className={answerCountClass}>
             {answerCount}
           </Typography>
         </Typography>
