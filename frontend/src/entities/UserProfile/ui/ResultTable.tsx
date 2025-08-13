@@ -53,7 +53,7 @@ const ResultTable = (props: IResultTableProps) => {
           <TableCell align="right" className="px-1! py-3!">
             <Chip
               label={!!userStats?.averageResult ? `${userStats?.averageResult}%` : '-'}
-              className={`w-17! text-base! font-bold! text-neutral-100! ${getChipColor(userStats?.averageResult || 100)}`}
+              className={`w-17! text-base! font-bold! text-neutral-50! ${getChipColor(userStats?.averageResult || 100)}`}
               variant="filled"
             />
           </TableCell>

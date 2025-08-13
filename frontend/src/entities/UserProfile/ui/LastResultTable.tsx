@@ -53,7 +53,7 @@ const LastResultTable = (props: ILastResultTableProps) => {
             );
 
             const chipClass = clsx(
-              'w-17 text-base font-bold text-neutral-100',
+              'w-17 text-base font-bold text-neutral-50!',
               getChipColor(numberAttempts),
             );
 
