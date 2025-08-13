@@ -19,7 +19,8 @@ const BtnStartQuiz = () => {
   useLayoutEffect(() => {
     const oldTimer = getTimer();
     const oldResult = getResult();
-    if (!!oldTimer && !!oldResult) {
+
+    if (!!oldTimer || !!oldResult) {
       setUnfinishedAttempt(true);
     } else {
       setUnfinishedAttempt(false);
@@ -35,38 +36,19 @@ const BtnStartQuiz = () => {
 
   return (
     <Box className="flex flex-col justify-end">
-      {!unfinishedAttempt ? (
-        <>
-          <Typography
-            align="center"
-            className="mb-2! w-full! text-base! font-semibold! uppercase"
-          >
-            Попробуешь еще раз?
-          </Typography>
-          <BtnMain
-            btnText="Начать тест"
-            btnClick={handelClickBtn}
-            fullWidth
-            isLoading={isPending}
-          />
-        </>
-      ) : (
-        <>
-          <Typography
-            align="center"
-            className="mb-2! w-full! text-base! font-semibold! uppercase"
-          >
-            Найден незавершённый тест
-          </Typography>
-          <BtnMain
-            btnText="Продолжить тест"
-            btnClick={handelClickBtn}
-            fullWidth
-            isLoading={isPending}
-            color="warning"
-          />
-        </>
-      )}
+      <Typography
+        align="center"
+        className="mb-2! w-full! text-base! font-semibold! uppercase"
+      >
+        {unfinishedAttempt ? 'Найден незавершённый тест' : 'Попробуешь еще раз?'}
+      </Typography>
+      <BtnMain
+        btnText={unfinishedAttempt ? 'Продолжить тест' : 'Начать тест'}
+        btnClick={handelClickBtn}
+        fullWidth
+        isLoading={isPending}
+        color={unfinishedAttempt ? 'warning' : 'success'}
+      />
     </Box>
   );
 };
