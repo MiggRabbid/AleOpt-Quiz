@@ -14,7 +14,7 @@ import { useAppActions, useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 
 import { UserStats } from '@/entities/UserStats';
-import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
+import { PlugForEmptyData } from '@/shared/ui/ui/Plug/PlugForEmptyData';
 import { BtnGroupEdit } from '@/shared/ui/ui/btns';
 
 import { iUser, UserRoles } from '@/types/staff.types';

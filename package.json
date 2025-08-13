@@ -11,5 +11,8 @@
   "bugs": {
     "url": "https://github.com/MiggRabbid/AleOpt-Quiz/issues"
   },
-  "homepage": "https://github.com/MiggRabbid/AleOpt-Quiz#readme"
+  "homepage": "https://github.com/MiggRabbid/AleOpt-Quiz#readme",
+  "dependencies": {
+    "clsx": "^2.1.1"
+  }
 }

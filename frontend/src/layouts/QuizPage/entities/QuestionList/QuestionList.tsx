@@ -12,7 +12,7 @@ import { QuestionListItemClosed } from './ui/QuestionListItemClosed';
 //Типизация
 import { iQuestion } from '@/types/quiz.types';
 import { ResultList } from '../ResultList/ResultList';
-import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
+import { PlugForEmptyData } from '@/shared/ui/ui/Plug/PlugForEmptyData';
 
 interface IQuestionListProps {
   questions: iQuestion[] | null;
