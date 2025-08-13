@@ -55,9 +55,9 @@ const BtnEndQuiz = () => {
         },
       });
 
+      clearResultState();
       delResult();
       delTimer();
-      clearResultState();
       startTransition(() => {
         router.push(routes.main);
       });
