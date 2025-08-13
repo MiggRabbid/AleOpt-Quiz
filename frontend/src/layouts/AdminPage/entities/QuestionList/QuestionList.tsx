@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 // Компоненты
-import { PlugForEmptyData } from '@/shared/ui/ui/other/PlugForEmptyData';
+import { PlugForEmptyData } from '@/shared/ui/ui/Plug/PlugForEmptyData';
 import { iQuestion } from '@/types/quiz.types';
 import { QuestionListItem } from './ui/QuestionListItem';
 // Типизация

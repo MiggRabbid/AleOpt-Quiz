@@ -9,7 +9,7 @@ import { getBarData } from './utils/getBarData';
 import { getBarOptions } from './utils/getBarOptions';
 // Компоненты
 import { lastTenAttemptsTooltip } from '../../entities/UserStats/ui/CustomTooltip';
-import { SmallPlugForEmptyData } from '@/shared/ui/ui/other/SmallPlugForEmptyData';
+import { PlugForEmptyData } from '@/shared/ui/ui/Plug/PlugForEmptyData';
 
 Chart.register(...registerables);
 
@@ -64,7 +64,7 @@ const CustomBar = (props: ICustomLineProps) => {
         Динамика попыток
       </Typography>
       <Box className="h-80 rounded-xl border-2 border-cyan-100 bg-cyan-50 p-4">
-        {isEmpty && <SmallPlugForEmptyData />}
+        {isEmpty && <PlugForEmptyData isSmall />}
         {!isEmpty && <Bar data={data} options={options} />}
       </Box>
     </Box>

@@ -108,14 +108,14 @@ export const lastTenAttemptsTooltip = (context: ICustomBarTooltip) => {
       titleTextMain.style.lineHeight = '16px';
       titleTextMain.style.color = 'oklch(70.4% 0.04 256.788)';
 
-      const titleTextSecond = document.createElement('p');
-      titleTextSecond.innerText = title;
-      titleTextSecond.style.fontSize = '14px';
-      titleTextSecond.style.lineHeight = '18px';
-      titleTextSecond.style.color = 'oklch(70.4% 0.04 256.788)';
+      const titletextAnswersData = document.createElement('p');
+      titletextAnswersData.innerText = title;
+      titletextAnswersData.style.fontSize = '14px';
+      titletextAnswersData.style.lineHeight = '18px';
+      titletextAnswersData.style.color = 'oklch(70.4% 0.04 256.788)';
 
       titleContent.appendChild(titleTextMain);
-      titleContent.appendChild(titleTextSecond);
+      titleContent.appendChild(titletextAnswersData);
       titleContainer.appendChild(titleContent);
     });
 
@@ -133,63 +133,66 @@ export const lastTenAttemptsTooltip = (context: ICustomBarTooltip) => {
       bodyRow.style.borderWidth = `${0}`;
       // Ячейка контента
       const rowCell = document.createElement('td');
-      rowCell.style.width = 'fit-content';
+      rowCell.style.width = '100%';
       rowCell.style.height = 'fit-content';
       rowCell.style.borderWidth = `${0}`;
+
       // Обертка для контента ячейки
       const cellContentWrapper = document.createElement('div');
-      cellContentWrapper.style.width = 'fit-content';
+      cellContentWrapper.style.width = '100%';
       cellContentWrapper.style.height = 'fit-content';
       cellContentWrapper.style.display = 'flex';
       cellContentWrapper.style.padding = `2px 0`;
-      cellContentWrapper.style.justifyContent = 'center';
+      cellContentWrapper.style.justifyContent = 'space-between';
       cellContentWrapper.style.alignItems = 'center';
       cellContentWrapper.style.gap = '8px';
-      // Иконка гендера
-      const genderIcon = document.createElement('div');
-      genderIcon.style.height = '16px';
-      genderIcon.style.width = '16px';
-      genderIcon.style.padding = '0px';
-      genderIcon.style.borderRadius = '50%';
+      // Иконка ответа
+      const answerIcon = document.createElement('div');
+      answerIcon.style.height = '16px';
+      answerIcon.style.width = '16px';
+      answerIcon.style.padding = '0px';
+      answerIcon.style.borderRadius = '50%';
 
-      // Значение гендера
-      const textMain = document.createElement('p');
-      textMain.style.minWidth = '170px';
-      textMain.style.height = 'fit-content';
-      textMain.style.fontFamily = 'Roboto, sans-serif';
-      textMain.style.fontSize = '14px';
-      textMain.style.lineHeight = '18px';
-      textMain.style.fontWeight = '600';
-      textMain.style.textAlign = 'start';
-      textMain.style.textWrap = 'nowrap';
-      textMain.style.color = 'oklch(55.4% 0.046 257.417)';
-      // Процент гендера
-      const textSecond = document.createElement('p');
-      textSecond.style.minWidth = '20px';
-      textSecond.style.width = 'fit-content';
-      textSecond.style.height = 'fit-content';
-      textSecond.style.fontFamily = 'Roboto, sans-serif';
-      textSecond.style.fontSize = '14px';
-      textSecond.style.lineHeight = '18px';
-      textSecond.style.fontWeight = '600';
-      textSecond.style.textAlign = 'end';
-      textSecond.style.textWrap = 'nowrap';
-      textSecond.style.color = 'oklch(12.9% 0.042 264.695)';
+      // Ответы - лейбл
+      const textAnswersLabel = document.createElement('p');
+      textAnswersLabel.style.minWidth = '170px';
+      textAnswersLabel.style.width = 'fit-content';
+      textAnswersLabel.style.height = 'fit-content';
+      textAnswersLabel.style.fontFamily = 'Roboto, sans-serif';
+      textAnswersLabel.style.fontSize = '14px';
+      textAnswersLabel.style.lineHeight = '18px';
+      textAnswersLabel.style.fontWeight = '600';
+      textAnswersLabel.style.textAlign = 'start';
+      textAnswersLabel.style.textWrap = 'nowrap';
+      textAnswersLabel.style.color = 'oklch(0.554 0.046 257.417)';
+      // Ответы  - дата
+      const textAnswersData = document.createElement('p');
+      textAnswersData.style.minWidth = '20px';
+      textAnswersData.style.width = 'fit-content';
+      textAnswersData.style.height = 'fit-content';
+      textAnswersData.style.fontFamily = 'Roboto, sans-serif';
+      textAnswersData.style.fontSize = '14px';
+      textAnswersData.style.lineHeight = '18px';
+      textAnswersData.style.fontWeight = '600';
+      textAnswersData.style.textAlign = 'end';
+      textAnswersData.style.textWrap = 'nowrap';
+      textAnswersData.style.color = 'oklch(0.554 0.046 257.417)';
 
       if (label.trim() === labelMaps.correct) {
-        genderIcon.style.backgroundColor = 'oklch(84.5% 0.143 164.978)';
-        textMain.innerText = `${tooltipLabelMaps.correct}`;
-        textSecond.innerText = `${tooltipValue.correctCount}`;
-      }
-      if (label.trim() === labelMaps.incorrect) {
-        genderIcon.style.backgroundColor = 'oklch(71.2% 0.194 13.428)';
-        textMain.innerText = `${tooltipLabelMaps.incorrect}`;
-        textSecond.innerText = `${tooltipValue.incorrectCount}`;
+        answerIcon.style.backgroundColor = 'oklch(84.5% 0.143 164.978)';
+        textAnswersLabel.innerText = `${tooltipLabelMaps.correct}`;
+        textAnswersData.innerText = `${tooltipValue.correctCount}`;
       }
 
-      cellContentWrapper.appendChild(genderIcon);
-      cellContentWrapper.appendChild(textMain);
-      cellContentWrapper.appendChild(textSecond);
+      if (label.trim() === labelMaps.incorrect) {
+        answerIcon.style.backgroundColor = 'oklch(71.2% 0.194 13.428)';
+        textAnswersLabel.innerText = `${tooltipLabelMaps.incorrect}`;
+        textAnswersData.innerText = `${tooltipValue.incorrectCount}`;
+      }
+
+      cellContentWrapper.appendChild(answerIcon);
+      cellContentWrapper.appendChild(textAnswersLabel);
+      cellContentWrapper.appendChild(textAnswersData);
       rowCell.appendChild(cellContentWrapper);
       bodyRow.appendChild(rowCell);
       tooltipBody.appendChild(bodyRow);

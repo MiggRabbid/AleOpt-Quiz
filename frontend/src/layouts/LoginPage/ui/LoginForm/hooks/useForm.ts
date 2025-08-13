@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useLayoutEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -12,11 +13,17 @@ export const useLoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isLoading },
     setError,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  useLayoutEffect(() => {
+    if (isSubmitting || isLoading) setIsFetching(true);
+  }, [isSubmitting, isLoading]);
 
   const onSubmit = async (data: FormData) => {
     const response = await signIn('credentials', {
@@ -26,22 +33,26 @@ export const useLoginForm = () => {
     });
 
     if (response?.error) {
+      setIsFetching(false);
       setError('username', { message: 'Пользователь не найден' });
       setError('password', { message: 'Или неправильный пароль' });
     }
   };
 
-  const redirect = (role: any) => {
-    if (!!role && role === 'Employee') {
-      router.push(routes.main);
-    }
-    if (!!role && role !== 'Admin') {
-      router.push(routes.admin);
-    }
-    if (!!role && role !== 'Owner') {
-      router.push(routes.admin);
+  const redirect = (role: string) => {
+    setIsFetching(false);
+    switch (role) {
+      case 'Employee':
+        router.push(routes.main);
+        break;
+      case 'Admin':
+      case 'Owner':
+        router.push(routes.admin);
+        break;
+      default:
+        router.push(routes.main); // fallback
     }
   };
 
-  return { register, handleSubmit, errors, isSubmitting, onSubmit, redirect };
+  return { register, handleSubmit, errors, isFetching, onSubmit, redirect };
 };

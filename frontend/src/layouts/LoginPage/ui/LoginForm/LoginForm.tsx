@@ -12,7 +12,7 @@ import { BtnLogin } from './ui/BtnLogin';
 const LoginForm = () => {
   const { data: session } = useSession();
 
-  const { handleSubmit, onSubmit, errors, register, isSubmitting, redirect } =
+  const { handleSubmit, onSubmit, errors, register, isFetching, redirect } =
     useLoginForm();
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const LoginForm = () => {
           error={!!errors.password}
           helperText={errors.password?.message}
         />
-        <BtnLogin isSubmitting={isSubmitting} />
+        <BtnLogin isSubmitting={isFetching} />
       </FormControl>
     </Box>
   );

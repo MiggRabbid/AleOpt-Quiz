@@ -4,8 +4,11 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { iResultEntry } from '@/types/staff.types';
+import clsx from 'clsx';
+
 import { getChipColor } from '../utils/getChipColor';
+
+import { iResultEntry } from '@/types/staff.types';
 
 interface ILastResultTableProps {
   attempts: iResultEntry[] | null;
@@ -48,6 +51,12 @@ const LastResultTable = (props: ILastResultTableProps) => {
             const numberAttempts = Math.floor(
               (attempt.correctAnswers / attempt.answers.length) * 100,
             );
+
+            const chipClass = clsx(
+              'w-17 text-base font-bold text-neutral-50!',
+              getChipColor(numberAttempts),
+            );
+
             return (
               <TableRow key={`attempt-${index}`}>
                 <TableCell className="px-1! py-3!">
@@ -58,7 +67,7 @@ const LastResultTable = (props: ILastResultTableProps) => {
                 <TableCell align="right" className="px-1! py-3!">
                   <Chip
                     label={!!numberAttempts ? `${numberAttempts}%` : '-'}
-                    className={`w-17! text-base! font-bold! text-neutral-100! ${getChipColor(numberAttempts)}`}
+                    className={chipClass}
                     variant="filled"
                   />
                 </TableCell>

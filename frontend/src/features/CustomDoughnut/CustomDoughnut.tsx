@@ -8,9 +8,10 @@ import { getDataAnswersForDoughnut } from '../CustomBar/utils/getBarData';
 import { getDoughnutData } from './utils/getDoughnutData';
 import { getDoughnutOptions } from './utils/getDoughnutOptions';
 import { customDoughnutTooltip } from './utils/customDoughnutTooltip';
-import { SmallPlugForEmptyData } from '@/shared/ui/ui/other/SmallPlugForEmptyData';
+
 // Типизация
 import { typeStatFuncsArgs } from '@/types/stats.types';
+import { PlugForEmptyData } from '@/shared/ui/ui/Plug/PlugForEmptyData';
 
 interface iCustomDoughnutProps {
   userStats: typeStatFuncsArgs | null;
@@ -33,7 +34,7 @@ const CustomDoughnut: React.FC<iCustomDoughnutProps> = (props: iCustomDoughnutPr
         Диаграмма ответов
       </Typography>
       <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl border-2 border-cyan-100 bg-cyan-50 px-4">
-        {isEmpty && <SmallPlugForEmptyData />}
+        {isEmpty && <PlugForEmptyData isSmall />}
         {!isEmpty && <Doughnut data={dataDoughnut} options={optionsDoughnut} />}
       </Box>
     </Box>

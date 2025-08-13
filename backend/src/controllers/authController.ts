@@ -17,7 +17,7 @@ const getAccessToken = (role: string, username: string): string => {
     role,
     username,
   };
-  return jwt.sign(payload, secret);
+  return jwt.sign(payload, secret, { expiresIn: '7d' });
 };
 
 class AuthController {
