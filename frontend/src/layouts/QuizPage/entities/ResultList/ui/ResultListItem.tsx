@@ -7,6 +7,7 @@ import { getQuizStateField } from '@/selectors';
 
 import { ResultListItemAnswer } from './ResultListItemAnswer';
 import { iUserAnswer } from '@/types/staff.types';
+import clsx from 'clsx';
 
 interface IResultListItemProps {
   question: iUserAnswer;
@@ -21,6 +22,10 @@ const ResultListItem = (props: IResultListItemProps) => {
   const currQuestion = questions.find((item) => item.id === question.questionId);
   const isCorrectAnswer = question.correctAnswerId === question.userAnswerId;
 
+  const chipClass = clsx(
+    'h-11! w-fit! min-w-11! rounded-full! text-base! font-bold! uppercase',
+    isCorrectAnswer ? 'bg-emerald-100! text-emerald-400!' : 'bg-rose-100! text-rose-400!',
+  );
   return (
     <Accordion
       className="shadow-small! rounded-xl! border-0! border-slate-100! p-2! outline-0!"
@@ -56,7 +61,7 @@ const ResultListItem = (props: IResultListItemProps) => {
         <Box className="mb-auto! flex shrink-0 grow-0 items-start">
           <Chip
             label={question.userAnswerId || '-'}
-            className={`h-11! w-fit! min-w-11! rounded-full! text-base! font-bold! uppercase ${isCorrectAnswer ? 'bg-emerald-100! text-emerald-400!' : 'bg-rose-100! text-rose-400!'}`}
+            className={chipClass}
             variant="filled"
           />
         </Box>

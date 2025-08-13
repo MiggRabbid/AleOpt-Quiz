@@ -35,7 +35,7 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
     { 'bg-emerald-100': isEasiest, 'bg-rose-100': !isEasiest },
   );
 
-  const answerCountClass = clsx('text-normal ms-1 w-fit font-semibold', {
+  const answerCountClass = clsx('text-normal ms-1 w-fit font-semibold!', {
     'text-emerald-700': isEasiest,
     'text-rose-700': !isEasiest,
   });
