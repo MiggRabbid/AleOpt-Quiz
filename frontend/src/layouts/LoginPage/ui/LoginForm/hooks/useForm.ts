@@ -40,17 +40,15 @@ export const useLoginForm = () => {
   };
 
   const redirect = (role: string) => {
+    if (!role) return;
     setIsFetching(false);
     switch (role) {
-      case 'Employee':
-        router.push(routes.main);
-        break;
       case 'Admin':
       case 'Owner':
-        router.push(routes.admin);
+        router.replace(routes.admin);
         break;
       default:
-        router.push(routes.main); // fallback
+        router.replace(routes.profile);
     }
   };
 

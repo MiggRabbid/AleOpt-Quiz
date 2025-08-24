@@ -15,23 +15,24 @@ export const BtnRedirect = () => {
 
   const isAdminOrOwner =
     session?.user.role === UserRoles.Admin || session?.user.role === UserRoles.Owner;
+  const isAdminPage = pathname === routes.admin;
 
   if (!isAdminOrOwner) return null;
 
   const handelClickBtn = () => {
-    if (pathname === routes.admin) {
-      router.push(routes.main);
-      return;
+    if (isAdminPage) {
+      router.push(routes.profile);
+    } else {
+      router.push(routes.admin);
     }
-    router.push(routes.admin);
-    return;
   };
 
   const getBtnText = () => {
-    if (pathname === routes.admin) {
+    if (isAdminPage) {
       return 'На главную';
+    } else {
+      return 'В админку';
     }
-    return 'В админку';
   };
 
   return <BtnSmall btnText={getBtnText()} btnClick={handelClickBtn} variant="outlined" />;
