@@ -73,10 +73,11 @@ class UserController {
 
 			if (result) {
 				const userResult = getUserStats(result);
-				const lastAttempt =
+				const lastAttempt = Math.floor(
 					(userResult.attempts[0].correctAnswers /
 						userResult.attempts[0].answers.length) *
-					100;
+						100,
+				);
 				currUser.lastResult = lastAttempt;
 				currUser.numberAttempts = userResult.numberAttempts;
 			}
