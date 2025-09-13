@@ -1,77 +1,80 @@
 /* eslint-disable no-unused-vars */
 export enum UserRoles {
-  Admin = 'Admin',
-  Employee = 'Employee',
-  Owner = 'Owner',
+	Admin = "Admin",
+	Employee = "Employee",
+	Owner = "Owner",
 }
 
 export enum UserGender {
-  male = 'male',
-  female = 'female',
+	male = "male",
+	female = "female",
 }
 
 export const userGenderMap: Record<UserGender, string> = {
-  male: 'Муж.',
-  female: 'Жен.',
+	male: "Муж.",
+	female: "Жен.",
 };
 
 export const userRolesMap: Record<UserRoles, string> = {
-  Admin: 'Администратор',
-  Employee: 'Сотрудник',
-  Owner: 'Владелец',
+	Admin: "Администратор",
+	Employee: "Сотрудник",
+	Owner: "Владелец",
 };
 
 export interface IUserRequest {
-  role: UserRoles;
-  firstName: string;
-  lastname: string;
-  username: string;
-  password?: string | undefined;
-  image: string;
-  gender: UserGender;
+	role: UserRoles;
+	firstName: string;
+	lastname: string;
+	username: string;
+	password?: string | undefined;
+	image: string;
+	gender: UserGender;
 }
 
 export interface iUser {
-  _id?: string;
-  role: UserRoles;
-  firstName?: string;
-  lastName?: string;
-  username: string;
-  password?: string;
-  token?: string;
-  image?: string;
-  gender?: UserGender;
-  results?: Array<Record<string, string>>;
+	_id?: string;
+	role: UserRoles;
+	firstName?: string;
+	lastName?: string;
+	username: string;
+	password?: string;
+	token?: string;
+	image?: string;
+	gender?: UserGender;
+	results?: Array<Record<string, string>>;
+	lastResult?: number | null;
+	numberAttempts?: number;
 }
 
 export interface iUserAnswer {
-  questionId: string;
-  question: string;
-  userAnswerId: string;
-  correctAnswerId: string;
-  result: number;
+	questionId: string;
+	question: string;
+	userAnswerId: string;
+	correctAnswerId: string;
+	result: number;
 }
 
 export interface iUsersState {
-  users: iUser[] | null;
-  currentUser: iUser | null;
+	users: iUser[] | null;
+	currentUser: iUser | null;
 }
 
 export interface iResultEntry {
-  data: string;
-  answers: iUserAnswer[];
-  correctAnswers: number;
+	data: string;
+	answers: iUserAnswer[];
+	correctAnswers: number;
 }
 
 export interface iUsersResponse {
-  status: number;
-  data: iUser[] | null;
-  error: iHandledError | null;
+	status: number;
+	data: iUser[] | null;
+	error: iHandledError | null;
 }
 
 export interface iHandledError {
-  message: string;
-  errorType: string;
+	message: string;
+	errorType: string;
 }
 
-export interface iResultEntryRequest extends Omit<iResultEntry, 'correctAnswers'> {}
+export interface iResultEntryRequest
+	extends Omit<iResultEntry, "correctAnswers"> {}
