@@ -64,7 +64,7 @@ class UserController {
 				image: user.image ?? "",
 				gender: user.gender,
 				numberAttempts: 0,
-				averageResult: null,
+				lastResult: null,
 			};
 
 			const result = AllResults.find(
@@ -73,7 +73,11 @@ class UserController {
 
 			if (result) {
 				const userResult = getUserStats(result);
-				currUser.averageResult = userResult.averageResult;
+				const lastAttempt =
+					(userResult.attempts[0].correctAnswers /
+						userResult.attempts[0].answers.length) *
+					100;
+				currUser.lastResult = lastAttempt;
 				currUser.numberAttempts = userResult.numberAttempts;
 			}
 
