@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { iAverageAttempts } from './statsTypes';
+// import { iAverageAttempts } from './statsTypes';
 
 export enum UserRoles {
   Admin = 'Admin',
@@ -29,7 +29,7 @@ export interface iResponseUser {
   lastName: string;
   username: string;
   results?: Array<Record<string, string>>;
-  averageResult: number | null;
+  lastResult: number | null;
   numberAttempts: number;
   image?: string;
   gender: 'male' | 'female';
