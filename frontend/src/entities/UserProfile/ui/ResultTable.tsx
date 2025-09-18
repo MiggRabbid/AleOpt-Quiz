@@ -4,8 +4,8 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Chip, Typography } from '@mui/material';
-import { getChipColor } from '../utils/getChipColor';
 import { iUserStats } from '@/types/stats.types';
+import { getChipColor } from '@/shared/lib';
 
 interface IResultTableProps {
   userStats: iUserStats | null;

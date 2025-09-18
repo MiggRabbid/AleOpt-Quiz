@@ -15,18 +15,29 @@ export default withAuth(
     if (!role || !token) {
       return NextResponse.redirect(new URL(routes.login, req.url));
     }
-    if (pathname === routes.admin && role === UserRoles.Employee) {
-      return NextResponse.redirect(new URL(routes.main, req.url));
+
+    const redirects: Record<UserRoles, { from: string[]; to: string }> = {
+      [UserRoles.Employee]: {
+        from: [routes.main, routes.admin, routes.login],
+        to: routes.profile,
+      },
+      [UserRoles.Admin]: {
+        from: [routes.main, routes.login],
+        to: routes.admin,
+      },
+      [UserRoles.Owner]: {
+        from: [routes.main, routes.login],
+        to: routes.admin,
+      },
+    };
+
+    const userRedirect = redirects[role];
+
+    if (userRedirect && userRedirect.from.includes(pathname)) {
+      return NextResponse.redirect(new URL(userRedirect.to, req.url));
     }
-    if (pathname === routes.login && role === UserRoles.Employee) {
-      return NextResponse.redirect(new URL(routes.main, req.url));
-    }
-    if (pathname === routes.login && role === UserRoles.Admin) {
-      return NextResponse.redirect(new URL(routes.admin, req.url));
-    }
-    if (pathname === routes.login && role === UserRoles.Owner) {
-      return NextResponse.redirect(new URL(routes.admin, req.url));
-    }
+
+    return NextResponse.next();
   },
   {
     callbacks: {
@@ -38,5 +49,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ['/', '/quiz', '/admin', '/:path((?!api|_next|.*\..*).*)'],
+  matcher: ['/profile', '/quiz', '/admin', '/:path((?!api|_next|.*\..*).*)'],
 };

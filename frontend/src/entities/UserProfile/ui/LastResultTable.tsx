@@ -6,9 +6,8 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import clsx from 'clsx';
 
-import { getChipColor } from '../utils/getChipColor';
-
 import { iResultEntry } from '@/types/staff.types';
+import { getChipColor } from '@/shared/lib';
 
 interface ILastResultTableProps {
   attempts: iResultEntry[] | null;
@@ -58,7 +57,7 @@ const LastResultTable = (props: ILastResultTableProps) => {
             );
 
             return (
-              <TableRow key={`attempt-${index}`}>
+              <TableRow key={`attempt-${index}-${attempt.correctAnswers}`}>
                 <TableCell className="px-1! py-3!">
                   <Typography component="p" className="text-base!">
                     {attempt.data}

@@ -4,8 +4,9 @@ import bcrypt from 'bcryptjs';
 
 import sortUsersByRole from '../utils/sortAllUser';
 
-import { Role, User } from '../models/models';
+import { Results, Role, User } from '../models/models';
 import { iResponseUser, iUpdateUserData } from '../types/userTypes';
+import { getUserStats } from '../utils/forStats/userStats';
 
 const errorTypeMap = {
   userExists: 'userExists',
@@ -49,10 +50,32 @@ class UserController {
 
   private async getAllUsers(): Promise<iResponseUser[]> {
     const allUser = await User.find();
+    const AllResults = await Results.find();
 
     const preparedUsers = allUser.map((user) => {
-      const { firstName, lastName, username, role, image = '', gender } = user;
-      return { firstName, lastName, username, role, image, gender };
+      const currUser: iResponseUser = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        role: user.role,
+        image: user.image ?? '',
+        gender: user.gender,
+        numberAttempts: 0,
+        lastResult: null,
+      };
+
+      const result = AllResults.find((result) => result.username === currUser.username);
+
+      if (result) {
+        const userResult = getUserStats(result);
+        const lastAttempt = Math.floor(
+          (userResult.attempts[0].correctAnswers / userResult.attempts[0].answers.length) * 100,
+        );
+        currUser.lastResult = lastAttempt;
+        currUser.numberAttempts = userResult.numberAttempts;
+      }
+
+      return currUser;
     });
 
     return preparedUsers;
@@ -70,7 +93,7 @@ class UserController {
     }
   }
 
-  async allUsers(request: Request, response: Response): Promise<Response> {
+  async allUsers(_request: Request, response: Response): Promise<Response> {
     try {
       const users = await this.getAllUsers();
       const sortedUsers = sortUsersByRole(users);
@@ -139,7 +162,9 @@ class UserController {
         updateData.password = hashPassword;
       }
 
-      const user = await User.findOneAndUpdate({ username }, updateData, { new: true });
+      const user = await User.findOneAndUpdate({ username }, updateData, {
+        new: true,
+      });
 
       if (!user) {
         const errorData = this.prepareError(errorMsgMap.notFound, errorTypeMap.notFound);

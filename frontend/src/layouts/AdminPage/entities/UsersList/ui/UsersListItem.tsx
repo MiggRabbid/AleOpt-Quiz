@@ -19,6 +19,8 @@ import { BtnGroupEdit } from '@/shared/ui/ui/btns';
 
 import { iUser, UserRoles } from '@/types/staff.types';
 import { TTypeModal } from '@/types/modal.types';
+import clsx from 'clsx';
+// import { getResultColor } from '@/shared/lib';
 
 interface IUsersListItemProps {
   user: iUser;
@@ -50,6 +52,26 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
     });
   };
 
+  const attemptClass = clsx(
+    'flex h-full! w-fit! items-center justify-center rounded-full! px-3! py-1! text-xs! leading-none! font-bold!',
+    {
+      'bg-green-200! text-green-600!': !!user?.numberAttempts && user?.numberAttempts > 0,
+      'bg-green-200! text-green-300!':
+        !user?.numberAttempts || user?.numberAttempts === 0,
+    },
+  );
+
+  const resultClass = clsx(
+    'flex h-full! w-fit! items-center justify-center rounded-full! px-3! py-1! text-xs! leading-none! font-bold!',
+    {
+      'bg-emerald-200! text-emerald-900!': !!user?.lastResult && user?.lastResult >= 66,
+      'bg-rose-200! text-rose-900!': !!user?.lastResult && user?.lastResult <= 50,
+      'bg-orange-200! text-orange-900!':
+        !!user?.lastResult && user?.lastResult > 50 && user?.lastResult < 66,
+      'bg-green-200! text-green-300!': !user?.lastResult,
+    },
+  );
+
   return (
     <Accordion
       className="rounded-md! border-2! border-green-200! bg-green-50! shadow-sm!"
@@ -71,7 +93,7 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
             {index}
           </Typography>
 
-          <Box className="flex w-full flex-col gap-1">
+          <Box className="me-3 flex w-full flex-row gap-1">
             <Box className="flex w-full flex-row gap-1">
               <Typography component="span" className="me-2!">
                 {`${user.firstName} ${user.lastName}`}
@@ -91,6 +113,38 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
                   это вы
                 </Typography>
               )}
+            </Box>
+            <Box className="flex w-fit shrink-0 flex-row gap-4">
+              <Typography component="p" className={attemptClass}>
+                Кол-во попыток:
+                <Typography
+                  component="span"
+                  sx={{
+                    textAlign: 'center',
+                    marginLeft: '2px',
+                    width: '20px',
+                    fontWeight: 'inherit',
+                    fontSize: 'inherit',
+                  }}
+                >
+                  {user?.numberAttempts ?? 0}
+                </Typography>
+              </Typography>
+              <Typography component="p" className={resultClass}>
+                Последний результат:
+                <Typography
+                  component="span"
+                  sx={{
+                    textAlign: 'center',
+                    marginLeft: '2px',
+                    width: '20px',
+                    fontWeight: 'inherit',
+                    fontSize: 'inherit',
+                  }}
+                >
+                  {user?.lastResult ?? '-'}
+                </Typography>
+              </Typography>
             </Box>
           </Box>
         </Box>

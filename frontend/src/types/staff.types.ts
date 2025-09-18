@@ -42,6 +42,8 @@ export interface iUser {
   image?: string;
   gender?: UserGender;
   results?: Array<Record<string, string>>;
+  lastResult?: number | null;
+  numberAttempts?: number;
 }
 
 export interface iUserAnswer {

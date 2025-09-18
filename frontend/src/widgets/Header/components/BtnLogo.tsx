@@ -16,8 +16,8 @@ const BtnLogo = () => {
   const isStarted = useAppSelector(getQuizStateField('isStarted'));
 
   const handelClick = () => {
-    if (pathname !== routes.main) {
-      router.push(routes.main);
+    if (pathname !== routes.profile) {
+      router.push(routes.profile);
     }
   };
 

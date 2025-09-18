@@ -1,4 +1,4 @@
-import { iResultEntry } from './resultTypes';
+import { iResultEntry, iUserAnswer } from './resultTypes';
 
 export type typeAnswerId = 'a' | 'b' | 'c' | 'd';
 
@@ -17,4 +17,12 @@ export interface iUserStats {
   numberAttempts: number;
   averageResult: number;
   averageAttempts: iAverageAttempts;
+}
+
+export interface iQuestionStats {
+  questionId: string;
+  attempts: iUserAnswer[];
+  numberAttempts: number;
+  correctAnswers: number;
+  averageResult: number;
 }

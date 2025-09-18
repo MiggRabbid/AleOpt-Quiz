@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { Results } from '../models/models';
 import { iUserAnswer } from '../types/resultTypes';
 import { getUserStats } from '../utils/forStats/userStats';
+import { getQuestionStats } from '../utils/forStats/questionStats';
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const RESULT_NOT_FOUND_MESSAGE = 'Result not found. Check query parameters';
@@ -24,7 +25,7 @@ class ResultController {
     return response.status(500).json({ message: NETWORK_ERROR_MESSAGE });
   }
 
-  async allResults(request: Request, response: Response): Promise<Response> {
+  async allResults(_request: Request, response: Response): Promise<Response> {
     try {
       const allResults = await Results.find();
       const allStats = allResults.map((result) => getUserStats(result));
@@ -98,6 +99,18 @@ class ResultController {
       return response.json(updatedUserStats);
     } catch (e) {
       return this.handleError(response, e, 'Error adding result');
+    }
+  }
+
+  async questionStats(request: Request, response: Response): Promise<Response> {
+    const { question } = request.query;
+    try {
+      const questionId = question as string;
+      const usersStats = await Results.find();
+      const questionStats = getQuestionStats(questionId, usersStats);
+      return response.json(questionStats);
+    } catch (e) {
+      return this.handleError(response, e, 'Error getting question stats');
     }
   }
 }
