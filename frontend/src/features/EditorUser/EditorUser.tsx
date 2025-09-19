@@ -61,6 +61,7 @@ const EditorUser = (props: IEditorUserProps) => {
   } = useUserForm({
     isNewUser,
     requiredPass,
+    editableUser: editableUser?.username ?? null,
   });
 
   useLayoutEffect(() => {

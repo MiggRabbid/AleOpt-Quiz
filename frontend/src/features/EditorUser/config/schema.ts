@@ -13,8 +13,8 @@ export const getUserSchema = (requiredPass: boolean) => {
       .max(20, 'Фамилия должна быть от 1 до 20 символов'),
     username: z
       .string()
-      .min(6, 'Логин должен быть от 6 до 20 символов')
-      .max(20, 'Логин должен быть от 6 до 20 символов'),
+      .min(4, 'Логин должен быть от 4 до 20 символов')
+      .max(20, 'Логин должен быть от 4 до 20 символов'),
     password: requiredPass
       ? z
           .string()

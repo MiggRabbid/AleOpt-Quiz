@@ -1,6 +1,6 @@
 'use client';
 // Библиотеки
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Box, FormControl, Typography } from '@mui/material';
 // Логика
@@ -11,9 +11,24 @@ import { BtnLogin } from './ui/BtnLogin';
 
 const LoginForm = () => {
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { handleSubmit, onSubmit, errors, register, isFetching, redirect } =
     useLoginForm();
+
+  useLayoutEffect(() => {
+    if (isFetching) setIsLoading(() => true);
+    console.log('Login isFetching -', isFetching);
+  }, [isFetching]);
+
+  useLayoutEffect(() => {
+    if (errors) setIsLoading(() => false);
+    console.log('Login errors -', errors);
+  }, [errors]);
+
+  useLayoutEffect(() => {
+    console.log('Login isFetching -', isFetching);
+  }, [isFetching]);
 
   useEffect(() => {
     redirect((session?.user as any)?.role || '');
@@ -39,6 +54,7 @@ const LoginForm = () => {
           register={register('username')}
           error={!!errors.username}
           helperText={errors.username?.message}
+          disabled={isFetching || isLoading}
         />
         <CustomInput
           type="password"
@@ -46,8 +62,9 @@ const LoginForm = () => {
           register={register('password')}
           error={!!errors.password}
           helperText={errors.password?.message}
+          disabled={isFetching || isLoading}
         />
-        <BtnLogin isSubmitting={isFetching} />
+        <BtnLogin isSubmitting={isFetching || isLoading} />
       </FormControl>
     </Box>
   );

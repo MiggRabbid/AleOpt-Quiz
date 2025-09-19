@@ -13,10 +13,11 @@ import { IUserRequest, UserGender, UserRoles } from '@/types/staff.types';
 interface IUseUserFormProps {
   isNewUser: boolean;
   requiredPass: boolean;
+  editableUser: string | null;
 }
 
 export const useUserForm = (props: IUseUserFormProps) => {
-  const { isNewUser, requiredPass } = props;
+  const { isNewUser, requiredPass, editableUser } = props;
 
   const { setQuizStateField, closeUserEditor } = useAppActions();
 
@@ -96,7 +97,11 @@ export const useUserForm = (props: IUseUserFormProps) => {
     }
 
     if (!isNewUser) {
-      const response = await updateUser(user as unknown as IUserRequest, token);
+      const response = await updateUser(
+        editableUser,
+        user as unknown as IUserRequest,
+        token,
+      );
 
       if (response.data) {
         setQuizStateField({ field: 'users', data: response.data });

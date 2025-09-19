@@ -137,13 +137,17 @@ export const api = {
   },
 
   /* Обновление пользователя */
-  updateUser: async (user: IUserRequest, token: string): Promise<iUsersResponse> => {
+  updateUser: async (
+    editableUsername: string | null,
+    user: IUserRequest,
+    token: string,
+  ): Promise<iUsersResponse> => {
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.put,
         endpoint: requestsPath.user(),
         data: user,
-        params: { username: user.username },
+        params: { username: editableUsername },
         token,
       });
 
