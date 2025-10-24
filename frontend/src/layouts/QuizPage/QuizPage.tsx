@@ -10,6 +10,7 @@ import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
 import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
 import { QuestionList } from './entities/QuestionList/QuestionList';
 import { UserProfileForQuiz } from './entities/UserProfileForQuiz/UserProfileForQuiz';
+import { SideFull } from '@/shared/ui/layouts/SideFull/SideFull';
 
 const QuizPage = async () => {
   const session: Session | null = await getServerSession(authOptions);
@@ -20,7 +21,7 @@ const QuizPage = async () => {
   const questions = await api.getAllQuestions();
 
   return (
-    <Box id="QuizPage" className="flex w-full gap-3.5 p-3.5">
+    <SideFull id="QuizPage">
       <SideSecond>
         <UserProfileForQuiz user={user} />
       </SideSecond>
@@ -34,7 +35,7 @@ const QuizPage = async () => {
           <QuestionList questions={questions ?? []} />
         </Box>
       </SideMain>
-    </Box>
+    </SideFull>
   );
 };
 

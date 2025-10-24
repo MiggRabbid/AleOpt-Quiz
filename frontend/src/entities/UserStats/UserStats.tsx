@@ -29,12 +29,12 @@ const UserStats = (props: IUserStatsProps) => {
   const hardestQuestions = getIncorrectAnswersSummary(attempts);
 
   return (
-    <Box className="flex h-full w-full flex-col gap-10 p-2" id="UserStats">
-      <Box className="flex w-full grow gap-10">
+    <Box className="flex h-full w-full flex-col gap-8" id="UserStats">
+      <Box className="flex w-full grow gap-8">
         <QuestionBlock type="easiest" questions={easiestQuestions} />
         <QuestionBlock type="hardest" questions={hardestQuestions} />
       </Box>
-      <Box className="flex h-fit shrink-1 grow-0 gap-10">
+      <Box className="flex h-fit shrink-1 grow-0 gap-8">
         <Box className="h-fit w-fit shrink-0 grow-0">
           <CustomDoughnut userStats={userStats} isEmpty={!attempts} />
         </Box>

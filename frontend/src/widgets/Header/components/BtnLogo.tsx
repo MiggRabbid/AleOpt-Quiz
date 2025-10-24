@@ -27,6 +27,8 @@ const BtnLogo = () => {
       disabled={isStarted}
       variant="outlined"
       sx={{
+        height: '60px',
+        padding: 0,
         outline: 'none !important',
         border: 'none !important',
         backgroundColor: 'transparent !important',

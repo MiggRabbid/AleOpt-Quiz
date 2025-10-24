@@ -1,12 +1,24 @@
 @import 'tailwindcss';
 
+@layer utilities {
+  .bg-glass {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .border-glass {
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+  .shadow-glass {
+    box-shadow: 0 4px 16px 0 #0d2626;
+  }
+}
+
 @theme {
   --font-sans: var(--font-sans), sans-serif;
   --font-mono: var(--font-mono), sans-serif;
 
   --shadow-small: 0px 0px 6px 0px rgba(0, 130, 54, 0.3);
   --shadow-main: 0px 0px 8px 0px rgba(0, 130, 54, 0.3);
-  --shadow-block: 0px 0px 10px 0px rgba(0, 130, 54, 0.4);
+  --shadow-block: 0px 4px 6px -1px rgba(144, 161, 185, 0.3);
 }
 
 *,
@@ -46,4 +58,41 @@ a {
 
 body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  /* background-image: url("/assets/images/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+}
+
+input:-internal-autofill-selected {
+  background-color: transparent !important;
+}
+
+/***** Кастомный глобальный скроллбар *****/
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46, 125, 50, 1) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(46, 125, 50, 1);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(46, 125, 50, 0.7);
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
 }

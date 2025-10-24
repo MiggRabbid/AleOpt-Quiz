@@ -47,7 +47,7 @@ const BtnGroup = (props: IBtnGroupProps) => {
         variant={leftBtnVariant}
         color={leftBtnColor}
         disabled={isLoading}
-        className="min-h-10! flex-1! rounded-xl!"
+        className="min-h-10! flex-1! rounded-xl! border-0! outline-0!"
       >
         {leftBtnText}
       </Button>

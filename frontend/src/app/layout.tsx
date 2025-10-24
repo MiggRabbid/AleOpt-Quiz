@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 // стили
 import './styles/globals.css';
+import styles from './layout.module.css';
 // компоненты
 import { AppHeader } from '@/widgets/Header/AppHeader';
 import { StoreProvider, SessionProvider } from '@/providers';
@@ -18,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className="flex flex-col justify-start bg-green-50 text-slate-900">
+      <body className={`${styles.container} flex flex-col justify-start text-slate-900`}>
         <SessionProvider>
           <StoreProvider>
             <AppHeader />

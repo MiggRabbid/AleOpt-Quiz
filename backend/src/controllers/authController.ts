@@ -10,9 +10,13 @@ import { iUserModel } from '../types/userTypes';
 
 dotenv.config();
 
-const secret = process.env.SECRET_KEY || '';
+const secret = process.env.SECRET_KEY;
 
 const getAccessToken = (role: string, username: string): string => {
+  if (!secret || secret.length === 0) {
+    throw new Error('SECRET_KEY is not defined in environment variables');
+  }
+
   const payload = {
     role,
     username,
@@ -23,6 +27,7 @@ const getAccessToken = (role: string, username: string): string => {
 class AuthController {
   async login(request: Request, response: Response): Promise<Response> {
     console.log(`----- login start`);
+
     try {
       const validationError = validationResult(request);
 
@@ -40,7 +45,7 @@ class AuthController {
           .json({ message: `Invalid username or password`, errorType: 'InvalidUserData' });
       }
 
-      const isValidPassword = bcrypt.compareSync(password, user.password);
+      const isValidPassword = await bcrypt.compare(password, user.password);
 
       if (!isValidPassword) {
         return response

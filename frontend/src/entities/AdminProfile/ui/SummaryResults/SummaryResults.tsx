@@ -16,7 +16,7 @@ const SummaryResults = () => {
 
   return (
     <Box
-      className="flex w-full flex-col gap-2 rounded-xl border-2 border-slate-200 p-4"
+      className="flex w-full flex-col gap-2 rounded-xl bg-white p-4"
       id="SummaryResults"
     >
       <Box className="flex grow flex-col justify-start gap-2">

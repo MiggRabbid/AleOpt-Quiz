@@ -21,10 +21,10 @@ const CustomEndAdornment = (props: ICustomEndAdornmentProps) => {
 
   const iconSx: SxProps<Theme> = {
     color: disabled
-      ? 'rgba(0, 0, 0, 0.38)'
+      ? 'rgba(0, 0, 0, 0.38) !important'
       : error
-        ? 'oklch(50.5% 0.213 27.518)'
-        : 'rgb(45, 125, 50)',
+        ? 'oklch(50.5% 0.213 27.518) !important'
+        : 'oklch(27.9% 0.041 260.031) !important',
   };
 
   return (

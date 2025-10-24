@@ -59,11 +59,11 @@ const CustomBar = (props: ICustomLineProps) => {
     <Box className="flex h-fit! min-h-full flex-col justify-center gap-1">
       <Typography
         align="center"
-        className="ms-4! w-fit! text-base! font-semibold! uppercase"
+        className="ms-4! w-fit! text-lg! font-semibold! uppercase"
       >
         Динамика попыток
       </Typography>
-      <Box className="h-80 rounded-xl border-2 border-cyan-100 bg-cyan-50 p-4">
+      <Box className="h-80 rounded-xl bg-cyan-50 p-4">
         {isEmpty && <PlugForEmptyData isSmall />}
         {!isEmpty && <Bar data={data} options={options} />}
       </Box>

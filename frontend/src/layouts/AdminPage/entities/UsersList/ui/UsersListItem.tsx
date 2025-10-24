@@ -74,7 +74,7 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
 
   return (
     <Accordion
-      className="rounded-md! border-2! border-green-200! bg-green-50! shadow-sm!"
+      className="rounded-xl! border bg-green-50! shadow-sm!"
       sx={{
         '&:before': { display: 'none !important' },
       }}

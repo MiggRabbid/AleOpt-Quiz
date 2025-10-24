@@ -13,7 +13,7 @@ interface ProfileHeader {
 const ProfileHeader = (props: ProfileHeader) => {
   const { role, firstname, lastname, avatarAlt, avatarSrc } = props;
   return (
-    <Box className="flex flex-row items-center justify-start gap-4">
+    <Box className="flex flex-row items-center justify-start gap-4 rounded-xl border-2 border-slate-200 bg-white/90 px-2 py-3">
       <UserAvatar src={avatarSrc} alt={avatarAlt} />
       <Box>
         {firstname ? (

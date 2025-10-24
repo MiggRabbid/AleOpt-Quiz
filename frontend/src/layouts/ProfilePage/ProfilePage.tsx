@@ -10,6 +10,7 @@ import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
 import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
 import { UserProfile } from '@/entities/UserProfile';
 import { UserStats } from '@/entities/UserStats';
+import { SideFull } from '@/shared/ui/layouts/SideFull/SideFull';
 
 const ProfilePage = async () => {
   const session: Session | null = await getServerSession(authOptions);
@@ -23,14 +24,14 @@ const ProfilePage = async () => {
   });
 
   return (
-    <Box id="ProfilePage" className="bg m-3.5 flex grow gap-3.5">
+    <SideFull id="ProfilePage">
       <SideSecond>
         <UserProfile user={user} userStats={userStats} />
       </SideSecond>
       <SideMain>
         <UserStats userStats={userStats} />
       </SideMain>
-    </Box>
+    </SideFull>
   );
 };
 

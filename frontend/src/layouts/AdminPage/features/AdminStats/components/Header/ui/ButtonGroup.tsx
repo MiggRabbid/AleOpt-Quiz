@@ -11,20 +11,22 @@ interface ICustomButtonGroupProps {
 
 const CustomButtonGroup = (props: ICustomButtonGroupProps) => {
   const { activeTab, setState } = props;
+  const isUsersActive = activeTab === TypeStatsTab.users;
+  const isQuestionActive = activeTab === TypeStatsTab.questions;
   return (
     <ButtonGroup className="h-10! min-h-10! rounded-xl!">
       <Button
         color="success"
-        className="h-10! min-h-10! rounded-s-xl!"
-        variant={activeTab === TypeStatsTab.users ? 'contained' : 'outlined'}
+        className={`h-10! min-h-10! w-40! min-w-40! rounded-s-xl! leading-none! font-bold! shadow-none! outline-0! ${!isUsersActive ? 'bg-white!' : ''}`}
+        variant={isUsersActive ? 'contained' : 'text'}
         onClick={() => setState(TypeStatsTab.users)}
       >
         Сотрудники
       </Button>
       <Button
         color="success"
-        className="h-10! min-h-10! rounded-e-xl!"
-        variant={activeTab === TypeStatsTab.questions ? 'contained' : 'outlined'}
+        className={`h-10! min-h-10! w-40! min-w-40! rounded-e-xl! leading-none! font-bold! shadow-none! outline-0! ${!isQuestionActive ? 'bg-white!' : ''}`}
+        variant={isQuestionActive ? 'contained' : 'text'}
         onClick={() => setState(TypeStatsTab.questions)}
       >
         Вопросы

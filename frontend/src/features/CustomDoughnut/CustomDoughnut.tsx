@@ -29,11 +29,11 @@ const CustomDoughnut: React.FC<iCustomDoughnutProps> = (props: iCustomDoughnutPr
     <Box className="relative flex h-full w-full flex-col justify-center gap-1">
       <Typography
         align="center"
-        className="ms-4! w-fit! text-base! font-semibold! uppercase"
+        className="ms-4! w-fit! text-lg! font-semibold! uppercase"
       >
         Диаграмма ответов
       </Typography>
-      <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl border-2 border-cyan-100 bg-cyan-50 px-4">
+      <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl bg-cyan-50 px-4">
         {isEmpty && <PlugForEmptyData isSmall />}
         {!isEmpty && <Doughnut data={dataDoughnut} options={optionsDoughnut} />}
       </Box>

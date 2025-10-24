@@ -1,4 +1,5 @@
 'use client';
+// Библиотеки
 import { useRouter, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
@@ -35,5 +36,5 @@ export const BtnRedirect = () => {
     }
   };
 
-  return <BtnSmall btnText={getBtnText()} btnClick={handelClickBtn} variant="outlined" />;
+  return <BtnSmall btnText={getBtnText()} btnClick={handelClickBtn} variant="text" />;
 };

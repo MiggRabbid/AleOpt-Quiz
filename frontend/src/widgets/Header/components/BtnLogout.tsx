@@ -1,5 +1,5 @@
 'use client';
-
+// Библиотеки
 import { Button, CircularProgress } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { signOut, useSession } from 'next-auth/react';
@@ -24,11 +24,15 @@ const BtnLogout = () => {
 
   return (
     <Button
-      variant="outlined"
+      variant="text"
       color="success"
-      className="h-10! min-h-10! rounded-xl!"
+      className="order-0! h-10! min-h-10! rounded-xl! bg-white! leading-none! font-bold! shadow-none! outline-0!"
       onClick={handelClickSignOut}
       disabled={isLoading}
+      sx={{
+        paddingX: '20px',
+        paddingY: '5px',
+      }}
     >
       {!isLoading && (
         <>

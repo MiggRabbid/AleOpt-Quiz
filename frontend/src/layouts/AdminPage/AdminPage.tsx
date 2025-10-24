@@ -10,6 +10,7 @@ import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
 import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
 import { AdminProfile } from '@/entities/AdminProfile';
 import { AdminStats } from './features/AdminStats/AdminStats';
+import { SideFull } from '@/shared/ui/layouts/SideFull/SideFull';
 
 const AdminPage = async () => {
   const session: Session | null = await getServerSession(authOptions);
@@ -23,14 +24,14 @@ const AdminPage = async () => {
   const results = await api.getAllUsersStats();
 
   return (
-    <Box id="AdminPage" className="m-3.5 flex grow gap-3.5">
+    <SideFull id="AdminPage">
       <SideSecond>
         <AdminProfile user={user} results={results} />
       </SideSecond>
       <SideMain>
         <AdminStats questions={questions} users={users} />
       </SideMain>
-    </Box>
+    </SideFull>
   );
 };
 

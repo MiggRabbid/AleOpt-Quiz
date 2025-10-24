@@ -23,12 +23,8 @@ const LoginForm = () => {
 
   useLayoutEffect(() => {
     if (errors) setIsLoading(() => false);
-    console.log('Login errors -', errors);
+    console.log('Login errors -', errors ?? 'нет ошибок');
   }, [errors]);
-
-  useLayoutEffect(() => {
-    console.log('Login isFetching -', isFetching);
-  }, [isFetching]);
 
   useEffect(() => {
     redirect((session?.user as any)?.role || '');
@@ -36,36 +32,44 @@ const LoginForm = () => {
   }, [session]);
 
   return (
-    <Box className="shadow-main flex w-full max-w-xl flex-col gap-10 rounded-2xl px-9 py-12">
-      <Typography
-        component="h1"
-        className="w-full text-center text-2xl! font-bold! uppercase"
-      >
-        Авторизуйтесь
-      </Typography>
-      <FormControl
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full flex-col gap-1!"
-      >
-        <CustomInput
-          type="text"
-          label="Введите логин"
-          register={register('username')}
-          error={!!errors.username}
-          helperText={errors.username?.message}
-          disabled={isFetching || isLoading}
-        />
-        <CustomInput
-          type="password"
-          label="Введите пароль"
-          register={register('password')}
-          error={!!errors.password}
-          helperText={errors.password?.message}
-          disabled={isFetching || isLoading}
-        />
-        <BtnLogin isSubmitting={isFetching || isLoading} />
-      </FormControl>
+    <Box className="shadow-glass border-glass h-full overflow-hidden rounded-2xl border backdrop-blur-sm">
+      <Box className="bg-glass h-full w-full">
+        <Box className="flex h-full w-full flex-col items-center-safe justify-center-safe gap-10 px-6 py-12">
+          <Typography
+            component="h1"
+            className="w-full text-center text-2xl! font-bold! uppercase"
+          >
+            Авторизуйтесь
+          </Typography>
+
+          <FormControl
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex w-full max-w-[400px] flex-col gap-1!"
+          >
+            <CustomInput
+              type="text"
+              label="Введите логин"
+              register={register('username')}
+              error={!!errors.username}
+              helperText={errors.username?.message}
+              disabled={isFetching || isLoading}
+            />
+            <CustomInput
+              type="password"
+              label="Введите пароль"
+              register={register('password')}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              disabled={isFetching || isLoading}
+            />
+
+            <Box className="w-full max-w-[400px]">
+              <BtnLogin isSubmitting={isFetching || isLoading} />
+            </Box>
+          </FormControl>
+        </Box>
+      </Box>
     </Box>
   );
 };

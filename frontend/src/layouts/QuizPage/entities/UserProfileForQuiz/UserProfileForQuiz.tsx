@@ -15,7 +15,7 @@ const UserProfileForQuiz = (props: IUserProfileForQuizProps) => {
   const { user } = props;
   return (
     <Box
-      className="flex h-full w-full flex-col justify-between gap-5.5 pt-2 pb-3.5"
+      className="flex h-full w-full flex-col justify-between gap-5.5"
       id="UserProfileForQuiz"
     >
       <ProfileHeader

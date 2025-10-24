@@ -7,12 +7,12 @@ interface ISideMainProps {
 const SideMain = ({ children }: ISideMainProps) => {
   return (
     <Box
-      className="shadow-block relative flex shrink rounded-2xl bg-white p-5"
+      className="shadow-glass border-glass relative flex shrink overflow-hidden rounded-2xl border backdrop-blur-sm"
       sx={{
         width: 'calc(100% - 320px - 14px) !important',
       }}
     >
-      {children}
+      <Box className="bg-glass h-full w-full p-3.5">{children}</Box>
     </Box>
   );
 };

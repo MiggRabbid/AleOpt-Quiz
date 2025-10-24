@@ -18,10 +18,10 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
   const answerCountText = isEasiest ? 'Верных ответов:' : 'Неверных ответов:';
 
   const wrapperClass = clsx(
-    'flex h-fit w-full shrink-0 grow flex-col justify-start gap-2 rounded-xl border-2 px-2 py-1',
+    'flex h-fit w-full shrink-0 grow flex-col justify-start gap-2 rounded-xl px-2 py-2',
     {
-      'border-emerald-100 bg-emerald-50': isEasiest,
-      'border-rose-100 bg-rose-50': !isEasiest,
+      'bg-emerald-50': isEasiest,
+      'bg-rose-50': !isEasiest,
     },
   );
 

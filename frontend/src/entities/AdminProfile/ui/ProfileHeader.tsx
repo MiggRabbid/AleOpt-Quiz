@@ -40,7 +40,7 @@ const ProfileHeader = (props: ProfileHeader) => {
   }, []);
 
   return (
-    <Box className="flex flex-row items-center justify-start gap-4">
+    <Box className="flex flex-row items-center justify-start gap-4 rounded-xl bg-white px-2 py-3">
       <UserAvatar src={avatarSrc} alt={avatarAlt} />
       <Box>
         {firstname ? (
