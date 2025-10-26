@@ -8,10 +8,9 @@ export const userSchema = z.object({
   b: z.string().min(1, 'Вопрос обязателен'),
   c: z.string().min(1, 'Вопрос обязателен'),
   d: z.string().min(1, 'Вопрос обязателен'),
-  correctAnswer: z.enum(answersKeys, {
-    required_error: 'Выберите верный ответ',
-    invalid_type_error: 'Ошибка выбора',
-  }),
+  correctAnswer: z
+    .enum(answersKeys)
+    .refine((val) => !!val, { message: 'Выберите верный ответ' }),
 });
 
 export type FormData = z.infer<typeof userSchema>;
