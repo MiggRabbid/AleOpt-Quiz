@@ -14,10 +14,10 @@ const QuestionListItemOpenedAnswer = (props: IQuestionListItemOpenedAnswerProps)
   return (
     <Button
       onClick={() => onSelectAnswer(answer.id)}
-      className={`gap-4 rounded-xl! border-2! border-green-200! px-4! py-4! ${isSelectAnswer ? 'bg-green-600! hover:bg-green-500!' : 'bg-green-100! hover:bg-green-200!'}`}
+      className={`gap-4 rounded-xl! px-4! py-4! shadow-md ${isSelectAnswer ? 'bg-emerald-600! hover:bg-emerald-500!' : 'bg-emerald-100! hover:bg-emerald-200!'}`}
     >
       <Typography
-        className={`flex h-6! w-6! items-center justify-center rounded-full! text-xs! leading-none! font-bold! ${isSelectAnswer ? 'bg-green-500! text-white!' : 'bg-green-300! text-slate-800!'}`}
+        className={`flex h-6! w-6! items-center justify-center rounded-full! text-xs! leading-none! font-bold! ${isSelectAnswer ? 'bg-emerald-500! text-white!' : 'bg-emerald-300! text-slate-800!'}`}
       >
         {answer.id}
       </Typography>

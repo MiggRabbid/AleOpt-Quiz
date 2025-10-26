@@ -65,7 +65,7 @@ const EditorQuestion = (props: IEditorQuestionProps) => {
   }, []);
 
   return (
-    <Box className="flex h-fit max-h-screen! w-fit flex-col gap-0 overflow-y-auto">
+    <Box className="flex h-fit max-h-screen! w-fit flex-col gap-0 overflow-y-auto p-6">
       <Box className="flex h-fit w-full flex-col gap-5">
         <h4 className="text-3xl font-bold">
           {isNewQuestion ? 'Создание вопроса' : 'Редактирование вопроса'}

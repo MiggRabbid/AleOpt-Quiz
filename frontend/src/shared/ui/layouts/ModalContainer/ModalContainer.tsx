@@ -27,7 +27,7 @@ const ModalContainer = (props: IModalContainerProps) => {
       className="flex items-center justify-center"
     >
       <Box
-        className="relative flex h-fit w-fit items-center justify-center rounded-xl bg-white p-5"
+        className="relative flex h-fit w-fit items-center justify-center rounded-xl bg-white"
         role="document"
       >
         {!withoutExitBtn && (

@@ -53,7 +53,7 @@ const DeleteQuestion = ({ clickOnClose }: IDeleteQuestionProps) => {
   };
 
   return (
-    <Box className="flex h-fit w-120 flex-col gap-5">
+    <Box className="flex h-fit w-120 flex-col gap-5 p-6">
       <Box className="flex h-fit w-full flex-col gap-5">
         <h4 className="text-3xl font-bold">Удаление вопроса</h4>
         <Divider />

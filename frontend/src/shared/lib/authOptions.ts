@@ -62,9 +62,11 @@ export const authOptions = {
       return newToken;
     },
     async session({ session, token }: ICallbackSessionArgs) {
+
       if (token && session.user) {
         const newSession = {
           ...session,
+
           user: {
             ...session.user,
             id: token.id,

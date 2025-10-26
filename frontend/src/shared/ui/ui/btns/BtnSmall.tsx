@@ -26,7 +26,7 @@ const BtnSmall = (props: IBtnSmallProps) => {
       fullWidth={fullWidth}
       variant={variant}
       color={color}
-      className="h-10! min-h-10! rounded-xl! bg-white! leading-none! font-bold! shadow-none! outline-0!"
+      className="h-10! min-h-10! rounded-xl! bg-white! leading-none! font-bold! shadow-xl! outline-0!"
       sx={{
         paddingX: '20px',
         paddingY: '5px',

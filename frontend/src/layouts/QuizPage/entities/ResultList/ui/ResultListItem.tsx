@@ -24,11 +24,11 @@ const ResultListItem = (props: IResultListItemProps) => {
 
   const chipClass = clsx(
     'h-11! w-fit! min-w-11! rounded-full! text-base! font-bold! uppercase',
-    isCorrectAnswer ? 'bg-emerald-100! text-emerald-400!' : 'bg-rose-100! text-rose-400!',
+    isCorrectAnswer ? 'bg-emerald-200! text-emerald-600!' : 'bg-rose-200! text-rose-600!',
   );
   return (
     <Accordion
-      className="shadow-small! rounded-xl! border-0! border-slate-100! p-2! outline-0!"
+      className="shadow-small! rounded-xl! border-0! border-slate-200! p-2! outline-0!"
       sx={{
         '&::before': { display: 'none' },
       }}
@@ -47,7 +47,7 @@ const ResultListItem = (props: IResultListItemProps) => {
         <Box className="mb-auto! flex shrink-0 grow-0 items-start">
           <Chip
             label={index + 1}
-            className="h-11! w-11! shrink-0 grow-0 rounded-full! bg-slate-100! text-base! font-bold! text-slate-800!"
+            className="h-11! w-11! shrink-0 grow-0 rounded-full! bg-slate-200! text-base! font-bold! text-slate-800!"
             variant="filled"
           />
         </Box>
@@ -66,7 +66,7 @@ const ResultListItem = (props: IResultListItemProps) => {
           />
         </Box>
       </AccordionSummary>
-      <Box className="flex w-full flex-col gap-2 px-4">
+      <Box className="flex w-full flex-col gap-2 px-4 mb-4">
         {currQuestion &&
           currQuestion.answers.map((answer) => (
             <ResultListItemAnswer

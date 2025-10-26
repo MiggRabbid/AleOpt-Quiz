@@ -26,14 +26,14 @@ const BtnMain = (props: IBtnMainProps) => {
       fullWidth={fullWidth}
       variant={variant}
       color={color}
-      className={`h-14! min-h-14! rounded-xl! ${variant === 'text' ? 'bg-white!' : ''} outline-0!" leading-none! font-bold! shadow-none!`}
+      className={`h-14! min-h-14! rounded-xl! ${variant === 'text' ? 'bg-white!' : ''} outline-0!" leading-none! font-bold! shadow-xl!`}
       sx={{
         paddingX: '20px',
         paddingY: '5px',
       }}
     >
       {isLoading && <CircularProgress sx={{ color: 'white !important' }} size={30} />}
-      {!isLoading && btnText + '555'}
+      {!isLoading && btnText}
     </Button>
   );
 };

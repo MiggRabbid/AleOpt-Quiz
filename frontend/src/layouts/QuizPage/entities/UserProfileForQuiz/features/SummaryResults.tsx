@@ -20,7 +20,7 @@ const SummaryResults = () => {
   if (status === 'loading' || allQuestions.length === 0) {
     return (
       <Box
-        className="flex w-full grow flex-col items-center justify-center gap-10 rounded-xl px-10 py-10"
+        className="flex w-full grow flex-col items-center justify-center gap-10 rounded-2xl px-10 py-10"
         id="SummaryResults"
       >
         <CircularProgress color="success" size={40} />
@@ -30,7 +30,7 @@ const SummaryResults = () => {
 
   return (
     <Box
-      className="flex flex-col gap-10 rounded-xl border-2 border-slate-100 bg-white/90 px-10 py-10"
+      className="flex flex-col items-center justify-center gap-10 rounded-2xl bg-slate-50 px-10 py-10 shadow-xl"
       id="SummaryResults"
     >
       {allQuestionsCompleted ? (

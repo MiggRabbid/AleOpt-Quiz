@@ -9,10 +9,10 @@ import { getQuizStateField } from '@/selectors';
 // Компоненты
 import { QuestionListItemOpened } from './ui/QuestionListItemOpened';
 import { QuestionListItemClosed } from './ui/QuestionListItemClosed';
+import { PlugForEmptyData } from '@/shared/ui/ui/Plug/PlugForEmptyData';
+import { ResultList } from '../ResultList/ResultList';
 //Типизация
 import { iQuestion } from '@/types/quiz.types';
-import { ResultList } from '../ResultList/ResultList';
-import { PlugForEmptyData } from '@/shared/ui/ui/Plug/PlugForEmptyData';
 
 interface IQuestionListProps {
   questions: iQuestion[] | null;

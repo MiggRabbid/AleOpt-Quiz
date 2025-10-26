@@ -6,11 +6,9 @@ import type { Session } from 'next-auth';
 import { authOptions } from '@/shared/lib';
 import { api } from '@/shared/api';
 // Компоненты
-import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
-import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
+import { SideMain, SideSecond, SideFull } from '@/shared/ui/layouts/';
 import { UserProfile } from '@/entities/UserProfile';
 import { UserStats } from '@/entities/UserStats';
-import { SideFull } from '@/shared/ui/layouts/SideFull/SideFull';
 
 const ProfilePage = async () => {
   const session: Session | null = await getServerSession(authOptions);
@@ -24,7 +22,7 @@ const ProfilePage = async () => {
   });
 
   return (
-    <SideFull id="ProfilePage">
+    <SideFull id="ProfilePage" type="main">
       <SideSecond>
         <UserProfile user={user} userStats={userStats} />
       </SideSecond>

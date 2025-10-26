@@ -16,7 +16,7 @@ const ResultListItemAnswer = (props: IResultListItemAnswerProps) => {
   const { question, answer } = props;
 
   const detailsClass = clsx(
-    'gap-4border-0! flex gap-4 rounded-xl! border-2! px-4! py-4',
+    'gap-4 border-0! justify-start items-center flex gap-4 rounded-xl! px-4! py-4!',
     getAnswerBorder(question.correctAnswerId, question.userAnswerId, answer.id),
   );
 

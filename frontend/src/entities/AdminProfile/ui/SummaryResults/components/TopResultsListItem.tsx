@@ -17,18 +17,18 @@ const TopResultsListItem = (props: ITopResultsListItemProps) => {
   );
 
   const wrapperClass = clsx(
-    'flex h-fit! w-full! shrink-0 grow flex-col justify-center gap-2 rounded-xl border-2 p-2',
-    isEasiest ? 'border-emerald-100 bg-emerald-50' : 'border-rose-100 bg-rose-50',
+    'flex h-fit! w-full! shrink-0 grow flex-col justify-center gap-2 rounded-xl p-2',
+    isEasiest ? 'border-emerald-200 bg-emerald-100' : 'border-rose-200 bg-rose-100',
   );
 
   const indexWrapperClass = clsx(
     'flex w-full! flex-row items-center gap-2 border-b-2 pb-2',
-    isEasiest ? 'border-emerald-100' : 'border-rose-100',
+    isEasiest ? 'border-emerald-200' : 'border-rose-200',
   );
 
   const indexTextClass = clsx(
     'flex size-5 shrink-0 items-center justify-center rounded-full text-sm!',
-    isEasiest ? 'bg-emerald-100' : 'bg-rose-100',
+    isEasiest ? 'bg-emerald-200' : 'bg-rose-200',
   );
 
   const attemptClass = clsx(
@@ -59,13 +59,13 @@ const TopResultsListItem = (props: ITopResultsListItemProps) => {
         <Box className="flex w-full! flex-row items-center justify-between gap-4">
           <Typography
             align="right"
-            className="w-fit! text-sm! font-semibold! text-slate-500"
+            className="w-fit! text-sm! font-semibold! text-slate-600"
           >
             Всего попыток:
           </Typography>
           <Typography
             align="right"
-            className="w-fit! text-sm! font-semibold! text-slate-500"
+            className="w-fit! text-sm! font-semibold! text-slate-600"
           >
             {result.numberAttempts}
           </Typography>
@@ -74,13 +74,13 @@ const TopResultsListItem = (props: ITopResultsListItemProps) => {
         <Box className="flex w-full! flex-row items-center justify-between gap-4">
           <Typography
             align="right"
-            className="w-fit! text-sm! font-semibold! text-slate-500"
+            className="w-fit! text-sm! font-semibold! text-slate-600"
           >
             Средний результат:
           </Typography>
           <Typography
             align="right"
-            className="w-fit! text-sm! font-semibold! text-slate-500"
+            className="w-fit! text-sm! font-semibold! text-slate-600"
           >
             {result.averageResult}%
           </Typography>

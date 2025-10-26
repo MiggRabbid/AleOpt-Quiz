@@ -1,16 +1,16 @@
 .container {
   width: 100%;
-  background: linear-gradient(
+  /* background: linear-gradient(
     -45deg,
-    #00eff8,
-    #f800b4,
-    #ebf503,
-    #02f6c1,
-    #00eff8,
-    #9400f8
+    #c5ffde,
+    #ffc6f0,
+    #fdffc4,
+    #c7fff3,
+    #c8fdff,
+    #e8c6ff
   );
   background-size: 400% 400%;
-  animation: gradient 30s ease infinite;
+  animation: gradient 30 ease infinite; */
   height: 100dvh;
 }
 

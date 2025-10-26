@@ -55,8 +55,8 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
   const attemptClass = clsx(
     'flex h-full! w-fit! items-center justify-center rounded-full! px-3! py-1! text-xs! leading-none! font-bold!',
     {
-      'bg-green-200! text-green-600!': !!user?.numberAttempts && user?.numberAttempts > 0,
-      'bg-green-200! text-green-300!':
+      'bg-slate-200! text-slate-600!': !!user?.numberAttempts && user?.numberAttempts > 0,
+      'bg-slate-200! text-slate-300!':
         !user?.numberAttempts || user?.numberAttempts === 0,
     },
   );
@@ -68,13 +68,13 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
       'bg-rose-200! text-rose-900!': !!user?.lastResult && user?.lastResult <= 50,
       'bg-orange-200! text-orange-900!':
         !!user?.lastResult && user?.lastResult > 50 && user?.lastResult < 66,
-      'bg-green-200! text-green-300!': !user?.lastResult,
+      'bg-slate-200! text-slate-300!': !user?.lastResult,
     },
   );
 
   return (
     <Accordion
-      className="rounded-xl! border bg-green-50! shadow-sm!"
+      className="rounded-xl! border-0 bg-slate-50! shadow-sm!"
       sx={{
         '&:before': { display: 'none !important' },
       }}
@@ -83,13 +83,13 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`UsersListItem-${user.username}`}
         id={`UsersListItem-${user.username}`}
-        className="flex h-16! min-h-16! w-full! justify-between bg-green-100!"
+        className="flex h-16! min-h-16! w-full! justify-between rounded-xl! bg-slate-100!"
         sx={{
           '& .MuiAccordionSummary-content': { margin: 0 },
         }}
       >
         <Box className="flex grow-1 items-center">
-          <Typography className="me-2! flex h-6! w-6! items-center justify-center rounded-full! bg-green-300! text-xs! leading-none! font-bold! text-slate-800!">
+          <Typography className="me-2! flex h-6! w-6! items-center justify-center rounded-full! bg-slate-500! text-xs! leading-none! font-bold! text-slate-50!">
             {index}
           </Typography>
 
@@ -100,7 +100,7 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
               </Typography>
 
               {user.role !== UserRoles.Employee && (
-                <Typography className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-green-200! px-2! py-1! text-xs! leading-none! font-bold! text-green-600!">
+                <Typography className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! text-slate-600!">
                   {user.role}
                 </Typography>
               )}
@@ -108,7 +108,7 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
               {activeUser && (
                 <Typography
                   component="span"
-                  className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-green-200! px-2! py-1! text-xs! leading-none! font-bold! text-green-600!"
+                  className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! text-slate-600!"
                 >
                   это вы
                 </Typography>
@@ -149,8 +149,9 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
           </Box>
         </Box>
       </AccordionSummary>
+
       <AccordionDetails className="w-full!">
-        <Box className="w-full!">
+        <Box className="w-full! mb-5">
           <Box className="flex w-full! justify-between py-2! ps-6!">
             <Typography component="span" className="font-semibold! text-slate-500!">
               Логин: {user.username}

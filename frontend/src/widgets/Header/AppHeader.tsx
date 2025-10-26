@@ -1,12 +1,15 @@
-'use client';
-
+// Библиотеки
 import { Box } from '@mui/material';
+import { headers } from 'next/headers';
+import { getServerSession } from 'next-auth';
+// Логика
+import { routes } from '@/shared/config/routes';
+import { authOptions } from '@/shared/lib';
+// Компоненты
+import { BtnLogo, BtnRedirect, BtnLogout, HeaderClientWrapper } from './components';
 
-import { BtnLogo } from './components/BtnLogo';
-import { BtnRedirect } from './components/BtnRedirect';
-import { BtnLogout } from './components/BtnLogout';
+const AppHeader = async () => {
 
-const AppHeader = () => {
   return (
     <Box
       component="header"
@@ -17,13 +20,11 @@ const AppHeader = () => {
           component="nav"
           className="flex w-full! flex-row items-center justify-between"
         >
-          <Box sx={{ minWidth: '120px', maxWidth: '200px', border: 'none' }}>
-            <BtnLogo />
-          </Box>
-          <Box className="flex items-center justify-end gap-4">
-            <BtnRedirect />
-            <BtnLogout />
-          </Box>
+          <HeaderClientWrapper
+            BtnLogo={<BtnLogo />}
+            BtnRedirect={<BtnRedirect />}
+            BtnLogout={<BtnLogout />}
+          />
         </Box>
       </Box>
     </Box>

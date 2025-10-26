@@ -6,11 +6,9 @@ import type { Session } from 'next-auth';
 import { authOptions } from '@/shared/lib';
 import { api } from '../../shared/api';
 // Компоненты
-import { SideMain } from '@/shared/ui/layouts/SideMain/SideMain';
-import { SideSecond } from '@/shared/ui/layouts/SideSecond/SideSecond';
-import { QuestionList } from './entities/QuestionList/QuestionList';
-import { UserProfileForQuiz } from './entities/UserProfileForQuiz/UserProfileForQuiz';
-import { SideFull } from '@/shared/ui/layouts/SideFull/SideFull';
+import { SideMain, SideSecond, SideFull } from '@/shared/ui/layouts/';
+import { QuestionList } from './entities/QuestionList';
+import { UserProfileForQuiz } from './entities/UserProfileForQuiz';
 
 const QuizPage = async () => {
   const session: Session | null = await getServerSession(authOptions);
@@ -21,7 +19,7 @@ const QuizPage = async () => {
   const questions = await api.getAllQuestions();
 
   return (
-    <SideFull id="QuizPage">
+    <SideFull id="QuizPage" type="main">
       <SideSecond>
         <UserProfileForQuiz user={user} />
       </SideSecond>
@@ -32,7 +30,7 @@ const QuizPage = async () => {
             height: 'calc(100dvh - 91px - 14px - 14px - 20px - 20px)',
           }}
         >
-          <QuestionList questions={questions ?? []} />
+          <QuestionList questions={questions?.slice(0, 6) ?? []} />
         </Box>
       </SideMain>
     </SideFull>

@@ -1,6 +1,6 @@
 'use client';
 // Библиотеки
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { BtnMain } from '@/shared/ui/ui/btns';
@@ -21,7 +21,7 @@ const BtnEndQuiz = () => {
   const [isPending, startTransition] = useTransition();
   const { delResult, delTimer } = useLocalStorage();
 
-  const { clearResultState } = useAppActions();
+  const { clearAllState } = useAppActions();
   const currentResult = useAppSelector(getQuizStateField('currentResult'));
   const isStarted = useAppSelector(getQuizStateField('isStarted'));
   const allQuestionsCompleted = useAppSelector(
@@ -29,6 +29,12 @@ const BtnEndQuiz = () => {
   );
 
   const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  const clearQuizState = () => {
+    clearAllState();
+    delResult();
+    delTimer();
+  };
 
   const handelClickSaveBtn = async () => {
     setIsFetching(true);
@@ -55,12 +61,11 @@ const BtnEndQuiz = () => {
         },
       });
 
-      clearResultState();
-      delResult();
-      delTimer();
       startTransition(() => {
         router.push(routes.main);
       });
+
+      clearQuizState();
     } catch (e) {
       console.error(e);
     } finally {
@@ -72,8 +77,8 @@ const BtnEndQuiz = () => {
     startTransition(() => {
       router.push(routes.main);
     });
-    delResult();
-    delTimer();
+
+    clearQuizState();
   };
 
   return (

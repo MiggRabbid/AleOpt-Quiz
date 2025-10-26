@@ -14,7 +14,7 @@ const CustomButtonGroup = (props: ICustomButtonGroupProps) => {
   const isUsersActive = activeTab === TypeStatsTab.users;
   const isQuestionActive = activeTab === TypeStatsTab.questions;
   return (
-    <ButtonGroup className="h-10! min-h-10! rounded-xl!">
+    <ButtonGroup className="h-fit rounded-xl! shadow-xl!">
       <Button
         color="success"
         className={`h-10! min-h-10! w-40! min-w-40! rounded-s-xl! leading-none! font-bold! shadow-none! outline-0! ${!isUsersActive ? 'bg-white!' : ''}`}

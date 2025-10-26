@@ -9,7 +9,7 @@ import { UserAvatar } from '@/shared/ui/ui/UserAvatar/UserAvatar';
 // Типизация
 import { UserRoles, userRolesMap } from '@/types/staff.types';
 
-interface ProfileHeader {
+interface ProfileCard {
   role: UserRoles;
   firstname: string;
   lastname: string;
@@ -17,7 +17,7 @@ interface ProfileHeader {
   avatarSrc?: string;
 }
 
-const ProfileHeader = (props: ProfileHeader) => {
+const ProfileCard = (props: ProfileCard) => {
   const { role, firstname, lastname, avatarAlt, avatarSrc } = props;
 
   const { clearCurrentResult, setQuizStateField } = useAppActions();
@@ -40,7 +40,7 @@ const ProfileHeader = (props: ProfileHeader) => {
   }, []);
 
   return (
-    <Box className="flex flex-row items-center justify-start gap-4 rounded-xl bg-white px-2 py-3">
+    <Box className="flex flex-row items-center justify-start gap-4 rounded-2xl bg-slate-50 px-2 py-3 shadow-xl">
       <UserAvatar src={avatarSrc} alt={avatarAlt} />
       <Box>
         {firstname ? (
@@ -74,4 +74,4 @@ const ProfileHeader = (props: ProfileHeader) => {
   );
 };
 
-export { ProfileHeader };
+export { ProfileCard };

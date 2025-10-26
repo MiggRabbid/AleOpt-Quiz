@@ -3,13 +3,19 @@
 import { Button, CircularProgress } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { signOut, useSession } from 'next-auth/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { routes } from '@/shared/config/routes';
+import { usePathname } from 'next/navigation';
 
 const BtnLogout = () => {
+  const pathname = usePathname();
   const { data: session } = useSession();
+
   const [isLoading, setIsLoading] = useState(false);
 
-  if (!session?.user) return null;
+  const isLoginPage = pathname === routes.login;
+
+  if (!session?.user || isLoginPage) return null;
 
   const handelClickSignOut = async () => {
     setIsLoading(true);
@@ -26,7 +32,7 @@ const BtnLogout = () => {
     <Button
       variant="text"
       color="success"
-      className="order-0! h-10! min-h-10! rounded-xl! bg-white! leading-none! font-bold! shadow-none! outline-0!"
+      className="order-0! h-10! min-h-10! w-40 rounded-xl! bg-white! leading-none! font-bold! shadow-xl! outline-0!"
       onClick={handelClickSignOut}
       disabled={isLoading}
       sx={{

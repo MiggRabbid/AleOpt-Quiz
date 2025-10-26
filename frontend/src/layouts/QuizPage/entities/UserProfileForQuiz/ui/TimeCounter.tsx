@@ -13,7 +13,14 @@ const TimeCounter = () => {
     getQuizStateField('quizTimer'),
   );
 
+  useEffect(() => {
+    console.group('TimeCounter');
+    console.log(currTime);
+    console.groupEnd;
+  }, [currTime]);
+
   const { setTimer } = useLocalStorage();
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {

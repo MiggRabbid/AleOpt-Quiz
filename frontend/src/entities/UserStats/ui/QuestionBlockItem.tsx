@@ -18,21 +18,21 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
   const answerCountText = isEasiest ? 'Верных ответов:' : 'Неверных ответов:';
 
   const wrapperClass = clsx(
-    'flex h-fit w-full shrink-0 grow flex-col justify-start gap-2 rounded-xl px-2 py-2',
+    'flex h-fit w-full shrink-0 grow-0 flex-col justify-center gap-2 rounded-xl px-2.5 py-2.5',
     {
-      'bg-emerald-50': isEasiest,
-      'bg-rose-50': !isEasiest,
+      'bg-emerald-100': isEasiest,
+      'bg-rose-100': !isEasiest,
     },
   );
 
   const headerClass = clsx('flex flex-row gap-2 border-b-2 pb-2', {
-    'border-emerald-100': isEasiest,
-    'border-rose-100': !isEasiest,
+    'border-emerald-200': isEasiest,
+    'border-rose-200': !isEasiest,
   });
 
   const indexClass = clsx(
     'flex size-7 shrink-0 items-center justify-center rounded-full text-base',
-    { 'bg-emerald-100': isEasiest, 'bg-rose-100': !isEasiest },
+    { 'bg-emerald-200': isEasiest, 'bg-rose-200': !isEasiest },
   );
 
   const answerCountClass = clsx('text-normal ms-1 w-fit font-semibold!', {

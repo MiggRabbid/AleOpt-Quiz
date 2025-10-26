@@ -12,11 +12,11 @@ const QuestionListItemOpenedBtn = (props: IQuestionListItemOpenedBtnProps) => {
     <Button
       onClick={onConfirmAnswer}
       disabled={disabled}
-      className="rounded-xl! border-0! bg-green-600! px-4! py-4! hover:bg-green-500! disabled:bg-green-50! disabled:bg-green-200!"
+      className="rounded-xl! border-0! bg-emerald-600! px-4! py-4! shadow-md hover:bg-emerald-500! disabled:bg-emerald-50! disabled:bg-emerald-200!"
     >
       <Typography
         align="left"
-        className={`${disabled ? 'font-medium! text-green-300!' : 'font-semibold! text-white!'} w-full font-semibold! text-white`}
+        className={`${disabled ? 'font-medium! text-emerald-300!' : 'font-semibold! text-white!'} w-full font-semibold! text-white`}
       >
         Подтвердить
       </Typography>

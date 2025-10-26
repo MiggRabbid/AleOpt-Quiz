@@ -5,7 +5,7 @@ import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
 import { sortUsersByResult } from '@/shared/lib';
 
-import { TopResultsList } from './ui/TopResultsList';
+import { TopResultsList } from './components';
 
 const SummaryResults = () => {
   const results = useAppSelector(getQuizStateField('results'));
@@ -16,7 +16,7 @@ const SummaryResults = () => {
 
   return (
     <Box
-      className="flex w-full flex-col gap-2 rounded-xl bg-white p-4"
+      className="flex w-full flex-col gap-2 rounded-3xl bg-slate-50 p-4 shadow-xl"
       id="SummaryResults"
     >
       <Box className="flex grow flex-col justify-start gap-2">

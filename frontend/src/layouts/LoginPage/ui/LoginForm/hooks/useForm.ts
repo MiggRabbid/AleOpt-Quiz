@@ -26,15 +26,11 @@ export const useLoginForm = () => {
   }, [isSubmitting, isLoading]);
 
   const onSubmit = async (data: FormData) => {
-    console.group('authorize start');
     const response = await signIn('credentials', {
       redirect: false,
       username: data.username,
       password: data.password,
     });
-
-    console.log(response);
-    console.groupEnd();
     if (response?.error) {
       setIsFetching(false);
       setError('username', { message: 'Пользователь не найден' });
@@ -44,7 +40,6 @@ export const useLoginForm = () => {
 
   const redirect = (role: string) => {
     if (!role) return;
-    setIsFetching(false);
     switch (role) {
       case 'Admin':
       case 'Owner':

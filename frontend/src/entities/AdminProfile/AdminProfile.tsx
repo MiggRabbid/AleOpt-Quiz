@@ -5,11 +5,11 @@ import { Box } from '@mui/material';
 // Логика
 import { useAppActions } from '@/hooks';
 // Компоненты
-import { ProfileHeader } from './ui/ProfileHeader';
-import { SummaryResults } from './ui/SummaryResults/SummaryResults';
+import { SummaryResults } from './ui';
 // Типизация
 import { iUser, UserRoles } from '@/types/staff.types';
 import { iUserStats } from '@/types/stats.types';
+import { ProfileCard } from '@/features/ProfileCard';
 
 interface IAdminProfileProps {
   user: iUser | null;
@@ -35,7 +35,7 @@ const AdminProfile = (props: IAdminProfileProps) => {
       className="flex h-full w-full flex-col justify-start gap-5.5 pt-2 pb-3.5"
       id="AdminProfile"
     >
-      <ProfileHeader
+      <ProfileCard
         role={user?.role || UserRoles.Employee}
         firstname={user?.firstName || 'Нет данных'}
         lastname={user?.lastName || ''}

@@ -6,14 +6,10 @@ import { Button } from '@mui/material';
 import { useRouter, usePathname } from 'next/navigation';
 // Компоненты
 import { routes } from '@/shared/config/routes';
-import { useAppSelector } from '@/hooks';
-import { getQuizStateField } from '@/selectors';
 
 const BtnLogo = () => {
-  const pathname = usePathname();
   const router = useRouter();
-
-  const isStarted = useAppSelector(getQuizStateField('isStarted'));
+  const pathname = usePathname();
 
   const handelClick = () => {
     if (pathname !== routes.profile) {
@@ -24,7 +20,6 @@ const BtnLogo = () => {
   return (
     <Button
       onClick={handelClick}
-      disabled={isStarted}
       variant="outlined"
       sx={{
         height: '60px',

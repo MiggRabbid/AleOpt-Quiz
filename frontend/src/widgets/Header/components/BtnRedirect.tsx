@@ -2,23 +2,26 @@
 // Библиотеки
 import { useRouter, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-
+// Компоненты
 import { routes } from '@/shared/config/routes';
 import { BtnSmall } from '@/shared/ui/ui/btns';
-
+// Типизация
 import { UserRoles } from '@/types/staff.types';
+import { Box } from '@mui/material';
+import { useEffect } from 'react';
 
 export const BtnRedirect = () => {
   const router = useRouter();
   const pathname = usePathname();
 
   const { data: session } = useSession();
-
-  const isAdminOrOwner =
+  
+  const isLoginPage = pathname === routes.login;
+  const isModerator =
     session?.user.role === UserRoles.Admin || session?.user.role === UserRoles.Owner;
   const isAdminPage = pathname === routes.admin;
 
-  if (!isAdminOrOwner) return null;
+  if (!isModerator || !session.user || isLoginPage) return null;
 
   const handelClickBtn = () => {
     if (isAdminPage) {
@@ -36,5 +39,14 @@ export const BtnRedirect = () => {
     }
   };
 
-  return <BtnSmall btnText={getBtnText()} btnClick={handelClickBtn} variant="text" />;
+  return (
+    <Box className="h-fir w-40">
+      <BtnSmall
+        btnText={getBtnText()}
+        btnClick={handelClickBtn}
+        variant="text"
+        fullWidth
+      />
+    </Box>
+  );
 };

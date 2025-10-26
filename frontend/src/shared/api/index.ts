@@ -15,22 +15,18 @@ import { iQuestion, iQuestionResponse } from '@/types/quiz.types';
 export const api = {
   /* Авторизация */
   login: async (data: iRequestLogin): Promise<iResponseLogin | null> => {
-    console.group('authorize start');
     try {
       const response = await sendRequest({
         method: TypeAxiosMethod.post,
         endpoint: requestsPath.login(),
         data: data,
       });
-      console.log(response);
       return response.data;
     } catch (error: any) {
       console.log(error);
       const throwError = getReturnedError<iResponseLogin>(error);
       console.error('login', throwError);
       return null;
-    } finally {
-      console.groupEnd();
     }
   },
 

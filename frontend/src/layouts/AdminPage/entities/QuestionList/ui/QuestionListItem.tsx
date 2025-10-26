@@ -45,7 +45,7 @@ const QuestionListItem = (props: IQuestionListItemProps) => {
 
   return (
     <Accordion
-      className="rounded-md! border-2! border-green-200! bg-green-50! shadow-sm!"
+      className="rounded-xl! bg-slate-50! shadow-sm!"
       sx={{
         '&:before': { display: 'none !important' },
       }}
@@ -54,10 +54,10 @@ const QuestionListItem = (props: IQuestionListItemProps) => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`UsersListItem-${question.id}`}
         id={`UsersListItem-${question.id}`}
-        className="flex min-h-16! w-full! justify-between bg-green-100!"
+        className="flex min-h-16! w-full! justify-between rounded-xl! bg-slate-100!"
       >
         <Box className="align-start flex w-full max-w-full items-center gap-3">
-          <Typography className="flex h-6! w-fit! min-w-6! shrink-0 items-center justify-center rounded-full! bg-green-300! text-sm! leading-none! font-bold! text-slate-800!">
+          <Typography className="flex h-6! w-fit! min-w-6! shrink-0 items-center justify-center rounded-full! bg-slate-200! text-sm! leading-none! font-bold! text-slate-800!">
             {index}
           </Typography>
 

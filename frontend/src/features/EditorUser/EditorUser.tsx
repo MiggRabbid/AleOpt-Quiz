@@ -100,7 +100,7 @@ const EditorUser = (props: IEditorUserProps) => {
   }, [avatarsMap]);
 
   return (
-    <Box className="flex h-fit w-170 flex-col gap-10">
+    <Box className="flex h-fit w-200 flex-col gap-10 p-6">
       <Box className="flex h-fit w-full flex-col gap-5">
         <h4 className="text-3xl font-bold">
           {isNewUser ? 'Создание пользователя' : 'Редактирование пользователя'}
@@ -112,7 +112,7 @@ const EditorUser = (props: IEditorUserProps) => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex! h-fit w-full flex-row! flex-wrap! items-center justify-center gap-x-5 gap-y-2"
       >
-        <Box className="w-80">
+        <Box className="w-90">
           <CustomInput
             type="text"
             label="Введите Имя"
@@ -121,7 +121,7 @@ const EditorUser = (props: IEditorUserProps) => {
             helperText={errors.firstName?.message}
           />
         </Box>
-        <Box className="w-80">
+        <Box className="w-90">
           <CustomInput
             type="text"
             label="Введите Фамилию"
@@ -130,7 +130,7 @@ const EditorUser = (props: IEditorUserProps) => {
             helperText={errors.lastName?.message}
           />
         </Box>
-        <Box className="w-80">
+        <Box className="w-90">
           <CustomInput
             type="text"
             label="Введите логин"
@@ -139,7 +139,7 @@ const EditorUser = (props: IEditorUserProps) => {
             helperText={errors.username?.message}
           />
         </Box>
-        <Box className="w-80">
+        <Box className="w-90">
           <CustomInput
             type="password"
             label="Введите пароль"
@@ -149,7 +149,7 @@ const EditorUser = (props: IEditorUserProps) => {
             disabled={!passIsActive}
           />
         </Box>
-        <Box className="flex w-100 gap-x-5 gap-y-2">
+        <Box className="flex w-120 gap-x-5 gap-y-2">
           <Box className="w-50">
             <CustomSelect
               label="Выберите роль"

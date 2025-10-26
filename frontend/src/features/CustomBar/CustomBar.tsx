@@ -63,7 +63,7 @@ const CustomBar = (props: ICustomLineProps) => {
       >
         Динамика попыток
       </Typography>
-      <Box className="h-80 rounded-xl bg-cyan-50 p-4">
+      <Box className="h-80 rounded-xl bg-cyan-100 p-4">
         {isEmpty && <PlugForEmptyData isSmall />}
         {!isEmpty && <Bar data={data} options={options} />}
       </Box>

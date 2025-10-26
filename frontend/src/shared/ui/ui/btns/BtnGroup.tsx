@@ -47,7 +47,7 @@ const BtnGroup = (props: IBtnGroupProps) => {
         variant={leftBtnVariant}
         color={leftBtnColor}
         disabled={isLoading}
-        className="min-h-10! flex-1! rounded-xl! border-0! outline-0!"
+        className="min-h-10! flex-1! rounded-xl! border-0! shadow-xl! outline-0!"
       >
         {leftBtnText}
       </Button>
@@ -57,7 +57,7 @@ const BtnGroup = (props: IBtnGroupProps) => {
         color={rightBtnColor}
         type={rightBtnType}
         disabled={isLoading || disabledRight}
-        className="min-h-10! flex-1! items-center justify-center gap-2 rounded-xl!"
+        className="min-h-10! flex-1! items-center justify-center gap-2 rounded-xl! shadow-xl!"
       >
         {isLoading && <CircularProgress sx={{ color: 'white !important' }} size={30} />}
         {rightBtnText}

@@ -8,7 +8,7 @@
     border-color: rgba(255, 255, 255, 0.18);
   }
   .shadow-glass {
-    box-shadow: 0 4px 16px 0 #0d2626;
+    box-shadow: 0 4px 16px 0 rgba(65, 65, 65, 0.7);
   }
 }
 

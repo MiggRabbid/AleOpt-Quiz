@@ -6,15 +6,15 @@ export const getAnswerBorder = (
   const isCorrectAnswer = correctAnswerId === answerId;
   const isSelectAnswer = userAnswerId === answerId;
   if (isCorrectAnswer && isSelectAnswer) {
-    return 'border-emerald-200! bg-emerald-50!';
+    return 'border-emerald-200! bg-emerald-100!';
   }
   if (!isCorrectAnswer && isSelectAnswer) {
-    return 'border-rose-200! bg-rose-50!';
+    return 'border-rose-200! bg-rose-100!';
   }
   if (isCorrectAnswer) {
-    return 'border-blue-200! bg-blue-50!';
+    return 'border-blue-200! bg-blue-100!';
   }
-  return 'border-slate-200! bg-slate-50!';
+  return 'border-slate-200! bg-slate-100!';
 };
 
 export const getAnswerIdBg = (

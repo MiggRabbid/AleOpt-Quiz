@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import './styles/globals.css';
 import styles from './layout.module.css';
 // компоненты
-import { AppHeader } from '@/widgets/Header/AppHeader';
+import { AppHeader } from '@/widgets/Header';
 import { StoreProvider, SessionProvider } from '@/providers';
 // Мета данные
 export const metadata: Metadata = {
@@ -19,12 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${styles.container} flex flex-col justify-start text-slate-900`}>
+      <body className={`${styles.container} flex flex-col justify-start text-slate-900 bg-emerald-300`}>
         <SessionProvider>
-          <StoreProvider>
-            <AppHeader />
-            {children}
-          </StoreProvider>
+          <AppHeader />
+          <StoreProvider>{children}</StoreProvider>
         </SessionProvider>
       </body>
     </html>
