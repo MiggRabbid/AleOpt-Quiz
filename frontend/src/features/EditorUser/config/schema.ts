@@ -25,13 +25,11 @@ export const getUserSchema = (requiredPass: boolean) => {
           .max(20, 'Пароль должен быть от 6 до 20 символов')
           .optional()
           .or(z.literal('')),
-    role: z.nativeEnum(UserRoles, {
-      required_error: 'Выберите роль пользователя',
-      invalid_type_error: 'Неверная роль',
+    role: z.nativeEnum(UserRoles).refine((val) => !!val, {
+      message: 'Выберите роль пользователя',
     }),
-    gender: z.nativeEnum(UserGender, {
-      required_error: 'Выберите пол пользователя',
-      invalid_type_error: 'Неверный пол',
+    gender: z.nativeEnum(UserGender).refine((val) => !!val, {
+      message: 'Выберите пол пользователя',
     }),
     image: z.string().min(1, 'Аватар не выбран'),
   });
