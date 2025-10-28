@@ -23,7 +23,7 @@ const UsersList = () => {
   }
 
   return (
-    <Box className="mx-auto! flex h-full! w-full max-w-5xl flex-col gap-2 px-4!">
+    <Box className="mx-auto! flex h-full! w-full max-w-7xl flex-col gap-2 px-4!">
       {users.map((user: iUser, index: number) => {
         return (
           <UsersListItem

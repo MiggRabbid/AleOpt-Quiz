@@ -18,7 +18,7 @@
 
   --shadow-small: 0px 0px 6px 0px rgba(0, 130, 54, 0.3);
   --shadow-main: 0px 0px 8px 0px rgba(0, 130, 54, 0.3);
-  --shadow-block: 0px 4px 6px -1px rgba(144, 161, 185, 0.3);
+  --shadow-block: 0 4px 16px 0 rgba(65, 65, 65, 0.7);
 }
 
 *,

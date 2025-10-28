@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
 import { QuestionSummary } from '../utils/getQuestionSummaryFromAttempts';
+import { TooltipTypography } from '@/shared/ui/ui';
 
 interface IQuestionBlockItemProps {
   isEasiest: boolean;
@@ -18,14 +19,14 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
   const answerCountText = isEasiest ? 'Верных ответов:' : 'Неверных ответов:';
 
   const wrapperClass = clsx(
-    'flex h-fit w-full shrink-0 grow-0 flex-col justify-center gap-2 rounded-xl px-2.5 py-2.5',
+    'flex h-fit w-full shrink-0 grow-0 flex-col justify-center gap-2 rounded-xl px-3.5 py-3',
     {
       'bg-emerald-100': isEasiest,
       'bg-rose-100': !isEasiest,
     },
   );
 
-  const headerClass = clsx('flex flex-row gap-2 border-b-2 pb-2', {
+  const headerClass = clsx('flex flex-row gap-2 h-15 border-b-2 pb-2', {
     'border-emerald-200': isEasiest,
     'border-rose-200': !isEasiest,
   });
@@ -47,9 +48,22 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
           {index + 1}
         </Typography>
 
-        <Typography align="left" className="text-base!">
+        <TooltipTypography
+          maxRows={2}
+          tooltip={{
+            content: questionText,
+          }}
+          tooltipSlotSx={{
+            tooltip: {
+              sx: {
+                width: '500px !important',
+                minWidth: '500px !important',
+              },
+            },
+          }}
+        >
           {questionText}
-        </Typography>
+        </TooltipTypography>
       </Box>
       <Box className="flex h-fit! w-full! justify-between gap-1 pr-6 pl-9">
         <Typography
