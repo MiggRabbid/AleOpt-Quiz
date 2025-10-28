@@ -2,6 +2,7 @@ import { Box, IconButton } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditSquareIcon from '@mui/icons-material/EditSquare';
+import { CustomIcon } from '../CustomIcon';
 
 type TBtnColor =
   | 'success'
@@ -31,25 +32,25 @@ const BtnGroupEdit = (props: IBtnGroupEditProps) => {
     props;
   return (
     <Box
-      className={`flex h-fit w-fit items-center gap-2 ${withoutMargin ? 'me-0' : 'me-3'} ${col ? 'flex-col' : 'flex-row'}`}
+      className={`flex h-fit w-fit items-center gap-2 rounded-2xl bg-slate-100 px-3 py-2 ${withoutMargin ? 'me-0' : 'me-3'} ${col ? 'flex-col' : 'flex-row'}`}
     >
       <IconButton
         color={colorEdit}
         size={size}
         onClick={onClickEdit}
-        id="btn-group-edit__edit"
-        className="p-0!"
+        id="btn-group-edit-edit"
+        className="h-6 min-h-6 w-6 min-w-6 p-0! hover:opacity-80 hover:scale-105"
       >
-        <EditSquareIcon />
+        <CustomIcon name="EditSquare" />
       </IconButton>
       <IconButton
         color={colorDelete}
         size={size}
         onClick={onClickDelete}
-        id="btn-group-edit__delete"
-        className="p-0!"
+        id="btn-group-edit-delete"
+        className="h-6 min-h-6 w-6 min-w-6 p-0! hover:opacity-80 hover:scale-105"
       >
-        <DeleteIcon />
+        <CustomIcon name="DeleteSweep" />
       </IconButton>
     </Box>
   );

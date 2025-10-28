@@ -1,27 +1,20 @@
 'use client';
 // Библиотеки
-import { useRouter, usePathname } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 // Компоненты
 import { routes } from '@/shared/config/routes';
 import { BtnSmall } from '@/shared/ui/ui/btns';
 // Типизация
-import { UserRoles } from '@/types/staff.types';
 import { Box } from '@mui/material';
-import { useEffect } from 'react';
+import { usePageParams } from '@/hooks';
 
 export const BtnRedirect = () => {
   const router = useRouter();
-  const pathname = usePathname();
 
-  const { data: session } = useSession();
-  
-  const isLoginPage = pathname === routes.login;
-  const isModerator =
-    session?.user.role === UserRoles.Admin || session?.user.role === UserRoles.Owner;
-  const isAdminPage = pathname === routes.admin;
+  const { isNotSession, isModerator, isLoginPage, is404Page, isAdminPage } =
+    usePageParams();
 
-  if (!isModerator || !session.user || isLoginPage) return null;
+  if (!isModerator || isNotSession || isLoginPage || is404Page) return null;
 
   const handelClickBtn = () => {
     if (isAdminPage) {

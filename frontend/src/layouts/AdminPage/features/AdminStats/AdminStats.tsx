@@ -5,9 +5,9 @@ import { Box } from '@mui/material';
 // Логика
 import { useAppActions } from '@/hooks';
 // Компоненты
+import { UsersList } from '@/features/UsersList';
+import { QuestionList } from '@/features/QuestionList';
 import { Header } from './components/Header';
-import { UsersList } from '../../entities/UsersList';
-import { QuestionList } from '../../entities/QuestionList';
 // Типизация
 import { iUser } from '@/types/staff.types';
 import { iQuestion } from '@/types/quiz.types';
