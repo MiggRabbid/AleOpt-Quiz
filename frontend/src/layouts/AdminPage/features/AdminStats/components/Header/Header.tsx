@@ -64,7 +64,7 @@ const Header = (props: IHeaderProps) => {
 
   return (
     <>
-      <Box className="mb-5 flex w-full justify-between gap-4!">
+      <Box className="mb-6 flex w-full justify-between gap-4!">
         <ButtonGroup activeTab={activeTab} setState={setActiveTab} />
         <BtnAdd activeTab={activeTab} openEditor={handelOpenEditor} />
       </Box>

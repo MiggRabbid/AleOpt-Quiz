@@ -1,21 +1,24 @@
 'use client';
 // Библиотеки
-import { Button, CircularProgress } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
+import React, { useState } from 'react';
+import { Box } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react';
-import { routes } from '@/shared/config/routes';
 import { usePathname } from 'next/navigation';
+// Логика
+import { routes } from '@/shared/config/routes';
+// Компоненты
+import { BtnSmall } from '@/shared/ui/ui/btns';
+import { CustomIcon } from '@/shared/ui/ui/CustomIcon';
+import { usePageParams } from '@/hooks';
 
 const BtnLogout = () => {
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { isNotSession, isModerator, isLoginPage, is404Page, isAdminPage } =
+    usePageParams();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const isLoginPage = pathname === routes.login;
-
-  if (!session?.user || isLoginPage) return null;
+  if (isNotSession || isLoginPage || is404Page) return null;
 
   const handelClickSignOut = async () => {
     setIsLoading(true);
@@ -28,34 +31,25 @@ const BtnLogout = () => {
     }
   };
 
+  const getBtnText = () => {
+    if (isLoading) {
+      return 'Выхожу';
+    } else {
+      return 'Выход';
+    }
+  };
+
   return (
-    <Button
-      variant="text"
-      color="success"
-      className="order-0! h-10! min-h-10! w-40 rounded-xl! bg-white! leading-none! font-bold! shadow-xl! outline-0!"
-      onClick={handelClickSignOut}
-      disabled={isLoading}
-      sx={{
-        paddingX: '20px',
-        paddingY: '5px',
-      }}
-    >
-      {!isLoading && (
-        <>
-          <p>Выйти</p>
-          <LogoutIcon color="success" className="ml-2 h-4! min-h-4! w-4! min-w-4!" />
-        </>
-      )}
-      {isLoading && (
-        <>
-          <p>Выхожу</p>
-          <CircularProgress
-            color="success"
-            className="ml-2 h-4! min-h-4! w-4! min-w-4!"
-          />
-        </>
-      )}
-    </Button>
+    <Box className="h-fir w-40">
+      <BtnSmall
+        btnText={getBtnText()}
+        btnClick={handelClickSignOut}
+        variant="text"
+        fullWidth
+        isLoading={isLoading}
+        IconRight={!isLoading ? <CustomIcon name="Logout" /> : undefined}
+      />
+    </Box>
   );
 };
 

@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
 import { TypeStatsTab } from '@/layouts/AdminPage/types/AdminStats';
+import { CustomIcon, TLibraryIconMUIName } from '@/shared/ui/ui/CustomIcon';
 
 interface ICustomButtonGroupProps {
   activeTab: TypeStatsTab;
@@ -11,27 +13,63 @@ interface ICustomButtonGroupProps {
 
 const CustomButtonGroup = (props: ICustomButtonGroupProps) => {
   const { activeTab, setState } = props;
+
   const isUsersActive = activeTab === TypeStatsTab.users;
   const isQuestionActive = activeTab === TypeStatsTab.questions;
+
   return (
     <ButtonGroup className="h-fit rounded-xl! shadow-xl!">
-      <Button
-        color="success"
-        className={`h-10! min-h-10! w-40! min-w-40! rounded-s-xl! leading-none! font-bold! shadow-none! outline-0! ${!isUsersActive ? 'bg-white!' : ''}`}
-        variant={isUsersActive ? 'contained' : 'text'}
+      <BtnItem
+        text="Сотрудники"
+        name="Group"
+        position="left"
+        isActive={isUsersActive}
         onClick={() => setState(TypeStatsTab.users)}
-      >
-        Сотрудники
-      </Button>
-      <Button
-        color="success"
-        className={`h-10! min-h-10! w-40! min-w-40! rounded-e-xl! leading-none! font-bold! shadow-none! outline-0! ${!isQuestionActive ? 'bg-white!' : ''}`}
-        variant={isQuestionActive ? 'contained' : 'text'}
+      />
+      <BtnItem
+        text="Вопросы"
+        name="HelpOutline"
+        position="right"
+        isActive={isQuestionActive}
         onClick={() => setState(TypeStatsTab.questions)}
-      >
-        Вопросы
-      </Button>
+      />
     </ButtonGroup>
+  );
+};
+
+const BtnItem = ({
+  text,
+  name,
+  position,
+  isActive,
+  onClick,
+}: {
+  text: string;
+  isActive: boolean;
+  name: TLibraryIconMUIName;
+  position: 'left' | 'right';
+  onClick?: () => void;
+}) => {
+  const positionLeft = position === 'left';
+  return (
+    <Button
+      color="success"
+      className={`flex h-10! min-h-10! w-40! min-w-40! flex-row items-center justify-center gap-2 py-2 leading-none! font-bold! shadow-none! outline-0! ${!isActive ? 'bg-white!' : ''} ${positionLeft ? 'rounded-s-xl!' : 'rounded-e-xl!'}`}
+      variant={isActive ? 'contained' : 'text'}
+      onClick={onClick}
+    >
+      {positionLeft && (
+        <Box className="h-6 w-6">
+          <CustomIcon name={name} />
+        </Box>
+      )}
+      {text}
+      {!positionLeft && (
+        <Box className="h-6 w-6">
+          <CustomIcon name={name} />
+        </Box>
+      )}
+    </Button>
   );
 };
 

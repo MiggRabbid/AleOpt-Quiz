@@ -150,10 +150,13 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
         </Box>
       </AccordionSummary>
 
-      <AccordionDetails className="w-full!">
-        <Box className="w-full! mb-5">
-          <Box className="flex w-full! justify-between py-2! ps-6!">
-            <Typography component="span" className="font-semibold! text-slate-500!">
+      <AccordionDetails className="w-full! pt-0!">
+        <Box className="mb-5 w-full!">
+          <Box className="flex w-full! items-center justify-between py-2! ps-7! pe-0!">
+            <Typography
+              component="span"
+              className="font-md font-semibold! text-slate-500!"
+            >
               Логин: {user.username}
             </Typography>
             <BtnGroupEdit
@@ -162,6 +165,7 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
               onClickEdit={handelClickOnEdit}
               colorEdit="success"
               size="small"
+              withoutMargin
             />
           </Box>
           <Divider />
