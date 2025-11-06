@@ -34,12 +34,12 @@ app.use('/api', router);
 const start = async () => {
   try {
     await mongoose.connect(DB_URI, clientOptions);
-    await mongoose.connection.db.admin().command({ ping: 1 });
-    console.log(`START SERVER - mongoose connect is ready`);
+    await mongoose.connection.db?.admin().command({ ping: 1 });
+    console.log(`BACK / START SERVER - mongoose connect is ready`);
 
-    app.listen(PORT, () => console.log(`START SERVER - port: ${PORT}`));
+    app.listen(PORT, () => console.log(`BACK / START SERVER - port: ${PORT}`));
   } catch (e) {
-    console.error('----- start', e);
+    console.error('BACK / start', e);
   }
 };
 

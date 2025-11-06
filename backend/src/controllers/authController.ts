@@ -26,7 +26,7 @@ const getAccessToken = (role: string, username: string): string => {
 
 class AuthController {
   async login(request: Request, response: Response): Promise<Response> {
-    console.log(`----- login start`);
+    console.log(`BACK / login start`);
 
     try {
       const validationError = validationResult(request);
@@ -56,10 +56,10 @@ class AuthController {
       const { firstName, role, _id: id, image = '' } = user;
       const token = getAccessToken(user.role as string, user.username);
 
-      console.log(`----- login - ${user?.firstName} ${user?.lastName} - ${user?.username}`);
+      console.log(`BACK / login - ${user?.firstName} ${user?.lastName} - ${user?.username}`);
       return response.json({ token, id, firstName, username, role, image });
     } catch (e) {
-      console.error('---- authController', e);
+      console.error('BACK / authController', e);
       return response.status(400).json({ message: 'Authorization error', errorType: 'authError' });
     }
   }

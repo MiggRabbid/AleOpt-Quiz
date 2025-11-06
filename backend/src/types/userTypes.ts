@@ -12,7 +12,7 @@ export interface iRoleModel extends Document {
 }
 
 export interface iUserModel extends Document {
-  _id?: string;
+  _id: string;
   role: string | iRoleModel;
   firstName: string;
   lastName: string;

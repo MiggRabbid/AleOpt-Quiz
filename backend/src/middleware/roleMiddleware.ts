@@ -26,7 +26,7 @@ const roleMiddleware = (role: string) => {
       const isAdmin = userRole === role;
       const isOwner = userRole === role;
 
-      console.log(`----- roleMiddleware - ${JSON.stringify(decodedData)}`);
+      console.log(`BACK / roleMiddleware - ${JSON.stringify(decodedData)}`);
       if (!isAdmin && !isOwner) {
         response.status(403).json({ message: 'User is not admin or not owner' });
         return;
@@ -34,7 +34,7 @@ const roleMiddleware = (role: string) => {
 
       next();
     } catch (e) {
-      console.error('----- roleMiddleware', e);
+      console.error('BACK / roleMiddleware', e);
       response.status(403).json({ message: 'User is not admin' });
     }
   };

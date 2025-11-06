@@ -31,10 +31,10 @@ const authMiddleware = (request: CustomRequest, response: Response, next: NextFu
     const decodedData = jwt.verify(token, secret) as jwt.JwtPayload;
 
     request.user = decodedData;
-    console.log(`----- authMiddleware - ${JSON.stringify(request.user)}`);
+    console.log(`BACK / authMiddleware - ${JSON.stringify(request.user)}`);
     next();
   } catch (e) {
-    console.error('----- authMiddleware', e);
+    console.error('BACK / authMiddleware', e);
     if (e instanceof TokenExpiredError) {
       response.status(401).json({
         message: 'The token has expired',
