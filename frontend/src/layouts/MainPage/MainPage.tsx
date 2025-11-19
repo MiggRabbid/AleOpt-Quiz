@@ -1,8 +1,10 @@
 // Библиотеки
-import { Box } from '@mui/material';
+// import { Box } from '@mui/material';
 
 const MainPage = async () => {
-  return <Box id="MainPage" className="bg m-3.5 flex grow gap-3.5"></Box>;
+  return (
+    <div id="MainPage" className="bg m-3.5 flex w-full shrink-1 grow-1 gap-3.5"></div>
+  );
 };
 
 export default MainPage;

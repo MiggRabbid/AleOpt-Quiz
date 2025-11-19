@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactNode } from 'react';
 import { Box, Button, Modal } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';

@@ -76,4 +76,5 @@ export interface iHandledError {
   errorType: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface iResultEntryRequest extends Omit<iResultEntry, 'correctAnswers'> {}

@@ -17,7 +17,7 @@ const TopResultsListItem = (props: ITopResultsListItemProps) => {
   );
 
   const wrapperClass = clsx(
-    'flex h-fit! w-full! shrink-0 grow flex-col justify-center gap-2 rounded-xl p-2',
+    'flex h-fit! w-full! shrink-0 flex-col justify-center gap-2 rounded-xl p-2',
     isEasiest ? 'border-emerald-200 bg-emerald-100' : 'border-rose-200 bg-rose-100',
   );
 

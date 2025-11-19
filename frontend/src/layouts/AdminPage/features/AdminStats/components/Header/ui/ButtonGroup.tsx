@@ -18,7 +18,7 @@ const CustomButtonGroup = (props: ICustomButtonGroupProps) => {
   const isQuestionActive = activeTab === TypeStatsTab.questions;
 
   return (
-    <ButtonGroup className="h-fit rounded-xl! shadow-xl!">
+    <ButtonGroup className="h-fit rounded-xl! shadow-md!">
       <BtnItem
         text="Сотрудники"
         name="Group"

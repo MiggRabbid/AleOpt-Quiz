@@ -1,6 +1,6 @@
 import { ProfilePage } from '@/layouts';
 
-const Profile = () => {
+const Profile = async () => {
   return <ProfilePage />;
 };
 

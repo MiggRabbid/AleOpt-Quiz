@@ -1,7 +1,9 @@
 'use client';
 // Библиотеки
-import React, { useState } from 'react';
-import { Box, TextField, FormHelperText } from '@mui/material';
+import { memo, useState } from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import FormHelperText from '@mui/material/FormHelperText';
 // Компоненты
 import { CustomEndAdornment } from './ui/CustomEndAdornment';
 // Типизация
@@ -74,4 +76,4 @@ const CustomInput = (props: ICustomInputProps) => {
   );
 };
 
-export default React.memo(CustomInput);
+export default memo(CustomInput);

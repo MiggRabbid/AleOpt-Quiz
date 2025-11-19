@@ -2,23 +2,18 @@
 // Библиотеки
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import { signOut, useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
-// Логика
-import { routes } from '@/shared/config/routes';
+import { signOut } from 'next-auth/react';
 // Компоненты
 import { BtnSmall } from '@/shared/ui/ui/btns';
 import { CustomIcon } from '@/shared/ui/ui/CustomIcon';
 import { usePageParams } from '@/hooks';
 
 const BtnLogout = () => {
-  const pathname = usePathname();
-  const { isNotSession, isModerator, isLoginPage, is404Page, isAdminPage } =
-    usePageParams();
+  const { isNotUser, isLoginPage, is404Page } = usePageParams();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  if (isNotSession || isLoginPage || is404Page) return null;
+  if (isNotUser || isLoginPage || is404Page) return null;
 
   const handelClickSignOut = async () => {
     setIsLoading(true);
@@ -31,13 +26,7 @@ const BtnLogout = () => {
     }
   };
 
-  const getBtnText = () => {
-    if (isLoading) {
-      return 'Выхожу';
-    } else {
-      return 'Выход';
-    }
-  };
+  const getBtnText = () => (isLoading ? 'Выхожу' : 'Выход');
 
   return (
     <Box className="h-fir w-40">
@@ -47,7 +36,7 @@ const BtnLogout = () => {
         variant="text"
         fullWidth
         isLoading={isLoading}
-        IconRight={!isLoading ? <CustomIcon name="Logout" /> : undefined}
+        IconRight={<CustomIcon name="Logout" />}
       />
     </Box>
   );

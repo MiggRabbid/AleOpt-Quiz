@@ -1,4 +1,5 @@
 'use client';
+
 // Библиотеки
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -32,7 +33,7 @@ const LoginForm = () => {
   }, [session]);
 
   return (
-    <Box className="shadow-glass border-glass h-full overflow-hidden rounded-2xl border backdrop-blur-sm">
+    <Box className="shadow-glass border-glass h-full max-h-[1080px] w-full max-w-lg overflow-hidden rounded-2xl border backdrop-blur-sm">
       <Box className="bg-glass h-full w-full">
         <Box className="flex h-full w-full flex-col items-center-safe justify-center-safe gap-10 px-6 py-12">
           <Typography

@@ -1,6 +1,6 @@
 import { QuizPage } from '@/layouts';
 
-const Quiz = () => {
+const Quiz = async () => {
   return <QuizPage />;
 };
 

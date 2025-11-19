@@ -1,7 +1,10 @@
 'use client';
-import { Tooltip as MUITooltip, Theme, Typography, TypographyProps } from '@mui/material';
-import { Stack, SxProps, SystemStyleObject } from '@mui/system';
-import { ReactNode, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import MUITooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { Theme } from '@mui/material/styles';
+import Stack from '@mui/system/Stack';
+import { SystemStyleObject } from '@mui/system';
 
 import { sxTextOverflow } from './CustomTooltip.utils';
 import { useTooltip } from './CustomTooltip.hook';
@@ -12,10 +15,11 @@ export const Tooltip = ({ tooltipSlotSx, ...props }: TooltipProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (props.disableHoverListener && open) {
+    if (props.disableHoverListener) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setOpen(false);
     }
-  }, [props.disableHoverListener, open]);
+  }, [props.disableHoverListener]);
 
   if (!props.content) return props.children;
   const { placement, content, ...muiProps } = props;

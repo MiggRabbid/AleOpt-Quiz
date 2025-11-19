@@ -1,5 +1,4 @@
 // Библиотеки
-import { Box } from '@mui/material';
 import { getServerSession } from 'next-auth';
 import type { Session } from 'next-auth';
 // Логика
@@ -12,6 +11,10 @@ import { UserStats } from '@/entities/UserStats';
 
 const ProfilePage = async () => {
   const session: Session | null = await getServerSession(authOptions);
+
+  console.log('------------------- ProfilePage');
+  console.log('session -', session);
+  console.log('-------------------');
 
   const user = await api.getCurrentUser({
     username: session?.user.username || '',

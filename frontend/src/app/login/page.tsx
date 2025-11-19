@@ -1,5 +1,6 @@
 import { LoginPage } from '@/layouts';
 
-export default function Login() {
+const Login = async () => {
   return <LoginPage />;
-}
+};
+export default Login;

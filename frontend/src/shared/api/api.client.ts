@@ -12,30 +12,11 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
-  // console.log('config    -', config);
-
-  if (config.headers.Authorization) {
-    // if (config.method === 'get' || config.method === 'post') {
-    //   console.group('axiosInstance start / CLIENT');
-    //   // console.log('config    -', config);
-    //   console.log('axiosInstance end');
-    //   console.groupEnd();
-    // }
-    return config;
-  }
+  if (config.headers.Authorization) return config;
 
   const token = await getUserToken();
 
-  if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  // if (config.method === 'get' || config.method === 'post') {
-  //   console.group('axiosInstance start / SERVER');
-  //   console.log('token     -', token ?? 'нет');
-  //   console.log('axiosInstance end');
-  //   console.groupEnd();
-  // }
+  if (token) config.headers['Authorization'] = `Bearer ${token}`;
 
   return config;
 });

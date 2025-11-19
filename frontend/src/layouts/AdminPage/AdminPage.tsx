@@ -1,5 +1,4 @@
 // Библиотеки
-import { Box } from '@mui/material';
 import { getServerSession } from 'next-auth';
 import type { Session } from 'next-auth';
 // Логика
@@ -22,11 +21,15 @@ const AdminPage = async () => {
   const results = await api.getAllUsersStats();
 
   return (
-    <SideFull id="AdminPage" type="main">
+    <SideFull id="AdminPage">
       <SideSecond>
         <AdminProfile user={user} results={results} />
       </SideSecond>
-      <SideMain>
+      <SideMain
+        style={{
+          height: 'calc(100dvh - 8px - 60px - 18px - 18px - 1px)',
+        }}
+      >
         <AdminStats questions={questions} users={users} />
       </SideMain>
     </SideFull>

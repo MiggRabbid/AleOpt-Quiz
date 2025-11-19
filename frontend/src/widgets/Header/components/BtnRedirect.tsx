@@ -11,17 +11,21 @@ import { usePageParams } from '@/hooks';
 export const BtnRedirect = () => {
   const router = useRouter();
 
-  const { isNotSession, isModerator, isLoginPage, is404Page, isAdminPage } =
-    usePageParams();
+  const { isNotUser, isModerator, isLoginPage, is404Page, isAdminPage } = usePageParams();
 
-  if (!isModerator || isNotSession || isLoginPage || is404Page) return null;
+  if (!isModerator || isNotUser || isLoginPage || is404Page) return null;
 
   const handelClickBtn = () => {
+    console.group('handelClickBtn');
+    console.log('isAdminPage -', isAdminPage);
     if (isAdminPage) {
+      console.log('router.push(routes.profile)');
       router.push(routes.profile);
     } else {
+      console.log('router.push(routes.admin)');
       router.push(routes.admin);
     }
+    console.groupEnd();
   };
 
   const getBtnText = () => {

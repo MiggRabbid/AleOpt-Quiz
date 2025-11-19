@@ -1,7 +1,6 @@
-import { Box, IconButton } from '@mui/material';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditSquareIcon from '@mui/icons-material/EditSquare';
 import { CustomIcon } from '../CustomIcon';
 
 type TBtnColor =
@@ -39,7 +38,7 @@ const BtnGroupEdit = (props: IBtnGroupEditProps) => {
         size={size}
         onClick={onClickEdit}
         id="btn-group-edit-edit"
-        className="h-6 min-h-6 w-6 min-w-6 p-0! hover:opacity-80 hover:scale-105"
+        className="h-6 min-h-6 w-6 min-w-6 p-0! hover:scale-105 hover:opacity-80"
       >
         <CustomIcon name="EditSquare" />
       </IconButton>
@@ -48,7 +47,7 @@ const BtnGroupEdit = (props: IBtnGroupEditProps) => {
         size={size}
         onClick={onClickDelete}
         id="btn-group-edit-delete"
-        className="h-6 min-h-6 w-6 min-w-6 p-0! hover:opacity-80 hover:scale-105"
+        className="h-6 min-h-6 w-6 min-w-6 p-0! hover:scale-105 hover:opacity-80"
       >
         <CustomIcon name="DeleteSweep" />
       </IconButton>

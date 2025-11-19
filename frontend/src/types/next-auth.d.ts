@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import NextAuth, { DefaultSession, DefaultUser } from 'next-auth';
 import { JWT as JwtNExtAuth } from 'next-auth/jwt';
 import type { User as nextAuthUser } from 'next-auth';
@@ -8,10 +9,12 @@ declare module 'next-auth' {
     user: iResponseLogin & Omit<DefaultSession['user'], 'email'>;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface User extends iResponseLogin {}
 }
 
 declare module 'next-auth/jwt' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface JWT extends iResponseLogin {}
 }
 

@@ -1,15 +1,14 @@
 'use client';
 // Библиотеки
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { Box } from '@mui/material';
 // Компоненты
 import { routes } from '@/shared/config/routes';
 import { BtnSmall } from '@/shared/ui/ui/btns';
+import { CustomIcon } from '@/shared/ui/ui/CustomIcon';
 // Типизация
 import { UserRoles } from '@/types/staff.types';
-import { Box } from '@mui/material';
-import { useEffect } from 'react';
-import { CustomIcon } from '@/shared/ui/ui/CustomIcon';
 
 export const BtnRedirect = () => {
   const router = useRouter();

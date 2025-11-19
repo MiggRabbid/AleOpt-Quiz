@@ -1,6 +1,6 @@
 'use client';
-
-import { Button, CircularProgress } from '@mui/material';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface IBtnMainProps {
   btnText: string;
@@ -26,7 +26,7 @@ const BtnMain = (props: IBtnMainProps) => {
       fullWidth={fullWidth}
       variant={variant}
       color={color}
-      className={`h-14! min-h-14! rounded-xl! ${variant === 'text' ? 'bg-white!' : ''} outline-0!" leading-none! font-bold! shadow-xl!`}
+      className={`h-14! min-h-14! rounded-xl! ${variant === 'text' ? 'bg-white!' : ''} outline-0!" leading-none! font-bold! shadow-md!`}
       sx={{
         paddingX: '20px',
         paddingY: '5px',

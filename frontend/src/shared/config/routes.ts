@@ -4,4 +4,7 @@ export const routes = {
   quiz: '/quiz',
   admin: '/admin',
   profile: '/profile',
-};
+} as const;
+
+export type TRoutesKeys = keyof typeof routes;
+export type TRoutesValues = (typeof routes)[TRoutesKeys];

@@ -1,5 +1,8 @@
-import React from 'react';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import React, { memo } from 'react';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 import type { SelectChangeEvent } from '@mui/material';
 
@@ -46,4 +49,4 @@ const CustomSelect = (props: ICustomSelectProps) => {
   );
 };
 
-export default React.memo(CustomSelect);
+export default memo(CustomSelect);

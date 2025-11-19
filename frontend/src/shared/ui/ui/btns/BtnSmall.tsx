@@ -1,7 +1,8 @@
 'use client';
-
-import { Box, Button, CircularProgress } from '@mui/material';
 import { ReactNode } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface IBtnSmallProps {
   btnText: string;
@@ -31,25 +32,25 @@ const BtnSmall = (props: IBtnSmallProps) => {
       fullWidth={fullWidth}
       variant={variant}
       color={color}
-      className="h-10! min-h-10! rounded-xl! bg-white! leading-none! font-bold! shadow-xl! outline-0!"
+      className="h-10! min-h-10! rounded-xl! bg-white! leading-none! font-bold! shadow-md! outline-0!"
       sx={{
         paddingX: '20px',
         paddingY: '5px',
       }}
     >
       <Box className="flex items-center justify-center gap-2" color="inherit">
-        {isLoading && <CircularProgress sx={{ color: 'white !important' }} size={30} />}
-        {!isLoading && !!IconLeft && (
+        {!!IconLeft && (
           <Box className="h-4! min-h-4! w-4! min-w-4!" color="inherit">
             {IconLeft}
           </Box>
         )}
-        {!isLoading && btnText}
+        {btnText}
         {!isLoading && !!IconRight && (
           <Box className="h-4! min-h-4! w-4! min-w-4!" color="inherit">
             {IconRight}
           </Box>
         )}
+        {isLoading && <CircularProgress sx={{ color: 'white !important' }} size={30} />}
       </Box>
     </Button>
   );

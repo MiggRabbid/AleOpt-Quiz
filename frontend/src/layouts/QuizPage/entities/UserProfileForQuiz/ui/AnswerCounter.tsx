@@ -1,5 +1,5 @@
 import { iQuestion } from '@/types/quiz.types';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, LinearProgress, Typography } from '@mui/material';
 import React from 'react';
 
 interface IAnswerCounterProps {
@@ -14,28 +14,20 @@ const AnswerCounter = (props: IAnswerCounterProps) => {
   const percent = (questionsIndex / questionCounter) * 100;
 
   return (
-    <Box className="align-center relative flex h-42 w-42 justify-center rounded-full border-14 border-emerald-200 bg-emerald-100 p-0">
-      <CircularProgress
+    <Box className="relative flex h-fit w-full flex-row items-center justify-center gap-2 p-0">
+      <LinearProgress
         variant="determinate"
         color="success"
-        size={168}
         value={percent}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="h-3! w-full shrink-1 rounded-full"
       />
-      <Box className="align-center absolute top-1/2 left-1/2 flex h-fit w-fit -translate-x-1/2 -translate-y-1/2 flex-col justify-center">
+      <Box className="flex h-fit shrink-0 flex-row items-center justify-center gap-1">
         <Typography
           component="p"
           align="center"
-          className="border-b-4 px-1 py-2 text-2xl! leading-none font-bold! text-emerald-800"
+          className="text-lg! leading-none font-bold! text-slate-600"
         >
-          {`${questionsIndex}`}
-        </Typography>
-        <Typography
-          component="p"
-          align="center"
-          className="px-1 py-2 text-2xl! leading-none font-bold! text-emerald-800"
-        >
-          {`${questionCounter}`}
+          {`${questionsIndex}`} из {`${questionCounter}`}
         </Typography>
       </Box>
     </Box>

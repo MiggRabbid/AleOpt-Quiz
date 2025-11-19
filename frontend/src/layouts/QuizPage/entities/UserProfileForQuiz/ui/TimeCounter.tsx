@@ -15,8 +15,9 @@ const TimeCounter = () => {
 
   useEffect(() => {
     console.group('TimeCounter');
-    console.log(currTime);
-    console.groupEnd;
+    console.log(`${minutes} : ${seconds}`);
+    console.groupEnd();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currTime]);
 
   const { setTimer } = useLocalStorage();
@@ -79,45 +80,27 @@ const TimeCounter = () => {
 
   return (
     <Box
-      className={`align-center relative flex h-42 w-42 justify-center rounded-full border-14 p-0 ${getBGAndBorderColor()}`}
+      className={`align-center relative flex h-40 w-40 justify-center rounded-full border-14 p-0 ${getBGAndBorderColor()}`}
     >
       <CircularProgress
         variant="determinate"
         color={getCircularColor()}
-        size={168}
+        size={160}
         value={currTime > 0 ? (currTime / maxTime) * 100 : 100}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        sx={{
+          '& .MuiCircularProgress-circle': {
+            strokeLinecap: 'round',
+          },
+        }}
       />
-      <Box className="align-center absolute top-1/2 left-1/2 flex h-fit w-fit -translate-x-1/2 -translate-y-1/2 flex-col justify-center">
+      <Box className="align-center absolute top-1/2 left-1/2 flex h-fit w-full -translate-x-1/2 -translate-y-1/2 flex-col justify-center">
         <Typography
           component="p"
           align="center"
-          className={`px-1 py-2 text-2xl! leading-none font-bold! ${currTime > 0 ? 'border-b-4' : 'border-b-0'}`}
+          className={`px-1 py-1 leading-none font-bold! uppercase ${currTime > 0 ? 'text-2xl!' : 'text-1xl!'}`}
         >
-          {currTime > 0 ? minutes : 'ВРЕМЯ'}
-          {currTime > 0 && (
-            <Typography
-              component="span"
-              className="ms-1! text-sm! leading-none font-bold! uppercase"
-            >
-              мин
-            </Typography>
-          )}
-        </Typography>
-        <Typography
-          component="p"
-          align="center"
-          className="px-1 py-2 text-2xl! leading-none font-bold!"
-        >
-          {currTime > 0 ? seconds : 'ВЫШЛО'}
-          {currTime > 0 && (
-            <Typography
-              component="span"
-              className="ms-1! text-sm! leading-none font-bold! uppercase"
-            >
-              сек
-            </Typography>
-          )}
+          {currTime > 0 ? `${minutes} : ${seconds}` : `ВРЕМЯ ВЫШЛО`}
         </Typography>
       </Box>
     </Box>

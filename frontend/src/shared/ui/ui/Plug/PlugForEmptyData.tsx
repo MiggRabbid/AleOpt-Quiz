@@ -1,5 +1,4 @@
-// frontend/src/shared/ui/ui/other/PlugForEmptyData.tsx
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
 
 interface PlugProps {

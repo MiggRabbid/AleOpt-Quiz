@@ -66,7 +66,7 @@ const ResultListItem = (props: IResultListItemProps) => {
           />
         </Box>
       </AccordionSummary>
-      <Box className="flex w-full flex-col gap-2 px-4 mb-4">
+      <Box className="mb-4 flex w-full flex-col gap-2 px-4">
         {currQuestion &&
           currQuestion.answers.map((answer) => (
             <ResultListItemAnswer

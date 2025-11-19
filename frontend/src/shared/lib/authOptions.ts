@@ -14,29 +14,34 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.group('authorize start');
-        try {
-          const response = await api.login({
-            username: credentials?.username || '',
-            password: credentials?.password || '',
-          });
+        if (!credentials?.password || !credentials?.username) {
+          return null;
+        }
 
-          console.log(response);
-          if (!response?.token) return null;
+        try {
+          const response = await api.login(credentials);
+
+          if (!response || !response?.token) {
+            console.log('NEXT / CredentialsProvider / authorize / without token');
+            return null;
+          }
           return { ...response };
         } catch (error) {
-          console.log(error);
-          console.error('authorize error /', error);
+          console.error('NEXT / authorize error /', error);
           return null;
-        } finally {
-          console.groupEnd();
         }
       },
     }),
   ],
   session: { strategy: 'jwt' as SessionStrategy, maxAge: 7 * 24 * 60 * 60 },
+  jwt: { secret: process.env.NEXTAUTH_SECRET },
   callbacks: {
     async jwt({ token, user }: ICallbackJwtArgs) {
+      console.log('---------- NEXT / jwt /', token, user);
+      console.log('user  -', user);
+      console.log('-------');
+      console.log('token -', token);
+      console.log('-----------------------');
       if (!user) return token;
 
       const {
@@ -62,7 +67,6 @@ export const authOptions = {
       return newToken;
     },
     async session({ session, token }: ICallbackSessionArgs) {
-
       if (token && session.user) {
         const newSession = {
           ...session,

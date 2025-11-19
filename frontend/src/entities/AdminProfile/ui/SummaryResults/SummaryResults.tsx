@@ -1,5 +1,5 @@
 'use client';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
@@ -19,13 +19,7 @@ const SummaryResults = () => {
       className="flex w-full flex-col gap-2 rounded-3xl bg-slate-50 p-4 shadow-xl"
       id="SummaryResults"
     >
-      <Box className="flex grow flex-col justify-start gap-2">
-        <Typography
-          align="center"
-          className="align-center! w-full! text-base! font-semibold! uppercase"
-        >
-          Самые и самые
-        </Typography>
+      <Box className="flex flex-col justify-start gap-2">
         <TopResultsList sortedResults={sortedResults} />
       </Box>
     </Box>

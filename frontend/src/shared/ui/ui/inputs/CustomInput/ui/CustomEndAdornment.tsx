@@ -1,5 +1,7 @@
-import { IconButton, InputAdornment } from '@mui/material';
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from '@mui/icons-material/Visibility';
 
 import { ICustomEndAdornmentProps } from '../types/CustomInput';
 import type { SxProps, Theme } from '@mui/material';

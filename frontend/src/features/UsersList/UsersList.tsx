@@ -1,6 +1,5 @@
 // Библиотеки
 import { useSession } from 'next-auth/react';
-import { Box } from '@mui/material';
 // Логика
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
@@ -23,7 +22,7 @@ const UsersList = () => {
   }
 
   return (
-    <Box className="mx-auto! flex h-full! w-full max-w-7xl flex-col gap-2 px-4!">
+    <>
       {users.map((user: iUser, index: number) => {
         return (
           <UsersListItem
@@ -34,7 +33,7 @@ const UsersList = () => {
           />
         );
       })}
-    </Box>
+    </>
   );
 };
 

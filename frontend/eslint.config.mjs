@@ -1,61 +1,53 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-import tsParser from "@typescript-eslint/parser";
+
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+import nextVitals from 'eslint-config-next/core-web-vitals'
+import prettier from 'eslint-config-prettier/flat'
+import tsParser from "@typescript-eslint/parser"
+import importPlugin from "eslint-plugin-import";
+import prettierPlugin from "eslint-plugin-prettier";
+import tseslintPlugin from '@typescript-eslint/eslint-plugin'
+import reactPlugin from 'eslint-plugin-react'
+import reactHooksPlugin from 'eslint-plugin-react-hooks'
+
 import prettierConfig from "./prettier.config.mjs";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: {},
-});
-
-export default [
-  ...compat.extends(
-    "next",
-    "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
-    "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
-  ),
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  prettier,
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
+    plugins: {
+      react: reactPlugin,
+      'react-hooks': reactHooksPlugin,
+      import: importPlugin,
+      '@typescript-eslint': tseslintPlugin,
+      prettier: prettierPlugin,
+    },
     languageOptions: {
       parser: tsParser,
-      globals: {
-        NodeJS: "readonly",
+      parserOptions: {
+        ecmaFeatures: { jsx: true, tsx: true },
       },
       ecmaVersion: 2021,
       sourceType: "module",
+      globals: {
+        NodeJS: "readonly",
+      },
     },
     rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'warn',
       "no-unused-vars": "warn",
-      "prettier/prettier": ["error", prettierConfig],
       "react/prop-types": "off",
       "no-console": "off",
       "no-extra-boolean-cast": "off",
       "react/react-in-jsx-scope": "off",
-      "functional/no-conditional-statement": "off",
-      "functional/no-expression-statement": "off",
-      "functional/immutable-data": "off",
-      "functional/functional-parameters": "off",
-      "functional/no-try-statement": "off",
-      "functional/no-throw-statement": "off",
-      "no-underscore-dangle": ["error", { allow: ["__filename", "__dirname"] }],
-      "testing-library/no-debug": "off",
       "react/jsx-filename-extension": [
         "warn",
         { extensions: [".js", ".jsx", ".ts", ".tsx"] },
       ],
-      "no-case-declarations": "off",
       "react-hooks/exhaustive-deps": "warn",
       "no-shadow": "warn",
       "import/no-unresolved": "error",
@@ -63,6 +55,8 @@ export default [
       "import/default": "error",
       "import/namespace": "error",
       "import/no-absolute-path": "error",
+
+      "prettier/prettier": ["error", prettierConfig],
     },
     settings: {
       react: {
@@ -80,18 +74,18 @@ export default [
       },
     },
   },
-  {
-    ignores: [
-      "node_modules",
-      ".vscode",
-      "dist",
-      "build",
-      "prettier.config.*",
-      "eslint.config.mjs",
-      "src/locales/*",
-      "postcss.config.mjs",
-      "tailwind.config.js"
-    ]
-  },
-];
 
+  globalIgnores([
+    "node_modules",
+    ".vscode",
+    "dist",
+    "build",
+    "prettier.config.*",
+    "eslint.config.mjs",
+    "src/locales/*",
+    "postcss.config.mjs",
+    "tailwind.config.js"
+  ])
+]);
+
+export default eslintConfig

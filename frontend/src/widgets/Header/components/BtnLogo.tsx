@@ -1,46 +1,15 @@
-'use client';
 // Библиотеки
-import React from 'react';
 import Image from 'next/image';
-import { Button } from '@mui/material';
-import { useRouter, usePathname } from 'next/navigation';
+import Link from 'next/link';
 // Компоненты
 import { routes } from '@/shared/config/routes';
 
 const BtnLogo = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handelClick = () => {
-    if (pathname !== routes.profile) {
-      router.push(routes.profile);
-    }
-  };
-
   return (
-    <Button
-      onClick={handelClick}
-      variant="outlined"
-      sx={{
-        height: '60px',
-        padding: 0,
-        outline: 'none !important',
-        border: 'none !important',
-        backgroundColor: 'transparent !important',
-        '&:hover': {
-          outline: 'none !important',
-          border: 'none !important',
-          backgroundColor: 'transparent !important',
-        },
-        '&:Mui-disabled': {
-          outline: 'none !important',
-          border: 'none !important',
-          backgroundColor: 'transparent !important',
-        },
-        '.MuiTouchRipple-root': {
-          display: 'none',
-        },
-      }}
+    <Link
+      href={routes.profile}
+      className="inline-flex items-center justify-center"
+      aria-label="На страницу профиля"
     >
       <Image
         src="/assets/images/logo.png"
@@ -50,9 +19,8 @@ const BtnLogo = () => {
         draggable={false}
         className="pointer-events-none! select-none!"
       />
-    </Button>
+    </Link>
   );
 };
 
-const MemoizedBtnLogo = React.memo(BtnLogo);
-export { MemoizedBtnLogo as BtnLogo };
+export { BtnLogo };

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -21,7 +21,8 @@ export const useLoginForm = () => {
 
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (isSubmitting || isLoading) setIsFetching(true);
   }, [isSubmitting, isLoading]);
 

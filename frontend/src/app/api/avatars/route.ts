@@ -10,7 +10,7 @@ export async function GET(): Promise<NextResponse<TypeAvatarsMap | null>> {
     const response = getAvatarPaths();
     return NextResponse.json(response as TypeAvatarsMap);
   } catch (error) {
-    console.error('getAvatarPaths / error -', error);
+    console.error('NEXT / getAvatarPaths / error -', error);
     return NextResponse.json(null);
   }
 }

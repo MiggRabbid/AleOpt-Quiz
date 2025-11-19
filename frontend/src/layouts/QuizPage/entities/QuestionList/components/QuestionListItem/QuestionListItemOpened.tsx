@@ -60,7 +60,7 @@ const QuestionListItemOpened = (props: IQuestionItemProps) => {
   };
 
   return (
-    <ListItem className="my-2 flex flex-col items-end! gap-4 rounded-xl bg-emerald-50! p-8! shadow-xl">
+    <ListItem className="my-2 flex w-full flex-col items-end! gap-4 rounded-xl bg-emerald-50! p-8! shadow-xl">
       <Box className="flex w-full items-center gap-4 border-b-4 border-emerald-300 pb-3">
         <Box className="mb-auto! flex shrink-0 grow-0 items-start">
           <Chip

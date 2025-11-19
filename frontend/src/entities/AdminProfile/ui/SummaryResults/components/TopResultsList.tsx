@@ -24,7 +24,7 @@ const TopResultsList = ({ sortedResults }: ITopResultsListProps) => {
     .reverse();
 
   return (
-    <Box className="flex min-h-fit grow flex-col justify-start gap-2">
+    <Box className="flex min-h-fit flex-col justify-start gap-2">
       {topResults.map((result, index: number) => {
         return (
           <TopResultsListItem

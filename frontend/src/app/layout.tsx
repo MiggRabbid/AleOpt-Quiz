@@ -2,14 +2,13 @@
 import type { Metadata } from 'next';
 // стили
 import './styles/globals.css';
-import styles from './layout.module.css';
 // компоненты
+import { StoreProvider, SessionProvider, MuiThemeProvider } from '@/providers';
 import { AppHeader } from '@/widgets/Header';
-import { StoreProvider, SessionProvider } from '@/providers';
 // Мета данные
 export const metadata: Metadata = {
   title: 'АлёОпт',
-  description: 'Ну что, любимый сотрудник. готов проверить свои знания?',
+  description: 'Ну что, любимый сотрудник, готов проверить свои знания?',
 };
 
 export default function RootLayout({
@@ -19,10 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${styles.container} flex flex-col justify-start text-slate-900 bg-emerald-300`}>
+      <body className="flex flex-col justify-start text-slate-900">
         <SessionProvider>
           <AppHeader />
-          <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>
+            <MuiThemeProvider>{children}</MuiThemeProvider>
+          </StoreProvider>
         </SessionProvider>
       </body>
     </html>

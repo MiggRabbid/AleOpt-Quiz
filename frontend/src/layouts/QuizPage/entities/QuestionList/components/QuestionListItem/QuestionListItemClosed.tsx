@@ -31,7 +31,13 @@ const QuestionListItemClosed = (props: IQuestionItemProps) => {
         variant="filled"
       />
       <Typography
-        className={`h-full! grow truncate! font-semibold! ${isNext ? 'text-blue-600!' : 'text-slate-600!'}`}
+        sx={{
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+        }}
+        className={`h-full! font-semibold! ${isNext ? 'text-blue-600!' : 'text-slate-600!'}`}
       >
         {question.question}
       </Typography>

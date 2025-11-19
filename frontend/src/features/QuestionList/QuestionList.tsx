@@ -1,5 +1,3 @@
-// Библиотеки
-import { Box } from '@mui/material';
 // Логика
 import { useAppSelector } from '@/hooks';
 import { getQuizStateField } from '@/selectors';
@@ -17,7 +15,7 @@ const QuestionList = () => {
   }
 
   return (
-    <Box className="mx-auto! flex h-full! w-full max-w-7xl flex-col gap-2 px-4!">
+    <>
       {questions.map((question: iQuestion, index: number) => {
         return (
           <QuestionListItem
@@ -27,7 +25,7 @@ const QuestionList = () => {
           />
         );
       })}
-    </Box>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 'use client';
 // Библиотеки
-import { useEffect, useState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { BtnMain } from '@/shared/ui/ui/btns';
