@@ -1,8 +1,7 @@
-// import { MainPage } from '@/layouts';
+import { MainPage } from '@/layouts';
 
 const Main = async () => {
-  return <div>Main</div>;
-  // return <MainPage />;
+  return <MainPage />;
 };
 
 export default Main;

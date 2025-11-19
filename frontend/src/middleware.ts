@@ -72,7 +72,7 @@ const redirects: Record<UserRoles, { from: TRoutesValues[]; to: string }> = {
 };
 
 export const config: TConfigType = {
-  matcher: ['/profile', '/quiz', '/admin'],
+  matcher: ['/', '/profile', '/quiz', '/admin'],
 };
 
 type TConfigType = {
