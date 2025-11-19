@@ -38,6 +38,7 @@ export const useQuestionForm = (props: IUseQuestionFormProps) => {
     resolver: zodResolver(userSchema),
   });
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const currQuestion = watch('question');
   const answerA = watch('a');
   const answerB = watch('b');

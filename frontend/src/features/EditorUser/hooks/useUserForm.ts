@@ -42,6 +42,7 @@ export const useUserForm = (props: IUseUserFormProps) => {
     },
   });
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const username = watch('username');
   const firstName = watch('firstName');
   const lastName = watch('lastName');

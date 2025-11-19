@@ -1,5 +1,5 @@
 import { iQuestion } from '@/types/quiz.types';
-import { Box, CircularProgress, LinearProgress, Typography } from '@mui/material';
+import { Box, LinearProgress, Typography } from '@mui/material';
 import React from 'react';
 
 interface IAnswerCounterProps {
