@@ -1,11 +1,19 @@
 import React from 'react';
-import { Box } from '@mui/material';
+
+import { SideFull } from '@/shared/layouts';
+import { LoginForm } from '@/features/LoginForm';
+import { LoginImg } from './components/';
 
 const LoginPage = () => {
   return (
-    <Box className="min-h-full w-full p-10! text-center text-3xl font-bold">
-      <p>LoginPage</p>
-    </Box>
+    <SideFull
+      id="LoginPage"
+      otherClass="relative h-full w-full grid-cols-3 grid-flow-col justify-items-center"
+      type="login"
+    >
+      <LoginForm />
+      <LoginImg />
+    </SideFull>
   );
 };
 

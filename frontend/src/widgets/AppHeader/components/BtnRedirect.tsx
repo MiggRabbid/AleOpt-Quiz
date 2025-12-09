@@ -1,4 +1,3 @@
-'use client';
 // Библиотеки
 // Компоненты
 import { BtnSmall } from '@/shared/ui/btns';

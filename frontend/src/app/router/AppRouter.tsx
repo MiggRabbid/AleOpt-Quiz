@@ -5,7 +5,7 @@ import {
   Outlet,
 } from '@tanstack/react-router';
 
-import { AppLayout } from '@/layouts';
+import { AppLayout } from '@/shared/layouts';
 import {
   MainPage,
   LoginPage,

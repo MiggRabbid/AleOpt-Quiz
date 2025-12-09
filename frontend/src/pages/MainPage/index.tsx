@@ -1,16 +1,25 @@
 import React from 'react';
-import { Box } from '@mui/material';
+// import { Box } from '@mui/material';
 
-import { useAppSelector } from '@hooks/index';
-import { getGlobalField } from '@selectors/global.selector';
+// import { useAppSelector } from '@hooks/index';
+// import { getGlobalField } from '@selectors/index';
+
+import { SideFull, SideMain, SideSecond } from '@/shared/layouts';
 
 const MainPage = () => {
-  const title = useAppSelector(getGlobalField('title'));
+  // const title = useAppSelector(getGlobalField('title'));
 
   return (
-    <Box className="min-h-full w-full p-10! text-center text-3xl font-bold">
-      <p>{title}</p>
-    </Box>
+    <SideFull id="ProfilePage" type="main">
+      <SideSecond>
+        <p>UserProfile</p>
+        {/* <UserProfile user={user} userStats={userStats} /> */}
+      </SideSecond>
+      <SideMain>
+        {/* <UserStats userStats={userStats} /> */}
+        <p>UserStats</p>
+      </SideMain>
+    </SideFull>
   );
 };
 

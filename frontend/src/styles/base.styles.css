@@ -41,20 +41,16 @@ body {
   overflow-y: auto;
   line-height: 1.25;
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  background-image: url('/assets/images/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #root {
   width: 100%;
   min-height: 100dvh;
   display: flex;
-}
-
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 ul {
