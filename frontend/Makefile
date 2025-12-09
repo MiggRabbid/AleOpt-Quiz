@@ -1,5 +1,10 @@
 i:
-	npm ci
+	npm install
+
+ir:
+	rm -rf node_modules package-lock.json
+	npm cache clean --force
+	npm install
 
 l:
 	npm run lint
@@ -7,18 +12,18 @@ l:
 f:
 	npm run format
 
-d:
-	npm run dev
+tc:
+	npm run type-check
 
-s:
-	npm run start
+d:
+	npm  run dev
 
 b:
-	rm -rf .next
+	rm -rf dist
 	npm run build
 	
 cl:
-	rm -rf .next
+	rm -rf dist
 
 tr:
-	tree -I 'node_modules|.vscode|.next|.vercel'
+	tree -I 'node_modules|.vscode|dist'

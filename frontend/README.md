@@ -17,4 +17,4 @@
 [![MaterialUI](https://img.shields.io/badge/MUI-007FFF?logo=mui&logoColor=fff&style=flat)](https://mui.com/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)](https://tailwindcss.com/)
 [![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?logo=chartdotjs&logoColor=fff&style=flat)](https://www.chartjs.org/)
-[![Zod](https://img.shields.io/badge/Zod-3E67B1?logo=zod&logoColor=fff&style=flat)](https://zod.dev/)
+[![Zod](https://img.shields.io/badge/Zod-3E67B1?logo=zod&logoColor=fff&style=flat)](https://zod.dev/)                     |
