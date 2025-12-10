@@ -1,3 +1,5 @@
+import type { iResultEntry } from '.';
+
 /* eslint-disable no-unused-vars */
 export enum UserRoles {
   Admin = 'Admin',
@@ -57,12 +59,6 @@ export interface iUserAnswer {
 export interface iUsersState {
   users: iUser[] | null;
   currentUser: iUser | null;
-}
-
-export interface iResultEntry {
-  data: string;
-  answers: iUserAnswer[];
-  correctAnswers: number;
 }
 
 export interface iUsersResponse {

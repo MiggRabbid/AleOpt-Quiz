@@ -1,5 +1,3 @@
-'use client';
-
 // Библиотеки
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Box, FormControl, Typography } from '@mui/material';

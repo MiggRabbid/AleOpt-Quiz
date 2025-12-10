@@ -5,11 +5,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from '../config';
 import { routes } from '@/app/router/routes';
 
-import type { FormData} from '../config';
-
+import type { FormData } from '../config';
+import { useAuth } from '@/app/api/hooks';
 
 export const useLoginForm = () => {
   // const router = useRouter();
+
+  const { mutateAsync } = useAuth();
 
   const {
     register,
@@ -27,17 +29,14 @@ export const useLoginForm = () => {
     if (isSubmitting || isLoading) setIsFetching(true);
   }, [isSubmitting, isLoading]);
 
-  const onSubmit = async (data: FormData) => {
-    // const response = await signIn('credentials', {
-    //   redirect: false,
-    //   username: data.username,
-    //   password: data.password,
-    // });
-    // if (response?.error) {
-    //   setIsFetching(false);
-    //   setError('username', { message: 'Пользователь не найден' });
-    //   setError('password', { message: 'Или неправильный пароль' });
-    // }
+  const onSubmit = async ({ username, password }: FormData) => {
+    mutateAsync({ username, password })
+      .then(() => {
+        console.log('Success');
+      })
+      .catch(() => {
+        console.log('Error');
+      });
   };
 
   const redirect = (role: string) => {

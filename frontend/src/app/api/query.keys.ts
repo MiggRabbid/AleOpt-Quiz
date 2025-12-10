@@ -1,0 +1,46 @@
+import type { AxiosError } from 'axios';
+
+import type { iHandledError } from '@/app/types';
+import type { UseMutationOptions } from '@tanstack/react-query';
+
+interface IQueryKeys {
+  auth: {
+    login: string;
+  };
+  users: {
+    create: string;
+    one: string;
+    all: string;
+  };
+  questions: {
+    create: string;
+    one: string;
+    all: string;
+  };
+  results: {
+    create: string;
+    one: string;
+    all: string;
+  };
+}
+
+export const queryKeys: IQueryKeys = {
+  auth: {
+    login: 'login',
+  },
+  users: {
+    create: 'create',
+    one: 'one',
+    all: 'all',
+  },
+  questions: {
+    create: 'create',
+    one: 'one',
+    all: 'all',
+  },
+  results: {
+    create: 'create',
+    one: 'one',
+    all: 'all',
+  },
+};

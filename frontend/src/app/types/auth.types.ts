@@ -1,4 +1,4 @@
-import type { UserRoles } from './';
+import { UserRoles } from '.';
 
 export interface iAuthError {
   data: {

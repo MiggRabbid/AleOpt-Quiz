@@ -1,4 +1,5 @@
-import type { iQuestion, iUser } from './';
+/* eslint-disable no-unused-vars */
+import type { iQuestion, iUser } from '.';
 
 export enum TTypeModal {
   new = 'new',

@@ -1,10 +1,10 @@
 import type {
   typeQuestionAnswer,
+  iUserStats,
   iHandledError,
   iUser,
   iUserAnswer,
-  iUserStats,
-} from './';
+} from '.';
 
 export interface iQuestion {
   id: string;
