@@ -1,13 +1,5 @@
 import { UserRoles } from '.';
 
-export interface iAuthError {
-  data: {
-    message: string;
-    errorType: string;
-  };
-  status: number;
-}
-
 export interface iResponseLogin {
   id: string;
   token: string;

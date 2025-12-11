@@ -4,19 +4,38 @@ import {
   type UseMutationOptions,
 } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
-import type { IResponseError } from '../types';
+import { enqueueSnackbar } from 'notistack';
+
+import { getHandledError } from './query.service';
+
+import type { iHandledError } from '@/app/types';
 
 export const queryClient = new QueryClient({
   mutationCache: new MutationCache({
-    onError(error, _variables, _context, mutation) {
-      if (mutation.options.meta?.skipGlobalErrorHandler) return;
-      if (error) throw error;
+    onError(error, _variables, _context, _mutation) {
+      console.group('queryClient  /onError');
+
+      console.group('error');
+      console.log(error);
+      console.groupEnd();
+
+      const preparedError = getHandledError(error);
+      console.group('preparedError');
+      console.log(preparedError);
+      console.groupEnd();
+
+      console.groupEnd();
+      enqueueSnackbar(preparedError.message, {
+        variant: 'error',
+      });
+
+      throw preparedError;
     },
   }),
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      staleTime: 60000,
+      staleTime: 100000,
     },
   },
 });
@@ -24,6 +43,6 @@ export const queryClient = new QueryClient({
 export type CustomHookMutationOptions<
   TData = unknown,
   TVariables = void,
-  TError = AxiosError<IResponseError>,
+  TError = AxiosError<iHandledError>,
   TContext = unknown,
 > = Omit<UseMutationOptions<TData, TError, TVariables, TContext>, 'mutationFn'>;

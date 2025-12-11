@@ -1,21 +1,21 @@
 import { useMutation } from '@tanstack/react-query';
 
-import {
-  TypeAxiosMethod,
-  REQUEST_PATHS,
-  sendRequest,
-  type CustomHookMutationOptions,
-} from '@api/index';
+import { TypeAxiosMethod, REQUEST_PATHS, sendRequest } from '@api/index';
+
+import type { CustomHookMutationOptions } from '@api/index';
+
+import type { iHandledError } from '@/app/types';
 
 import type { AxiosError } from 'axios';
-import type { iRequestLogin, IResponseError, iResponseLogin } from '@/app/types';
+import type { iRequestLogin, iResponseLogin } from '@/app/types';
+
 /**
  * Авторизация
  */
 export const useAuth = (
   options?: CustomHookMutationOptions<iResponseLogin, iRequestLogin>,
 ) => {
-  return useMutation<iResponseLogin, AxiosError<IResponseError>, iRequestLogin>({
+  return useMutation<iResponseLogin, AxiosError<iHandledError>, iRequestLogin>({
     mutationFn: async (payload) => {
       return sendRequest({
         method: TypeAxiosMethod.post,

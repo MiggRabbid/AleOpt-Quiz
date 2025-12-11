@@ -27,11 +27,13 @@ export async function sendRequest<D, R>(props: {
     Authorization: `Bearer ${token}`,
   };
 
-  return (await axiosInstance.request({
+  const response = await axiosInstance.request({
     method,
     url: endpoint,
     data,
     params,
     headers: !!token ? headerWithToken : headers,
-  })) as R;
+  });
+
+  return response.data as R;
 }

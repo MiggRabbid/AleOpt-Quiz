@@ -31,8 +31,10 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
   };
 
   const onError = () => {
+    console.group('onError');
     setError('username', { message: 'Пользователь не найден' });
     setError('password', { message: 'Или неправильный пароль' });
+    console.groupEnd();
   };
 
   return {

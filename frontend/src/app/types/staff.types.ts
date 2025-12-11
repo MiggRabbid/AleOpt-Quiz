@@ -1,4 +1,4 @@
-import type { iResultEntry } from '.';
+import type { iHandledError, iResultEntry } from '.';
 
 /* eslint-disable no-unused-vars */
 export enum UserRoles {
@@ -65,11 +65,6 @@ export interface iUsersResponse {
   status: number;
   data: iUser[] | null;
   error: iHandledError | null;
-}
-
-export interface iHandledError {
-  message: string;
-  errorType: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

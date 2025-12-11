@@ -1,3 +1,4 @@
+import type { number } from 'zod';
 import type { iQuestion } from './quiz.types';
 import type { iUser } from './staff.types';
 
@@ -22,10 +23,8 @@ export type typeQuestionAnswer = {
 
 export type typeApiResponse = Record<string, string>;
 
-export interface IResponseError {
+export interface iHandledError {
   status: number;
-  data: {
-    message: string;
-    errorType: string;
-  };
+  message: string;
+  errorType: string;
 }

@@ -1,4 +1,3 @@
-import { StoreProvider } from './StoreProvider';
-import { MuiThemeProvider } from './MuiThemeProvider';
-
-export { StoreProvider, MuiThemeProvider };
+export * from './StoreProvider';
+export * from './MuiThemeProvider';
+export * from './ToastProvider';
