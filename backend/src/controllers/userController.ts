@@ -16,10 +16,11 @@ const errorTypeMap = {
 };
 
 const errorMsgMap = {
-  userExists: 'This user exists',
-  networkError: 'Network error',
-  notFound: 'User not found',
-  regError: 'Registration error',
+  userExists: 'Пользователь с таким именем уже существует',
+  networkError: 'Ошибка сети',
+  otherError: 'Ошибка получения данных',
+  notFound: 'Пользователь не найден',
+  regError: 'Ошибка регистрации',
 };
 
 class UserController {
@@ -41,11 +42,11 @@ class UserController {
     if (error instanceof Error) {
       console.error(message, error);
       const errorData = this.prepareError(message, error.name);
-      return response.status(500).json(errorData);
+      return response.status(400).json(errorData);
     }
     console.error(message, error);
-    const errorData = this.prepareError(errorMsgMap.networkError, errorTypeMap.networkError);
-    return response.status(500).json(errorData);
+    const errorData = this.prepareError(message, errorTypeMap.networkError);
+    return response.status(400).json(errorData);
   }
 
   private async getAllUsers(): Promise<iResponseUser[]> {
@@ -89,7 +90,7 @@ class UserController {
 
       return response.json(currentUser);
     } catch (e) {
-      return this.handleError(response, e, 'Error in allUsers:');
+      return this.handleError(response, e, errorMsgMap.networkError);
     }
   }
 
@@ -99,7 +100,7 @@ class UserController {
       const sortedUsers = sortUsersByRole(users);
       return response.json(sortedUsers);
     } catch (e) {
-      return this.handleError(response, e, 'Error in allUsers:');
+      return this.handleError(response, e, errorMsgMap.otherError);
     }
   }
 
@@ -175,7 +176,7 @@ class UserController {
       const sortedUser = sortUsersByRole(users);
       return response.json(sortedUser);
     } catch (e) {
-      return this.handleError(response, e, 'Error in editUser:');
+      return this.handleError(response, e, errorMsgMap.otherError);
     }
   }
 
@@ -193,7 +194,7 @@ class UserController {
       const sortedUser = sortUsersByRole(users);
       return response.json(sortedUser);
     } catch (e) {
-      return this.handleError(response, e, 'Error in deleteUser:');
+      return this.handleError(response, e, errorMsgMap.otherError);
     }
   }
 }
