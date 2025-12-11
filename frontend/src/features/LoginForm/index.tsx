@@ -1,32 +1,31 @@
 // Библиотеки
-import { useEffect, useLayoutEffect, useState } from 'react';
 import { Box, FormControl, Typography } from '@mui/material';
+import { Navigate, useNavigate } from '@tanstack/react-router';
 // Логика
 import { useLoginForm } from './hooks';
+import { LocalKeyMap, useLocalStorage } from '@/app/hooks';
+import { routes } from '@/app/router/routes';
 // Компоненты
 import { BtnLogin } from './components';
 import { CustomInput } from '@/shared/ui/inputs';
 
+import type { iResponseLogin } from '@/app/types';
+
 const LoginForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { setLocalData } = useLocalStorage<LocalKeyMap.USER>();
 
-  const { handleSubmit, onSubmit, errors, register, isFetching, redirect } =
-    useLoginForm();
+  const handleSuccess = (data: iResponseLogin) => {
+    setLocalData({
+      key: LocalKeyMap.USER,
+      data,
+    });
+    navigate({ to: routes.main, replace: true });
+  };
 
-  useLayoutEffect(() => {
-    if (isFetching) setIsLoading(() => true);
-    console.log('Login isFetching -', isFetching);
-  }, [isFetching]);
-
-  useLayoutEffect(() => {
-    if (errors) setIsLoading(() => false);
-    console.log('Login errors -', errors ?? 'нет ошибок');
-  }, [errors]);
-
-  // useEffect(() => {
-  //   redirect((session?.user as any)?.role || '');
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [session]);
+  const { handleSubmit, onSubmit, errors, register, isLoading } = useLoginForm({
+    handleSuccess,
+  });
 
   return (
     <Box className="shadow-glass border-glass h-full max-h-[1080px] w-full max-w-lg overflow-hidden rounded-2xl border backdrop-blur-sm">
@@ -50,7 +49,7 @@ const LoginForm = () => {
               register={register('username')}
               error={!!errors.username}
               helperText={errors.username?.message}
-              disabled={isFetching || isLoading}
+              disabled={isLoading}
             />
             <CustomInput
               type="password"
@@ -58,11 +57,11 @@ const LoginForm = () => {
               register={register('password')}
               error={!!errors.password}
               helperText={errors.password?.message}
-              disabled={isFetching || isLoading}
+              disabled={isLoading}
             />
 
             <Box className="w-full max-w-[400px]">
-              <BtnLogin isSubmitting={isFetching || isLoading} />
+              <BtnLogin isSubmitting={isLoading} />
             </Box>
           </FormControl>
         </Box>

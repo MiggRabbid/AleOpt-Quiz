@@ -9,13 +9,9 @@ export const getUserToken = async () => {
 };
 
 export enum TypeAxiosMethod {
-  // eslint-disable-next-line no-unused-vars
   get = 'get',
-  // eslint-disable-next-line no-unused-vars
   post = 'post',
-  // eslint-disable-next-line no-unused-vars
   put = 'put',
-  // eslint-disable-next-line no-unused-vars
   delete = 'delete',
 }
 

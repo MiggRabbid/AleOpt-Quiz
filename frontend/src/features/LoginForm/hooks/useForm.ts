@@ -1,17 +1,21 @@
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { schema } from '../config';
-import { routes } from '@/app/router/routes';
-
-import type { FormData } from '../config';
 import { useAuth } from '@/app/api/hooks';
 
-export const useLoginForm = () => {
-  // const router = useRouter();
+import type { FormData } from '../config';
+import type { iResponseLogin } from '@/app/types';
 
-  const { mutateAsync } = useAuth();
+interface IUseLoginFormProps {
+  handleSuccess: (data: iResponseLogin) => void;
+}
+
+export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
+  const { mutateAsync } = useAuth({
+    onSuccess: (data) => handleSuccess(data),
+    onError: () => onError(),
+  });
 
   const {
     register,
@@ -22,34 +26,20 @@ export const useLoginForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const [isFetching, setIsFetching] = useState<boolean>(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (isSubmitting || isLoading) setIsFetching(true);
-  }, [isSubmitting, isLoading]);
-
   const onSubmit = async ({ username, password }: FormData) => {
-    mutateAsync({ username, password })
-      .then(() => {
-        console.log('Success');
-      })
-      .catch(() => {
-        console.log('Error');
-      });
+    mutateAsync({ username, password });
   };
 
-  const redirect = (role: string) => {
-    // if (!role) return;
-    // switch (role) {
-    //   case 'Admin':
-    //   case 'Owner':
-    //     router.replace(routes.admin);
-    //     break;
-    //   default:
-    //     router.replace(routes.profile);
-    // }
+  const onError = () => {
+    setError('username', { message: 'Пользователь не найден' });
+    setError('password', { message: 'Или неправильный пароль' });
   };
 
-  return { register, handleSubmit, errors, isFetching, onSubmit, redirect };
+  return {
+    register,
+    handleSubmit,
+    errors,
+    onSubmit,
+    isLoading: isSubmitting || isLoading,
+  };
 };

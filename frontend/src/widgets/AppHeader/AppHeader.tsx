@@ -2,7 +2,7 @@
 import { Box } from '@mui/material';
 import { BtnLogo, BtnRedirect, BtnLogout } from './components';
 
-const AppHeader = async () => {
+const AppHeader = () => {
   return (
     <Box
       component="header"

@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.BASE_SERVER_URL;
+export const BASE_URL = import.meta.env.VITE_BASE_SERVER_URL;
 
 export const API_PATH = {
   api: '/api',

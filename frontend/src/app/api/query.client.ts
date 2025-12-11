@@ -23,6 +23,7 @@ export const queryClient = new QueryClient({
 
 export type CustomHookMutationOptions<
   TData = unknown,
-  TError = AxiosError<IResponseError>,
   TVariables = void,
-> = Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>;
+  TError = AxiosError<IResponseError>,
+  TContext = unknown,
+> = Omit<UseMutationOptions<TData, TError, TVariables, TContext>, 'mutationFn'>;
