@@ -24,9 +24,21 @@ const getAccessToken = (role: string, username: string): string => {
   return jwt.sign(payload, secret, { expiresIn: '7d' });
 };
 
+const errorTypeMap = {
+  userNotFound: 'userNotFound',
+  incorrectPassword: 'incorrectPassword',
+  authError: 'authError',
+};
+
+const errorMsgMap = {
+  userNotFound: 'Пользователь не найден',
+  incorrectPassword: 'Не верный пароль',
+  authError: 'Ошибка авторизации',
+};
+
 class AuthController {
   async login(request: Request, response: Response): Promise<Response> {
-    console.log(`BACK / login start`);
+    console.log(`BACK / login  / start`);
 
     try {
       const validationError = validationResult(request);
@@ -41,26 +53,29 @@ class AuthController {
       const user = (await User.findOne({ username })) as iUserModel;
       if (!user) {
         return response
-          .status(401)
-          .json({ message: `Invalid username or password`, errorType: 'InvalidUserData' });
+          .status(404)
+          .json({ message: errorMsgMap.userNotFound, errorType: errorTypeMap.userNotFound });
       }
 
       const isValidPassword = await bcrypt.compare(password, user.password);
 
       if (!isValidPassword) {
-        return response
-          .status(401)
-          .json({ message: 'Invalid username or password', errorType: 'InvalidUserData' });
+        return response.status(401).json({
+          message: errorMsgMap.incorrectPassword,
+          errorType: errorTypeMap.incorrectPassword,
+        });
       }
 
       const { firstName, role, _id: id, image = '' } = user;
       const token = getAccessToken(user.role as string, user.username);
 
-      console.log(`BACK / login - ${user?.firstName} ${user?.lastName} - ${user?.username}`);
+      console.log(`BACK / login  /  ${user?.firstName} ${user?.lastName} - ${user?.username}`);
       return response.json({ token, id, firstName, username, role, image });
     } catch (e) {
-      console.error('BACK / authController', e);
-      return response.status(400).json({ message: 'Authorization error', errorType: 'authError' });
+      console.error('BACK / login / error', e);
+      return response
+        .status(400)
+        .json({ message: errorMsgMap.authError, errorType: errorTypeMap.authError });
     }
   }
 }

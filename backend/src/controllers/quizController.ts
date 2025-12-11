@@ -5,16 +5,18 @@ import { Question } from '../models/models';
 import { iQuestionModel } from '../types/quizTypes';
 
 const errorTypeMap = {
-  userExists: 'userExists',
+  questionExists: 'questionExists',
   networkError: 'networkError',
   notFound: 'notFound',
-  regError: 'regError',
 };
 
 const errorMsgMap = {
-  questionExists: 'This question exists',
-  networkError: 'Network error',
-  notFound: 'User not found',
+  questionExists: 'Такой вопрос уже существует',
+  networkError: 'Ошибка сети',
+  notFound: 'Вопрос не найден',
+  createError: 'Ошибка редактирования вопроса',
+  editError: 'Ошибка редактирования вопроса',
+  deleteError: 'Ошибка удаления вопроса',
 };
 
 class QuizController {
@@ -36,11 +38,11 @@ class QuizController {
     if (error instanceof Error) {
       console.error(message, error);
       const errorData = this.prepareError(message, error.name);
-      return response.status(500).json(errorData);
+      return response.status(400).json(errorData);
     }
     console.error(message, error);
-    const errorData = this.prepareError(errorMsgMap.networkError, errorTypeMap.networkError);
-    return response.status(500).json(errorData);
+    const errorData = this.prepareError(message, errorTypeMap.networkError);
+    return response.status(400).json(errorData);
   }
 
   private async getSortedQuestions(): Promise<iQuestionModel[]> {
@@ -59,13 +61,29 @@ class QuizController {
 
   async newQuestion(request: Request, response: Response): Promise<Response> {
     try {
+      const allQuestions = await Question.find();
+
+      const questionExists = allQuestions.find(
+        (question) =>
+          question.question.toLocaleLowerCase().trim() ===
+          request.body.question.toLocaleLowerCase().trim(),
+      );
+
+      if (questionExists) {
+        const errorData = this.prepareError(
+          errorMsgMap.questionExists,
+          errorTypeMap.questionExists,
+        );
+        return response.status(400).json(errorData);
+      }
+
       const newQuestion = new Question(request.body);
       await newQuestion.save();
 
       const sortedQuestions = await this.getSortedQuestions();
       return response.json(sortedQuestions);
     } catch (e) {
-      return this.handleError(response, e, 'Error in newQuiz:');
+      return this.handleError(response, e, errorMsgMap.createError);
     }
   }
 
@@ -85,7 +103,7 @@ class QuizController {
 
       return response.json(sortedQuestions);
     } catch (e) {
-      return this.handleError(response, e, 'Error in editQuestion:');
+      return this.handleError(response, e, errorMsgMap.editError);
     }
   }
 
@@ -103,7 +121,7 @@ class QuizController {
       const sortedQuestions = await this.getSortedQuestions();
       return response.json(sortedQuestions);
     } catch (e) {
-      return this.handleError(response, e, 'Error in deleteQuestion:');
+      return this.handleError(response, e, errorMsgMap.deleteError);
     }
   }
 }
