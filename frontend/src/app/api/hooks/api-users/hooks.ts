@@ -3,7 +3,7 @@ import { keepPreviousData, queryOptions } from '@tanstack/react-query';
 import { useAuthContext } from '@app/hooks';
 import { TypeAxiosMethod, REQUEST_PATHS, sendRequest, queryKeys } from '@api/index';
 
-import type { IGetUserDataRequest, iUser, iUserStats } from '@app/types';
+import type { IGetUserDataRequest, IUserRequest, iUserStats } from '@app/types';
 
 /**
  * Получение данных пользователя
@@ -15,10 +15,10 @@ export const useGetCurrentUser = (props: IGetUserDataRequest) => {
     queryKey: [queryKeys.users.one],
     placeholderData: keepPreviousData,
     queryFn: () =>
-      sendRequest<iUser, IGetUserDataRequest['query']>({
-        method: TypeAxiosMethod.post,
+      sendRequest<IUserRequest, IGetUserDataRequest['query']>({
+        method: TypeAxiosMethod.get,
         endpoint: REQUEST_PATHS.user(),
-        data: props.query,
+        params: props.query,
         token: token,
       }).then((res) => res),
     retry: false,
@@ -36,9 +36,9 @@ export const useGetUserStats = (props: IGetUserDataRequest) => {
     placeholderData: keepPreviousData,
     queryFn: () =>
       sendRequest<iUserStats, IGetUserDataRequest['query']>({
-        method: TypeAxiosMethod.post,
+        method: TypeAxiosMethod.get,
         endpoint: REQUEST_PATHS.userStats(),
-        data: props.query,
+        params: props.query,
         token: token,
       }).then((res) => res),
     retry: false,
@@ -56,7 +56,7 @@ export const useGetAllUsers = () => {
     placeholderData: keepPreviousData,
     queryFn: () =>
       sendRequest<iUserStats>({
-        method: TypeAxiosMethod.post,
+        method: TypeAxiosMethod.get,
         endpoint: REQUEST_PATHS.users(),
         token: token,
       }).then((res) => res),

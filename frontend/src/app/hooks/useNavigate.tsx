@@ -1,4 +1,6 @@
+import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate as useTanstackNavigate } from '@tanstack/react-router';
+
 import { routes, type TRoutesValues } from '@app/router';
 
 const useNavigate = () => {
@@ -10,19 +12,17 @@ const useNavigate = () => {
   const isLoginPage = location.pathname === routes.login;
   const isAdminPage = location.pathname === routes.admin;
   const isQuizPage = location.pathname === routes.quiz;
-  const is404LoginPage = !Object.values(routes).some(
-    (route) => route === location.pathname,
+  const is404LoginPage = useMemo(
+    () => !Object.values(routes).some((route) => route === currentPath),
+    [routes, currentPath],
   );
 
-  const navigateTo = ({
-    to,
-    replace = false,
-  }: {
-    to: TRoutesValues;
-    replace?: boolean;
-  }) => {
-    navigate({ to: to, replace: replace });
-  };
+  const navigateTo = useCallback(
+    ({ to, replace = false }: { to: TRoutesValues; replace?: boolean }) => {
+      navigate({ to: to, replace: replace });
+    },
+    [navigate],
+  );
 
   return {
     currentPath,

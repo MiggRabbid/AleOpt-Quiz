@@ -1,14 +1,24 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { actions as globalActions, globalReducer } from './slices/global/global.slice';
+import quiz, { actions as quizActions } from './slices/quiz';
+import global, { actions as globalActions } from './slices/global';
 
-const rootReducer = combineReducers({ globalReducer });
+const rootReducer = combineReducers({
+  quiz,
+  global,
+});
 
-export const actions = { ...globalActions };
+export type RootState = ReturnType<typeof rootReducer>;
 
-export const store = configureStore({
+const actions = {
+  ...quizActions,
+  ...globalActions,
+};
+
+const store = configureStore({
   reducer: rootReducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export { actions, rootReducer, store };
+
 export type AppDispatch = typeof store.dispatch;

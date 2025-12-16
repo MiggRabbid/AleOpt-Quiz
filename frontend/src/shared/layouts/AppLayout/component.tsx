@@ -1,8 +1,10 @@
 // Библиотеки
-import React, { type FC, type ReactNode } from 'react';
+import { memo } from 'react';
 import { Box } from '@mui/material';
 // Компоненты
 import { AppHeader } from '@/widgets/AppHeader';
+// Типизация
+import type { FC, ReactNode } from 'react';
 
 interface IAppLayoutProps {
   children: ReactNode;
@@ -17,4 +19,4 @@ const AppLayout: FC<IAppLayoutProps> = ({ children }) => {
   );
 };
 
-export default React.memo(AppLayout);
+export default memo(AppLayout);

@@ -1,14 +1,11 @@
+// Библиотеки
 import React from 'react';
-// import { Box } from '@mui/material';
-
-// import { useAppSelector } from '@hooks/index';
-// import { getGlobalField } from '@selectors/index';
-
-import { SideFull, SideMain, SideSecond } from '@/shared/layouts';
 import { useLocation } from '@tanstack/react-router';
+// Компоненты
+import { SideFull, SideMain, SideSecond } from '@/shared/layouts';
+import { UserProfile } from '@/entities/users';
 
 const MainPage = () => {
-  // const title = useAppSelector(getGlobalField('title'));
   const location = useLocation();
 
   console.group('MainPage');
@@ -18,8 +15,7 @@ const MainPage = () => {
   return (
     <SideFull id="MainPage" type="main">
       <SideSecond>
-        <p>UserProfile</p>
-        {/* <UserProfile user={user} userStats={userStats} /> */}
+        <UserProfile />
       </SideSecond>
       <SideMain>
         {/* <UserStats userStats={userStats} /> */}

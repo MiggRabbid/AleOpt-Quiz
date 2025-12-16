@@ -1,8 +1,3 @@
-import type { AxiosError } from 'axios';
-
-import type { iHandledError } from '@/app/types';
-import type { UseMutationOptions } from '@tanstack/react-query';
-
 interface IQueryKeys {
   auth: {
     login: string;

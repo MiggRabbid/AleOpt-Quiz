@@ -1,2 +1,2 @@
-export * from './CustomIcon';
-export * from './CustomIcon.types';
+export * from './component';
+export * from './component.types';

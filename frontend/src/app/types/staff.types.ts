@@ -24,13 +24,13 @@ export const userRolesMap: Record<UserRoles, string> = {
 };
 
 export interface IUserRequest {
-  role: UserRoles;
   firstName: string;
-  lastname: string;
-  username: string;
-  password?: string | undefined;
-  image: string;
   gender: UserGender;
+  image: string;
+  lastName: string;
+  password?: string | undefined;
+  role: UserRoles;
+  username: string;
 }
 
 export interface iUser {

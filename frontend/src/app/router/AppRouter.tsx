@@ -8,6 +8,7 @@ import {
 // Логика
 import { routes } from '@app/router';
 // Компоненты
+import { PrivateOutlet } from './';
 import { AppLayout } from '@/shared/layouts';
 import {
   MainPage,
@@ -17,16 +18,15 @@ import {
   NotFoundPage,
   ErrorPage,
 } from '@/pages';
-import { PrivateRoute } from './';
 
 // Корень
 const rootRoute = createRootRoute({
   component: () => (
-    <PrivateRoute>
+    <PrivateOutlet>
       <AppLayout>
         <Outlet />
       </AppLayout>
-    </PrivateRoute>
+    </PrivateOutlet>
   ),
   errorComponent: () => <ErrorPage />,
   notFoundComponent: () => <NotFoundPage />,
@@ -68,9 +68,3 @@ const routeTree = rootRoute.addChildren({
 });
 
 export const AppRouter = createRouter({ routeTree });
-
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof AppRouter;
-  }
-}

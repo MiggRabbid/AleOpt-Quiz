@@ -1,16 +1,17 @@
-import { useLayoutEffect } from 'react';
-
+// Библиотеки
+import { memo, useLayoutEffect } from 'react';
+// Логика
 import { useAuthContext, useNavigate } from '@app/hooks';
 import { routes } from '@app/router';
+// Типизация
+import type { FC, ReactElement } from 'react';
 
-import type { ReactElement } from 'react';
-
-interface IPrivateRouteProps {
+interface IPrivateOutletProps {
   children: ReactElement;
 }
 
-const PrivateRoute = ({ children }: IPrivateRouteProps) => {
-  const { navigateTo, isLoginPage, isAdminPage, is404LoginPage } = useNavigate();
+const PrivateOutlet: FC<IPrivateOutletProps> = memo(({ children }) => {
+  const { navigateTo, isLoginPage, isAdminPage } = useNavigate();
   const { isAuth, getIsAdmin } = useAuthContext();
 
   const isAdmin = getIsAdmin();
@@ -32,9 +33,9 @@ const PrivateRoute = ({ children }: IPrivateRouteProps) => {
       navigateTo({ to: routes.main, replace: true });
       return;
     }
-  }, [isAuth, navigateTo]);
+  }, [isAuth, isAdmin, isLoginPage, isAdminPage]);
 
   return children;
-};
+});
 
-export { PrivateRoute };
+export { PrivateOutlet };
