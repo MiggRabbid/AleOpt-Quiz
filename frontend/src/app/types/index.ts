@@ -6,3 +6,4 @@ export * from './staff.types';
 export * from './stats.types';
 export * from './types.types';
 export * from './query.types';
+export * from './charts.types';

@@ -7,7 +7,6 @@ import { useAuthContext } from '@/app/hooks';
 // Компоненты
 import { ProfileCard } from '@/features/ProfileCard';
 import { UserRoles } from '@/app/types';
-import { useEffect } from 'react';
 import { BtnStartQuiz, SummaryResults } from './components';
 
 const UserProfile = () => {
@@ -30,18 +29,6 @@ const UserProfile = () => {
     }),
     enabled: isAuth,
   });
-
-  useEffect(() => {
-    console.group('userData');
-    console.log(userData);
-    console.groupEnd();
-  }, [userData]);
-
-  useEffect(() => {
-    console.group('userStats');
-    console.log(userStats);
-    console.groupEnd();
-  }, [userStats]);
 
   return (
     <Box className="flex h-full w-full flex-col justify-between gap-5.5" id="UserProfile">

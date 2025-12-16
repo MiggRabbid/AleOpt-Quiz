@@ -22,7 +22,7 @@ export interface iUserStats {
   averageAttempts: iAverageAttempts;
 }
 
-export type typeStatFuncsArgs = iUserStats | undefined;
+export type TStatFuncsArgs = iUserStats | undefined;
 
 export interface iQuestionStatsForDoughnut {
   [key: string]: {
