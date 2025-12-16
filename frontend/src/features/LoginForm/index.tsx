@@ -1,31 +1,39 @@
 // Библиотеки
 import { Box, FormControl, Typography } from '@mui/material';
-import { Navigate, useNavigate } from '@tanstack/react-router';
 // Логика
 import { useLoginForm } from './hooks';
-import { LocalKeyMap, useLocalStorage } from '@/app/hooks';
-import { routes } from '@/app/router/routes';
+import { useAuthContext, useNavigate } from '@app/hooks';
+import { routes } from '@app/router';
 // Компоненты
 import { BtnLogin } from './components';
 import { CustomInput } from '@/shared/ui/inputs';
 
-import type { iResponseLogin } from '@/app/types';
+import { userRolesMap, type iResponseLogin } from '@/app/types';
+import { useEffect } from 'react';
 
 const LoginForm = () => {
-  const navigate = useNavigate();
-  const { setLocalData } = useLocalStorage<LocalKeyMap.USER>();
+  const { navigateTo } = useNavigate();
+  const { updateUserData } = useAuthContext();
 
   const handleSuccess = (data: iResponseLogin) => {
-    setLocalData({
-      key: LocalKeyMap.USER,
-      data,
-    });
-    navigate({ to: routes.main, replace: true });
+    console.group('LoginForm / handleSuccess');
+    console.log(data);
+    if (data.role === userRolesMap.Admin || data.role === userRolesMap.Owner) {
+      navigateTo({ to: routes.admin, replace: true });
+    } else {
+      navigateTo({ to: routes.main, replace: true });
+    }
+    updateUserData(data);
+    console.groupEnd();
   };
 
-  const { handleSubmit, onSubmit, errors, register, isLoading } = useLoginForm({
+  const { handleSubmit, onSubmit, errors, register, isFetching } = useLoginForm({
     handleSuccess,
   });
+
+  useEffect(() => {
+    console.log('LoginForm / isFetching -', isFetching);
+  }, [isFetching]);
 
   return (
     <Box className="shadow-glass border-glass h-full max-h-[1080px] w-full max-w-lg overflow-hidden rounded-2xl border backdrop-blur-sm">
@@ -49,7 +57,7 @@ const LoginForm = () => {
               register={register('username')}
               error={!!errors.username}
               helperText={errors.username?.message}
-              disabled={isLoading}
+              disabled={isFetching}
             />
             <CustomInput
               type="password"
@@ -57,11 +65,11 @@ const LoginForm = () => {
               register={register('password')}
               error={!!errors.password}
               helperText={errors.password?.message}
-              disabled={isLoading}
+              disabled={isFetching}
             />
 
             <Box className="w-full max-w-[400px]">
-              <BtnLogin isSubmitting={isLoading} />
+              <BtnLogin isSubmitting={isFetching} />
             </Box>
           </FormControl>
         </Box>

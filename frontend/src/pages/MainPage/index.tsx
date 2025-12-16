@@ -5,12 +5,18 @@ import React from 'react';
 // import { getGlobalField } from '@selectors/index';
 
 import { SideFull, SideMain, SideSecond } from '@/shared/layouts';
+import { useLocation } from '@tanstack/react-router';
 
 const MainPage = () => {
   // const title = useAppSelector(getGlobalField('title'));
+  const location = useLocation();
+
+  console.group('MainPage');
+  console.log('location -', location.pathname);
+  console.groupEnd();
 
   return (
-    <SideFull id="ProfilePage" type="main">
+    <SideFull id="MainPage" type="main">
       <SideSecond>
         <p>UserProfile</p>
         {/* <UserProfile user={user} userStats={userStats} /> */}

@@ -6,6 +6,7 @@ import { useAuth } from '@/app/api/hooks';
 
 import type { FormData } from '../config';
 import type { iResponseLogin } from '@/app/types';
+import { useEffect, useState } from 'react';
 
 interface IUseLoginFormProps {
   handleSuccess: (data: iResponseLogin) => void;
@@ -17,6 +18,8 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
     onError: () => onError(),
   });
 
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -26,6 +29,14 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
     resolver: zodResolver(schema),
   });
 
+  useEffect(() => {
+    if (isLoading || isSubmitting) setIsFetching(true);
+  }, [isSubmitting, isLoading]);
+
+  useEffect(() => {
+    console.log('useLoginForm / isLoading -', isLoading);
+  }, [isLoading]);
+
   const onSubmit = async ({ username, password }: FormData) => {
     mutateAsync({ username, password });
   };
@@ -34,6 +45,7 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
     console.group('onError');
     setError('username', { message: 'Пользователь не найден' });
     setError('password', { message: 'Или неправильный пароль' });
+    setIsFetching(false);
     console.groupEnd();
   };
 
@@ -42,6 +54,6 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
     handleSubmit,
     errors,
     onSubmit,
-    isLoading: isSubmitting || isLoading,
+    isFetching,
   };
 };

@@ -2,13 +2,13 @@ import { axiosInstance } from '.';
 
 import type { TRequestPath, TypeAxiosMethod } from '.';
 
-export async function sendRequest<D, R>(props: {
+export async function sendRequest<R, D = undefined>(props: {
   method: TypeAxiosMethod;
   data?: D;
   endpoint: TRequestPath;
   params?: any;
   headers?: any;
-  token?: string;
+  token?: string | null;
 }) {
   const {
     method,

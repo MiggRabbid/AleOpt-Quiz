@@ -1,6 +1,6 @@
-import type { number } from 'zod';
 import type { iQuestion } from './quiz.types';
 import type { iUser } from './staff.types';
+import type { UseNavigateResult } from '@tanstack/react-router';
 
 // eslint-disable-next-line no-unused-vars
 export type typeTranslationFunction = (key: string) => string;
@@ -28,3 +28,4 @@ export interface iHandledError {
   message: string;
   errorType: string;
 }
+

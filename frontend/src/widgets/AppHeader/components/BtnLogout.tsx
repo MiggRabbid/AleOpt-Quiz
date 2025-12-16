@@ -1,39 +1,38 @@
 // Библиотеки
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
+import { useLocation, useNavigate } from '@tanstack/react-router';
+// Логика
+import { useAuthContext } from '@/app/hooks';
+import { routes } from '@app/router';
 // Компоненты
 import { BtnSmall } from '@/shared/ui/btns';
 import { CustomIcon } from '@/shared/ui/CustomIcon';
-// import { usePageParams } from '@/hooks';
 
 const BtnLogout = () => {
-  // const { isNotUser, isLoginPage, is404Page } = usePageParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { clearUserData } = useAuthContext();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoginPage = location.pathname === routes.login;
+  const is404LoginPage = !Object.values(routes).some(
+    (route) => route === location.pathname,
+  );
 
-  // if (isNotUser || isLoginPage || is404Page) return null;
-
-  const handelClickSignOut = async () => {
-    setIsLoading(true);
-    try {
-      // await signOut();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+  const handelClickBtn = async () => {
+    clearUserData();
+    navigate({ to: routes.login });
   };
 
-  const getBtnText = () => (isLoading ? 'Выхожу' : 'Выход');
+  if (isLoginPage || is404LoginPage) return null;
 
   return (
     <Box className="h-fir w-40">
       <BtnSmall
-        btnText={getBtnText()}
-        btnClick={handelClickSignOut}
+        btnText="Выход"
+        btnClick={handelClickBtn}
         variant="text"
         fullWidth
-        isLoading={isLoading}
         IconRight={<CustomIcon name="Logout" />}
       />
     </Box>

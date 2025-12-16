@@ -1,4 +1,4 @@
-import { UserRoles } from '.';
+import { UserGender, UserRoles } from '.';
 
 export interface iResponseLogin {
   id: string;
@@ -7,10 +7,19 @@ export interface iResponseLogin {
   firstName: string;
   role: UserRoles;
   image: string;
-  gender: 'male' | 'female';
+  gender: UserGender;
 }
 
 export interface iRequestLogin {
   username: string;
   password: string;
+}
+
+export interface iAuthContext {
+  user: iResponseLogin | null;
+  updateUserData: (user: iResponseLogin) => void;
+  clearUserData: () => void;
+  token: string | null;
+  getIsAdmin: () => boolean;
+  isAuth: boolean;
 }

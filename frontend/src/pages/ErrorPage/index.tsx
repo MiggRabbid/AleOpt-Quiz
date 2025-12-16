@@ -1,31 +1,32 @@
-import React from 'react';
+import { BtnMain } from '@/shared/ui/btns';
 import { Box, Typography } from '@mui/material';
-import type { ErrorComponentProps } from '@tanstack/react-router';
+import { CatchBoundary, useRouter } from '@tanstack/react-router';
 
-const ErrorPage = ({ error }: ErrorComponentProps) => {
-  const isInstanceofError = error instanceof Error;
+export type LayoutErrorRouterProps = object;
 
-  console.group('GlobalError:');
-  console.error(error);
-  console.groupEnd();
+const ErrorPage = () => {
+  const router = useRouter();
+
+  const logError = (error: unknown) => {
+    console.group('logError:');
+    console.error(error);
+    console.groupEnd();
+  };
 
   return (
-    <Box className="min-h-full w-full p-10!">
-      <Typography component={'h1'} className="text-center text-3xl font-bold">
-        Что-то пошло не так
-      </Typography>
-
-      {isInstanceofError ? (
-        <Typography component={'pre'} className="text-md text-center font-bold">
-          {error.message}
-        </Typography>
-      ) : (
+    <CatchBoundary getResetKey={() => 'reset'} onCatch={logError}>
+      <Box className="flex min-h-full w-full flex-col items-center justify-center gap-10 p-10!">
         <Typography component={'p'} className="text-md text-center font-bold">
-          Неизвестная ошибка
+          Произошла неизвестная ошибка. Пожалуйста, попробуйте позже.
         </Typography>
-      )}
-    </Box>
+
+        <BtnMain
+          btnText={'Вернуться на главную'}
+          btnClick={() => router.invalidate()}
+        ></BtnMain>
+      </Box>
+    </CatchBoundary>
   );
 };
 
-export default React.memo(ErrorPage);
+export default ErrorPage;

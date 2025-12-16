@@ -1,4 +1,4 @@
-import type { iResponseLogin, iTimer, iUserAnswer } from '@/app/types';
+import type { iResponseLogin, iTimer, iUserAnswer } from '@app/types';
 
 export enum LocalKeyMap {
   USER = 'user',
@@ -12,16 +12,26 @@ interface IValueMap {
   [LocalKeyMap.TIMER]: iTimer;
 }
 
-export const useLocalStorage = <T extends LocalKeyMap>() => {
-  const setLocalData = ({ key, data }: { key: T; data: IValueMap[T] }) => {
+export const useLocalStorage = () => {
+  const setLocalData = <T extends LocalKeyMap>({
+    key,
+    data,
+  }: {
+    key: T;
+    data: IValueMap[T];
+  }) => {
     if (typeof window === 'undefined') return null;
     return localStorage.setItem(key, JSON.stringify(data));
   };
-  const getLocalData = ({ key }: { key: T }): IValueMap[T] | null => {
+  const getLocalData = <T extends LocalKeyMap>({
+    key,
+  }: {
+    key: T;
+  }): IValueMap[T] | null => {
     if (typeof window === 'undefined') return null;
     return JSON.parse(localStorage.getItem(key) || 'null');
   };
-  const delLocalData = ({ key }: { key: T }) => {
+  const delLocalData = <T extends LocalKeyMap>({ key }: { key: T }) => {
     if (typeof window === 'undefined') return;
     return localStorage.removeItem(key);
   };

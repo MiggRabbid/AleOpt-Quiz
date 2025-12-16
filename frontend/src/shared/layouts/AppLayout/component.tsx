@@ -10,7 +10,7 @@ interface IAppLayoutProps {
 
 const AppLayout: FC<IAppLayoutProps> = ({ children }) => {
   return (
-    <Box className="w-full flex flex-col justify-start text-slate-900">
+    <Box className="flex w-full flex-col justify-start text-slate-900">
       <AppHeader />
       {children}
     </Box>

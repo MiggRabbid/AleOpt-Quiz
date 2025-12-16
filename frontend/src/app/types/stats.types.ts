@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import type { iResultEntry } from './staff.types';
-import { typeAnswersKeys } from './types.types';
+import type { iResultEntry, typeAnswersKeys } from './';
 
 export enum typeDoughnut {
   hard = 'hard',

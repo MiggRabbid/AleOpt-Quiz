@@ -1,36 +1,38 @@
 // Библиотеки
+import { Box } from '@mui/material';
+// Логика
+import { useAuthContext, useNavigate } from '@app/hooks';
+import { routes } from '@app/router';
 // Компоненты
 import { BtnSmall } from '@/shared/ui/btns';
 // Типизация
-import { Box } from '@mui/material';
-// import { usePageParams } from '@/hooks';
 
 export const BtnRedirect = () => {
-  // const { isNotUser, isModerator, isLoginPage, is404Page, isAdminPage } = usePageParams();
-
-  const isAdminPage = window.location.pathname.includes('/admin');
-  // if (!isModerator || isNotUser || isLoginPage || is404Page) return null;
+  const { isAdminPage, is404LoginPage, navigateTo } = useNavigate();
+  const { user, getIsAdmin } = useAuthContext();
 
   const handelClickBtn = () => {
-    console.group('handelClickBtn');
-    // console.log('isAdminPage -', isAdminPage);
-    // if (isAdminPage) {
-    //   console.log('router.push(routes.profile)');
-    //   router.push(routes.profile);
-    // } else {
-    //   console.log('router.push(routes.admin)');
-    //   router.push(routes.admin);
-    // }
-    console.groupEnd();
+    console.group('BtnRedirect / handelClickBtn');
+    console.log('location    -', location.pathname);
+    console.log('isAdminPage -', isAdminPage);
+    console.log('is404LoginPage -', is404LoginPage);
+
+    if (isAdminPage || is404LoginPage) {
+      console.log('IF / isAdminPage || is404LoginPage');
+      console.groupEnd();
+      navigateTo({ to: routes.main });
+    } else {
+      console.log('ELSE');
+      console.groupEnd();
+      navigateTo({ to: routes.admin });
+    }
   };
 
   const getBtnText = () => {
-    if (isAdminPage) {
-      return 'На главную';
-    } else {
-      return 'В админку';
-    }
+    return isAdminPage ? 'На главную' : 'В админку';
   };
+
+  if (!user || !getIsAdmin()) return null;
 
   return (
     <Box className="h-fir w-40">
