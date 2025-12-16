@@ -14,6 +14,7 @@ interface IBtnSmallProps {
   color?: 'success' | 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'warning';
   IconRight?: ReactNode;
   IconLeft?: ReactNode;
+  disabled?: boolean;
 }
 
 const BtnSmall = (props: IBtnSmallProps) => {
@@ -26,6 +27,7 @@ const BtnSmall = (props: IBtnSmallProps) => {
     color = 'success',
     IconRight,
     IconLeft,
+    disabled,
   } = props;
   return (
     <Button
@@ -38,6 +40,7 @@ const BtnSmall = (props: IBtnSmallProps) => {
         paddingX: '20px',
         paddingY: '5px',
       }}
+      disabled={disabled || isLoading}
     >
       <Box className="flex items-center justify-center gap-2" color="inherit">
         {!!IconLeft && (

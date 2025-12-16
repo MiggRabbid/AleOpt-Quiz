@@ -8,7 +8,7 @@ import { BtnSmall } from '@/shared/ui/btns';
 // Типизация
 
 export const BtnRedirect = () => {
-  const { isAdminPage, is404LoginPage, navigateTo } = useNavigate();
+  const { isAdminPage, is404LoginPage, isQuizPage, navigateTo } = useNavigate();
   const { user, getIsAdmin } = useAuthContext();
 
   const handelClickBtn = () => {
@@ -41,6 +41,7 @@ export const BtnRedirect = () => {
         btnClick={handelClickBtn}
         variant="text"
         fullWidth
+        disabled={isQuizPage}
       />
     </Box>
   );
