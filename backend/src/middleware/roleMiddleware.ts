@@ -6,6 +6,16 @@ dotenv.config();
 
 const secret = process.env.SECRET_KEY || '';
 
+const errorTypeMap = {
+  authError: 'authError',
+  isNotAdmin: 'isNotAdmin',
+};
+
+const errorMsgMap = {
+  authError: 'Пользователь не авторизован',
+  isNotAdmin: 'У вас нет доступа',
+};
+
 const roleMiddleware = (role: string) => {
   return (request: Request, response: Response, next: NextFunction): void => {
     if (request.method === 'OPTIONS') {
@@ -16,7 +26,9 @@ const roleMiddleware = (role: string) => {
       const token = request.headers.authorization?.split(' ')[1];
 
       if (!token) {
-        response.status(403).json({ message: 'User is not authorized' });
+        response
+          .status(403)
+          .json({ message: errorMsgMap.authError, typeError: errorTypeMap.authError });
         return;
       }
 
@@ -28,14 +40,18 @@ const roleMiddleware = (role: string) => {
 
       console.log(`BACK / roleMiddleware - ${JSON.stringify(decodedData)}`);
       if (!isAdmin && !isOwner) {
-        response.status(403).json({ message: 'User is not admin or not owner' });
+        response
+          .status(403)
+          .json({ message: errorMsgMap.isNotAdmin, typeError: errorTypeMap.isNotAdmin });
         return;
       }
 
       next();
     } catch (e) {
       console.error('BACK / roleMiddleware', e);
-      response.status(403).json({ message: 'User is not admin' });
+      response
+        .status(403)
+        .json({ message: errorMsgMap.isNotAdmin, typeError: errorTypeMap.isNotAdmin });
     }
   };
 };

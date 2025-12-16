@@ -88,7 +88,20 @@ class UserController {
 
       const currentUser = await User.findOne({ username });
 
-      return response.json(currentUser);
+      if (!currentUser) {
+        const errorData = this.prepareError(errorMsgMap.notFound, errorTypeMap.notFound);
+        return response.status(404).json(errorData);
+      }
+      const responseUser = {
+        firstName: currentUser.firstName,
+        gender: currentUser.gender,
+        image: currentUser.image ?? '',
+        lastName: currentUser.lastName,
+        role: currentUser.role,
+        username: currentUser.username,
+      };
+
+      return response.json(responseUser);
     } catch (e) {
       return this.handleError(response, e, errorMsgMap.networkError);
     }

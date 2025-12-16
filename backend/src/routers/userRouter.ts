@@ -6,10 +6,10 @@ import { authMiddleware, roleMiddleware } from '../middleware/middleware';
 
 import { UserRoles } from '../types/userTypes';
 
-const VALIDATION_ERROR_USERNAME = 'Username must be between 4 and 20 characters';
-const VALIDATION_ERROR_PASSWORD = 'Password must be between 6 and 20 characters';
-const VALIDATION_ERROR_FIRSTNAME = 'FirstName must be at least 1 character.';
-const VALIDATION_ERROR_LASTNAME = 'LastName be at least 1 character.';
+const VALIDATION_ERROR_USERNAME = 'Логин должен быть от 4 до 20 символов';
+const VALIDATION_ERROR_PASSWORD = 'Пароль должен быть от 6 до 20 символов';
+const VALIDATION_ERROR_FIRSTNAME = 'Имя должно содержать не менее 1 символа';
+const VALIDATION_ERROR_LASTNAME = 'Фамилия должна содержать не менее 1 символа';
 
 const validateUsernameAndPassword = [
   check('username', VALIDATION_ERROR_USERNAME).isLength({ min: 4, max: 20 }),

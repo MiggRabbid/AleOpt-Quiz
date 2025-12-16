@@ -15,6 +15,16 @@ dotenv.config();
 
 const secret = process.env.SECRET_KEY || '';
 
+const errorTypeMap = {
+  authError: 'authError',
+  tokenExpired: 'tokenExpired',
+};
+
+const errorMsgMap = {
+  authError: 'Пользователь не авторизован',
+  tokenExpired: 'Пользователь не авторизован',
+};
+
 const authMiddleware = (request: CustomRequest, response: Response, next: NextFunction): void => {
   if (request.method === 'OPTIONS') {
     next();
@@ -24,7 +34,9 @@ const authMiddleware = (request: CustomRequest, response: Response, next: NextFu
     const token = request.headers.authorization?.split(' ')[1];
 
     if (!token) {
-      response.status(403).json({ message: 'User is not authorized', typeError: 'authError' });
+      response
+        .status(403)
+        .json({ message: errorMsgMap.authError, typeError: errorTypeMap.authError });
       return;
     }
 
@@ -37,11 +49,13 @@ const authMiddleware = (request: CustomRequest, response: Response, next: NextFu
     console.error('BACK / authMiddleware', e);
     if (e instanceof TokenExpiredError) {
       response.status(401).json({
-        message: 'The token has expired',
-        typeError: 'tokenExpired',
+        message: errorMsgMap.tokenExpired,
+        typeError: errorTypeMap.tokenExpired,
       });
     } else {
-      response.status(403).json({ message: 'User is not authorized', typeError: 'authError' });
+      response
+        .status(403)
+        .json({ message: errorMsgMap.authError, typeError: errorTypeMap.tokenExpired });
     }
   }
 };
