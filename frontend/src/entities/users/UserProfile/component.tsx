@@ -1,4 +1,5 @@
 // Библиотеки
+import { memo } from 'react';
 import { Box } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 // Логика
@@ -6,28 +7,29 @@ import { useGetCurrentUser, useGetUserStats } from '@/app/api/hooks';
 import { useAuthContext } from '@/app/hooks';
 // Компоненты
 import { ProfileCard } from '@/features/ProfileCard';
-import { UserRoles } from '@/app/types';
 import { BtnStartQuiz, SummaryResults } from './components';
+// Типизация
+import { UserRoles } from '@/app/types';
 
 const UserProfile = () => {
   const { isAuth, user } = useAuthContext();
 
   const { data: userData } = useQuery({
     ...useGetCurrentUser({
-      query: {
+      params: {
         username: user?.username ?? '',
       },
     }),
-    enabled: isAuth,
+    enabled: isAuth && !!user?.username,
   });
 
   const { data: userStats } = useQuery({
     ...useGetUserStats({
-      query: {
+      params: {
         username: user?.username ?? '',
       },
     }),
-    enabled: isAuth,
+    enabled: isAuth && !!user?.username,
   });
 
   return (
@@ -47,4 +49,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default memo(UserProfile);

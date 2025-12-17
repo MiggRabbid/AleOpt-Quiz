@@ -14,10 +14,11 @@ interface ProfileCard {
   lastname: string;
   avatarAlt?: string;
   avatarSrc?: string;
+  isLoading?: boolean;
 }
 
 const ProfileCard = (props: ProfileCard) => {
-  const { role, firstname, lastname, avatarAlt, avatarSrc } = props;
+  const { role, firstname, lastname, avatarAlt, avatarSrc, isLoading } = props;
 
   const { clearCurrentResult, setQuizStateField } = useAppActions();
   useLayoutEffect(() => {
@@ -40,9 +41,13 @@ const ProfileCard = (props: ProfileCard) => {
 
   return (
     <Box className="flex flex-row items-center justify-start gap-4 rounded-2xl bg-slate-50 px-2 py-3 shadow-xl">
-      <UserAvatar src={avatarSrc} alt={avatarAlt} />
+      {!isLoading ? (
+        <UserAvatar src={avatarSrc} alt={avatarAlt} />
+      ) : (
+        <Skeleton variant="circular" className="h-20! w-20!" />
+      )}
       <Box>
-        {firstname ? (
+        {!isLoading ? (
           <Typography
             component="h4"
             className="h-fit! text-base! font-semibold! text-slate-500!"
@@ -53,7 +58,7 @@ const ProfileCard = (props: ProfileCard) => {
           <Skeleton variant="text" className="w-30! text-base!" />
         )}
 
-        {firstname ? (
+        {!isLoading ? (
           <Typography component="h3" className="h-fit! text-2xl! font-semibold!">
             {firstname}
           </Typography>
@@ -61,7 +66,7 @@ const ProfileCard = (props: ProfileCard) => {
           <Skeleton variant="text" className="w-30! text-4xl!" />
         )}
 
-        {lastname ? (
+        {!isLoading ? (
           <Typography component="h3" className="h-fit! text-lg! font-semibold!">
             {lastname}
           </Typography>

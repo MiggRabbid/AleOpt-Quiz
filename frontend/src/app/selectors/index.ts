@@ -1,1 +1,2 @@
-export { getGlobalField } from './global.selector';
+export { getGlobalStateField } from './global.selector';
+export { getQuizStateField } from './quiz.selector';

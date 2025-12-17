@@ -1,4 +1,5 @@
 // Библиотеки
+import { memo, useMemo } from 'react';
 import { Box } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 // Логика
@@ -7,8 +8,8 @@ import {
   getIncorrectAnswersSummary,
   preparingLastTenAttempts,
 } from './utils';
-import { useGetUserStats } from '@/app/api/hooks';
-import { useAuthContext } from '@/app/hooks';
+import { useGetUserStats } from '@app/api/hooks';
+import { useAuthContext } from '@app/hooks';
 // Компоненты
 import { QuestionBlock } from './components';
 import { CustomBar } from '@/features/CustomBar';
@@ -18,20 +19,23 @@ const UserStats = () => {
   const { isAuth, user } = useAuthContext();
   const { data: userStats } = useQuery({
     ...useGetUserStats({
-      query: {
+      params: {
         username: user?.username ?? '',
       },
     }),
-    enabled: isAuth,
+    enabled: isAuth && !!user?.username,
   });
 
-  const attempts = userStats?.attempts || null;
+  const attempts = useMemo(() => userStats?.attempts || null, [userStats]);
 
   const { dataLineOne, labelLineOne, dataLineTwo, labelLineTwo, xLabels } =
     preparingLastTenAttempts({ attempts });
 
-  const easiestQuestions = getCorrectAnswersSummary(attempts);
-  const hardestQuestions = getIncorrectAnswersSummary(attempts);
+  const easiestQuestions = useMemo(() => getCorrectAnswersSummary(attempts), [attempts]);
+  const hardestQuestions = useMemo(
+    () => getIncorrectAnswersSummary(attempts),
+    [attempts],
+  );
 
   return (
     <Box className="flex h-full w-full flex-col gap-8" id="UserStats">
@@ -59,4 +63,4 @@ const UserStats = () => {
   );
 };
 
-export default UserStats;
+export default memo(UserStats);

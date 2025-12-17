@@ -35,7 +35,7 @@ const BtnSmall = (props: IBtnSmallProps) => {
       fullWidth={fullWidth}
       variant={variant}
       color={color}
-      className="h-10! min-h-10! rounded-xl! bg-white! leading-none! font-bold! shadow-md! outline-0!"
+      className="shadow-none! h-10! min-h-10! rounded-xl! bg-white! leading-none! font-bold! outline-0! hover:shadow-md!"
       sx={{
         paddingX: '20px',
         paddingY: '5px',

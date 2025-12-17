@@ -1,10 +1,4 @@
-import type {
-  typeQuestionAnswer,
-  iUserStats,
-  iHandledError,
-  iUser,
-  iUserAnswer,
-} from '.';
+import type { typeQuestionAnswer, iUserStats, iUser, iUserAnswer } from '.';
 
 export interface iQuestion {
   id: string;
@@ -43,10 +37,4 @@ export interface iResultEntry {
   data: string;
   answers: iUserAnswer[];
   correctAnswers: number;
-}
-
-export interface iQuestionResponse {
-  status: number;
-  data: iQuestion[] | null;
-  error: iHandledError | null;
 }

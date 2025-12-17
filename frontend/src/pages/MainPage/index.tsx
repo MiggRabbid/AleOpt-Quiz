@@ -1,10 +1,8 @@
 // Библиотеки
 import React from 'react';
-import { useLocation } from '@tanstack/react-router';
 // Компоненты
 import { SideFull, SideMain, SideSecond } from '@/shared/layouts';
-import { UserProfile } from '@/entities/users';
-import UserStats from '@/entities/users/UsersStats';
+import { UserStats, UserProfile } from '@/entities/users';
 
 const MainPage = () => {
   return (

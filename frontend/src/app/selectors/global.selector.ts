@@ -1,11 +1,7 @@
-import type { RootState } from '@store/index';
-import type { IGlobalState } from '@/app/store/slices/global/index.types';
+import type { RootState } from '@app/store';
+import type { iModalSlice } from '@app/types';
 
-/*
- * Global slice
- */
-// (Global) Получаем поля слайса
-export const getGlobalField =
-  <K extends keyof IGlobalState>(field: K) =>
+export const getGlobalStateField =
+  <K extends keyof iModalSlice>(field: K) =>
   (state: RootState) =>
-    state.globalReducer[field];
+    state.global[field];
