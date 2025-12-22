@@ -1,1 +1,2 @@
-export * from './UserProfileForQuiz';
+export * from './UserProfile';
+export * from './QuestionList';

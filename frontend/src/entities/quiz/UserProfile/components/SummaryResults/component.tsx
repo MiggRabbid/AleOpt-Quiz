@@ -6,7 +6,7 @@ import { useAppSelector, useAuthContext } from '@app/hooks';
 import { getQuizStateField } from '@app/selectors';
 import { useGetAllQuestions } from '@/app/api/hooks';
 // Компоненты
-import { TimeCounter, TimeCounterEnded, AnswerCounter, CorrectAnswerCounter } from '../';
+import { TimeCounter, TimeCounterEnded, AnswerCounter, CorrectAnswerCounter } from '..';
 
 const SummaryResults = () => {
   const { isAuth, user } = useAuthContext();

@@ -88,6 +88,8 @@ export const useUpdateUserStats = (
     IEditUserDataRequest<iResultEntryRequest>
   >,
 ) => {
+  const { token } = useAuthContext();
+
   return useMutation<
     iUserStats,
     AxiosError<iHandledError>,
@@ -99,6 +101,7 @@ export const useUpdateUserStats = (
         endpoint: REQUEST_PATHS.userStats(),
         data: payload.query,
         params: payload.params,
+        token: token,
       });
     },
     ...options,

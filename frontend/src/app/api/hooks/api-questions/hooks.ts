@@ -38,6 +38,8 @@ export const useGetAllQuestions = () => {
 export const useCreateQuestion = (
   options?: CustomHookMutationOptions<iQuestion[], IEditQuestionRequest>,
 ) => {
+  const { token } = useAuthContext();
+
   return useMutation<iQuestion[], AxiosError<iHandledError>, IEditQuestionRequest>({
     mutationFn: async (payload) => {
       return sendRequest({
@@ -45,6 +47,7 @@ export const useCreateQuestion = (
         endpoint: REQUEST_PATHS.question(),
         data: payload.query,
         params: payload.params,
+        token: token,
       });
     },
     ...options,

@@ -7,8 +7,8 @@ interface PlugProps {
 
 const PlugForEmptyData = ({ isSmall }: PlugProps) => {
   const customClass = clsx(
-    'm-4 text-center font-bold text-slate-300 uppercase',
-    isSmall ? 'text-md' : 'w-full text-2xl',
+    'm-4 text-center font-bold! text-slate-500! uppercase',
+    isSmall ? 'text-md!' : 'w-full text-xl!',
   );
 
   return (

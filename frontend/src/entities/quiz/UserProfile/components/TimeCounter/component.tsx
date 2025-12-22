@@ -16,16 +16,6 @@ const TimeCounter = () => {
   );
 
   useEffect(() => {
-    console.group('CHANGE / maxTime');
-    console.log('maxTime -', maxTime);
-    console.groupEnd();
-  }, [maxTime]);
-  useEffect(() => {
-    console.group('CHANGE / currTime');
-    console.log('currTime -', currTime);
-    console.groupEnd();
-  }, [currTime]);
-  useEffect(() => {
     console.group('TimeCounter');
     console.log(`${minutes} : ${seconds}`);
     console.groupEnd();
