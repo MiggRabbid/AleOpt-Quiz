@@ -23,17 +23,20 @@ const QuestionListItemClosed = (props: IQuestionItemProps) => {
 
   const isNext = type === 'next';
 
-  const listItemClasses = clsx('flex h-fit w-full gap-4 px-8! py-4!', {
-    'bg-blue-300': isNext,
-    'bg-slate-300': !isNext,
-  });
+  const listItemClasses = clsx(
+    'flex justify-between items-center h-fit w-full gap-4 px-8! py-4!',
+    {
+      'bg-blue-300': isNext,
+      'bg-slate-300': !isNext,
+    },
+  );
 
   const chipClasses = clsx('h-11! w-fit! min-w-11! rounded-full! text-base! font-bold!', {
     'bg-blue-100! text-blue-600!': isNext,
     'bg-slate-100! text-slate-600!': !isNext,
   });
 
-  const typographyClasses = clsx('h-full! font-semibold!', {
+  const typographyClasses = clsx('h-full! w-full font-semibold!', {
     'text-blue-600!': isNext,
     'text-slate-600!': !isNext,
   });

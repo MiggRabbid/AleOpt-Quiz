@@ -30,7 +30,7 @@ const CustomDoughnut: React.FC<iCustomDoughnutProps> = (props: iCustomDoughnutPr
       >
         Диаграмма ответов
       </Typography>
-      <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl bg-cyan-100 px-4">
+      <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl bg-cyan-100 px-4 shadow-none transition-shadow duration-500 hover:shadow-lg">
         {isEmpty && <PlugForEmptyData isSmall />}
         {!isEmpty && <Doughnut data={dataDoughnut} options={optionsDoughnut} />}
       </Box>

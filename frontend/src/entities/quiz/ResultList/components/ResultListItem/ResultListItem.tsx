@@ -22,9 +22,6 @@ const ResultListItem = (props: IResultListItemProps) => {
     [question.questionId],
   );
 
-  console.log('questions', questions);
-  console.log('currQuestion', currQuestion);
-  console.log('question', question);
   const isCorrectAnswer = question.correctAnswerId === question.userAnswerId;
 
   const chipClass = clsx(
@@ -32,7 +29,12 @@ const ResultListItem = (props: IResultListItemProps) => {
     isCorrectAnswer ? 'bg-emerald-200! text-emerald-600!' : 'bg-rose-200! text-rose-600!',
   );
   return (
-    <CustomListItem classNames="flex flex-col gap-2" paddingX="px-0!" paddingY="py-0!">
+    <CustomListItem
+      classNames="flex flex-col gap-2 transition-shadow duration-500 hover:shadow-lg"
+      paddingX="px-0!"
+      paddingY="py-0!"
+      shadowSize="shadow-none"
+    >
       <Accordion
         className="shadow-small! w-full rounded-xl! border-0! border-slate-200! p-2! outline-0!"
         sx={{
@@ -73,7 +75,6 @@ const ResultListItem = (props: IResultListItemProps) => {
           </Box>
         </AccordionSummary>
         <Box className="mb-4 flex w-full flex-col gap-2 px-4">
-          <p>jndtns</p>
           {currQuestion &&
             currQuestion.answers.map((answer) => (
               <ResultListItemAnswer

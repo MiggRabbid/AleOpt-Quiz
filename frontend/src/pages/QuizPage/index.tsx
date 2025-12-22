@@ -17,20 +17,16 @@ const QuizPage = () => {
   );
   const currentResult = useAppSelector(getQuizStateField('currentResult'));
 
-  useEffect(() => {
-    console.group('QuizPage / allQuestionsCompleted');
-    console.log('allQuestionsCompleted -', allQuestionsCompleted);
-    console.groupEnd();
-  }, [allQuestionsCompleted]);
-
   useLayoutEffect(() => {
     const oldTimer = getLocalData<LocalKeyMap.TIMER>({ key: LocalKeyMap.TIMER });
     const oldResult = getLocalData<LocalKeyMap.RESULT>({ key: LocalKeyMap.RESULT });
 
+    console.log('oldTimer', oldTimer);
+
     if (!!oldTimer && !!oldResult) {
       setQuizStateField({
         field: 'quizTimer',
-        data: oldTimer.currTime,
+        data: oldTimer,
       });
       setQuizStateField({
         field: 'currentResult',

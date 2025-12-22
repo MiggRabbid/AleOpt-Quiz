@@ -21,7 +21,12 @@ const QuestionListItem = memo(
     const questionsIndex = useAppSelector(getQuizStateField('questionIndex'));
 
     return (
-      <CustomListItem classNames="bg-slate-50" paddingX="px-0!" paddingY="py-0!">
+      <CustomListItem
+        classNames="bg-slate-50 transition-shadow duration-500 hover:shadow-md"
+        paddingX="px-0!"
+        paddingY="py-0!"
+        shadowSize="shadow-none"
+      >
         {currIndex < questionsIndex ? (
           <QuestionListItemClosed question={question} index={currIndex + 1} type="prev" />
         ) : currIndex === questionsIndex ? (

@@ -12,18 +12,9 @@ export const BtnRedirect = () => {
   const { user, getIsAdmin } = useAuthContext();
 
   const handelClickBtn = () => {
-    console.group('BtnRedirect / handelClickBtn');
-    console.log('location    -', location.pathname);
-    console.log('isAdminPage -', isAdminPage);
-    console.log('is404LoginPage -', is404LoginPage);
-
     if (isAdminPage || is404LoginPage) {
-      console.log('IF / isAdminPage || is404LoginPage');
-      console.groupEnd();
       navigateTo({ to: routes.main });
     } else {
-      console.log('ELSE');
-      console.groupEnd();
       navigateTo({ to: routes.admin });
     }
   };

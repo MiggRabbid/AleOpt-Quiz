@@ -7,9 +7,6 @@ import { useLocation } from '@tanstack/react-router';
 
 const LoginPage = () => {
   const location = useLocation();
-  console.group('LoginPage');
-  console.log('location -', location.pathname);
-  console.groupEnd();
 
   return (
     <SideFull

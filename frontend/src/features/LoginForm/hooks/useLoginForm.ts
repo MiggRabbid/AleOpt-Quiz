@@ -39,10 +39,6 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
     console.log('useLoginForm / isFetching -', isFetching);
   }, [isFetching]);
 
-  useEffect(() => {
-    console.log('useLoginForm / isDirty -', isDirty);
-  }, [isDirty]);
-
   const onSubmit = async ({ username, password }: FormData) => {
     mutateAsync({ username, password });
   };

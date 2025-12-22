@@ -40,7 +40,7 @@ const ProfileCard = (props: ProfileCard) => {
   }, []);
 
   return (
-    <Box className="flex flex-row items-center justify-start gap-4 rounded-2xl bg-slate-50 px-2 py-3 shadow-xl">
+    <Box className="flex flex-row items-center justify-start gap-4 rounded-2xl bg-slate-50 px-2 py-3 shadow-none transition-shadow duration-500 hover:shadow-xl">
       {!isLoading ? (
         <UserAvatar src={avatarSrc} alt={avatarAlt} />
       ) : (

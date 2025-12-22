@@ -13,18 +13,7 @@ import type { iHandledError } from '@/app/types';
 export const queryClient = new QueryClient({
   mutationCache: new MutationCache({
     onError(error, _variables, _context, _mutation) {
-      console.group('queryClient / onError');
-
-      console.group('error');
-      console.log(error);
-      console.groupEnd();
-
       const preparedError = getHandledError(error);
-      console.group('preparedError');
-      console.log(preparedError);
-      console.groupEnd();
-
-      console.groupEnd();
       enqueueSnackbar(preparedError.message, {
         variant: 'error',
       });

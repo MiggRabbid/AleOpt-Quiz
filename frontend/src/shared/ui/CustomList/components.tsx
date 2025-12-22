@@ -11,7 +11,7 @@ interface ICustomListProps {
 
 interface ICustomListItemProps {
   classNames?: string;
-  shadowSize?: 'shadow-none!' | 'shadow-sm' | 'shadow-md!' | 'shadow-xl!';
+  shadowSize?: 'shadow-none' | 'shadow-sm' | 'shadow-md' | 'shadow-xl';
   paddingX?: 'px-0!' | 'px-2!' | 'px-4!' | 'px-6!' | 'px-8!' | 'px-10!';
   paddingY?: 'py-0!' | 'py-2!' | 'py-4!' | 'py-6!' | 'py-8!' | 'py-10!';
   children: ReactNode;
@@ -38,7 +38,7 @@ export const CustomList = ({
 export const CustomListItem = ({
   children,
   classNames = '',
-  shadowSize = 'shadow-md!',
+  shadowSize = 'shadow-md',
   paddingX = 'px-4!',
   paddingY = 'py-4!',
 }: ICustomListItemProps) => {

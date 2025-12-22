@@ -14,7 +14,7 @@ const SummaryResults = (props: ISummaryResultProps) => {
 
   return (
     <Box
-      className="flex flex-col gap-2 rounded-3xl bg-slate-50 px-4 pt-4 pb-8 shadow-xl"
+      className="flex flex-col gap-2 rounded-3xl bg-slate-50 px-4 pt-4 pb-8 shadow-none transition-shadow duration-500 hover:shadow-xl"
       id="SummaryResults"
     >
       <ResultTable userStats={userStats} />

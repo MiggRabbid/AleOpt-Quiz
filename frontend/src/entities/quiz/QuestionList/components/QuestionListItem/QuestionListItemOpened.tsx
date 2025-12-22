@@ -51,13 +51,6 @@ const QuestionListItemOpened = (props: IQuestionItemProps) => {
 
       const isLastQuestion = questionsIndex === questionsLength - 1;
 
-      console.group('QuestionListItemOpened / onConfirmAnswer');
-      console.log('questions       -', questions);
-      console.log('questionsIndex  -', questionsIndex);
-      console.log('questionsLength -', questionsLength);
-      console.log('isLastQuestion  -', isLastQuestion);
-      console.groupEnd();
-
       if (isLastQuestion) {
         setQuizStateField({
           field: 'allQuestionsCompleted',
