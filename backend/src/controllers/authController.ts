@@ -32,7 +32,7 @@ const errorTypeMap = {
 
 const errorMsgMap = {
   userNotFound: 'Пользователь не найден',
-  incorrectPassword: 'Не верный пароль',
+  incorrectPassword: 'Неправильный пароль',
   authError: 'Ошибка авторизации',
 };
 
