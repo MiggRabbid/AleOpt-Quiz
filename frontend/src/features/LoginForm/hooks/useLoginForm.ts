@@ -1,12 +1,14 @@
+// Библиотеки
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
+// Логика
 import { schema } from '../config';
 import { useAuth } from '@/app/api/hooks';
 
 import type { FormData } from '../config';
-import type { iResponseLogin } from '@/app/types';
-import { useEffect, useState } from 'react';
+import type { iHandledError, iResponseLogin } from '@/app/types';
+import type { AxiosError } from 'axios';
 
 interface IUseLoginFormProps {
   handleSuccess: (data: iResponseLogin) => void;
@@ -15,7 +17,7 @@ interface IUseLoginFormProps {
 export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
   const { mutateAsync } = useAuth({
     onSuccess: (data) => handleSuccess(data),
-    onError: () => onError(),
+    onError: (error) => onError(error),
   });
 
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -23,7 +25,7 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isLoading },
+    formState: { errors, isSubmitting, isLoading, isDirty, isValid },
     setError,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -34,19 +36,27 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
   }, [isSubmitting, isLoading]);
 
   useEffect(() => {
-    console.log('useLoginForm / isLoading -', isLoading);
-  }, [isLoading]);
+    console.log('useLoginForm / isFetching -', isFetching);
+  }, [isFetching]);
+
+  useEffect(() => {
+    console.log('useLoginForm / isDirty -', isDirty);
+  }, [isDirty]);
 
   const onSubmit = async ({ username, password }: FormData) => {
     mutateAsync({ username, password });
   };
 
-  const onError = () => {
-    console.group('onError');
-    setError('username', { message: 'Пользователь не найден' });
-    setError('password', { message: 'Или неправильный пароль' });
+  const onError = (error: AxiosError<iHandledError, any>) => {
+    if (error.response?.data.errorType === 'userNotFound') {
+      setError('username', { message: error.response?.data.message });
+    } else if (error.response?.data.errorType === 'incorrectPassword') {
+      setError('password', { message: error.response?.data.message });
+    } else {
+      setError('username', { message: error.response?.data.message });
+      setError('username', { message: '' });
+    }
     setIsFetching(false);
-    console.groupEnd();
   };
 
   return {
@@ -55,5 +65,6 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
     errors,
     onSubmit,
     isFetching,
+    isValid,
   };
 };

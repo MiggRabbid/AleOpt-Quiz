@@ -13,7 +13,7 @@ import type { iHandledError } from '@/app/types';
 export const queryClient = new QueryClient({
   mutationCache: new MutationCache({
     onError(error, _variables, _context, _mutation) {
-      console.group('queryClient  /onError');
+      console.group('queryClient / onError');
 
       console.group('error');
       console.log(error);
@@ -29,7 +29,7 @@ export const queryClient = new QueryClient({
         variant: 'error',
       });
 
-      throw preparedError;
+      return preparedError;
     },
   }),
   defaultOptions: {

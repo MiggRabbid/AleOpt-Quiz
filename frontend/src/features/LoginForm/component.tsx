@@ -7,33 +7,25 @@ import { routes } from '@app/router';
 // Компоненты
 import { BtnLogin } from './components';
 import { CustomInput } from '@/shared/ui/inputs';
-
+// Типизация
 import { userRolesMap, type iResponseLogin } from '@/app/types';
-import { useEffect } from 'react';
 
 const LoginForm = () => {
   const { navigateTo } = useNavigate();
   const { updateUserData } = useAuthContext();
 
   const handleSuccess = (data: iResponseLogin) => {
-    console.group('LoginForm / handleSuccess');
-    console.log(data);
     if (data.role === userRolesMap.Admin || data.role === userRolesMap.Owner) {
       navigateTo({ to: routes.admin, replace: true });
     } else {
       navigateTo({ to: routes.main, replace: true });
     }
     updateUserData(data);
-    console.groupEnd();
   };
 
-  const { handleSubmit, onSubmit, errors, register, isFetching } = useLoginForm({
+  const { handleSubmit, onSubmit, errors, register, isFetching, isValid } = useLoginForm({
     handleSuccess,
   });
-
-  useEffect(() => {
-    console.log('LoginForm / isFetching -', isFetching);
-  }, [isFetching]);
 
   return (
     <Box className="shadow-glass border-glass h-full max-h-[1080px] w-full max-w-lg overflow-hidden rounded-2xl border backdrop-blur-sm">
@@ -69,7 +61,7 @@ const LoginForm = () => {
             />
 
             <Box className="w-full max-w-[400px]">
-              <BtnLogin isSubmitting={isFetching} />
+              <BtnLogin isSubmitting={isFetching} isDisabled={!isValid} />
             </Box>
           </FormControl>
         </Box>

@@ -31,7 +31,9 @@ const CustomInput = (props: ICustomInputProps) => {
             padding: '0',
           },
           ['.MuiFormLabel-root']: {
-            color: 'oklch(27.9% 0.041 260.031) !important',
+            color: error
+              ? 'rgb(199, 0, 54) !important'
+              : 'oklch(27.9% 0.041 260.031) !important',
             ['&.Mui-focused']: {
               color: 'rgb(45, 125, 50) !important',
             },
@@ -40,7 +42,9 @@ const CustomInput = (props: ICustomInputProps) => {
             ['.MuiOutlinedInput-notchedOutline']: {
               borderRadius: '12px !important',
               borderWidth: '2px !important',
-              borderColor: 'oklch(27.9% 0.041 260.031) !important',
+              borderColor: error
+                ? 'rgb(199, 0, 54) !important'
+                : 'oklch(27.9% 0.041 260.031) !important',
             },
             ['&.Mui-focused']: {
               ['.MuiOutlinedInput-notchedOutline']: {
@@ -57,7 +61,6 @@ const CustomInput = (props: ICustomInputProps) => {
           endAdornment: (
             <CustomEndAdornment
               disabled={disabled}
-              error={!!error}
               type={type}
               showPassword={showPassword}
               setShowPassword={setShowPassword}
