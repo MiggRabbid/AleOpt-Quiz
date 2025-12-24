@@ -1,8 +1,13 @@
 // Компоненты
 import { Box } from '@mui/material';
 import { BtnLogo, BtnRedirect, BtnLogout } from './components';
+import { useNavigate } from '@/app/hooks';
 
 const AppHeader = () => {
+  const { isLoginPage } = useNavigate();
+
+  if (isLoginPage) return null;
+
   return (
     <Box
       component="header"

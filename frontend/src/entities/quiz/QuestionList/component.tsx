@@ -16,7 +16,12 @@ const QuestionListForQuiz = () => {
 
   const { setQuizStateField, setMaxQuizTime } = useAppActions();
 
-  const { data: questions } = useQuery({
+  const {
+    data: questions,
+    isFetching,
+    isPending,
+    isLoading,
+  } = useQuery({
     ...useGetAllQuestions(),
     enabled: isAuth && !!user?.username,
   });
@@ -47,10 +52,10 @@ const QuestionListForQuiz = () => {
       ) : (
         <CustomListItem
           classNames="bg-slate-50"
-          shadowSize="shadow-none!"
-          paddingY="py-8!"
+          shadowSize="shadow-none"
+          paddingY="py-10!"
         >
-          <PlugForEmptyData />
+          <PlugForEmptyData isLoading={isLoading || isFetching || isPending} />
         </CustomListItem>
       )}
     </CustomList>

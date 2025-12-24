@@ -29,8 +29,17 @@ const LoginForm = () => {
 
   return (
     <Box className="shadow-glass border-glass h-full max-h-[1080px] w-full max-w-lg overflow-hidden rounded-2xl border backdrop-blur-sm">
-      <Box className="bg-glass h-full w-full">
-        <Box className="flex h-full w-full flex-col items-center-safe justify-center-safe gap-10 px-6 py-12">
+      <Box className="bg-glass flex h-full w-full flex-col items-center-safe justify-center-safe gap-6">
+        <Box className="flex h-fit w-full shrink-0 grow-0 items-center-safe justify-center-safe pt-20">
+          <img
+            src="/assets/images/logo.png"
+            alt="АлёОпт"
+            width={'50%'}
+            className="text-sm"
+          />
+        </Box>
+
+        <Box className="flex h-full w-full grow-1 flex-col items-center-safe justify-center-safe gap-10 px-6 pt-6 pb-12">
           <Typography
             component="h1"
             className="w-full text-center text-2xl! font-bold! uppercase"

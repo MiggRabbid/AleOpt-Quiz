@@ -1,5 +1,5 @@
 import type { Chart } from 'chart.js';
-import type { ICustomBarTooltip, TTooltipItem } from '@app/types';
+import type { ICustomBarTooltip, TBarTooltipItem } from '@app/types';
 
 interface ITooltipValue {
   correctCount: number;
@@ -55,19 +55,22 @@ export const lastTenAttemptsTooltip = (context: ICustomBarTooltip) => {
   };
 
   if (!!tooltip.dataPoints) {
-    tooltipValue = tooltip.dataPoints.reduce((acc: ITooltipValue, item: TTooltipItem) => {
-      const updatedAcc = { ...acc };
-      const label = item.dataset.label;
-      const value = item.raw as number;
-      if (label === labelMaps.correct) {
-        updatedAcc.correctCount = value;
-      } else if (label === labelMaps.incorrect) {
-        updatedAcc.incorrectCount = value;
-      }
+    tooltipValue = tooltip.dataPoints.reduce(
+      (acc: ITooltipValue, item: TBarTooltipItem) => {
+        const updatedAcc = { ...acc };
+        const label = item.dataset.label;
+        const value = item.raw as number;
+        if (label === labelMaps.correct) {
+          updatedAcc.correctCount = value;
+        } else if (label === labelMaps.incorrect) {
+          updatedAcc.incorrectCount = value;
+        }
 
-      updatedAcc.all += value;
-      return updatedAcc;
-    }, tooltipValue);
+        updatedAcc.all += value;
+        return updatedAcc;
+      },
+      tooltipValue,
+    );
   }
 
   if (tooltip.opacity === 0) {
@@ -102,14 +105,14 @@ export const lastTenAttemptsTooltip = (context: ICustomBarTooltip) => {
       titleTextMain.style.lineHeight = '16px';
       titleTextMain.style.color = 'oklch(70.4% 0.04 256.788)';
 
-      const titletextAnswersData = document.createElement('p');
-      titletextAnswersData.innerText = title;
-      titletextAnswersData.style.fontSize = '14px';
-      titletextAnswersData.style.lineHeight = '18px';
-      titletextAnswersData.style.color = 'oklch(70.4% 0.04 256.788)';
+      const titleTextAnswersData = document.createElement('p');
+      titleTextAnswersData.innerText = title;
+      titleTextAnswersData.style.fontSize = '14px';
+      titleTextAnswersData.style.lineHeight = '18px';
+      titleTextAnswersData.style.color = 'oklch(70.4% 0.04 256.788)';
 
       titleContent.appendChild(titleTextMain);
-      titleContent.appendChild(titletextAnswersData);
+      titleContent.appendChild(titleTextAnswersData);
       titleContainer.appendChild(titleContent);
     });
 
@@ -122,55 +125,18 @@ export const lastTenAttemptsTooltip = (context: ICustomBarTooltip) => {
       const label = body[0].split(': ')[0];
 
       // Строка таблицы
-      const bodyRow = document.createElement('tr');
-      // bodyRow.style.width = 'fit-content';
-      bodyRow.style.borderWidth = `${0}`;
+      const bodyRow = getBodyRow();
       // Ячейка контента
-      const rowCell = document.createElement('td');
-      rowCell.style.width = '100%';
-      rowCell.style.height = 'fit-content';
-      rowCell.style.borderWidth = `${0}`;
-
+      const rowCell = getRowCell();
       // Обертка для контента ячейки
-      const cellContentWrapper = document.createElement('div');
-      cellContentWrapper.style.width = '100%';
-      cellContentWrapper.style.height = 'fit-content';
-      cellContentWrapper.style.display = 'flex';
-      cellContentWrapper.style.padding = `2px 0`;
-      cellContentWrapper.style.justifyContent = 'space-between';
-      cellContentWrapper.style.alignItems = 'center';
-      cellContentWrapper.style.gap = '8px';
-      // Иконка ответа
-      const answerIcon = document.createElement('div');
-      answerIcon.style.height = '16px';
-      answerIcon.style.width = '16px';
-      answerIcon.style.padding = '0px';
-      answerIcon.style.borderRadius = '50%';
+      const cellContentWrapper = getRowCellWrapper();
 
+      // Иконка ответа
+      const answerIcon = getAnswerIcon();
       // Ответы - лейбл
-      const textAnswersLabel = document.createElement('p');
-      textAnswersLabel.style.minWidth = '170px';
-      textAnswersLabel.style.width = 'fit-content';
-      textAnswersLabel.style.height = 'fit-content';
-      textAnswersLabel.style.fontFamily = 'Roboto, sans-serif';
-      textAnswersLabel.style.fontSize = '14px';
-      textAnswersLabel.style.lineHeight = '18px';
-      textAnswersLabel.style.fontWeight = '600';
-      textAnswersLabel.style.textAlign = 'start';
-      textAnswersLabel.style.textWrap = 'nowrap';
-      textAnswersLabel.style.color = 'oklch(0.554 0.046 257.417)';
+      const textAnswersLabel = getAnswerLabel();
       // Ответы  - дата
-      const textAnswersData = document.createElement('p');
-      textAnswersData.style.minWidth = '20px';
-      textAnswersData.style.width = 'fit-content';
-      textAnswersData.style.height = 'fit-content';
-      textAnswersData.style.fontFamily = 'Roboto, sans-serif';
-      textAnswersData.style.fontSize = '14px';
-      textAnswersData.style.lineHeight = '18px';
-      textAnswersData.style.fontWeight = '600';
-      textAnswersData.style.textAlign = 'end';
-      textAnswersData.style.textWrap = 'nowrap';
-      textAnswersData.style.color = 'oklch(0.554 0.046 257.417)';
+      const textAnswersData = getAnswerData();
 
       if (label.trim() === labelMaps.correct) {
         answerIcon.style.backgroundColor = 'oklch(84.5% 0.143 164.978)';
@@ -191,6 +157,32 @@ export const lastTenAttemptsTooltip = (context: ICustomBarTooltip) => {
       bodyRow.appendChild(rowCell);
       tooltipBody.appendChild(bodyRow);
     });
+
+    // Иконка для всех ответов
+    const allAnswerIcon = getAnswerIcon();
+    allAnswerIcon.style.backgroundColor = 'transparent';
+    // все ответы - лейбл
+    const allTextAnswersLabel = getAnswerLabel();
+    allTextAnswersLabel.innerText = 'Всего вопросов:';
+    // все ответы  - дата
+    const allTextAnswersData = getAnswerData();
+    const answerCounter =
+      Number(tooltipValue.correctCount) + Number(tooltipValue.incorrectCount) || 0;
+    allTextAnswersData.innerText = `${answerCounter}`;
+    // Обертка для контента ячейки
+    const allCellContentWrapper = getRowCellWrapper();
+    allCellContentWrapper.style.padding = `6px 0 2px 0`;
+    // Строка таблицы
+    const allBodyRow = getBodyRow();
+    // Ячейка контента
+    const allRowCell = getRowCell();
+
+    allCellContentWrapper.appendChild(allAnswerIcon);
+    allCellContentWrapper.appendChild(allTextAnswersLabel);
+    allCellContentWrapper.appendChild(allTextAnswersData);
+    allRowCell.appendChild(allCellContentWrapper);
+    allBodyRow.appendChild(allRowCell);
+    tooltipBody.appendChild(allBodyRow);
 
     const tableRoot = tooltipEl.querySelector('table');
 
@@ -224,4 +216,70 @@ export const lastTenAttemptsTooltip = (context: ICustomBarTooltip) => {
   tooltipEl.style.borderRadius = '16px';
   tooltipEl.style.backgroundColor = 'rgba(255, 255, 255, 1)';
   tooltipEl.style.boxShadow = '0px 0px 8px 0px rgba(159, 179, 200, 0.5)';
+};
+
+const getAnswerIcon = (): HTMLDivElement => {
+  const answerIcon = document.createElement('div');
+  answerIcon.style.height = '16px';
+  answerIcon.style.width = '16px';
+  answerIcon.style.padding = '0px';
+  answerIcon.style.borderRadius = '50%';
+  return answerIcon;
+};
+
+const getAnswerLabel = (): HTMLDivElement => {
+  const textAnswersLabel = document.createElement('p');
+  textAnswersLabel.style.minWidth = '170px';
+  textAnswersLabel.style.width = 'fit-content';
+  textAnswersLabel.style.height = 'fit-content';
+  textAnswersLabel.style.fontFamily = 'Roboto, sans-serif';
+  textAnswersLabel.style.fontSize = '14px';
+  textAnswersLabel.style.lineHeight = '18px';
+  textAnswersLabel.style.fontWeight = '600';
+  textAnswersLabel.style.textAlign = 'start';
+  textAnswersLabel.style.textWrap = 'nowrap';
+  textAnswersLabel.style.color = 'oklch(0.554 0.046 257.417)';
+  return textAnswersLabel;
+};
+
+const getAnswerData = (): HTMLDivElement => {
+  const textAnswersData = document.createElement('p');
+  textAnswersData.style.minWidth = '20px';
+  textAnswersData.style.width = 'fit-content';
+  textAnswersData.style.height = 'fit-content';
+  textAnswersData.style.fontFamily = 'Roboto, sans-serif';
+  textAnswersData.style.fontSize = '14px';
+  textAnswersData.style.lineHeight = '18px';
+  textAnswersData.style.fontWeight = '600';
+  textAnswersData.style.textAlign = 'end';
+  textAnswersData.style.textWrap = 'nowrap';
+  textAnswersData.style.color = 'oklch(0.554 0.046 257.417)';
+  return textAnswersData;
+};
+
+const getBodyRow = (): HTMLDivElement => {
+  const bodyRow = document.createElement('tr');
+  // bodyRow.style.width = 'fit-content';
+  bodyRow.style.borderWidth = `${0}`;
+  return bodyRow;
+};
+
+const getRowCell = (): HTMLDivElement => {
+  const rowCell = document.createElement('td');
+  rowCell.style.width = '100%';
+  rowCell.style.height = 'fit-content';
+  rowCell.style.borderWidth = `${0}`;
+  return rowCell;
+};
+
+const getRowCellWrapper = (): HTMLDivElement => {
+  const cellContentWrapper = document.createElement('div');
+  cellContentWrapper.style.width = '100%';
+  cellContentWrapper.style.height = 'fit-content';
+  cellContentWrapper.style.display = 'flex';
+  cellContentWrapper.style.padding = `2px 0`;
+  cellContentWrapper.style.justifyContent = 'space-between';
+  cellContentWrapper.style.alignItems = 'center';
+  cellContentWrapper.style.gap = '8px';
+  return cellContentWrapper;
 };

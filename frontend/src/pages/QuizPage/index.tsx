@@ -1,17 +1,32 @@
 // Библиотеки
-import { LocalKeyMap, useAppActions, useAppSelector, useLocalStorage } from '@app/hooks';
+import { useEffect, useLayoutEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+// Логика
+import {
+  LocalKeyMap,
+  useAppActions,
+  useAppSelector,
+  useAuthContext,
+  useLocalStorage,
+} from '@app/hooks';
+import { useGetAllQuestions } from '@/app/api/hooks';
 import { getQuizStateField } from '@app/selectors';
-import { UserProfileForQuiz, QuestionListForQuiz } from '@/entities/quiz';
 // Компоненты
 import { SideFull, SideMain, SideSecond } from '@/shared/layouts';
 import { ResultListForQuiz } from '@/entities/quiz/ResultList/component';
-import { useEffect, useLayoutEffect } from 'react';
+import { UserProfileForQuiz, QuestionListForQuiz } from '@/entities/quiz';
 
 const QuizPage = () => {
+  const { isAuth, user } = useAuthContext();
+
   const { setQuizStateField, setMaxQuizTime } = useAppActions();
   const { getLocalData, setLocalData } = useLocalStorage();
 
-  const questions = useAppSelector(getQuizStateField('questions'));
+  const { data: questions } = useQuery({
+    ...useGetAllQuestions(),
+    enabled: isAuth && !!user?.username,
+  });
+
   const allQuestionsCompleted = useAppSelector(
     getQuizStateField('allQuestionsCompleted'),
   );
@@ -20,8 +35,6 @@ const QuizPage = () => {
   useLayoutEffect(() => {
     const oldTimer = getLocalData<LocalKeyMap.TIMER>({ key: LocalKeyMap.TIMER });
     const oldResult = getLocalData<LocalKeyMap.RESULT>({ key: LocalKeyMap.RESULT });
-
-    console.log('oldTimer', oldTimer);
 
     if (!!oldTimer && !!oldResult) {
       setQuizStateField({
