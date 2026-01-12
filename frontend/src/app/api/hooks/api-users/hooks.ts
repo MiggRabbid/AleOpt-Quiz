@@ -80,6 +80,25 @@ export const useGetUserStats = (props: IGetUserDataRequest) => {
 };
 
 /**
+ * Получение статистики пользователя
+ */
+export const useGetAllUsersStats = () => {
+  const { token } = useAuthContext();
+
+  return queryOptions({
+    queryKey: [queryKeys.users.stats],
+    placeholderData: keepPreviousData,
+    queryFn: () =>
+      sendRequest<iUserStats[], IGetUserDataRequest>({
+        method: TypeAxiosMethod.get,
+        endpoint: REQUEST_PATHS.allStats(),
+        token: token,
+      }).then((res) => res),
+    retry: false,
+  });
+};
+
+/**
  * Сохранение результатов пользователя
  */
 export const useUpdateUserStats = (

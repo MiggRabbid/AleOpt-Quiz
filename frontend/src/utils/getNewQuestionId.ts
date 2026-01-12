@@ -1,4 +1,4 @@
-import { iQuestion } from '@/app/types/quiz.types';
+import type { iQuestion } from '@app/types';
 
 export const getNewQuestionId = (questions: iQuestion[] | undefined) => {
   if (!!questions?.length) {

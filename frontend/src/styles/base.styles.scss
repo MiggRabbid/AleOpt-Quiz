@@ -1,4 +1,5 @@
-@import 'tailwindcss';
+@use 'tailwindcss';
+@forward './modules/_fonts.scss';
 
 @layer utilities {
   .bg-glass {
@@ -13,8 +14,7 @@
 }
 
 @theme {
-  --font-sans: var(--font-sans), sans-serif;
-  --font-mono: var(--font-mono), sans-serif;
+  --font-sans: 'Roboto', sans-serif;
 
   --shadow-small: 0px 0px 6px 0px rgba(0, 130, 54, 0.3);
   --shadow-main: 0px 0px 8px 0px rgba(0, 130, 54, 0.3);
@@ -34,13 +34,12 @@ body {
 }
 
 body {
-  @extend %font-bold-22;
+  @extend %font-base-16;
   height: fit-content;
   min-height: 100dvh;
   position: relative;
   overflow-y: auto;
   line-height: 1.25;
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   background-image: url('/assets/images/bg.jpg');
   background-size: cover;
   background-position: center;

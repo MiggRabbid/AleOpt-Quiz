@@ -1,14 +1,25 @@
 import React from 'react';
-import { Box } from '@mui/material';
-import { useLocation } from '@tanstack/react-router';
+import { SideFull, SideMain, SideSecond } from '@/shared/layouts';
+import { AdminProfile } from '@/entities/admin';
+import { useQuery } from '@tanstack/react-query';
+import { useGetAllUsersStats } from '@/app/api/hooks';
+import { useAuthContext } from '@/app/hooks';
 
 const AdminPage = () => {
-  const location = useLocation();
+  const { isAuth, user } = useAuthContext();
+
+  const { data: userData } = useQuery({
+    ...useGetAllUsersStats(),
+    enabled: isAuth && !!user?.username,
+  });
 
   return (
-    <Box className="min-h-full w-full p-10! text-center text-3xl font-bold">
-      <p>AdminPage</p>
-    </Box>
+    <SideFull id="MainPage" type="main">
+      <SideSecond>
+        <AdminProfile />
+      </SideSecond>
+      <SideMain>{`<UserStats />`}</SideMain>
+    </SideFull>
   );
 };
 

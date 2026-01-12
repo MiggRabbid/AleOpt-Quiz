@@ -12,14 +12,14 @@ d-f:
 	npm -C frontend run dev
 
 s-f:
-	npm -C frontend run start
+	npm -C frontend run preview
 
 b-f:
-	rm -rf frontend/.next
+	rm -rf frontend/dist
 	npm -C frontend run build
 
 cl-f:
-	rm -C frontend -rf .next
+	rm -C frontend -rf dist
 
 # back
 i-b:

@@ -25,5 +25,8 @@ b:
 cl:
 	rm -rf dist
 
+s-f:
+	npm run preview
+
 tr:
 	tree -I 'node_modules|.vscode|dist'

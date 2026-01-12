@@ -4,7 +4,7 @@ import { Box, Skeleton, Typography } from '@mui/material';
 // Логика
 import { useAppActions } from '@/app/hooks';
 // Компоненты
-import { UserAvatar } from '@/shared/ui';
+import { CustomCardWrapper, UserAvatar } from '@/shared/ui';
 // Типизация
 import { userRolesMap, type UserRoles } from '@/app/types';
 
@@ -40,41 +40,43 @@ const ProfileCard = (props: ProfileCard) => {
   }, []);
 
   return (
-    <Box className="flex flex-row items-center justify-start gap-4 rounded-2xl bg-slate-50 px-2 py-3 shadow-none transition-shadow duration-500 hover:shadow-xl">
-      {!isLoading ? (
-        <UserAvatar src={avatarSrc} alt={avatarAlt} />
-      ) : (
-        <Skeleton variant="circular" className="h-20! w-20!" />
-      )}
-      <Box>
+    <CustomCardWrapper>
+      <Box className="flex flex-row items-center justify-start gap-4 bg-slate-50 px-2 py-3">
         {!isLoading ? (
-          <Typography
-            component="h4"
-            className="h-fit! text-base! font-semibold! text-slate-500!"
-          >
-            {userRolesMap[role]}
-          </Typography>
+          <UserAvatar src={avatarSrc} alt={avatarAlt} />
         ) : (
-          <Skeleton variant="text" className="w-30! text-base!" />
+          <Skeleton variant="circular" className="h-20! w-20!" />
         )}
+        <Box>
+          {!isLoading ? (
+            <Typography
+              component="h4"
+              className="h-fit! text-base! font-semibold! text-slate-500!"
+            >
+              {userRolesMap[role]}
+            </Typography>
+          ) : (
+            <Skeleton variant="text" className="w-30! text-base!" />
+          )}
 
-        {!isLoading ? (
-          <Typography component="h3" className="h-fit! text-2xl! font-semibold!">
-            {firstname}
-          </Typography>
-        ) : (
-          <Skeleton variant="text" className="w-30! text-4xl!" />
-        )}
+          {!isLoading ? (
+            <Typography component="h3" className="h-fit! text-2xl! font-semibold!">
+              {firstname}
+            </Typography>
+          ) : (
+            <Skeleton variant="text" className="w-30! text-4xl!" />
+          )}
 
-        {!isLoading ? (
-          <Typography component="h3" className="h-fit! text-lg! font-semibold!">
-            {lastname}
-          </Typography>
-        ) : (
-          <Skeleton variant="text" className="w-30! text-2xl!" />
-        )}
+          {!isLoading ? (
+            <Typography component="h3" className="h-fit! text-lg! font-semibold!">
+              {lastname}
+            </Typography>
+          ) : (
+            <Skeleton variant="text" className="w-30! text-2xl!" />
+          )}
+        </Box>
       </Box>
-    </Box>
+    </CustomCardWrapper>
   );
 };
 

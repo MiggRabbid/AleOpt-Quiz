@@ -3,7 +3,7 @@ import { ruRU } from '@mui/material/locale';
 
 export const customThemeMUI = createTheme(
   {
-        palette: {
+    palette: {
       primary: {
         main: '#007a55',
         contrastText: '#fff',
