@@ -1,5 +1,5 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Typography } from '@mui/material';
 // Логика
@@ -8,6 +8,7 @@ import { getDoughnutData, getDoughnutOptions, customDoughnutTooltip } from './ut
 // Компоненты
 import { PlugForEmptyData } from '@/shared/ui';
 // Типизация
+import type { FC } from 'react';
 import type { TStatFuncsArgs } from '@app/types';
 
 interface iCustomDoughnutProps {
@@ -15,7 +16,7 @@ interface iCustomDoughnutProps {
   isEmpty: boolean;
 }
 
-const CustomDoughnut: React.FC<iCustomDoughnutProps> = (props: iCustomDoughnutProps) => {
+const CustomDoughnut: FC<iCustomDoughnutProps> = (props: iCustomDoughnutProps) => {
   const { userStats, isEmpty } = props;
 
   const questionsStats = getDataAnswersForDoughnut(userStats);
@@ -38,4 +39,4 @@ const CustomDoughnut: React.FC<iCustomDoughnutProps> = (props: iCustomDoughnutPr
   );
 };
 
-export default React.memo(CustomDoughnut);
+export default memo(CustomDoughnut);

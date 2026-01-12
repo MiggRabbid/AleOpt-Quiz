@@ -1,7 +1,7 @@
 import { Box, List, ListItem } from '@mui/material';
 import clsx from 'clsx';
 
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 interface ICustomListProps {
   classNames?: string;
@@ -17,11 +17,11 @@ interface ICustomListItemProps {
   children: ReactNode;
 }
 
-export const CustomList = ({
+export const CustomList: FC<ICustomListProps> = ({
   children,
   classNames = '',
   dataComponentType,
-}: ICustomListProps) => {
+}) => {
   const wrapperClassName = clsx('h-full w-full overflow-y-auto!', classNames);
   return (
     <Box
@@ -35,13 +35,13 @@ export const CustomList = ({
   );
 };
 
-export const CustomListItem = ({
+export const CustomListItem: FC<ICustomListItemProps> = ({
   children,
   classNames = '',
   shadowSize = 'shadow-md',
   paddingX = 'px-4!',
   paddingY = 'py-4!',
-}: ICustomListItemProps) => {
+}) => {
   const ItemClassName = clsx(
     'h-fit w-full rounded-xl overflow-hidden',
     classNames,

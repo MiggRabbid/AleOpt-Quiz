@@ -7,11 +7,12 @@ import Stack from '@mui/system/Stack';
 import { sxTextOverflow } from './component.utils';
 import { useTooltip } from './component.hook';
 // Компоненты
+import type { FC } from 'react';
 import type { Theme } from '@mui/material/styles';
 import type { SystemStyleObject } from '@mui/system';
 import type { ITooltipTypographyProps, TooltipProps } from './component.types';
 
-export const Tooltip = ({ tooltipSlotSx, ...props }: TooltipProps) => {
+export const Tooltip: FC<TooltipProps> = ({ tooltipSlotSx, ...props }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export const Tooltip = ({ tooltipSlotSx, ...props }: TooltipProps) => {
   );
 };
 
-export const TooltipTypography = (props: ITooltipTypographyProps) => {
+export const TooltipTypography: FC<ITooltipTypographyProps> = (props) => {
   const { isCheckSize, isDisabled, isOverflowing, ...rest } = props.tooltip ?? {};
   const { disableHoverListener, ref } = useTooltip<HTMLSpanElement>({
     isOverflowing: isOverflowing,

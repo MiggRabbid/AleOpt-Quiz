@@ -1,12 +1,12 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import { Box, Typography } from '@mui/material';
 // Логика
 import { getBarData, getBarOptions } from './utils';
-import { lastTenAttemptsTooltip, PlugForEmptyData } from '@/shared/ui';
 // Компоненты
+import { lastTenAttemptsTooltip, PlugForEmptyData } from '@/shared/ui';
 
 Chart.register(...registerables);
 
@@ -68,4 +68,4 @@ const CustomBar = (props: ICustomLineProps) => {
   );
 };
 
-export default React.memo(CustomBar);
+export default memo(CustomBar);

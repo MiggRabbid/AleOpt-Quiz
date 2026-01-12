@@ -66,12 +66,12 @@ export const useGetUserStats = (props: IGetUserDataRequest) => {
   const { token } = useAuthContext();
 
   return queryOptions({
-    queryKey: [queryKeys.users.stats],
+    queryKey: [queryKeys.users.oneStats],
     placeholderData: keepPreviousData,
     queryFn: () =>
       sendRequest<iUserStats, IGetUserDataRequest>({
         method: TypeAxiosMethod.get,
-        endpoint: REQUEST_PATHS.userStats(),
+        endpoint: REQUEST_PATHS.oneUserStats(),
         params: props.params,
         token: token,
       }).then((res) => res),
@@ -80,18 +80,18 @@ export const useGetUserStats = (props: IGetUserDataRequest) => {
 };
 
 /**
- * Получение статистики пользователя
+ * Получение статистики всех пользователей
  */
 export const useGetAllUsersStats = () => {
   const { token } = useAuthContext();
 
   return queryOptions({
-    queryKey: [queryKeys.users.stats],
+    queryKey: [queryKeys.users.allStats],
     placeholderData: keepPreviousData,
     queryFn: () =>
-      sendRequest<iUserStats[], IGetUserDataRequest>({
+      sendRequest<iUserStats[]>({
         method: TypeAxiosMethod.get,
-        endpoint: REQUEST_PATHS.allStats(),
+        endpoint: REQUEST_PATHS.allUserStats(),
         token: token,
       }).then((res) => res),
     retry: false,
@@ -117,7 +117,7 @@ export const useUpdateUserStats = (
     mutationFn: async (payload) => {
       return sendRequest({
         method: TypeAxiosMethod.post,
-        endpoint: REQUEST_PATHS.userStats(),
+        endpoint: REQUEST_PATHS.oneUserStats(),
         data: payload.query,
         params: payload.params,
         token: token,
@@ -127,10 +127,16 @@ export const useUpdateUserStats = (
     onSettled: () => {
       Promise.all([
         queryClient.invalidateQueries({
+          queryKey: [queryKeys.users.one],
+        }),
+        queryClient.invalidateQueries({
           queryKey: [queryKeys.users.all],
         }),
         queryClient.invalidateQueries({
-          queryKey: [queryKeys.users.stats],
+          queryKey: [queryKeys.users.oneStats],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.users.allStats],
         }),
       ]);
     },

@@ -1,13 +1,18 @@
+// Библиотеки
 import { useMemo, useState } from 'react';
-
+// Логика
 import { LocalKeyMap, useLocalStorage } from '@app/hooks';
 import { AuthContext } from '@app/context';
-
+// Типизация
 import { UserRoles } from '@app/types';
 import type { iResponseLogin } from '@app/types';
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
-const AuthProvider = ({ children }: { children: ReactNode }) => {
+interface IAuthProviderProps {
+  children: ReactNode;
+}
+
+const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
   const { getLocalData, delLocalData, setLocalData } = useLocalStorage();
   const currentUser = getLocalData<LocalKeyMap.USER>({ key: LocalKeyMap.USER });
   const [user, setUser] = useState<iResponseLogin | null>(currentUser);

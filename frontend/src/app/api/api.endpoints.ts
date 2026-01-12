@@ -24,10 +24,10 @@ export const REQUEST_PATHS = {
   signup: () => [API_PATH.api, API_PATH.auth, API_PATH_TYPE.signup].join('/'),
   user: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.user].join('/'),
   users: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.users].join('/'),
+  allUserStats: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.results].join('/'),
+  oneUserStats: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.result].join('/'),
   questions: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.questions].join('/'),
   question: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.question].join('/'),
-  allStats: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.results].join('/'),
-  userStats: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.result].join('/'),
 } as const;
 
 export type TRequestPath = ReturnType<(typeof REQUEST_PATHS)[keyof typeof REQUEST_PATHS]>;

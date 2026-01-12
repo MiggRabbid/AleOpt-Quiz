@@ -1,10 +1,12 @@
 import { Box } from '@mui/material';
 
+import type { FC } from 'react';
+
 interface ISideSecondProps {
   children: React.ReactNode;
 }
 
-const SideSecond = ({ children }: ISideSecondProps) => {
+const SideSecond: FC<ISideSecondProps> = ({ children }) => {
   return (
     <Box
       className="shadow-glass border-glass h-full rounded-2xl border backdrop-blur-sm"

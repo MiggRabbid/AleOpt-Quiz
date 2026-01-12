@@ -1,6 +1,6 @@
 import { SnackbarProvider } from 'notistack';
 
-import type { ReactElement } from 'react';
+import type { FC, ReactElement } from 'react';
 import type { SnackbarOrigin } from 'notistack';
 
 export interface ProviderToastProps {
@@ -12,7 +12,7 @@ const snackbarAnchorOrigin: SnackbarOrigin = {
   horizontal: 'right',
 };
 
-export const ToastProvider = (props: ProviderToastProps) => {
+export const ToastProvider: FC<ProviderToastProps> = ({ children }) => {
   return (
     <SnackbarProvider
       style={{ maxWidth: 320 }}
@@ -20,7 +20,7 @@ export const ToastProvider = (props: ProviderToastProps) => {
       maxSnack={3}
       autoHideDuration={3000}
     >
-      {props.children}
+      {children}
     </SnackbarProvider>
   );
 };

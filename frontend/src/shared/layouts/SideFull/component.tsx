@@ -1,16 +1,22 @@
 import clsx from 'clsx';
 import { Box } from '@mui/material';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, FC, ReactNode } from 'react';
 
 interface ISideFullProps {
-  children: React.ReactNode;
+  children: ReactNode;
   id: string;
   type?: 'login' | 'main';
   otherClass?: string;
   style?: CSSProperties;
 }
 
-const SideFull = ({ children, id, type = 'main', otherClass, style }: ISideFullProps) => {
+const SideFull: FC<ISideFullProps> = ({
+  children,
+  id,
+  type = 'main',
+  otherClass,
+  style,
+}) => {
   const className = clsx(
     `h-fit grid grow shrink rounded-2xl`,
     type === 'login'

@@ -2,8 +2,12 @@ import type { iUserStats } from '@app/types';
 
 const gerPercent = (a: number, b: number): number => (a / b) * 100;
 
-export const sortUsersByResult = (results: iUserStats[]): iUserStats[] => {
-  if (results.length === 0) return [];
+export const sortUsersByResult = (results: iUserStats[] | undefined): iUserStats[] => {
+  console.group('sortUsersByResult');
+  console.log('results', results);
+  console.groupEnd();
+
+  if (!results || results.length === 0) return [];
 
   const filteredResults = results.filter((result) => result.attempts.length > 0);
 

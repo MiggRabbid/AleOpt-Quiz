@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import clsx from 'clsx';
 
-import type { CSSProperties } from 'react';
+import type { CSSProperties, FC } from 'react';
 
 interface ISideMainProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface ISideMainProps {
   style?: CSSProperties;
 }
 
-const SideMain = ({ otherClass, style, children }: ISideMainProps) => {
+const SideMain: FC<ISideMainProps> = ({ otherClass, style, children }) => {
   const className = clsx(
     `shadow-glass border-glass relative flex h-full w-full rounded-2xl border backdrop-blur-sm`,
     otherClass,

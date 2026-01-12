@@ -5,8 +5,9 @@ interface IQueryKeys {
   users: {
     create: string;
     one: string;
-    stats: string;
+    oneStats: string;
     all: string;
+    allStats: string;
   };
   questions: {
     create: string;
@@ -27,8 +28,9 @@ export const queryKeys: IQueryKeys = {
   users: {
     create: 'create',
     one: 'one',
-    stats: 'stats',
+    oneStats: 'oneStats',
     all: 'all',
+    allStats: 'allStats',
   },
   questions: {
     create: 'create',

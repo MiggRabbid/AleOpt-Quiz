@@ -1,11 +1,12 @@
 // Библиотеки
 import { Box } from '@mui/material';
+// Логика
+import { sortUsersByResult } from '@/utils';
 // Компоненты
 import { TopResultsList } from '../';
+import { CustomCardWrapper } from '@/shared/ui';
 // Типизация
 import type { iUserStats } from '@app/types';
-import { sortUsersByResult } from '@/utils';
-import { CustomCardWrapper } from '@/shared/ui';
 
 interface ISummaryResultProps {
   usersStats: iUserStats[] | undefined;

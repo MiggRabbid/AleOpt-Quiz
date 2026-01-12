@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { Box } from '@mui/material';
 import clsx from 'clsx';
 
-import { memo, type ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 interface ICustomCardWrapperProps {
   children: ReactNode;
@@ -17,11 +18,11 @@ interface ICustomCardWrapperProps {
     | 'rounded-full';
 }
 
-const CustomCardWrapper = ({
+const CustomCardWrapper: FC<ICustomCardWrapperProps> = ({
   children,
   shadowSize,
   roundedSize,
-}: ICustomCardWrapperProps) => {
+}) => {
   const wrapperClass = clsx(
     'w-fit!s h-fit! p-0! m-0! shadow-none transition-shadow duration-500 overflow-hidden',
     shadowSize ? `hover:${shadowSize}` : 'hover:shadow-xl',
