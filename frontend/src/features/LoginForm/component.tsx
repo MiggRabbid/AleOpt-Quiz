@@ -6,7 +6,7 @@ import { useAuthContext, useNavigate } from '@app/hooks';
 import { routes } from '@app/router';
 // Компоненты
 import { BtnLogin } from './components';
-import { CustomInput } from '@/shared/ui/inputs';
+import { CustomInput } from '@/shared/ui/inputsAnsSelects';
 // Типизация
 import { userRolesMap, type iResponseLogin } from '@/app/types';
 

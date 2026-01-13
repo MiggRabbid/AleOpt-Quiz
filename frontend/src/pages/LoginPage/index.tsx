@@ -1,13 +1,10 @@
-import React from 'react';
+import { memo } from 'react';
 
 import { SideFull } from '@/shared/layouts';
 import { LoginForm } from '@/features/LoginForm';
 import { LoginImg } from './components/';
-import { useLocation } from '@tanstack/react-router';
 
 const LoginPage = () => {
-  const location = useLocation();
-
   return (
     <SideFull
       id="LoginPage"
@@ -20,4 +17,4 @@ const LoginPage = () => {
   );
 };
 
-export default React.memo(LoginPage);
+export default memo(LoginPage);

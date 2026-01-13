@@ -1,4 +1,5 @@
 // Библиотеки
+import { lazy } from 'react';
 import {
   createRouter,
   createRoute,
@@ -10,14 +11,13 @@ import { routes } from '@app/router';
 // Компоненты
 import { PrivateOutlet } from './';
 import { AppLayout } from '@/shared/layouts';
-import {
-  MainPage,
-  LoginPage,
-  QuizPage,
-  AdminPage,
-  NotFoundPage,
-  ErrorPage,
-} from '@/pages';
+// Страницы
+const MainPage = lazy(() => import('@/pages/MainPage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const QuizPage = lazy(() => import('@/pages/QuizPage'));
+const AdminPage = lazy(() => import('@/pages/AdminPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const ErrorPage = lazy(() => import('@/pages/ErrorPage'));
 
 // Корень
 const rootRoute = createRootRoute({

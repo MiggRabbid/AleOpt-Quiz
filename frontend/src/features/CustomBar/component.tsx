@@ -6,7 +6,7 @@ import { Box, Typography } from '@mui/material';
 // Логика
 import { getBarData, getBarOptions } from './utils';
 // Компоненты
-import { lastTenAttemptsTooltip, PlugForEmptyData } from '@/shared/ui';
+import { CustomCardWrapper, lastTenAttemptsTooltip, PlugForEmptyData } from '@/shared/ui';
 
 Chart.register(...registerables);
 
@@ -60,10 +60,12 @@ const CustomBar = (props: ICustomLineProps) => {
       >
         Динамика попыток
       </Typography>
-      <Box className="h-80 rounded-xl bg-cyan-100 p-4 shadow-none transition-shadow duration-500 hover:shadow-lg">
-        {isEmpty && <PlugForEmptyData isSmall />}
-        {!isEmpty && <Bar data={data} options={options} />}
-      </Box>
+      <CustomCardWrapper shadowSize="shadow-lg">
+        <Box className="h-80 rounded-xl bg-cyan-100 p-4">
+          {isEmpty && <PlugForEmptyData isSmall />}
+          {!isEmpty && <Bar data={data} options={options} />}
+        </Box>
+      </CustomCardWrapper>
     </Box>
   );
 };

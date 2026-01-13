@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Box, Typography } from '@mui/material';
 
 import { SideFull } from '@/shared/layouts';
@@ -28,4 +28,4 @@ const NotFoundPage = () => {
   );
 };
 
-export default React.memo(NotFoundPage);
+export default memo(NotFoundPage);

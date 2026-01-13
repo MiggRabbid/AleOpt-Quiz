@@ -7,6 +7,7 @@ import { getQuizStateField } from '@app/selectors';
 import { useGetAllQuestions } from '@/app/api/hooks';
 // Компоненты
 import { TimeCounter, TimeCounterEnded, AnswerCounter, CorrectAnswerCounter } from '..';
+import { CustomCardWrapper } from '@/shared/ui';
 
 const SummaryResults = () => {
   const { isAuth, user } = useAuthContext();
@@ -32,17 +33,19 @@ const SummaryResults = () => {
   }
 
   return (
-    <Box
-      className="flex flex-col items-center justify-center gap-10 rounded-2xl bg-slate-50 px-6 py-10 shadow-none transition-shadow duration-500 hover:shadow-xl"
-      id="SummaryResultsForQuiz"
-    >
-      {allQuestionsCompleted ? <TimeCounterEnded /> : <TimeCounter />}
-      {allQuestionsCompleted ? (
-        <CorrectAnswerCounter allQuestions={questions} />
-      ) : (
-        <AnswerCounter questionsIndex={questionsIndex} allQuestions={questions} />
-      )}
-    </Box>
+    <CustomCardWrapper shadowSize="shadow-xl">
+      <Box
+        className="flex flex-col items-center justify-center gap-10 rounded-2xl bg-slate-50 px-6 py-10"
+        id="SummaryResultsForQuiz"
+      >
+        {allQuestionsCompleted ? <TimeCounterEnded /> : <TimeCounter />}
+        {allQuestionsCompleted ? (
+          <CorrectAnswerCounter allQuestions={questions} />
+        ) : (
+          <AnswerCounter questionsIndex={questionsIndex} allQuestions={questions} />
+        )}
+      </Box>
+    </CustomCardWrapper>
   );
 };
 

@@ -16,6 +16,7 @@ import type {
   IGetUserDataRequest,
   iHandledError,
   iResultEntryRequest,
+  iUser,
   IUserRequest,
   iUserStats,
 } from '@app/types';
@@ -50,7 +51,7 @@ export const useGetAllUsers = () => {
     queryKey: [queryKeys.users.all],
     placeholderData: keepPreviousData,
     queryFn: () =>
-      sendRequest<iUserStats>({
+      sendRequest<iUser[]>({
         method: TypeAxiosMethod.get,
         endpoint: REQUEST_PATHS.users(),
         token: token,

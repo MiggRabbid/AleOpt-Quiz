@@ -6,7 +6,7 @@ import { Box, Typography } from '@mui/material';
 import { getDataAnswersForDoughnut } from '../CustomBar/utils/getBarData';
 import { getDoughnutData, getDoughnutOptions, customDoughnutTooltip } from './utils';
 // Компоненты
-import { PlugForEmptyData } from '@/shared/ui';
+import { CustomCardWrapper, PlugForEmptyData } from '@/shared/ui';
 // Типизация
 import type { FC } from 'react';
 import type { TStatFuncsArgs } from '@app/types';
@@ -31,10 +31,12 @@ const CustomDoughnut: FC<iCustomDoughnutProps> = (props: iCustomDoughnutProps) =
       >
         Диаграмма ответов
       </Typography>
-      <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl bg-cyan-100 px-4 shadow-none transition-shadow duration-500 hover:shadow-lg">
-        {isEmpty && <PlugForEmptyData isSmall />}
-        {!isEmpty && <Doughnut data={dataDoughnut} options={optionsDoughnut} />}
-      </Box>
+      <CustomCardWrapper shadowSize="shadow-lg">
+        <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl bg-cyan-100 px-4">
+          {isEmpty && <PlugForEmptyData isSmall />}
+          {!isEmpty && <Doughnut data={dataDoughnut} options={optionsDoughnut} />}
+        </Box>
+      </CustomCardWrapper>
     </Box>
   );
 };

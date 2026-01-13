@@ -1,5 +1,5 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 // Компоненты
 import { SideFull, SideMain, SideSecond } from '@/shared/layouts';
 import { UserStats, UserProfile } from '@/entities/users';
@@ -17,4 +17,4 @@ const MainPage = () => {
   );
 };
 
-export default React.memo(MainPage);
+export default memo(MainPage);

@@ -1,12 +1,12 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 import { Box } from '@mui/material';
 // Логика
 import { useAuthContext, useNavigate } from '@/app/hooks';
 import { routes } from '@app/router';
 // Компоненты
 import { BtnSmall } from '@/shared/ui/btns';
-import { CustomIcon } from '@/shared/ui/CustomIcon';
+import { CustomIcon } from '@/shared/ui/various/CustomIcon';
 
 const BtnLogout = () => {
   const { is404LoginPage, isLoginPage, isQuizPage, navigateTo } = useNavigate();
@@ -33,5 +33,5 @@ const BtnLogout = () => {
   );
 };
 
-const MemoizedBtnLogout = React.memo(BtnLogout);
+const MemoizedBtnLogout = memo(BtnLogout);
 export { MemoizedBtnLogout as BtnLogout };

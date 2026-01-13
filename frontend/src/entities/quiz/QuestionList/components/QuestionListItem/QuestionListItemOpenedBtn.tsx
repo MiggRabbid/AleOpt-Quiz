@@ -1,5 +1,5 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 import clsx from 'clsx';
 import { Button, Typography } from '@mui/material';
 
@@ -20,17 +20,14 @@ const QuestionListItemOpenedBtn = (props: IQuestionListItemOpenedBtnProps) => {
     <Button
       onClick={onConfirmAnswer}
       disabled={disabled}
-      className="rounded-xl! border-0! bg-emerald-600! px-4! py-4! hover:shadow-md hover:bg-emerald-500! disabled:bg-emerald-50! disabled:bg-emerald-200!"
+      className="rounded-xl! border-0! bg-emerald-600! px-4! py-4! hover:bg-emerald-500! hover:shadow-md disabled:bg-emerald-50! disabled:bg-emerald-200!"
     >
-      <Typography
-        align="left"
-        className={typographyClasses}
-      >
+      <Typography align="left" className={typographyClasses}>
         Подтвердить
       </Typography>
     </Button>
   );
 };
 
-const memoQuestionListItemOpenedBtn = React.memo(QuestionListItemOpenedBtn);
+const memoQuestionListItemOpenedBtn = memo(QuestionListItemOpenedBtn);
 export { memoQuestionListItemOpenedBtn as QuestionListItemOpenedBtn };

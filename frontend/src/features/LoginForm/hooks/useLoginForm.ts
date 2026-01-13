@@ -35,10 +35,6 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
     if (isLoading || isSubmitting) setIsFetching(true);
   }, [isSubmitting, isLoading]);
 
-  useEffect(() => {
-    console.log('useLoginForm / isFetching -', isFetching);
-  }, [isFetching]);
-
   const onSubmit = async ({ username, password }: FormData) => {
     mutateAsync({ username, password });
   };
@@ -62,5 +58,6 @@ export const useLoginForm = ({ handleSuccess }: IUseLoginFormProps) => {
     onSubmit,
     isFetching,
     isValid,
+    isDirty,
   };
 };

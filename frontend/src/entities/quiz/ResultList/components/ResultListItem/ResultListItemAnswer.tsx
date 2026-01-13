@@ -1,5 +1,5 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 import { AccordionDetails, Typography } from '@mui/material';
 import clsx from 'clsx';
 // Логика
@@ -38,5 +38,5 @@ const ResultListItemAnswer = (props: IResultListItemAnswerProps) => {
   );
 };
 
-const MemoResultListItemAnswer = React.memo(ResultListItemAnswer);
+const MemoResultListItemAnswer = memo(ResultListItemAnswer);
 export { MemoResultListItemAnswer as ResultListItemAnswer };
