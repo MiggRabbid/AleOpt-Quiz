@@ -32,7 +32,7 @@ const CustomDoughnut: FC<iCustomDoughnutProps> = (props: iCustomDoughnutProps) =
         Диаграмма ответов
       </Typography>
       <CustomCardWrapper shadowSize="shadow-lg">
-        <Box className="relative! aspect-square h-80 w-80 shrink-0 grow-0 rounded-xl bg-cyan-100 px-4">
+        <Box className="relative! flex aspect-square h-80 w-80 shrink-0 grow-0 items-center justify-center rounded-xl bg-cyan-100 px-4">
           {isEmpty && <PlugForEmptyData isSmall />}
           {!isEmpty && <Doughnut data={dataDoughnut} options={optionsDoughnut} />}
         </Box>

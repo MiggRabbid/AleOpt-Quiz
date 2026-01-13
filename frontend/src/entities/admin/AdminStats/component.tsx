@@ -34,7 +34,6 @@ const AdminStats = () => {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <Box
-        id="AdminStatsClientWrapper"
         className="h-full w-full! overflow-y-auto!"
         sx={{
           height: 'calc(100% - 40px - 24px - 1px)',

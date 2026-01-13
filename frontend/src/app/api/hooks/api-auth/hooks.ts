@@ -1,6 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { TypeAxiosMethod, REQUEST_PATHS, sendRequest } from '@api/index';
+import {
+  TypeAxiosMethod,
+  REQUEST_PATHS,
+  sendRequest,
+  queryClient,
+  queryKeys,
+} from '@api/index';
 
 import type { CustomHookMutationOptions } from '@api/index';
 
@@ -24,5 +30,15 @@ export const useAuth = (
       });
     },
     ...options,
+    onSettled: () => {
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.users.one],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.users.oneStats],
+        }),
+      ]);
+    },
   });
 };

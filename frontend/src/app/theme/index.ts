@@ -29,7 +29,15 @@ export const customThemeMUI = createTheme(
         contrastText: '#fff',
       },
     },
-    components: {},
+    components: {
+      MuiAccordion: {
+        styleOverrides: {
+          root: {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
   },
   ruRU,
 );

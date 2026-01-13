@@ -19,7 +19,10 @@ const SummaryResults = ({ usersStats }: ISummaryResultProps) => {
 
   return (
     <CustomCardWrapper>
-      <Box className="flex w-full flex-col gap-2 bg-slate-50 p-4" id="SummaryResults">
+      <Box
+        className="flex w-full flex-col gap-2 rounded-2xl bg-slate-50 p-4"
+        id="SummaryResults"
+      >
         <Box className="flex flex-col justify-start gap-2">
           <TopResultsList sortedResults={sortedResults} />
         </Box>

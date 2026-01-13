@@ -48,7 +48,7 @@ const QuestionListItem = memo((props: IQuestionListItemProps) => {
   return (
     <CustomCardWrapper roundedSize="rounded-xl" shadowSize="shadow-sm">
       <Accordion
-        className="rounded-xl! bg-slate-50!"
+        className="rounded-xl! bg-slate-50! shadow-none!"
         sx={{
           '&:before': { display: 'none !important' },
         }}
@@ -80,7 +80,6 @@ const QuestionListItem = memo((props: IQuestionListItemProps) => {
                   component="span"
                   className="font-semibold! text-slate-500! uppercase!"
                 >
-                  {' '}
                   {question.correctAnswerId}
                 </Typography>
               </Typography>

@@ -41,7 +41,7 @@ const ProfileCard = (props: ProfileCard) => {
 
   return (
     <CustomCardWrapper>
-      <Box className="flex flex-row items-center justify-start gap-4 bg-slate-50 px-2 py-3">
+      <Box className="flex flex-row items-center justify-start gap-4 rounded-2xl bg-slate-50 px-2 py-3">
         {!isLoading ? (
           <UserAvatar src={avatarSrc} alt={avatarAlt} key={avatarSrc} />
         ) : (
