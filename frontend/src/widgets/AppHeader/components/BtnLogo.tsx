@@ -1,5 +1,5 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 import { Button } from '@mui/material';
 // Логика
 import { routes } from '@app/router';
@@ -29,5 +29,5 @@ const BtnLogo = () => {
   );
 };
 
-const MemoizedBtnLogout = React.memo(BtnLogo);
+const MemoizedBtnLogout = memo(BtnLogo);
 export { MemoizedBtnLogout as BtnLogo };

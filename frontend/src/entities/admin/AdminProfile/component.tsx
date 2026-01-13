@@ -35,6 +35,7 @@ const AdminProfile = () => {
     >
       <Box className="flex h-fit w-full flex-col justify-start gap-3.5">
         <ProfileCard
+          key={userData?.username}
           role={userData?.role || UserRoles.Employee}
           firstname={userData?.firstName || 'Нет данных'}
           lastname={userData?.lastName || ''}

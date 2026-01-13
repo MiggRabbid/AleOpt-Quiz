@@ -1,5 +1,5 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 import { Button, Typography } from '@mui/material';
 import clsx from 'clsx';
 // Типизация
@@ -42,5 +42,5 @@ const QuestionListItemOpenedAnswer = (props: IQuestionListItemOpenedAnswerProps)
   );
 };
 
-const memoQuestionListItemOpenedAnswer = React.memo(QuestionListItemOpenedAnswer);
+const memoQuestionListItemOpenedAnswer = memo(QuestionListItemOpenedAnswer);
 export { memoQuestionListItemOpenedAnswer as QuestionListItemOpenedAnswer };

@@ -13,7 +13,12 @@ const UserAvatar = (props: IUserAvatarProps) => {
   return (
     <Avatar variant="circular" className="h-20! w-20! bg-green-100! p-1" id="UserAvatar">
       {isCorrectSrc ? (
-        <img className="h-full! w-full! object-cover" src={src} alt={alt} />
+        <img
+          className="h-full! w-full! object-cover"
+          src={src}
+          alt={alt}
+          loading="lazy"
+        />
       ) : (
         <ImageIcon color="success" className="h-full! w-full!" />
       )}

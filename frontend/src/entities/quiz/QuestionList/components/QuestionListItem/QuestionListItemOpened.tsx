@@ -1,5 +1,5 @@
 // Библиотеки
-import React, { useState } from 'react';
+import { memo, useState } from 'react';
 import { Box, Chip, Typography } from '@mui/material';
 // Логика
 import { LocalKeyMap, useAppActions, useAppSelector, useLocalStorage } from '@app/hooks';
@@ -100,5 +100,5 @@ const QuestionListItemOpened = (props: IQuestionItemProps) => {
   );
 };
 
-const MemoQuestionListItemOpened = React.memo(QuestionListItemOpened);
+const MemoQuestionListItemOpened = memo(QuestionListItemOpened);
 export { MemoQuestionListItemOpened as QuestionListItemOpened };

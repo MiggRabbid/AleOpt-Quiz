@@ -1,45 +1,33 @@
 interface IQueryKeys {
-  auth: {
-    login: string;
-  };
   users: {
-    create: string;
     one: string;
     oneStats: string;
     all: string;
     allStats: string;
   };
   questions: {
-    create: string;
     one: string;
     all: string;
   };
   results: {
-    create: string;
     one: string;
     all: string;
   };
 }
 
 export const queryKeys: IQueryKeys = {
-  auth: {
-    login: 'login',
-  },
   users: {
-    create: 'create',
-    one: 'one',
+    one: 'oneUser',
     oneStats: 'oneStats',
-    all: 'all',
+    all: 'allUsers',
     allStats: 'allStats',
   },
   questions: {
-    create: 'create',
-    one: 'one',
-    all: 'all',
+    one: 'oneQuestion',
+    all: 'allQuestions',
   },
   results: {
-    create: 'create',
-    one: 'one',
-    all: 'all',
+    one: 'oneResult',
+    all: 'allResults',
   },
 };

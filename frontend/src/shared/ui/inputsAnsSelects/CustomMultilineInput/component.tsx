@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import FormHelperText from '@mui/material/FormHelperText';
 // Типизация
-import type { ICustomMultilineInputProps } from './types';
+import type { ICustomMultilineInputProps } from './component.types';
 import { memo } from 'react';
 
 const CustomMultilineInput = (props: ICustomMultilineInputProps) => {

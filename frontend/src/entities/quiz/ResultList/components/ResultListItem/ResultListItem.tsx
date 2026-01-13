@@ -1,5 +1,5 @@
 // Библиотеки
-import React, { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Accordion, AccordionSummary, Box, Chip, Typography } from '@mui/material';
 import clsx from 'clsx';
 // Компоненты
@@ -89,5 +89,5 @@ const ResultListItem = (props: IResultListItemProps) => {
   );
 };
 
-const MemoResultListItem = React.memo(ResultListItem);
+const MemoResultListItem = memo(ResultListItem);
 export { MemoResultListItem as ResultListItem };

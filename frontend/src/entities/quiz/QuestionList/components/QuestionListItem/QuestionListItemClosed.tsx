@@ -1,5 +1,5 @@
 // Библиотеки
-import React from 'react';
+import { memo } from 'react';
 import { Box, Chip, Typography } from '@mui/material';
 import clsx from 'clsx';
 // Логика
@@ -74,5 +74,5 @@ const QuestionListItemClosed = (props: IQuestionItemProps) => {
   );
 };
 
-const MemoQuestionListItemClosed = React.memo(QuestionListItemClosed);
+const MemoQuestionListItemClosed = memo(QuestionListItemClosed);
 export { MemoQuestionListItemClosed as QuestionListItemClosed };

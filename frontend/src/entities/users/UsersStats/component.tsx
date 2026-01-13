@@ -15,12 +15,16 @@ import { QuestionBlock } from './components';
 import { CustomBar } from '@/features/CustomBar';
 import { CustomDoughnut } from '@/features/CustomDoughnut';
 
-const UserStats = () => {
+interface iUserStatsProps {
+  currentUser?: string;
+}
+
+const UserStats = ({ currentUser }: iUserStatsProps) => {
   const { isAuth, user } = useAuthContext();
   const { data: userStats } = useQuery({
     ...useGetUserStats({
       params: {
-        username: user?.username ?? '',
+        username: !!currentUser ? currentUser : (user?.username ?? ''),
       },
     }),
     enabled: isAuth && !!user?.username,

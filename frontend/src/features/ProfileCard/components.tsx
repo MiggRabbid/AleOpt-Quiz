@@ -43,7 +43,7 @@ const ProfileCard = (props: ProfileCard) => {
     <CustomCardWrapper>
       <Box className="flex flex-row items-center justify-start gap-4 bg-slate-50 px-2 py-3">
         {!isLoading ? (
-          <UserAvatar src={avatarSrc} alt={avatarAlt} />
+          <UserAvatar src={avatarSrc} alt={avatarAlt} key={avatarSrc} />
         ) : (
           <Skeleton variant="circular" className="h-20! w-20!" />
         )}

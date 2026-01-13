@@ -10,7 +10,12 @@ import {
 } from '@app/api';
 
 import type { CustomHookMutationOptions } from '@app/api';
-import type { IEditQuestionRequest, iHandledError, iQuestion } from '@app/types';
+import type {
+  IEditQuestionRequest,
+  iHandledError,
+  iQuestion,
+  IQuestionRequest,
+} from '@app/types';
 import type { AxiosError } from 'axios';
 
 /**
@@ -46,6 +51,63 @@ export const useCreateQuestion = (
         method: TypeAxiosMethod.post,
         endpoint: REQUEST_PATHS.question(),
         data: payload.query,
+        params: payload.params,
+        token: token,
+      });
+    },
+    ...options,
+    onSettled: () => {
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.questions.all],
+        }),
+      ]);
+    },
+  });
+};
+
+/**
+ * Редактирование вопроса
+ */
+export const useEditQuestion = (
+  options?: CustomHookMutationOptions<iQuestion[], IEditQuestionRequest>,
+) => {
+  const { token } = useAuthContext();
+
+  return useMutation<iQuestion[], AxiosError<iHandledError>, IEditQuestionRequest>({
+    mutationFn: async (payload) => {
+      return sendRequest({
+        method: TypeAxiosMethod.put,
+        endpoint: REQUEST_PATHS.question(),
+        data: payload.query,
+        params: payload.params,
+        token: token,
+      });
+    },
+    ...options,
+    onSettled: () => {
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.questions.all],
+        }),
+      ]);
+    },
+  });
+};
+
+/**
+ * Редактирование вопроса
+ */
+export const useDeleteQuestion = (
+  options?: CustomHookMutationOptions<iQuestion[], IQuestionRequest>,
+) => {
+  const { token } = useAuthContext();
+
+  return useMutation<iQuestion[], AxiosError<iHandledError>, IQuestionRequest>({
+    mutationFn: async (payload) => {
+      return sendRequest({
+        method: TypeAxiosMethod.delete,
+        endpoint: REQUEST_PATHS.question(),
         params: payload.params,
         token: token,
       });
