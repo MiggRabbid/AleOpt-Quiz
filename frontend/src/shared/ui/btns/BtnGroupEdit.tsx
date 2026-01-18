@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 // Компоненты
-import { CustomIcon } from '@/shared/ui/various/CustomIcon';
+import { CustomIcon } from '@/shared/ui/other/CustomIcon';
 
 type TBtnColor =
   | 'success'

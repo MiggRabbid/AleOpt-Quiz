@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 // Компоненты
-import { CustomIcon } from '@/shared/ui/various/CustomIcon';
+import { CustomIcon } from '@/shared/ui/other/CustomIcon';
 //
 
 import type { Dispatch, SetStateAction } from 'react';
-import type { TLibraryIconMUIName } from '@/shared/ui/various/CustomIcon';
+import type { TLibraryIconMUIName } from '@/shared/ui/other/CustomIcon';
 import { TypeStatsTab } from '../../../component.types';
 
 interface ICustomButtonGroupProps {

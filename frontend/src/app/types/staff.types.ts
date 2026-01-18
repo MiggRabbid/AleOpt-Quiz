@@ -17,6 +17,16 @@ export const userGenderMap: Record<UserGender, string> = {
   female: 'Жен.',
 };
 
+export enum UserStatus {
+  Active = 'active',
+  Inactive = 'inactive',
+}
+
+export const userStatusMap: Record<UserStatus, string> = {
+  active: 'Текущий',
+  inactive: 'Бывший',
+};
+
 export const userRolesMap: Record<UserRoles, string> = {
   Admin: 'Администратор',
   Employee: 'Сотрудник',

@@ -1,14 +1,6 @@
 // Библиотеки
-import { memo, useMemo } from 'react';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Divider,
-  Typography,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { memo, useCallback, useMemo } from 'react';
+import { Box, Divider, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 // Логика
@@ -16,10 +8,11 @@ import { useAppActions, useAuthContext } from '@/app/hooks';
 import { useGetAllUsersStats } from '@/app/api/hooks';
 // Компоненты
 import { UserStats } from '@/entities/users';
-import { BtnGroupEdit, CustomCardWrapper, PlugForEmptyData } from '@/shared/ui';
+import { BtnGroupEdit, PlugForEmptyData } from '@/shared/ui';
 // Типизация
-import type { iUser } from '@/app/types';
+import type { iUser, iUserStats } from '@/app/types';
 import { TTypeModal, UserRoles } from '@/app/types';
+import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
 
 interface IUsersListItemProps {
   user: iUser;
@@ -30,7 +23,6 @@ interface IUsersListItemProps {
 
 const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
   const { isAuth, user: currUser } = useAuthContext();
-
   const { openUserEditor } = useAppActions();
 
   const { data: usersStats } = useQuery({
@@ -43,24 +35,53 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
     [user.username, usersStats],
   );
 
-  const handelClickOnEdit = (e: React.MouseEvent) => {
+  const handelClickOnEdit = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     openUserEditor({
       type: TTypeModal.edit,
       editableUser: user,
     });
-  };
+  }, []);
 
-  const handelClickOnDelete = (e: React.MouseEvent) => {
+  const handelClickOnDelete = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     openUserEditor({
       type: TTypeModal.delete,
       editableUser: user,
     });
-  };
+  }, []);
 
+  return (
+    <CustomAccordion
+      ariaControls={`UsersListItem-${user.username}`}
+      SummaryChildren={
+        <UsersListItemSummary index={index} user={user} activeUser={activeUser} />
+      }
+      DetailsChildren={
+        <UsersListItemDetails
+          user={user}
+          currStats={currStats}
+          handelClickOnEdit={handelClickOnEdit}
+          handelClickOnDelete={handelClickOnDelete}
+        />
+      }
+    />
+  );
+};
+
+export default memo(UsersListItem);
+
+const UsersListItemSummary = ({
+  index,
+  user,
+  activeUser,
+}: {
+  index: number;
+  user: iUser;
+  activeUser: boolean;
+}) => {
   const attemptClass = clsx(
     'flex h-full! w-fit! items-center justify-center rounded-full! px-3! py-1! text-xs! leading-none! font-bold!',
     {
@@ -82,113 +103,103 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
   );
 
   return (
-    <CustomCardWrapper roundedSize="rounded-xl" shadowSize="shadow-lg">
-      <Accordion
-        className="rounded-xl! border-0 bg-slate-50!"
-        sx={{
-          '&:before': { display: 'none !important' },
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls={`UsersListItem-${user.username}`}
-          id={`UsersListItem-${user.username}`}
-          className="flex h-16! min-h-16! w-full! justify-between rounded-xl! bg-slate-100!"
-          sx={{
-            '& .MuiAccordionSummary-content': { margin: 0 },
-          }}
-        >
-          <Box className="flex grow-1 items-center">
-            <Typography className="me-2! flex h-6! w-6! items-center justify-center rounded-full! bg-slate-500! text-xs! leading-none! font-bold! text-slate-50!">
-              {index}
+    <Box className="flex grow-1 items-center">
+      <Typography className="me-3! flex h-6! w-6! shrink-0! items-center justify-center rounded-full! bg-slate-500! text-xs! leading-none! font-bold! text-slate-50!">
+        {index}
+      </Typography>
+
+      <Box className="me-3 flex w-full flex-row gap-1">
+        <Box className="flex w-full flex-row gap-1">
+          <Typography component="span" className="me-2!">
+            {`${user.firstName} ${user.lastName}`}
+          </Typography>
+
+          {user.role !== UserRoles.Employee && (
+            <Typography className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! text-slate-600!">
+              {user.role}
             </Typography>
-
-            <Box className="me-3 flex w-full flex-row gap-1">
-              <Box className="flex w-full flex-row gap-1">
-                <Typography component="span" className="me-2!">
-                  {`${user.firstName} ${user.lastName}`}
-                </Typography>
-
-                {user.role !== UserRoles.Employee && (
-                  <Typography className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! text-slate-600!">
-                    {user.role}
-                  </Typography>
-                )}
-
-                {activeUser && (
-                  <Typography
-                    component="span"
-                    className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! text-slate-600!"
-                  >
-                    это вы
-                  </Typography>
-                )}
-              </Box>
-              <Box className="flex w-fit shrink-0 flex-row gap-4">
-                <Typography component="p" className={attemptClass}>
-                  Кол-во попыток:
-                  <Typography
-                    component="span"
-                    sx={{
-                      textAlign: 'center',
-                      marginLeft: '2px',
-                      width: '20px',
-                      fontWeight: 'inherit',
-                      fontSize: 'inherit',
-                    }}
-                  >
-                    {user?.numberAttempts ?? 0}
-                  </Typography>
-                </Typography>
-                <Typography component="p" className={resultClass}>
-                  Последний результат:
-                  <Typography
-                    component="span"
-                    sx={{
-                      textAlign: 'center',
-                      marginLeft: '2px',
-                      width: '20px',
-                      fontWeight: 'inherit',
-                      fontSize: 'inherit',
-                    }}
-                  >
-                    {user?.lastResult ?? '-'}
-                  </Typography>
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-        </AccordionSummary>
-
-        <AccordionDetails className="w-full! pt-0!">
-          <Box className="mb-5 w-full!">
-            <Box className="flex w-full! items-center justify-between py-2! ps-7! pe-0!">
-              <Typography
-                component="span"
-                className="font-md font-semibold! text-slate-500!"
-              >
-                Логин: {user.username}
-              </Typography>
-              <BtnGroupEdit
-                onClickDelete={handelClickOnDelete}
-                colorDelete="error"
-                onClickEdit={handelClickOnEdit}
-                colorEdit="success"
-                size="small"
-                withoutMargin
-              />
-            </Box>
-            <Divider />
-          </Box>
-          {!!currStats ? (
-            <UserStats currentUser={currStats.username} />
-          ) : (
-            <PlugForEmptyData />
           )}
-        </AccordionDetails>
-      </Accordion>
-    </CustomCardWrapper>
+
+          {activeUser && (
+            <Typography
+              component="span"
+              className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! text-slate-600!"
+            >
+              это вы
+            </Typography>
+          )}
+        </Box>
+        <Box className="flex w-fit shrink-0 flex-row gap-4">
+          <Typography component="p" className={attemptClass}>
+            Кол-во попыток:
+            <Typography
+              component="span"
+              sx={{
+                textAlign: 'center',
+                marginLeft: '2px',
+                width: '20px',
+                fontWeight: 'inherit',
+                fontSize: 'inherit',
+              }}
+            >
+              {user?.numberAttempts ?? 0}
+            </Typography>
+          </Typography>
+          <Typography component="p" className={resultClass}>
+            Последний результат:
+            <Typography
+              component="span"
+              sx={{
+                textAlign: 'center',
+                marginLeft: '2px',
+                width: '20px',
+                fontWeight: 'inherit',
+                fontSize: 'inherit',
+              }}
+            >
+              {user?.lastResult ?? '-'}
+            </Typography>
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
-export default memo(UsersListItem);
+const UsersListItemDetails = ({
+  user,
+  currStats,
+  handelClickOnDelete,
+  handelClickOnEdit,
+}: {
+  user: iUser;
+  currStats?: iUserStats;
+  handelClickOnDelete: (e: React.MouseEvent) => void;
+  handelClickOnEdit: (e: React.MouseEvent) => void;
+}) => {
+  return (
+    <Box className="">
+      <Box className="mb-5 w-full!">
+        <Box className="flex w-full! items-center justify-between py-2! ps-7! pe-0!">
+          <Typography component="span" className="font-md font-semibold! text-slate-500!">
+            Логин: {user.username}
+          </Typography>
+          <BtnGroupEdit
+            onClickDelete={handelClickOnDelete}
+            colorDelete="error"
+            onClickEdit={handelClickOnEdit}
+            colorEdit="success"
+            size="small"
+            withoutMargin
+          />
+        </Box>
+        <Divider />
+      </Box>
+      {!!currStats ? (
+        <UserStats currentUser={currStats.username} />
+      ) : (
+        <PlugForEmptyData />
+      )}
+    </Box>
+  );
+};

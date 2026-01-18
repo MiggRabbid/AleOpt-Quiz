@@ -1,22 +1,15 @@
 // Библиотеки
 import { memo } from 'react';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Divider,
-  Typography,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Divider, Typography } from '@mui/material';
 // Логика
 import { useAppActions } from '@app/hooks';
 // Компоненты
 import { AnswerListItem } from './';
-import { BtnGroupEdit, CustomCardWrapper } from '@/shared/ui';
+import { BtnGroupEdit, TooltipTypography } from '@/shared/ui';
 // Типизация
-import type { iQuestion } from '@app/types';
+import type { iQuestion, typeQuestionAnswer } from '@app/types';
 import { TTypeModal } from '@app/types';
+import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
 
 interface IQuestionListItemProps {
   question: iQuestion;
@@ -46,68 +39,108 @@ const QuestionListItem = memo((props: IQuestionListItemProps) => {
   };
 
   return (
-    <CustomCardWrapper roundedSize="rounded-xl" shadowSize="shadow-sm">
-      <Accordion
-        className="rounded-xl! bg-slate-50! shadow-none!"
-        sx={{
-          '&:before': { display: 'none !important' },
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls={`UsersListItem-${question.id}`}
-          id={`UsersListItem-${question.id}`}
-          className="flex min-h-16! w-full! justify-between rounded-xl! bg-slate-100!"
-        >
-          <Box className="align-start flex w-full max-w-full items-center gap-3">
-            <Typography className="flex h-6! w-fit! min-w-6! shrink-0 items-center justify-center rounded-full! bg-slate-200! text-sm! leading-none! font-bold! text-slate-800!">
-              {index}
-            </Typography>
-
-            <Box className="grow overflow-hidden!">
-              <Typography component="span" className="h-full! w-full!">
-                {`${question.question}`}
-              </Typography>
-            </Box>
-          </Box>
-        </AccordionSummary>
-        <AccordionDetails className="flex w-full! flex-col justify-start gap-4 p-4!">
-          <Box className="w-full!">
-            <Box className="flex w-full! justify-between py-2! ps-6!">
-              <Typography component="p" className="font-semibold! text-slate-500!">
-                Текущий верный ответ:
-                <Typography
-                  component="span"
-                  className="font-semibold! text-slate-500! uppercase!"
-                >
-                  {question.correctAnswerId}
-                </Typography>
-              </Typography>
-              <BtnGroupEdit
-                onClickDelete={handelClickOnDelete}
-                colorDelete="error"
-                onClickEdit={handelClickOnEdit}
-                colorEdit="success"
-                size="small"
-              />
-            </Box>
-            <Divider />
-          </Box>
-          <Box className="flex w-full! flex-col gap-2">
-            {question.answers.map((answer) => {
-              return (
-                <AnswerListItem
-                  key={`AnswerListItem-${question.id}-${answer.id}`}
-                  answer={answer}
-                  isCorrect={answer.id === question.correctAnswerId}
-                />
-              );
-            })}
-          </Box>
-        </AccordionDetails>
-      </Accordion>
-    </CustomCardWrapper>
+    <CustomAccordion
+      ariaControls={`QuestionListItem-${question.id}`}
+      SummaryChildren={
+        <QuestionListItemSummary index={index} question={question.question} />
+      }
+      DetailsChildren={
+        <QuestionListItemDetails
+          questionId={question.id}
+          correctAnswerId={question.correctAnswerId}
+          answers={question.answers}
+          handelClickOnEdit={handelClickOnEdit}
+          handelClickOnDelete={handelClickOnDelete}
+        />
+      }
+    />
   );
 });
 
 export { QuestionListItem };
+
+const QuestionListItemSummary = ({
+  index,
+  question,
+}: {
+  index: number;
+  question: string;
+}) => {
+  return (
+    <Box className="flex grow-1 items-center">
+      <Typography className="me-3! flex h-6! w-6! shrink-0! items-center justify-center rounded-full! bg-slate-500! text-xs! leading-none! font-bold! text-slate-50!">
+        {index}
+      </Typography>
+
+      <Box className="me-4! grow-0">
+        <TooltipTypography
+          maxRows={2}
+          tooltip={{
+            content: question,
+          }}
+          tooltipSlotSx={{
+            tooltip: {
+              sx: {
+                width: '500px !important',
+                minWidth: '500px !important',
+              },
+            },
+          }}
+        >
+          {question}
+        </TooltipTypography>
+      </Box>
+    </Box>
+  );
+};
+
+const QuestionListItemDetails = ({
+  questionId,
+  correctAnswerId,
+  answers,
+  handelClickOnDelete,
+  handelClickOnEdit,
+}: {
+  questionId: string;
+  correctAnswerId: string;
+  answers: typeQuestionAnswer[];
+  handelClickOnDelete: (e: React.MouseEvent) => void;
+  handelClickOnEdit: (e: React.MouseEvent) => void;
+}) => {
+  return (
+    <Box className="flex h-fit! w-full! flex-col justify-start gap-4">
+      <Box className="w-full!">
+        <Box className="flex w-full! justify-between py-2! ps-6!">
+          <Typography component="p" className="font-semibold! text-slate-500!">
+            Текущий верный ответ:
+            <Typography
+              component="span"
+              className="font-semibold! text-slate-500! uppercase!"
+            >
+              {correctAnswerId}
+            </Typography>
+          </Typography>
+          <BtnGroupEdit
+            onClickDelete={handelClickOnDelete}
+            colorDelete="error"
+            onClickEdit={handelClickOnEdit}
+            colorEdit="success"
+            size="small"
+          />
+        </Box>
+        <Divider />
+      </Box>
+      <Box className="flex w-full! flex-col gap-2">
+        {answers.map((answer) => {
+          return (
+            <AnswerListItem
+              key={`AnswerListItem-${questionId}-${answer.id}`}
+              answer={answer}
+              isCorrect={answer.id === correctAnswerId}
+            />
+          );
+        })}
+      </Box>
+    </Box>
+  );
+};
