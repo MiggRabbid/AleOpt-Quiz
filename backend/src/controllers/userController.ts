@@ -61,6 +61,7 @@ class UserController {
         role: user.role,
         image: user.image ?? '',
         gender: user.gender,
+        status: user.status,
         numberAttempts: 0,
         lastResult: null,
       };

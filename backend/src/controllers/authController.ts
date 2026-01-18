@@ -28,12 +28,14 @@ const errorTypeMap = {
   userNotFound: 'userNotFound',
   incorrectPassword: 'incorrectPassword',
   authError: 'authError',
+  userInactive: 'userInactive',
 };
 
 const errorMsgMap = {
   userNotFound: 'Пользователь не найден',
   incorrectPassword: 'Неправильный пароль',
   authError: 'Ошибка авторизации',
+  userInactive: 'Доступ запрещен для неактивного пользователя',
 };
 
 class AuthController {
@@ -63,6 +65,13 @@ class AuthController {
         return response.status(401).json({
           message: errorMsgMap.incorrectPassword,
           errorType: errorTypeMap.incorrectPassword,
+        });
+      }
+
+      if (user.status === 'inactive') {
+        return response.status(401).json({
+          message: errorMsgMap.userInactive,
+          errorType: errorTypeMap.userInactive,
         });
       }
 

@@ -10,6 +10,7 @@ const UserSchema = new Schema<iUserModel>({
   password: { type: String, required: true },
   image: { type: String, required: false },
   gender: { type: String, required: false },
+  status: { type: String, required: true, default: 'active' },
 });
 
 const User = model<iUserModel>('User', UserSchema);

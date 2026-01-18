@@ -1,10 +1,21 @@
 import { Document } from 'mongoose';
 // import { iAverageAttempts } from './statsTypes';
 
+// eslint-disable-next-line no-shadow
 export enum UserRoles {
   Admin = 'Admin',
   Employee = 'Employee',
   Owner = 'Owner',
+}
+// eslint-disable-next-line no-shadow
+export enum UserStatus {
+  Active = 'active',
+  Inactive = 'inactive',
+}
+// eslint-disable-next-line no-shadow
+export enum UserGender {
+  Male = 'male',
+  Female = 'female',
 }
 
 export interface iRoleModel extends Document {
@@ -20,7 +31,8 @@ export interface iUserModel extends Document {
   password: string;
   results?: Array<Record<string, string>>;
   image: string;
-  gender: 'male' | 'female';
+  gender: string | UserGender;
+  status: string | UserStatus;
 }
 
 export interface iResponseUser {
@@ -32,11 +44,12 @@ export interface iResponseUser {
   lastResult: number | null;
   numberAttempts: number;
   image?: string;
-  gender: 'male' | 'female';
+  gender: string | UserGender;
+  status: string | UserStatus;
 }
 
 export interface iUpdateUserData {
-  role: string;
+  role: UserRoles;
   username: string;
   firstName: string;
   lastName: string;
