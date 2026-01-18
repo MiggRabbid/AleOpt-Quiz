@@ -11,7 +11,7 @@ import { UserStats } from '@/entities/users';
 import { BtnGroupEdit, PlugForEmptyData } from '@/shared/ui';
 // Типизация
 import type { iUser, iUserStats } from '@/app/types';
-import { TTypeModal, UserRoles } from '@/app/types';
+import { TTypeModal, UserRoles, UserStatus } from '@/app/types';
 import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
 
 interface IUsersListItemProps {
@@ -102,6 +102,12 @@ const UsersListItemSummary = ({
     },
   );
 
+  const isInactiveUser = user.status === UserStatus.Inactive;
+  const usernameClass = clsx(
+    'me-2!',
+    isInactiveUser ? 'line-through decoration-2! decoration-slate-400!' : '',
+  );
+
   return (
     <Box className="flex grow-1 items-center">
       <Typography className="me-3! flex h-6! w-6! shrink-0! items-center justify-center rounded-full! bg-slate-500! text-xs! leading-none! font-bold! text-slate-50!">
@@ -110,7 +116,7 @@ const UsersListItemSummary = ({
 
       <Box className="me-3 flex w-full flex-row gap-1">
         <Box className="flex w-full flex-row gap-1">
-          <Typography component="span" className="me-2!">
+          <Typography component="span" className={usernameClass}>
             {`${user.firstName} ${user.lastName}`}
           </Typography>
 

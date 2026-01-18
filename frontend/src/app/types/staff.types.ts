@@ -53,6 +53,7 @@ export interface iUser {
   token?: string;
   image?: string;
   gender?: UserGender;
+  status?: UserStatus;
   results?: Array<Record<string, string>>;
   lastResult?: number | null;
   numberAttempts?: number;

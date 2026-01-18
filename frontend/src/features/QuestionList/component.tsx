@@ -20,7 +20,7 @@ const QuestionList = memo(({ questions }: IQuestionListProps) => {
       {questions.map((question: iQuestion, index: number) => {
         return (
           <QuestionListItem
-            key={`QuestionListItem-${question.id}-${index}`}
+            key={`QuestionListItem-${question.id}`}
             question={question}
             index={index + 1}
           />

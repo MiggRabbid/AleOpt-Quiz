@@ -1,9 +1,7 @@
 // Библиотеки
 import { memo } from 'react';
-import { useQuery } from '@tanstack/react-query';
 // Логика
 import { useAuthContext } from '@/app/hooks';
-import { useGetAllUsers } from '@/app/api/hooks';
 // Компоненты
 import { PlugForEmptyData } from '@/shared/ui';
 import { UsersListItem } from './components';
@@ -26,7 +24,7 @@ const UsersList = memo(({ users }: IUsersListProps) => {
       {users.map((user: iUser, index: number) => {
         return (
           <UsersListItem
-            key={`UsersListItem-${user.username}-${index}`}
+            key={`UsersListItem-${user.username}`}
             user={user}
             index={index + 1}
             activeUser={user.username === currUser?.username}
