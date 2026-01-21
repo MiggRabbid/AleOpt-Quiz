@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 
-import { Results } from '../models/models';
-import { iUserAnswer } from '../types/resultTypes';
-import { getUserStats } from '../utils/forStats/userStats';
-import { getQuestionStats } from '../utils/forStats/questionStats';
+import { getUserStats, getQuestionStats } from '../utils';
+
+import { Results } from '../models';
+import { IUserAnswer } from '../types';
 
 const NETWORK_ERROR_MESSAGE = 'Network error';
 const RESULT_NOT_FOUND_MESSAGE = 'Result not found. Check query parameters';
@@ -69,7 +69,7 @@ class ResultController {
     }
     try {
       const userResults = await Results.findOne({ username });
-      const correctAnswers = answers.reduce((acc: number, item: iUserAnswer) => {
+      const correctAnswers = answers.reduce((acc: number, item: IUserAnswer) => {
         return acc + item.result;
       }, 0);
       if (!!userResults) {

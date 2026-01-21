@@ -1,4 +1,4 @@
-import { iResponseUser, UserRoles } from '../types/userTypes';
+import { type IResponseUser, UserRoles } from '../types';
 
 const roleMapping: { [key in UserRoles]: number } = {
   [UserRoles.Owner]: 1,
@@ -6,7 +6,7 @@ const roleMapping: { [key in UserRoles]: number } = {
   [UserRoles.Employee]: 3,
 };
 
-const sortUsersByRole = (users: iResponseUser[]) => {
+const sortUsersByRole = (users: IResponseUser[]) => {
   const sortedUsers = users.sort((firstUser, secondUser) => {
     const firstRole = typeof firstUser.role === 'string' ? firstUser.role : firstUser.role.value;
     const secondRole =

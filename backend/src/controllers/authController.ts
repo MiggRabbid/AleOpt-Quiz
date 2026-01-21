@@ -1,12 +1,11 @@
+import type { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import { Request, Response } from 'express';
 
-import { User } from '../models/models';
-
-import { iUserModel } from '../types/userTypes';
+import { User } from '../models';
+import type { IUserModel } from '../types';
 
 dotenv.config();
 
@@ -52,7 +51,7 @@ class AuthController {
       }
 
       const { username, password } = request.body;
-      const user = (await User.findOne({ username })) as iUserModel;
+      const user = (await User.findOne({ username })) as IUserModel;
       if (!user) {
         return response
           .status(404)

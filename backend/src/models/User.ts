@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
 
-import { iUserModel } from '../types/userTypes';
+import type { IUserModel } from '../types';
 
-const UserSchema = new Schema<iUserModel>({
+const UserSchema = new Schema<IUserModel>({
   role: { type: String, ref: 'Role' },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -13,6 +13,6 @@ const UserSchema = new Schema<iUserModel>({
   status: { type: String, required: true, default: 'active' },
 });
 
-const User = model<iUserModel>('User', UserSchema);
+const User = model<IUserModel>('User', UserSchema);
 
 export default User;

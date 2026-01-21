@@ -1,10 +1,19 @@
-import { Router } from 'express';
+import { Router, RequestHandler } from 'express';
+import { ParamsDictionary } from 'express-serve-static-core';
 import { check } from 'express-validator';
+import { ParsedQs } from 'qs';
 
-import { userController } from '../controllers/controllers';
-import { authMiddleware, roleMiddleware } from '../middleware/middleware';
+import { userController } from '../controllers';
+import { authMiddleware, roleMiddleware } from '../middleware';
 
-import { UserRoles } from '../types/userTypes';
+import { UserRoles, IResponseUser, ICreateUserData, IErrorResponse } from '../types';
+
+type NewUserHandler = RequestHandler<
+  ParamsDictionary, // params
+  IResponseUser[] | IErrorResponse, // res body
+  ICreateUserData, // body
+  ParsedQs // query
+>;
 
 const VALIDATION_ERROR_USERNAME = 'Логин должен быть от 4 до 20 символов';
 const VALIDATION_ERROR_PASSWORD = 'Пароль должен быть от 6 до 20 символов';
@@ -24,10 +33,28 @@ const validateName = [
 const validateNewUser = [...validateUsernameAndPassword, ...validateName];
 
 const userRouter = Router();
-userRouter.get('/users', roleMiddleware(UserRoles.Admin), userController.allUsers);
+userRouter.get(
+  '/users',
+  roleMiddleware(UserRoles.Admin),
+  userController.allUsers as NewUserHandler,
+);
 userRouter.get('/user', authMiddleware, userController.currentUser);
-userRouter.post('/user', validateNewUser, roleMiddleware(UserRoles.Admin), userController.newUser);
-userRouter.put('/user', roleMiddleware(UserRoles.Admin), validateNewUser, userController.editUser);
-userRouter.delete('/user/', roleMiddleware(UserRoles.Admin), userController.deleteUser);
+userRouter.post(
+  '/user',
+  validateNewUser,
+  roleMiddleware(UserRoles.Admin),
+  userController.newUser as NewUserHandler,
+);
+userRouter.put(
+  '/user',
+  roleMiddleware(UserRoles.Admin),
+  validateNewUser,
+  userController.editUser as NewUserHandler,
+);
+userRouter.delete(
+  '/user/',
+  roleMiddleware(UserRoles.Admin),
+  userController.deleteUser as NewUserHandler,
+);
 
 export default userRouter;

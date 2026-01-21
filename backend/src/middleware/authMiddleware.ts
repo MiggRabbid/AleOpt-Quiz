@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 
 interface CustomRequest extends Request {
   user?: {
@@ -13,7 +13,11 @@ interface CustomRequest extends Request {
 
 dotenv.config();
 
-const secret = process.env.SECRET_KEY || '';
+if (!process.env.SECRET_KEY) {
+  throw new Error('SECRET_KEY не найден');
+}
+
+const secret = process.env.SECRET_KEY;
 
 const errorTypeMap = {
   authError: 'authError',
@@ -30,15 +34,17 @@ const authMiddleware = (request: CustomRequest, response: Response, next: NextFu
     next();
   }
 
-  try {
-    const token = request.headers.authorization?.split(' ')[1];
+  const authHeader = request.headers.authorization || '';
 
-    if (!token) {
-      response
-        .status(403)
-        .json({ message: errorMsgMap.authError, typeError: errorTypeMap.authError });
-      return;
-    }
+  if (!authHeader?.startsWith('Bearer ')) {
+    response.status(403).json({
+      message: errorMsgMap.authError,
+      typeError: errorTypeMap.authError,
+    });
+  }
+
+  try {
+    const token = authHeader.slice(7);
 
     const decodedData = jwt.verify(token, secret) as jwt.JwtPayload;
 

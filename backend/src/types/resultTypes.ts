@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface iUserAnswer {
+export interface IUserAnswer {
   question: string;
   questionId: string;
   userAnswerId: string;
@@ -8,13 +8,13 @@ export interface iUserAnswer {
   result: number;
 }
 
-export interface iResultEntry {
+export interface IResultEntry {
   data: string;
-  answers: iUserAnswer[];
+  answers: IUserAnswer[];
   correctAnswers: number;
 }
 
-export interface iResultModel extends Document {
+export interface IResultModel extends Document {
   username: string;
-  attempts: iResultEntry[];
+  attempts: IResultEntry[];
 }

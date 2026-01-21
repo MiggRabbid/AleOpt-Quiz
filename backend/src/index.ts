@@ -3,7 +3,7 @@ import express from 'express';
 import mongoose, { ConnectOptions } from 'mongoose';
 import cors from 'cors';
 
-import router from './routers/router';
+import router from './routers';
 
 dotenv.config();
 

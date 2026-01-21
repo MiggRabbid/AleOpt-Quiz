@@ -1,27 +1,27 @@
-import { iResultEntry, iUserAnswer } from './resultTypes';
+import { IResultEntry, IUserAnswer } from './resultTypes';
 
-export type typeAnswerId = 'a' | 'b' | 'c' | 'd';
+export type TypeAnswerId = 'a' | 'b' | 'c' | 'd';
 
-export interface iAverageAttempts {
+export interface IAverageAttempts {
   [key: string]: {
     question: string;
     result: number;
     correctAnswerId: string;
-    countAnswers: Record<typeAnswerId, number>;
+    countAnswers: Record<TypeAnswerId, number>;
   };
 }
 
-export interface iUserStats {
+export interface IUserStats {
   username: string;
-  attempts: iResultEntry[];
+  attempts: IResultEntry[];
   numberAttempts: number;
   averageResult: number;
-  averageAttempts: iAverageAttempts;
+  averageAttempts: IAverageAttempts;
 }
 
-export interface iQuestionStats {
+export interface IQuestionStats {
   questionId: string;
-  attempts: iUserAnswer[];
+  attempts: IUserAnswer[];
   numberAttempts: number;
   correctAnswers: number;
   averageResult: number;

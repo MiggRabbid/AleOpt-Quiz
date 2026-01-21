@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { iResultModel } from '../types/resultTypes';
+import type { IResultModel } from '../types';
 
 const UserAnswerSchema = new Schema(
   {
@@ -21,11 +21,11 @@ const ResultEntrySchema = new Schema(
   { _id: false },
 );
 
-const ResultSchema = new Schema<iResultModel>({
+const ResultSchema = new Schema<IResultModel>({
   username: { type: String, unique: true, required: true },
   attempts: { type: [ResultEntrySchema], unique: false, required: true },
 });
 
-const Results = model<iResultModel>('Results', ResultSchema);
+const Results = model<IResultModel>('Results', ResultSchema);
 
 export default Results;

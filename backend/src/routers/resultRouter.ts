@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { resultController } from '../controllers/controllers';
-import { authMiddleware, roleMiddleware } from '../middleware/middleware';
+import { resultController } from '../controllers';
+import { authMiddleware, roleMiddleware } from '../middleware';
 
-import { UserRoles } from '../types/userTypes';
+import { UserRoles } from '../types';
 
 const resultsRouter = Router();
 resultsRouter.get('/results', roleMiddleware(UserRoles.Admin), resultController.allResults);

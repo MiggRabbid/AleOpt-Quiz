@@ -1,10 +1,14 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 
 dotenv.config();
 
-const secret = process.env.SECRET_KEY || '';
+if (!process.env.SECRET_KEY) {
+  throw new Error('SECRET_KEY не найден');
+}
+
+const secret = process.env.SECRET_KEY;
 
 const errorTypeMap = {
   authError: 'authError',
@@ -22,8 +26,17 @@ const roleMiddleware = (role: string) => {
       next();
     }
 
+    const authHeader = request.headers.authorization || '';
+
+    if (!authHeader?.startsWith('Bearer ')) {
+      response.status(403).json({
+        message: errorMsgMap.authError,
+        typeError: errorTypeMap.authError,
+      });
+    }
+
     try {
-      const token = request.headers.authorization?.split(' ')[1];
+      const token = authHeader.slice(7);
 
       if (!token) {
         response

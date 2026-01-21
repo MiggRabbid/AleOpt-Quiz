@@ -1,12 +1,22 @@
-import { Request, Response } from 'express';
+import type { ParamsDictionary } from 'express-serve-static-core';
+import type { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 
-import sortUsersByRole from '../utils/sortAllUser';
+import { getUserStats, sortUsersByRole } from '../utils';
 
-import { Results, Role, User } from '../models/models';
-import { iResponseUser, iUpdateUserData } from '../types/userTypes';
-import { getUserStats } from '../utils/forStats/userStats';
+import { Results, Role, User } from '../models';
+import { UserStatus } from '../types';
+import type {
+  ICreateUserData,
+  IResponseUser,
+  IUpdateUserData,
+  IUserQuery,
+  TUserRes,
+  IResponseShortUser,
+  TUserCustomResponse,
+  TUserCustomRequest,
+} from '../types';
 
 const errorTypeMap = {
   userExists: 'userExists',
@@ -31,7 +41,7 @@ class UserController {
     this.deleteUser = this.deleteUser.bind(this);
   }
 
-  private prepareError(message: unknown, errorType: string) {
+  private prepareError(message: string, errorType: string) {
     return {
       message,
       errorType,
@@ -49,12 +59,12 @@ class UserController {
     return response.status(400).json(errorData);
   }
 
-  private async getAllUsers(): Promise<iResponseUser[]> {
+  private async getAllUsers(): Promise<IResponseUser[]> {
     const allUser = await User.find();
     const AllResults = await Results.find();
 
     const preparedUsers = allUser.map((user) => {
-      const currUser: iResponseUser = {
+      const currUser: IResponseUser = {
         firstName: user.firstName,
         lastName: user.lastName,
         username: user.username,
@@ -83,7 +93,7 @@ class UserController {
     return preparedUsers;
   }
 
-  async currentUser(request: Request, response: Response): Promise<Response> {
+  async currentUser(request: Request, response: Response<TUserRes>): Promise<Response> {
     try {
       const { username } = request.query;
 
@@ -93,13 +103,14 @@ class UserController {
         const errorData = this.prepareError(errorMsgMap.notFound, errorTypeMap.notFound);
         return response.status(404).json(errorData);
       }
-      const responseUser = {
-        firstName: currentUser.firstName,
-        gender: currentUser.gender,
-        image: currentUser.image ?? '',
-        lastName: currentUser.lastName,
+      const responseUser: IResponseShortUser = {
         role: currentUser.role,
         username: currentUser.username,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        gender: currentUser.gender,
+        image: currentUser.image ?? '',
+        status: currentUser.status,
       };
 
       return response.json(responseUser);
@@ -108,7 +119,7 @@ class UserController {
     }
   }
 
-  async allUsers(_request: Request, response: Response): Promise<Response> {
+  async allUsers(_request: TUserCustomRequest, response: TUserCustomResponse): Promise<Response> {
     try {
       const users = await this.getAllUsers();
       const sortedUsers = sortUsersByRole(users);
@@ -118,7 +129,10 @@ class UserController {
     }
   }
 
-  async newUser(request: Request, response: Response): Promise<Response> {
+  async newUser(
+    request: Request<ParamsDictionary, any, ICreateUserData, IUserQuery>,
+    response: TUserCustomResponse,
+  ): Promise<Response> {
     try {
       const validationError = validationResult(request);
 
@@ -149,6 +163,7 @@ class UserController {
         role: userRole?.value,
         image,
         gender,
+        status: UserStatus.Active,
       });
       await newUser.save();
 
@@ -162,17 +177,18 @@ class UserController {
     }
   }
 
-  async editUser(request: Request, response: Response): Promise<Response> {
+  async editUser(request: TUserCustomRequest, response: TUserCustomResponse): Promise<Response> {
     try {
       const { username } = request.query;
-      const updateData: iUpdateUserData = {
+      const updateData: IUpdateUserData = {
         role: request.body.role,
         username: request.body.username,
         firstName: request.body.firstName,
         lastName: request.body.lastName,
+        status: request.body.status,
       };
 
-      if (request.body.password.length > 0) {
+      if (!!request.body.password && request.body.password.length > 0) {
         const hashPassword = bcrypt.hashSync(request.body.password, 5);
         updateData.password = hashPassword;
       }
@@ -194,7 +210,7 @@ class UserController {
     }
   }
 
-  async deleteUser(request: Request, response: Response): Promise<Response> {
+  async deleteUser(request: TUserCustomRequest, response: Response): Promise<Response> {
     try {
       const { username } = request.query;
       const user = await User.findOneAndDelete({ username });

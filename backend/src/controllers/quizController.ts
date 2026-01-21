@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 
-import sortAscending from '../utils/sortAscending';
-import { Question } from '../models/models';
-import { iQuestionModel } from '../types/quizTypes';
+import { sortAscending } from '../utils';
+
+import { Question } from '../models';
+import type { IQuestionModel, TQuizCustomRequest, TQuizCustomResponse } from '../types';
 
 const errorTypeMap = {
   questionExists: 'questionExists',
@@ -27,7 +28,7 @@ class QuizController {
     this.deleteQuestion = this.deleteQuestion.bind(this);
   }
 
-  private prepareError(message: unknown, errorType: string) {
+  private prepareError(message: string, errorType: string) {
     return {
       message,
       errorType,
@@ -45,12 +46,12 @@ class QuizController {
     return response.status(400).json(errorData);
   }
 
-  private async getSortedQuestions(): Promise<iQuestionModel[]> {
+  private async getSortedQuestions(): Promise<IQuestionModel[]> {
     const questions = await Question.find();
     return sortAscending(questions);
   }
 
-  async allQuestions(request: Request, response: Response): Promise<Response> {
+  async allQuestions(_request: Request, response: Response): Promise<Response> {
     try {
       const sortedQuestions = await this.getSortedQuestions();
       return response.json(sortedQuestions);
@@ -59,7 +60,7 @@ class QuizController {
     }
   }
 
-  async newQuestion(request: Request, response: Response): Promise<Response> {
+  async newQuestion(request: TQuizCustomRequest, response: TQuizCustomResponse): Promise<Response> {
     try {
       const allQuestions = await Question.find();
 
@@ -87,7 +88,10 @@ class QuizController {
     }
   }
 
-  async editQuestion(request: Request, response: Response): Promise<Response> {
+  async editQuestion(
+    request: TQuizCustomRequest,
+    response: TQuizCustomResponse,
+  ): Promise<Response> {
     try {
       const { id } = request.query;
       const updateData = request.body;
@@ -107,7 +111,10 @@ class QuizController {
     }
   }
 
-  async deleteQuestion(request: Request, response: Response): Promise<Response> {
+  async deleteQuestion(
+    request: TQuizCustomRequest,
+    response: TQuizCustomResponse,
+  ): Promise<Response> {
     try {
       const { id } = request.query;
 
