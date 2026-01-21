@@ -28,19 +28,19 @@ export interface IRoleModel extends Document {
 
 export interface IUserModel extends Document {
   _id: string;
-  role: string | IRoleModel;
+  role: UserRoles;
   firstName: string;
   lastName: string;
   username: string;
   password: string;
   results?: Array<Record<string, string>>;
   image: string;
-  gender: string | UserGender;
-  status: string | UserStatus;
+  gender: UserGender;
+  status: UserStatus;
 }
 
 export interface IResponseUser {
-  role: string | IRoleModel;
+  role: UserRoles;
   username: string;
   firstName: string;
   lastName: string;

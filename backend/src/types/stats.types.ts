@@ -1,4 +1,4 @@
-import { IResultEntry, IUserAnswer } from './resultTypes';
+import { IResultEntry, IUserAnswer } from './result.types';
 
 export type TypeAnswerId = 'a' | 'b' | 'c' | 'd';
 

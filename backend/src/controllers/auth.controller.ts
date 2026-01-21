@@ -5,13 +5,13 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import { User } from '../models';
-import type { IUserModel } from '../types';
+import { type IUserModel, UserRoles } from '../types';
 
 dotenv.config();
 
 const secret = process.env.SECRET_KEY;
 
-const getAccessToken = (role: string, username: string): string => {
+const getAccessToken = (role: UserRoles, username: string): string => {
   if (!secret || secret.length === 0) {
     throw new Error('SECRET_KEY is not defined in environment variables');
   }
@@ -75,7 +75,7 @@ class AuthController {
       }
 
       const { firstName, role, _id: id, image = '' } = user;
-      const token = getAccessToken(user.role as string, user.username);
+      const token = getAccessToken(user.role, user.username);
 
       console.log(`BACK / login  /  ${user?.firstName} ${user?.lastName} - ${user?.username}`);
       return response.json({ token, id, firstName, username, role, image });
