@@ -8,9 +8,8 @@ const roleMapping: { [key in UserRoles]: number } = {
 
 const sortUsersByRole = (users: IResponseUser[]) => {
   const sortedUsers = users.sort((firstUser, secondUser) => {
-    const firstRole = typeof firstUser.role === 'string' ? firstUser.role : firstUser.role.value;
-    const secondRole =
-      typeof secondUser.role === 'string' ? secondUser.role : secondUser.role.value;
+    const firstRole = firstUser.role;
+    const secondRole = secondUser.role;
 
     return roleMapping[firstRole as UserRoles] - roleMapping[secondRole as UserRoles];
   });
