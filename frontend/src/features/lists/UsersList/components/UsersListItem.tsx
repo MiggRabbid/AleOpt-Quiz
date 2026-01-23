@@ -10,7 +10,7 @@ import { useGetAllUsersStats } from '@/app/api/hooks';
 import { UserStats } from '@/entities/users';
 import { BtnGroupEdit, PlugForEmptyData } from '@/shared/ui';
 // Типизация
-import type { iUser, iUserStats } from '@/app/types';
+import type { iResponseLogin, iUser, iUserStats } from '@/app/types';
 import { TTypeModal, UserRoles, UserStatus } from '@/app/types';
 import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
 
@@ -62,6 +62,7 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
       DetailsChildren={
         <UsersListItemDetails
           user={user}
+          currUser={currUser}
           currStats={currStats}
           handelClickOnEdit={handelClickOnEdit}
           handelClickOnDelete={handelClickOnDelete}
@@ -174,11 +175,13 @@ const UsersListItemSummary = ({
 
 const UsersListItemDetails = ({
   user,
+  currUser,
   currStats,
   handelClickOnDelete,
   handelClickOnEdit,
 }: {
   user: iUser;
+  currUser: iResponseLogin | null;
   currStats?: iUserStats;
   handelClickOnDelete: (e: React.MouseEvent) => void;
   handelClickOnEdit: (e: React.MouseEvent) => void;
@@ -197,6 +200,10 @@ const UsersListItemDetails = ({
             colorEdit="success"
             size="small"
             withoutMargin
+            disabled={
+              user.username === currUser?.username ||
+              currUser?.role === UserRoles.Employee
+            }
           />
         </Box>
         <Divider />

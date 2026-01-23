@@ -1,4 +1,4 @@
-import { BG_COLORS } from './';
+import { BG_COLORS } from '.';
 
 import type { iQuestionStatsForDoughnut, TDoughnutData } from '@app/types';
 

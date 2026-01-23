@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 // Логика
 import { schema } from '../config/schema';
-// import { api } from '@app/';
+import { useCreateQuestion, useEditQuestion } from '@/app/api/hooks';
 import { useAppActions } from '@app/hooks';
 // Типизация
 import type { iHandledError, iQuestion, typeQuestionAnswer } from '@app/types';
 import type { FormData } from '../config/schema';
-import { useCreateQuestion, useEditQuestion } from '@/app/api/hooks';
 import type { AxiosError } from 'axios';
 
 interface IUseQuestionFormProps {
@@ -19,13 +18,6 @@ interface IUseQuestionFormProps {
 
 export const useQuestionForm = (props: IUseQuestionFormProps) => {
   const { isNewQuestion, questionId } = props;
-
-  useEffect(() => {
-    console.group('useQuestionForm props');
-    console.log('isNewQuestion:', isNewQuestion);
-    console.log('questionId:', questionId);
-    console.groupEnd();
-  }, [props]);
 
   const { setQuizStateField, closeQuestionEditor } = useAppActions();
 
@@ -84,10 +76,6 @@ export const useQuestionForm = (props: IUseQuestionFormProps) => {
   }, [currQuestion, answerA, answerB, answerC, answerD, correctAnswer]);
 
   const onSubmit = async (question: FormData) => {
-    // const { createQuestion, updateQuestion } = api;
-
-    // if (!token) return;
-
     const answers: typeQuestionAnswer[] = [
       { questionId: questionId, id: 'a', answer: question.a },
       { questionId: questionId, id: 'b', answer: question.b },
@@ -95,7 +83,7 @@ export const useQuestionForm = (props: IUseQuestionFormProps) => {
       { questionId: questionId, id: 'd', answer: question.d },
     ];
 
-    const body: iQuestion = {
+    const query: iQuestion = {
       id: questionId,
       question: question.question,
       answers: answers,
@@ -104,10 +92,10 @@ export const useQuestionForm = (props: IUseQuestionFormProps) => {
 
     try {
       if (isNewQuestion) {
-        createQuestion({ query: body, params: { id: questionId } });
+        createQuestion({ query, params: { id: questionId } });
       }
       if (!isNewQuestion) {
-        editQuestion({ query: body, params: { id: questionId } });
+        editQuestion({ query, params: { id: questionId } });
       }
     } catch (error) {
       console.error(error);
@@ -119,9 +107,11 @@ export const useQuestionForm = (props: IUseQuestionFormProps) => {
     closeQuestionEditor();
   };
   const handleError = (error: AxiosError<iHandledError, any>) => {
-    const userExists = error.response?.data.errorType === 'questionExists';
+    const questionExists = error.response?.data.errorType === 'questionExists';
     setError('question', {
-      message: userExists ? 'Такой вопрос уже существует' : error.response?.data.message,
+      message: questionExists
+        ? 'Такой вопрос уже существует'
+        : error.response?.data.message,
     });
     setError('a', { message: ' ' });
     setError('b', { message: ' ' });

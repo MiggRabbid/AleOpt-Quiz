@@ -4,13 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import { Box, CircularProgress } from '@mui/material';
 // Логика
 import { useAuthContext } from '@/app/hooks';
+import { useGetAllQuestions, useGetAllUsers } from '@/app/api/hooks';
 // Компоненты
+import { UsersList, QuestionList } from '@/features';
 import { Header } from './components';
 // Типизация
 import { TypeStatsTab } from './component.types';
-import { useGetAllQuestions, useGetAllUsers } from '@/app/api/hooks';
-import { UsersList } from '@/features/UsersList';
-import { QuestionList } from '@/features/QuestionList';
 
 const AdminStats = () => {
   const { isAuth, user } = useAuthContext();

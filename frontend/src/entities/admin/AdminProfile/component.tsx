@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useGetAllUsersStats, useGetCurrentUser } from '@/app/api/hooks';
 import { useAuthContext } from '@/app/hooks';
 // Компоненты
-import { ProfileCard } from '@/features/ProfileCard';
+import { ProfileCard } from '@/features';
 import { SummaryResults } from './components';
 // Типизация
 import { UserRoles } from '@/app/types';

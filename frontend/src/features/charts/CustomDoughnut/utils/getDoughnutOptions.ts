@@ -1,4 +1,4 @@
-import { customTooltipFooter, customTooltipLabel, customTooltipTitle } from './';
+import { customTooltipFooter, customTooltipLabel, customTooltipTitle } from '.';
 
 import type {
   iQuestionStatsForDoughnut,

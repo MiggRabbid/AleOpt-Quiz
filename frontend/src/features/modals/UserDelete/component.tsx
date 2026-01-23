@@ -5,51 +5,51 @@ import Divider from '@mui/material/Divider';
 // Логика
 import { useAppActions, useAppSelector } from '@app/hooks';
 import { getGlobalStateField } from '@app/selectors';
-import { useDeleteQuestion } from '@/app/api/hooks';
+import { useDeleteUser } from '@/app/api/hooks';
 // Компоненты
 import { BtnGroup } from '@/shared/ui';
 // Типизация
-import { TTypeModal, type iQuestion } from '@app/types';
+import { TTypeModal, type iUserStats } from '@app/types';
 
-interface IDeleteQuestionProps {
+interface IUserDeleteProps {
   clickOnClose: () => void;
 }
 
-const DeleteQuestion = ({ clickOnClose }: IDeleteQuestionProps) => {
+const UserDelete = ({ clickOnClose }: IUserDeleteProps) => {
   const { setQuizStateField, closeQuestionEditor } = useAppActions();
 
-  const questionEditorType = useAppSelector(getGlobalStateField('questionEditorType'));
-  const editableQuestion = useAppSelector(getGlobalStateField('editableQuestion'));
+  const userEditorType = useAppSelector(getGlobalStateField('userEditorType'));
+  const editableUser = useAppSelector(getGlobalStateField('editableUser'));
 
-  const { mutateAsync: deleteQuestion, isPending } = useDeleteQuestion({
+  const { mutateAsync: UserDelete, isPending } = useDeleteUser({
     onSuccess: (data) => handleSuccess(data),
   });
 
-  if (!editableQuestion || questionEditorType !== TTypeModal.delete) return null;
+  if (!editableUser || userEditorType !== TTypeModal.delete) return null;
 
   const clickOnDelete = async () => {
     try {
-      deleteQuestion({ params: { id: editableQuestion.id } });
+      UserDelete({ params: { username: editableUser.username } });
     } catch (e) {
       console.error(e);
     }
   };
 
-  const handleSuccess = (data: iQuestion[]) => {
-    setQuizStateField({ field: 'questions', data });
+  const handleSuccess = (data: iUserStats[]) => {
+    setQuizStateField({ field: 'users', data });
     closeQuestionEditor();
   };
 
   return (
     <Box className="flex h-fit w-120 flex-col gap-5 p-6">
       <Box className="flex h-fit w-full flex-col gap-5">
-        <h4 className="text-3xl font-bold">Удаление вопроса</h4>
+        <h4 className="text-3xl font-bold">Удаление пользователя</h4>
         <Divider />
       </Box>
       <Box className="flex! h-fit w-full flex-row! flex-wrap! items-center justify-center gap-x-5 gap-y-2">
         <Box className="w-full">
-          <p className="text-lg">Вы точно хотите удалить вопрос:</p>
-          <p className="text-lg font-semibold">{`${editableQuestion.question}`}</p>
+          <p className="text-lg">Вы точно хотите удалить пользователя:</p>
+          <p className="text-lg font-semibold">{`${editableUser.firstName ?? '-'} ${editableUser.lastName ?? '-'} (${editableUser?.username})`}</p>
         </Box>
 
         <Box className="mt-3 flex w-full flex-col gap-5">
@@ -72,4 +72,4 @@ const DeleteQuestion = ({ clickOnClose }: IDeleteQuestionProps) => {
   );
 };
 
-export { DeleteQuestion };
+export { UserDelete };

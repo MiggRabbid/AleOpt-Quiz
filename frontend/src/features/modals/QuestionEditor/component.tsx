@@ -17,7 +17,7 @@ import type { TCustomSelectItems } from '@/shared/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useGetAllQuestions } from '@/app/api/hooks';
 
-interface IEditorQuestionProps {
+interface IQuestionEditorProps {
   clickOnClose: () => void;
 }
 
@@ -26,7 +26,7 @@ const answerItems: TCustomSelectItems = answersKeys.map((item) => ({
   text: `Ответ ${item.toUpperCase()}`,
 }));
 
-const EditorQuestion = (props: IEditorQuestionProps) => {
+const QuestionEditor = (props: IQuestionEditorProps) => {
   const { isAuth, user } = useAuthContext();
   const { clickOnClose } = props;
 
@@ -165,4 +165,4 @@ const EditorQuestion = (props: IEditorQuestionProps) => {
   );
 };
 
-export { EditorQuestion };
+export { QuestionEditor };

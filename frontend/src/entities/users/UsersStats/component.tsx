@@ -12,8 +12,7 @@ import { useGetUserStats } from '@app/api/hooks';
 import { useAuthContext } from '@app/hooks';
 // Компоненты
 import { QuestionBlock } from './components';
-import { CustomBar } from '@/features/CustomBar';
-import { CustomDoughnut } from '@/features/CustomDoughnut';
+import { CustomBar, CustomDoughnut } from '@/features';
 
 interface iUserStatsProps {
   currentUser?: string;

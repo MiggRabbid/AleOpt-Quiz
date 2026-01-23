@@ -4,7 +4,7 @@ import { Box, Divider, Typography } from '@mui/material';
 // Логика
 import { useAppActions } from '@app/hooks';
 // Компоненты
-import { AnswerListItem } from './';
+import { AnswerListItem } from '.';
 import { BtnGroupEdit, TooltipTypography } from '@/shared/ui';
 // Типизация
 import type { iQuestion, typeQuestionAnswer } from '@app/types';

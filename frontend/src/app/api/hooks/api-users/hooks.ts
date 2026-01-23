@@ -143,3 +143,97 @@ export const useUpdateUserStats = (
     },
   });
 };
+
+/**
+ * Создание нового пользователя
+ */
+export const useCreateUser = (
+  options?: CustomHookMutationOptions<iUserStats[], IEditUserDataRequest<IUserRequest>>,
+) => {
+  const { token } = useAuthContext();
+
+  return useMutation<
+    iUserStats[],
+    AxiosError<iHandledError>,
+    IEditUserDataRequest<IUserRequest>
+  >({
+    mutationFn: async (payload) => {
+      return sendRequest({
+        method: TypeAxiosMethod.post,
+        endpoint: REQUEST_PATHS.user(),
+        data: payload.query,
+        params: payload.params,
+        token: token,
+      });
+    },
+    ...options,
+    onSettled: () => {
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.users.all],
+        }),
+      ]);
+    },
+  });
+};
+
+/**
+ * Редактирование пользователя
+ */
+export const useEditUser = (
+  options?: CustomHookMutationOptions<iUserStats[], IEditUserDataRequest<IUserRequest>>,
+) => {
+  const { token } = useAuthContext();
+
+  return useMutation<
+    iUserStats[],
+    AxiosError<iHandledError>,
+    IEditUserDataRequest<IUserRequest>
+  >({
+    mutationFn: async (payload) => {
+      return sendRequest({
+        method: TypeAxiosMethod.put,
+        endpoint: REQUEST_PATHS.user(),
+        data: payload.query,
+        params: payload.params,
+        token: token,
+      });
+    },
+    ...options,
+    onSettled: () => {
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.users.all],
+        }),
+      ]);
+    },
+  });
+};
+
+/**
+ * Удаление Пользователя
+ */
+export const useDeleteUser = (
+  options?: CustomHookMutationOptions<iUserStats[], IGetUserDataRequest>,
+) => {
+  const { token } = useAuthContext();
+
+  return useMutation<iUserStats[], AxiosError<iHandledError>, IGetUserDataRequest>({
+    mutationFn: async (payload) => {
+      return sendRequest({
+        method: TypeAxiosMethod.delete,
+        endpoint: REQUEST_PATHS.user(),
+        params: payload.params,
+        token: token,
+      });
+    },
+    ...options,
+    onSettled: () => {
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.users.all],
+        }),
+      ]);
+    },
+  });
+};

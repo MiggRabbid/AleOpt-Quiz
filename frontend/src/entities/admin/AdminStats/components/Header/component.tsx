@@ -5,12 +5,8 @@ import { BtnAdd, ButtonGroup } from './ui';
 import { useAppActions, useAppSelector } from '@/app/hooks';
 import { getGlobalStateField } from '@/app/selectors';
 
-// import { EditorUser } from '@/features/EditorUser';
-// import { EditorQuestion } from '@/features/EditorQuestion';
 import { ModalContainer } from '@/shared/ui';
-// import { DeleteUser } from '@/features/DeleteUser';
-import { DeleteQuestion } from '@/features/QuestionDelete';
-import { EditorQuestion } from '@/features/QuestionEditor';
+import { QuestionEditor, QuestionDelete, UserDelete } from '@/features';
 
 import type { Dispatch, SetStateAction } from 'react';
 import { TypeStatsTab } from '../../component.types';
@@ -71,10 +67,10 @@ const Header = (props: IHeaderProps) => {
 
       {modalContainerIsOpen && (
         <ModalContainer isOpen={modalContainerIsOpen} onClose={handelCloseEditor}>
+          {userDeleteOpen && <UserDelete clickOnClose={handelCloseEditor} />}
           {/* {userEditorOpen && <EditorUser clickOnClose={handelCloseEditor} />} */}
-          {/* {userDeleteOpen && <DeleteUser clickOnClose={handelCloseEditor} />} */}
-          {questionEditorOpen && <EditorQuestion clickOnClose={handelCloseEditor} />}
-          {questionDeleteOpen && <DeleteQuestion clickOnClose={handelCloseEditor} />}
+          {questionEditorOpen && <QuestionDelete clickOnClose={handelCloseEditor} />}
+          {questionDeleteOpen && <QuestionEditor clickOnClose={handelCloseEditor} />}
         </ModalContainer>
       )}
     </>
