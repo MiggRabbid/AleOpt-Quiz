@@ -33,12 +33,7 @@ const AdminStats = () => {
     <Box id="AdminStats" className="h-full w-full p-2">
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <Box
-        className="h-full w-full! overflow-y-auto!"
-        sx={{
-          height: 'calc(100% - 40px - 24px - 1px)',
-        }}
-      >
+      <Box className="h-full w-full!">
         <Box className="mx-auto! flex h-full! w-full max-w-7xl flex-col gap-2 px-4!">
           {isLoading ? (
             <Box

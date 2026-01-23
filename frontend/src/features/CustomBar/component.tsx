@@ -53,7 +53,7 @@ const CustomBar = (props: ICustomLineProps) => {
   });
 
   return (
-    <Box className="flex h-fit! min-h-full flex-col justify-center gap-1">
+    <Box className="flex h-fit! h-full w-full flex-col justify-center gap-1">
       <Typography
         align="center"
         className="ms-4! w-fit! text-lg! font-semibold! uppercase"
@@ -61,7 +61,7 @@ const CustomBar = (props: ICustomLineProps) => {
         Динамика попыток
       </Typography>
       <CustomCardWrapper shadowSize="shadow-lg">
-        <Box className="h-80 rounded-xl bg-cyan-100 p-4 flex items-center justify-center">
+        <Box className="flex h-80 w-full items-center justify-center rounded-xl bg-cyan-100 p-4">
           {isEmpty && <PlugForEmptyData isSmall />}
           {!isEmpty && <Bar data={data} options={options} />}
         </Box>

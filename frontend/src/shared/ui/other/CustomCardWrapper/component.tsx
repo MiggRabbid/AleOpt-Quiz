@@ -26,7 +26,7 @@ const CustomCardWrapper: FC<ICustomCardWrapperProps> = ({
   roundedSize,
 }) => {
   const wrapperClass = clsx(
-    'w-fit!s h-fit! p-0! m-0! transition-shadow duration-500',
+    'w-full! h-fit! p-0! m-0! transition-shadow duration-500',
     shadowBaseSize ? shadowBaseSize : 'shadow-none',
     shadowSize ? `hover:${shadowSize}` : 'hover:shadow-xl',
     roundedSize ? `${roundedSize}` : 'rounded-2xl',

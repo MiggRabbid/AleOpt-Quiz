@@ -24,7 +24,7 @@ const CustomAccordion: FC<ICustomAccordionProps> = memo(
     return (
       <CustomCardWrapper
         roundedSize="rounded-xl"
-        shadowSize="shadow-sm"
+        shadowSize="shadow-lg"
         shadowBaseSize={expanded ? 'shadow-lg' : 'shadow-none'}
       >
         <Accordion

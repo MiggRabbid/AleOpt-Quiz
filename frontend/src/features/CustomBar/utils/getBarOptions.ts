@@ -9,6 +9,7 @@ export const getBarOptions = (props: {
   return {
     responsive: true,
     maintainAspectRatio: false,
+    resizeDelay: 0,
     interaction: {
       intersect: true,
       mode: 'index',
@@ -23,6 +24,12 @@ export const getBarOptions = (props: {
         position: 'nearest',
         enabled: !!customTooltip ? false : true,
         external: !!customTooltip ? customTooltip : undefined,
+      },
+    },
+    datasets: {
+      bar: {
+        barThickness: 'flex',
+        maxBarThickness: 50,
       },
     },
     scales: {

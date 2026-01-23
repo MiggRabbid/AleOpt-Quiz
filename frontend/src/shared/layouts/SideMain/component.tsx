@@ -15,8 +15,8 @@ const SideMain: FC<ISideMainProps> = ({ otherClass, style, children }) => {
     otherClass,
   );
   return (
-    <Box className={className} data-side-type="SideMain" style={style}>
-      <Box className="bg-glass h-full w-full rounded-2xl p-3.5">{children}</Box>
+    <Box className={className} data-side-type="SideMain">
+      <Box className="bg-glass w-full rounded-2xl p-3.5">{children}</Box>
     </Box>
   );
 };

@@ -28,7 +28,7 @@ const UserProfileForQuiz = () => {
   });
 
   return (
-    <Box className="flex h-full w-full flex-col justify-between gap-5.5">
+    <Box className="flex h-full w-full flex-col justify-start gap-5.5">
       <Box className="flex h-fit w-full flex-col justify-start gap-3.5">
         <ProfileCard
           role={userData?.role || UserRoles.Employee}
