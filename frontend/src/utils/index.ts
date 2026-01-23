@@ -1,6 +1,7 @@
-export { getFormattedDate } from './getFormattedDate';
-export { getNewQuestionId } from './getNewQuestionId';
-export { getRandomNumber } from './getRandomNumber';
-export { sortUsersByResult } from './sortUsersByResult';
-export { getChipColor } from './getChipColor';
-export { getResultColor } from './getResultColor';
+export * from './getFormattedDate';
+export * from './getNewQuestionId';
+export * from './getRandomNumber';
+export * from './sortUsersByResult';
+export * from './getChipColor';
+export * from './getResultColor';
+export * from './getAvatarPaths';

@@ -6,7 +6,7 @@ import { useAppActions, useAppSelector } from '@/app/hooks';
 import { getGlobalStateField } from '@/app/selectors';
 
 import { ModalContainer } from '@/shared/ui';
-import { QuestionEditor, QuestionDelete, UserDelete } from '@/features';
+import { QuestionEditor, QuestionDelete, UserDelete, UserEditor } from '@/features';
 
 import type { Dispatch, SetStateAction } from 'react';
 import { TypeStatsTab } from '../../component.types';
@@ -68,7 +68,7 @@ const Header = (props: IHeaderProps) => {
       {modalContainerIsOpen && (
         <ModalContainer isOpen={modalContainerIsOpen} onClose={handelCloseEditor}>
           {userDeleteOpen && <UserDelete clickOnClose={handelCloseEditor} />}
-          {/* {userEditorOpen && <EditorUser clickOnClose={handelCloseEditor} />} */}
+          {userEditorOpen && <UserEditor clickOnClose={handelCloseEditor} />}
           {questionEditorOpen && <QuestionDelete clickOnClose={handelCloseEditor} />}
           {questionDeleteOpen && <QuestionEditor clickOnClose={handelCloseEditor} />}
         </ModalContainer>

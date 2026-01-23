@@ -186,6 +186,10 @@ const UsersListItemDetails = ({
   handelClickOnDelete: (e: React.MouseEvent) => void;
   handelClickOnEdit: (e: React.MouseEvent) => void;
 }) => {
+  const editingIsDisabled =
+    user.username === currUser?.username ||
+    currUser?.role === UserRoles.Employee ||
+    user.status === UserStatus.Inactive;
   return (
     <Box className="">
       <Box className="mb-5 w-full!">
@@ -200,10 +204,7 @@ const UsersListItemDetails = ({
             colorEdit="success"
             size="small"
             withoutMargin
-            disabled={
-              user.username === currUser?.username ||
-              currUser?.role === UserRoles.Employee
-            }
+            disabled={editingIsDisabled}
           />
         </Box>
         <Divider />
