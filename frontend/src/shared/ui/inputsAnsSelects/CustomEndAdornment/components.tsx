@@ -5,6 +5,7 @@ import Visibility from '@mui/icons-material/Visibility';
 
 import type { SxProps, Theme } from '@mui/material';
 import type { ICustomEndAdornmentProps } from './types';
+import type { MouseEvent } from 'react';
 
 const CustomEndAdornment = <T extends string>(props: ICustomEndAdornmentProps<T>) => {
   const { type, showPassword, setShowPassword, error, disabled } = props;
@@ -14,11 +15,11 @@ const CustomEndAdornment = <T extends string>(props: ICustomEndAdornmentProps<T>
   const handleClickShowPassword = () =>
     setShowPassword((prev: typeof showPassword) => !prev);
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseUpPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 

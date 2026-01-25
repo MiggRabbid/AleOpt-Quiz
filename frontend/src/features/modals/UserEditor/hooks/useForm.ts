@@ -2,17 +2,16 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSnackbar } from 'notistack';
 // Логика
 import { getUserSchema } from '../config/schema';
 import { useCreateUser, useEditUser } from '@/app/api/hooks';
 import { useAppActions, useAvatars } from '@app/hooks';
-import { getRandomNumber } from '@/shared/lib';
 // Типизация
 import {
   type iHandledError,
   type IUserRequest,
   type iUserStats,
-  type TypeSubfolders,
   UserGender,
   UserRoles,
   UserStatus,
@@ -29,7 +28,10 @@ interface IUseUserFormProps {
 export const useUserForm = (props: IUseUserFormProps) => {
   const { isNewUser, requiredPass, editableUserImage } = props;
   const { getNewRandomAvatar } = useAvatars();
+  const { enqueueSnackbar } = useSnackbar();
+
   const { setQuizStateField, closeUserEditor } = useAppActions();
+
   const { mutateAsync: createUser } = useCreateUser({
     onSuccess: (data) => handleSuccess(data),
     onError: (error) => handleError(error),
@@ -61,7 +63,6 @@ export const useUserForm = (props: IUseUserFormProps) => {
     },
   });
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const username = watch('username');
   const firstName = watch('firstName');
   const lastName = watch('lastName');
@@ -139,10 +140,16 @@ export const useUserForm = (props: IUseUserFormProps) => {
   };
 
   const handleSuccess = (data: iUserStats[]) => {
+    if (isNewUser) {
+      enqueueSnackbar('Пользователь создан', { variant: 'success' });
+    } else {
+      enqueueSnackbar('Пользователь обновлён', { variant: 'success' });
+    }
     setQuizStateField({ field: 'users', data });
     closeUserEditor();
     setIsFetching(false);
   };
+
   const handleError = (error: AxiosError<iHandledError, any>) => {
     const userExists = error.response?.data.errorType === 'userExists';
     setError('username', {

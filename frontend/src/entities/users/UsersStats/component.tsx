@@ -42,7 +42,7 @@ const UserStats = ({ currentUser }: iUserStatsProps) => {
 
   return (
     <Box className="flex h-full w-full flex-col gap-8" id="UserStats">
-      <Box className="flex w-full grow gap-8 ">
+      <Box className="flex w-full grow gap-8">
         <QuestionBlock type="easiest" questions={easiestQuestions} />
         <QuestionBlock type="hardest" questions={hardestQuestions} />
       </Box>

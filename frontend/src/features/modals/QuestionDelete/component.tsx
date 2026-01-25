@@ -2,6 +2,7 @@
 // Библиотеки
 import { Box } from '@mui/material';
 import Divider from '@mui/material/Divider';
+import { useSnackbar } from 'notistack';
 // Логика
 import { useAppActions, useAppSelector } from '@app/hooks';
 import { getGlobalStateField } from '@app/selectors';
@@ -17,6 +18,7 @@ interface IQuestionDeleteProps {
 
 const QuestionDelete = ({ clickOnClose }: IQuestionDeleteProps) => {
   const { setQuizStateField, closeQuestionEditor } = useAppActions();
+  const { enqueueSnackbar } = useSnackbar();
 
   const questionEditorType = useAppSelector(getGlobalStateField('questionEditorType'));
   const editableQuestion = useAppSelector(getGlobalStateField('editableQuestion'));
@@ -36,6 +38,7 @@ const QuestionDelete = ({ clickOnClose }: IQuestionDeleteProps) => {
   };
 
   const handleSuccess = (data: iQuestion[]) => {
+    enqueueSnackbar('Вопрос удалён', { variant: 'success' });
     setQuizStateField({ field: 'questions', data });
     closeQuestionEditor();
   };

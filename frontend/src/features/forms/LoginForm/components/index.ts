@@ -1,1 +1,1 @@
-export {default as BtnLogin} from './BtnLogin/component';
+export { default as BtnLogin } from './BtnLogin/component';

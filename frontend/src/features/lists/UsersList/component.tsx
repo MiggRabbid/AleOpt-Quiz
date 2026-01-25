@@ -12,7 +12,7 @@ interface IUsersListProps {
   users?: iUser[];
 }
 
-const UsersList = memo(({ users }: IUsersListProps) => {
+const UsersList = ({ users }: IUsersListProps) => {
   const { user: currUser } = useAuthContext();
 
   if (!users || users.length === 0) {
@@ -33,6 +33,8 @@ const UsersList = memo(({ users }: IUsersListProps) => {
       })}
     </>
   );
-});
+};
 
-export { UsersList };
+const UsersListMemo = memo(UsersList);
+
+export { UsersListMemo as UsersList };

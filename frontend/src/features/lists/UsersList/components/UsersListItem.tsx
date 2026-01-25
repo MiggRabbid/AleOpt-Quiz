@@ -10,6 +10,7 @@ import { useGetAllUsersStats } from '@/app/api/hooks';
 import { UserStats } from '@/entities/users';
 import { BtnGroupEdit, PlugForEmptyData } from '@/shared/ui';
 // Типизация
+import type { MouseEvent } from 'react';
 import type { iResponseLogin, iUser, iUserStats } from '@/app/types';
 import { TTypeModal, UserRoles, UserStatus } from '@/app/types';
 import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
@@ -35,7 +36,7 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
     [user.username, usersStats],
   );
 
-  const handelClickOnEdit = useCallback((e: React.MouseEvent) => {
+  const handelClickOnEdit = useCallback((e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     openUserEditor({
@@ -44,7 +45,7 @@ const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
     });
   }, []);
 
-  const handelClickOnDelete = useCallback((e: React.MouseEvent) => {
+  const handelClickOnDelete = useCallback((e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     openUserEditor({
@@ -183,8 +184,8 @@ const UsersListItemDetails = ({
   user: iUser;
   currUser: iResponseLogin | null;
   currStats?: iUserStats;
-  handelClickOnDelete: (e: React.MouseEvent) => void;
-  handelClickOnEdit: (e: React.MouseEvent) => void;
+  handelClickOnDelete: (e: MouseEvent) => void;
+  handelClickOnEdit: (e: MouseEvent) => void;
 }) => {
   const editingIsDisabled =
     user.username === currUser?.username ||

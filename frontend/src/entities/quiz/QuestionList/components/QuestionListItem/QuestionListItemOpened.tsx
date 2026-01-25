@@ -2,8 +2,7 @@
 import { memo, useState } from 'react';
 import { Box, Chip, Typography } from '@mui/material';
 // Логика
-import { LocalKeyMap, useAppActions, useAppSelector, useLocalStorage } from '@app/hooks';
-import { getQuizStateField } from '@app/selectors';
+import { LocalKeyMap, useAppActions, useLocalStorage } from '@app/hooks';
 // Компоненты
 import { QuestionListItemOpenedAnswer } from './QuestionListItemOpenedAnswer';
 import { QuestionListItemOpenedBtn } from './QuestionListItemOpenedBtn';
@@ -11,19 +10,17 @@ import { QuestionListItemOpenedBtn } from './QuestionListItemOpenedBtn';
 import type { iQuestion, iUserAnswer, typeQuestionAnswer } from '@app/types';
 
 interface IQuestionItemProps {
-  questions: iQuestion[];
   question: iQuestion;
   index: number;
+  isLastQuestion: boolean;
+  saveAttemptResult?: () => void;
 }
 
 const QuestionListItemOpened = (props: IQuestionItemProps) => {
-  const { questions, question, index } = props;
+  const { question, index, isLastQuestion, saveAttemptResult } = props;
 
   const { addAnswer, nextQuestion, setQuizStateField } = useAppActions();
   const { delLocalData } = useLocalStorage();
-
-  const questionsIndex = useAppSelector(getQuizStateField('questionIndex'));
-  const questionsLength = questions.length;
 
   const [currentAnswer, setCurrentAnswer] = useState<iUserAnswer | null>(null);
 
@@ -49,14 +46,16 @@ const QuestionListItemOpened = (props: IQuestionItemProps) => {
       setCurrentAnswer(null);
       nextQuestion();
 
-      const isLastQuestion = questionsIndex === questionsLength - 1;
-
       if (isLastQuestion) {
         setQuizStateField({
           field: 'allQuestionsCompleted',
           data: isLastQuestion,
         });
         delLocalData<LocalKeyMap.RESULT>({ key: LocalKeyMap.RESULT });
+      }
+
+      if (isLastQuestion && saveAttemptResult) {
+        saveAttemptResult();
       }
     }
   };

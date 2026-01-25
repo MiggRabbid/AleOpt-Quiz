@@ -1,7 +1,7 @@
 import { Box, Button, Modal } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-import type { FC, ReactNode } from 'react';
+import type { FC, KeyboardEvent, ReactNode } from 'react';
 
 interface IModalContainerProps {
   isOpen: boolean;
@@ -13,7 +13,7 @@ interface IModalContainerProps {
 const ModalContainer: FC<IModalContainerProps> = (props) => {
   const { isOpen, onClose, children, withoutExitBtn } = props;
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Escape') {
       onClose();
     }

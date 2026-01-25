@@ -17,7 +17,6 @@ export const Tooltip: FC<TooltipProps> = ({ tooltipSlotSx, ...props }) => {
 
   useEffect(() => {
     if (props.disableHoverListener) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setOpen(false);
     }
   }, [props.disableHoverListener]);

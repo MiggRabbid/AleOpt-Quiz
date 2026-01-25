@@ -7,6 +7,7 @@ import { useAppActions } from '@app/hooks';
 import { AnswerListItem } from '.';
 import { BtnGroupEdit, TooltipTypography } from '@/shared/ui';
 // Типизация
+import type { MouseEvent } from 'react';
 import type { iQuestion, typeQuestionAnswer } from '@app/types';
 import { TTypeModal } from '@app/types';
 import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
@@ -16,11 +17,11 @@ interface IQuestionListItemProps {
   index: number;
 }
 
-const QuestionListItem = memo((props: IQuestionListItemProps) => {
+const QuestionListItem = (props: IQuestionListItemProps) => {
   const { index, question } = props;
   const { openQuestionEditor } = useAppActions();
 
-  const handelClickOnEdit = (e: React.MouseEvent) => {
+  const handelClickOnEdit = (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     openQuestionEditor({
@@ -29,7 +30,7 @@ const QuestionListItem = memo((props: IQuestionListItemProps) => {
     });
   };
 
-  const handelClickOnDelete = (e: React.MouseEvent) => {
+  const handelClickOnDelete = (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     openQuestionEditor({
@@ -55,9 +56,10 @@ const QuestionListItem = memo((props: IQuestionListItemProps) => {
       }
     />
   );
-});
+};
 
-export { QuestionListItem };
+const QuestionListItemMemo = memo(QuestionListItem);
+export { QuestionListItemMemo as QuestionListItem };
 
 const QuestionListItemSummary = ({
   index,
@@ -104,8 +106,8 @@ const QuestionListItemDetails = ({
   questionId: string;
   correctAnswerId: string;
   answers: typeQuestionAnswer[];
-  handelClickOnDelete: (e: React.MouseEvent) => void;
-  handelClickOnEdit: (e: React.MouseEvent) => void;
+  handelClickOnDelete: (e: MouseEvent) => void;
+  handelClickOnEdit: (e: MouseEvent) => void;
 }) => {
   return (
     <Box className="flex h-fit! w-full! flex-col justify-start gap-4">

@@ -1,1 +1,1 @@
-export {default as UserProfileForQuiz} from './component';
+export { default as UserProfileForQuiz } from './component';

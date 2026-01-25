@@ -7,7 +7,7 @@ import { useGetCurrentUser, useGetUserStats } from '@/app/api/hooks';
 import { useAuthContext } from '@/app/hooks';
 // Компоненты
 import { ProfileCard } from '@/features';
-import { BtnStartQuiz, SummaryResults } from './components';
+import { BtnStartQuiz, SummaryResults } from '@/entities/users/UserProfile/components';
 // Типизация
 import { UserRoles } from '@/app/types';
 

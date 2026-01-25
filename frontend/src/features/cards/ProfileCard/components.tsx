@@ -8,7 +8,7 @@ import { CustomCardWrapper, UserAvatar } from '@/shared/ui';
 // Типизация
 import { userRolesMap, type UserRoles } from '@/app/types';
 
-interface ProfileCard {
+interface IProfileCardProps {
   role: UserRoles;
   firstname: string;
   lastname: string;
@@ -17,7 +17,7 @@ interface ProfileCard {
   isLoading?: boolean;
 }
 
-const ProfileCard = (props: ProfileCard) => {
+const ProfileCard = (props: IProfileCardProps) => {
   const { role, firstname, lastname, avatarAlt, avatarSrc, isLoading } = props;
 
   const { clearCurrentResult, setQuizStateField } = useAppActions();

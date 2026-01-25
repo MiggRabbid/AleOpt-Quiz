@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSnackbar } from 'notistack';
 // Логика
 import { schema } from '../config/schema';
 import { useCreateQuestion, useEditQuestion } from '@/app/api/hooks';
@@ -20,6 +21,7 @@ export const useQuestionForm = (props: IUseQuestionFormProps) => {
   const { isNewQuestion, questionId } = props;
 
   const { setQuizStateField, closeQuestionEditor } = useAppActions();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { mutateAsync: createQuestion } = useCreateQuestion({
     onSuccess: (data) => handleSuccess(data),
@@ -50,7 +52,6 @@ export const useQuestionForm = (props: IUseQuestionFormProps) => {
     if (isLoading || isSubmitting) setIsFetching(true);
   }, [isSubmitting, isLoading]);
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const currQuestion = watch('question');
   const answerA = watch('a');
   const answerB = watch('b');
@@ -103,6 +104,11 @@ export const useQuestionForm = (props: IUseQuestionFormProps) => {
   };
 
   const handleSuccess = (data: iQuestion[]) => {
+    if (isNewQuestion) {
+      enqueueSnackbar('Вопрос создан', { variant: 'success' });
+    } else {
+      enqueueSnackbar('Вопрос обновлён', { variant: 'success' });
+    }
     setQuizStateField({ field: 'questions', data });
     closeQuestionEditor();
   };

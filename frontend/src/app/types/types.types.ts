@@ -28,4 +28,3 @@ export interface iHandledError {
   message: string;
   errorType: string;
 }
-

@@ -8,7 +8,7 @@ interface IAnswerListItemProps {
   isCorrect: boolean;
 }
 
-const AnswerListItem = memo((props: IAnswerListItemProps) => {
+const AnswerListItem = (props: IAnswerListItemProps) => {
   const { answer, isCorrect } = props;
 
   return (
@@ -28,6 +28,8 @@ const AnswerListItem = memo((props: IAnswerListItemProps) => {
       </Typography>
     </Box>
   );
-});
+};
 
-export { AnswerListItem };
+const AnswerListItemMemo = memo(AnswerListItem);
+
+export { AnswerListItemMemo as AnswerListItem };
