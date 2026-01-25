@@ -188,8 +188,10 @@ const UsersListItemDetails = ({
 }) => {
   const editingIsDisabled =
     user.username === currUser?.username ||
+    user?.role === UserRoles.Owner ||
     currUser?.role === UserRoles.Employee ||
     user.status === UserStatus.Inactive;
+
   return (
     <Box className="">
       <Box className="mb-5 w-full!">

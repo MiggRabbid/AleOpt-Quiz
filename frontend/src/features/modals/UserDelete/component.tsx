@@ -16,7 +16,7 @@ interface IUserDeleteProps {
 }
 
 const UserDelete = ({ clickOnClose }: IUserDeleteProps) => {
-  const { setQuizStateField, closeQuestionEditor } = useAppActions();
+  const { setQuizStateField, closeUserEditor } = useAppActions();
 
   const userEditorType = useAppSelector(getGlobalStateField('userEditorType'));
   const editableUser = useAppSelector(getGlobalStateField('editableUser'));
@@ -37,7 +37,7 @@ const UserDelete = ({ clickOnClose }: IUserDeleteProps) => {
 
   const handleSuccess = (data: iUserStats[]) => {
     setQuizStateField({ field: 'users', data });
-    closeQuestionEditor();
+    closeUserEditor();
   };
 
   return (

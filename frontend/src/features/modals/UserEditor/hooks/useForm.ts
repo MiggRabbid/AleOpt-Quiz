@@ -1,16 +1,18 @@
 // Библиотеки
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 // Логика
 import { getUserSchema } from '../config/schema';
 import { useCreateUser, useEditUser } from '@/app/api/hooks';
-import { useAppActions } from '@app/hooks';
+import { useAppActions, useAvatars } from '@app/hooks';
+import { getRandomNumber } from '@/shared/lib';
 // Типизация
 import {
   type iHandledError,
   type IUserRequest,
   type iUserStats,
+  type TypeSubfolders,
   UserGender,
   UserRoles,
   UserStatus,
@@ -21,12 +23,12 @@ import type { AxiosError } from 'axios';
 interface IUseUserFormProps {
   isNewUser: boolean;
   requiredPass: boolean;
-  editableUser: string | null;
+  editableUserImage?: string;
 }
 
 export const useUserForm = (props: IUseUserFormProps) => {
-  const { isNewUser, requiredPass, editableUser } = props;
-
+  const { isNewUser, requiredPass, editableUserImage } = props;
+  const { getNewRandomAvatar } = useAvatars();
   const { setQuizStateField, closeUserEditor } = useAppActions();
   const { mutateAsync: createUser } = useCreateUser({
     onSuccess: (data) => handleSuccess(data),
@@ -48,13 +50,14 @@ export const useUserForm = (props: IUseUserFormProps) => {
     watch,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setError,
   } = useForm<FormData>({
     resolver: zodResolver(userSchema),
     defaultValues: {
       role: UserRoles.Employee,
       gender: UserGender.female,
+      status: UserStatus.Active,
     },
   });
 
@@ -65,7 +68,16 @@ export const useUserForm = (props: IUseUserFormProps) => {
   const password = watch('password');
   const role = watch('role');
   const gender = watch('gender');
+  const status = watch('status');
   const image = watch('image');
+
+  useLayoutEffect(() => {
+    if (!editableUserImage || editableUserImage.length === 0) {
+      const newImage = getNewRandomAvatar(gender);
+      setValue('image', newImage);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const usernameIsEmpty = !username || username.length === 0;
@@ -76,6 +88,7 @@ export const useUserForm = (props: IUseUserFormProps) => {
       : requiredPass;
     const roleIsEmpty = !role || role.length === 0;
     const genderIsEmpty = !gender || gender.length === 0;
+    const statusIsEmpty = !status || status.length === 0;
     const imageEmpty = !image || image.length === 0;
 
     setSavingAvailable(
@@ -85,11 +98,23 @@ export const useUserForm = (props: IUseUserFormProps) => {
         !passwordIsEmpty &&
         !roleIsEmpty &&
         !genderIsEmpty &&
+        !statusIsEmpty &&
         !imageEmpty,
     );
-  }, [username, firstName, lastName, password, requiredPass, role, gender, image]);
+  }, [
+    username,
+    firstName,
+    lastName,
+    password,
+    requiredPass,
+    role,
+    gender,
+    status,
+    image,
+  ]);
 
   const onSubmit = async (user: FormData) => {
+    setIsFetching(true);
     const query: IUserRequest = {
       role: user.role,
       username: user.username,
@@ -97,7 +122,7 @@ export const useUserForm = (props: IUseUserFormProps) => {
       lastName: user.lastName,
       image: user.image,
       gender: user.gender,
-      status: UserStatus.Active,
+      status: user.status,
     };
 
     if (!!user.password && user.password.length > 0) {
@@ -116,6 +141,7 @@ export const useUserForm = (props: IUseUserFormProps) => {
   const handleSuccess = (data: iUserStats[]) => {
     setQuizStateField({ field: 'users', data });
     closeUserEditor();
+    setIsFetching(false);
   };
   const handleError = (error: AxiosError<iHandledError, any>) => {
     const userExists = error.response?.data.errorType === 'userExists';
@@ -138,7 +164,7 @@ export const useUserForm = (props: IUseUserFormProps) => {
     register,
     handleSubmit,
     errors,
-    isSubmitting,
+    isSubmitting: isFetching,
     onSubmit,
   };
 };

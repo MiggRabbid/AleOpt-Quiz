@@ -12,7 +12,6 @@ const global = createSlice({
     /*Редактор пользователя - открыть*/
     openUserEditor: (state, action: PayloadAction<IOpenUserEditorPayload>) => {
       const { type, editableUser } = action.payload;
-
       state.userEditorType = type;
       state.editableUser = editableUser;
     },
@@ -24,7 +23,6 @@ const global = createSlice({
     /*Редактор вопроса - открыть*/
     openQuestionEditor: (state, action: PayloadAction<IOpenQuestionEditorPayload>) => {
       const { type, editableQuestion } = action.payload;
-
       state.questionEditorType = type;
       state.editableQuestion = editableQuestion;
     },

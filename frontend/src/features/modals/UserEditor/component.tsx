@@ -1,13 +1,11 @@
-'use client';
 // Библиотеки
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import Divider from '@mui/material/Divider';
 // Логика
-import { useAppSelector, useAvatars } from '@app/hooks';
+import { useAppSelector } from '@app/hooks';
 import { getGlobalStateField } from '@app/selectors';
 import { useUserForm } from './hooks/useForm';
-import { getRandomNumber } from '@/shared/lib';
 // Компоненты
 import { CustomInput, BtnGroup, BtnMain, CustomSelect } from '@/shared/ui';
 // Типизация
@@ -18,8 +16,9 @@ import {
   UserRoles,
   userRolesMap,
   TTypeModal,
+  UserStatus,
+  userStatusMap,
 } from '@app/types';
-import type { TypeSubfolders } from '@/utils';
 
 interface IUserEditorProps {
   clickOnClose: () => void;
@@ -39,10 +38,16 @@ const genderItems: TCustomSelectItems = Object.entries(userGenderMap).map(
   }),
 );
 
+const statusItems: TCustomSelectItems = Object.entries(userStatusMap).map(
+  ([key, value]) => ({
+    value: key,
+    text: value,
+  }),
+);
+
 const UserEditor = (props: IUserEditorProps) => {
   const { clickOnClose } = props;
 
-  const { avatarsMap } = useAvatars();
   const userEditorModal = useAppSelector(getGlobalStateField('userEditorType'));
   const editableUser = useAppSelector(getGlobalStateField('editableUser'));
 
@@ -64,7 +69,7 @@ const UserEditor = (props: IUserEditorProps) => {
   } = useUserForm({
     isNewUser,
     requiredPass,
-    editableUser: editableUser?.username ?? null,
+    editableUserImage: editableUser?.image,
   });
 
   useLayoutEffect(() => {
@@ -79,28 +84,12 @@ const UserEditor = (props: IUserEditorProps) => {
         'gender',
         editableUser.gender ? UserGender[editableUser.gender] : UserGender.female,
       );
+      setValue('status', editableUser.status);
       setValue('image', editableUser.image ?? '');
       setPassIsActive(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (!editableUser?.image) {
-      const userGender = watch('gender') as UserGender;
-
-      const genderKey: TypeSubfolders =
-        userGender === UserGender.male ? 'males' : 'females';
-      const avatars = avatarsMap[genderKey];
-      const avatarCount = Object.keys(avatars).length;
-
-      if (avatarCount > 0) {
-        const fileName = userGender + getRandomNumber(avatarCount);
-        setValue('image', avatars[fileName]);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [avatarsMap]);
 
   return (
     <Box className="flex h-fit w-200 flex-col gap-10 p-6">
@@ -153,7 +142,7 @@ const UserEditor = (props: IUserEditorProps) => {
           />
         </Box>
         <Box className="flex w-120 gap-x-5 gap-y-2">
-          <Box className="w-50">
+          <Box className="min-w-50 grow-1">
             <CustomSelect
               label="Выберите роль"
               items={roleItems}
@@ -168,7 +157,7 @@ const UserEditor = (props: IUserEditorProps) => {
               error={!!errors.role}
             />
           </Box>
-          <Box className="grow-1">
+          <Box className="min-w-32 grow-1">
             <CustomSelect
               label="Пол"
               items={genderItems}
@@ -181,6 +170,21 @@ const UserEditor = (props: IUserEditorProps) => {
                 } as any);
               }}
               error={!!errors.gender}
+            />
+          </Box>
+          <Box className="min-w-32 grow-1">
+            <CustomSelect
+              label="Статус"
+              items={statusItems}
+              value={watch('status')}
+              onChange={(event) => {
+                const value = event.target.value as UserStatus;
+                register('status').onChange({
+                  target: { name: 'status', value },
+                  type: 'change',
+                } as any);
+              }}
+              error={!!errors.status}
             />
           </Box>
         </Box>

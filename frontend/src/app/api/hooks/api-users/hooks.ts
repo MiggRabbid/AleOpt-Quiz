@@ -67,7 +67,7 @@ export const useGetUserStats = (props: IGetUserDataRequest) => {
   const { token } = useAuthContext();
 
   return queryOptions({
-    queryKey: [queryKeys.users.oneStats],
+    queryKey: [queryKeys.users.oneStats, props.params.username],
     placeholderData: keepPreviousData,
     queryFn: () =>
       sendRequest<iUserStats, IGetUserDataRequest>({

@@ -1,6 +1,6 @@
 export { getFormattedDate } from './getFormattedDate';
-export { getNewQuestionId } from './getNewQuestionId.ts';
-export { getRandomNumber } from './getRandomNumber.ts';
-export { sortUsersByResult } from './sortUsersByResult.ts';
+export { getNewQuestionId } from './getNewQuestionId';
+export { getRandomNumber } from './getRandomNumber';
+export { sortUsersByResult } from './sortUsersByResult';
 export { getChipColor } from './getChipColor';
-export { getResultColor } from './getResultColor.ts';
+export { getResultColor } from './getResultColor';

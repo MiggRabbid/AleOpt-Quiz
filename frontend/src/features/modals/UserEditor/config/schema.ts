@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { UserGender, UserRoles } from '@app/types';
+import { UserGender, UserRoles, UserStatus } from '@app/types';
 
 export const getUserSchema = (requiredPass: boolean) => {
   return z.object({
@@ -30,6 +30,9 @@ export const getUserSchema = (requiredPass: boolean) => {
     }),
     gender: z.nativeEnum(UserGender).refine((val) => !!val, {
       message: 'Выберите пол пользователя',
+    }),
+    status: z.nativeEnum(UserStatus).refine((val) => !!val, {
+      message: 'Выберите статус пользователя',
     }),
     image: z.string().min(1, 'Аватар не выбран'),
   });

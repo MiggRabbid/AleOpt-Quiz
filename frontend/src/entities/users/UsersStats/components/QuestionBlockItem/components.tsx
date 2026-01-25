@@ -55,6 +55,7 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
             maxRows={2}
             tooltip={{
               content: questionText,
+              placement: `${isEasiest ? 'bottom-start' : 'bottom-end'}`,
             }}
             tooltipSlotSx={{
               tooltip: {

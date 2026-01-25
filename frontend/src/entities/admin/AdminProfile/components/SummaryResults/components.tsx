@@ -1,7 +1,7 @@
 // Библиотеки
 import { Box } from '@mui/material';
 // Логика
-import { sortUsersByResult } from '@/utils';
+import { sortUsersByResult } from '@/shared/lib';
 // Компоненты
 import { TopResultsList } from '../';
 import { CustomCardWrapper } from '@/shared/ui';
@@ -15,7 +15,9 @@ interface ISummaryResultProps {
 const SummaryResults = ({ usersStats }: ISummaryResultProps) => {
   if (!usersStats || usersStats.length === 0) return null;
 
-  const sortedResults = sortUsersByResult(usersStats);
+  const sortedResults = sortUsersByResult(usersStats).filter(
+    (result) => result.username !== 'AleoptAdmin',
+  );
 
   return (
     <CustomCardWrapper>

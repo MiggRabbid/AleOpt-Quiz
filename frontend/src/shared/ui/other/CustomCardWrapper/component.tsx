@@ -6,6 +6,7 @@ import type { FC, ReactNode } from 'react';
 
 interface ICustomCardWrapperProps {
   children: ReactNode;
+  width?: 'w-full!' | 'w-fit!';
   shadowSize?: 'shadow-none' | 'shadow-xl' | 'shadow-lg' | 'shadow-md' | 'shadow-sm';
   shadowBaseSize?: 'shadow-none' | 'shadow-xl' | 'shadow-lg' | 'shadow-md' | 'shadow-sm';
   roundedSize?:
@@ -24,9 +25,11 @@ const CustomCardWrapper: FC<ICustomCardWrapperProps> = ({
   shadowSize,
   shadowBaseSize,
   roundedSize,
+  width,
 }) => {
   const wrapperClass = clsx(
-    'w-full! h-fit! p-0! m-0! transition-shadow duration-500',
+    'h-fit! p-0! m-0! transition-shadow duration-500',
+    width ? width : 'w-full!',
     shadowBaseSize ? shadowBaseSize : 'shadow-none',
     shadowSize ? `hover:${shadowSize}` : 'hover:shadow-xl',
     roundedSize ? `${roundedSize}` : 'rounded-2xl',

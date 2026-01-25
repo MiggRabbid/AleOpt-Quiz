@@ -67,10 +67,10 @@ const Header = (props: IHeaderProps) => {
 
       {modalContainerIsOpen && (
         <ModalContainer isOpen={modalContainerIsOpen} onClose={handelCloseEditor}>
-          {userDeleteOpen && <UserDelete clickOnClose={handelCloseEditor} />}
           {userEditorOpen && <UserEditor clickOnClose={handelCloseEditor} />}
-          {questionEditorOpen && <QuestionDelete clickOnClose={handelCloseEditor} />}
-          {questionDeleteOpen && <QuestionEditor clickOnClose={handelCloseEditor} />}
+          {userDeleteOpen && <UserDelete clickOnClose={handelCloseEditor} />}
+          {questionEditorOpen && <QuestionEditor clickOnClose={handelCloseEditor} />}
+          {questionDeleteOpen && <QuestionDelete clickOnClose={handelCloseEditor} />}
         </ModalContainer>
       )}
     </>
