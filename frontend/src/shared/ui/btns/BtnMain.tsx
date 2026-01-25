@@ -2,13 +2,15 @@
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
-interface IBtnMainProps {
+export interface IBtnMainProps {
   btnText: string;
   btnClick?: () => void;
   isLoading?: boolean;
   fullWidth?: boolean;
   variant?: 'text' | 'contained' | 'outlined';
   color?: 'success' | 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'warning';
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
 const BtnMain = (props: IBtnMainProps) => {
@@ -19,6 +21,7 @@ const BtnMain = (props: IBtnMainProps) => {
     isLoading,
     variant = 'text',
     color = 'success',
+    type = 'button',
   } = props;
   return (
     <Button
@@ -26,6 +29,8 @@ const BtnMain = (props: IBtnMainProps) => {
       fullWidth={fullWidth}
       variant={variant}
       color={color}
+      type={type}
+      disabled={isLoading || props.disabled}
       className={`h-14! min-h-14! rounded-xl! ${variant === 'text' ? 'bg-white!' : ''} outline-0!" leading-none! font-bold! shadow-none! hover:shadow-md!`}
       sx={{
         paddingX: '20px',

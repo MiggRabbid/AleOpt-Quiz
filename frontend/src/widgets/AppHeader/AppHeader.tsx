@@ -11,7 +11,7 @@ const AppHeader = () => {
   return (
     <Box
       component="header"
-      className="shadow-glass border-glass mx-4 mt-2 flex h-15 shrink-0 grow-0 flex-row items-center justify-between rounded-2xl border backdrop-blur-sm"
+      className="shadow-glass border-glass mx-2 mt-2 flex h-15 shrink-0 grow-0 flex-row items-center justify-between rounded-2xl border backdrop-blur-sm"
     >
       <Box className="bg-glass h-full w-full rounded-2xl px-3.5 py-2">
         <Box className="flex h-full w-full flex-row items-center justify-between">

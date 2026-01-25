@@ -96,7 +96,7 @@ export const useEditQuestion = (
 };
 
 /**
- * Редактирование вопроса
+ * Удаление вопроса
  */
 export const useDeleteQuestion = (
   options?: CustomHookMutationOptions<iQuestion[], IQuestionRequest>,

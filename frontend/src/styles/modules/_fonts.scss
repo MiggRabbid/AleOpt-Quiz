@@ -1,36 +1,25 @@
 @font-face {
-  font-family: 'Roboto', sans-serif;
-  src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Roboto', sans-serif;
-  src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Roboto', sans-serif;
-  src: url('/fonts/Roboto-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roboto', sans-serif;
-  src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roboto', sans-serif;
-  src: url('/fonts/Roboto-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
+  font-display: swap;
 }
 
 %font-base-16 {
@@ -42,7 +31,7 @@
 
 %font-bold-16 {
   @extend %font-base-16;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 %font-base-12 {
@@ -53,7 +42,7 @@
 
 %font-bold-12 {
   @extend %font-base-12;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 %font-base-14 {
@@ -64,7 +53,7 @@
 
 %font-bold-14 {
   @extend %font-base-14;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 %font-base-18 {
@@ -75,7 +64,7 @@
 
 %font-bold-18 {
   @extend %font-base-18;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 %font-base-22 {
@@ -86,5 +75,5 @@
 
 %font-bold-22 {
   @extend %font-base-22;
-  font-weight: 600;
+  font-weight: 700;
 }

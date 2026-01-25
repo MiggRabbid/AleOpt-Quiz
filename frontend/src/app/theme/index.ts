@@ -3,6 +3,12 @@ import { ruRU } from '@mui/material/locale';
 
 export const customThemeMUI = createTheme(
   {
+    typography: {
+      fontFamily: `'Roboto', sans-serif`,
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+      fontWeightBold: 700,
+    },
     palette: {
       primary: {
         main: '#007a55',
@@ -29,7 +35,15 @@ export const customThemeMUI = createTheme(
         contrastText: '#fff',
       },
     },
-    components: {},
+    components: {
+      MuiAccordion: {
+        styleOverrides: {
+          root: {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
   },
   ruRU,
 );

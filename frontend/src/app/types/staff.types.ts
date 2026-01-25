@@ -17,6 +17,16 @@ export const userGenderMap: Record<UserGender, string> = {
   female: 'Жен.',
 };
 
+export enum UserStatus {
+  Active = 'active',
+  Inactive = 'inactive',
+}
+
+export const userStatusMap: Record<UserStatus, string> = {
+  active: 'Текущий',
+  inactive: 'Бывший',
+};
+
 export const userRolesMap: Record<UserRoles, string> = {
   Admin: 'Администратор',
   Employee: 'Сотрудник',
@@ -24,25 +34,27 @@ export const userRolesMap: Record<UserRoles, string> = {
 };
 
 export interface IUserRequest {
-  firstName: string;
-  gender: UserGender;
-  image: string;
-  lastName: string;
-  password?: string | undefined;
   role: UserRoles;
   username: string;
+  firstName: string;
+  lastName: string;
+  gender: UserGender;
+  password?: string | undefined;
+  image: string;
+  status: UserStatus;
 }
 
 export interface iUser {
   _id?: string;
   role: UserRoles;
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   username: string;
   password?: string;
   token?: string;
   image?: string;
-  gender?: UserGender;
+  gender: UserGender;
+  status: UserStatus;
   results?: Array<Record<string, string>>;
   lastResult?: number | null;
   numberAttempts?: number;

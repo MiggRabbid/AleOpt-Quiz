@@ -3,12 +3,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 // Компоненты
-import { CustomIcon } from '@/shared/ui/various/CustomIcon';
+import { CustomIcon } from '@/shared/ui/other/CustomIcon';
 //
 
 import type { Dispatch, SetStateAction } from 'react';
-import type { TLibraryIconMUIName } from '@/shared/ui/various/CustomIcon';
+import type { TLibraryIconMUIName } from '@/shared/ui/other/CustomIcon';
 import { TypeStatsTab } from '../../../component.types';
+import { CustomCardWrapper } from '@/shared/ui';
 
 interface ICustomButtonGroupProps {
   activeTab: TypeStatsTab;
@@ -22,22 +23,29 @@ const CustomButtonGroup = (props: ICustomButtonGroupProps) => {
   const isQuestionActive = activeTab === TypeStatsTab.questions;
 
   return (
-    <ButtonGroup className="h-fit rounded-xl! shadow-md!">
-      <BtnItem
-        text="Сотрудники"
-        name="Group"
-        position="left"
-        isActive={isUsersActive}
-        onClick={() => setState(TypeStatsTab.users)}
-      />
-      <BtnItem
-        text="Вопросы"
-        name="HelpOutline"
-        position="right"
-        isActive={isQuestionActive}
-        onClick={() => setState(TypeStatsTab.questions)}
-      />
-    </ButtonGroup>
+    <CustomCardWrapper
+      roundedSize="rounded-xl"
+      shadowBaseSize="shadow-none"
+      shadowSize="shadow-md"
+      width='w-fit!'
+    >
+      <ButtonGroup className="h-fit rounded-xl!">
+        <BtnItem
+          text="Сотрудники"
+          name="Group"
+          position="left"
+          isActive={isUsersActive}
+          onClick={() => setState(TypeStatsTab.users)}
+        />
+        <BtnItem
+          text="Вопросы"
+          name="HelpOutline"
+          position="right"
+          isActive={isQuestionActive}
+          onClick={() => setState(TypeStatsTab.questions)}
+        />
+      </ButtonGroup>
+    </CustomCardWrapper>
   );
 };
 

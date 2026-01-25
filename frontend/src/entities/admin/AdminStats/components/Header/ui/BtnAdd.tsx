@@ -17,7 +17,6 @@ const BtnAdd = (props: IBtnAddProps) => {
       btnText={btnText}
       variant="text"
       btnClick={openEditor}
-      disabled={activeTab === TypeStatsTab.users}
     />
   );
 };

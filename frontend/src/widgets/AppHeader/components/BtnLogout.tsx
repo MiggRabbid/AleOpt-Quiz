@@ -6,7 +6,7 @@ import { useAuthContext, useNavigate } from '@/app/hooks';
 import { routes } from '@app/router';
 // Компоненты
 import { BtnSmall } from '@/shared/ui/btns';
-import { CustomIcon } from '@/shared/ui/various/CustomIcon';
+import { CustomIcon } from '@/shared/ui/other/CustomIcon';
 
 const BtnLogout = () => {
   const { is404LoginPage, isLoginPage, isQuizPage, navigateTo } = useNavigate();

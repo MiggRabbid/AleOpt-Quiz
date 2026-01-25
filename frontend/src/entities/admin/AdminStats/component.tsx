@@ -4,13 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import { Box, CircularProgress } from '@mui/material';
 // Логика
 import { useAuthContext } from '@/app/hooks';
+import { useGetAllQuestions, useGetAllUsers } from '@/app/api/hooks';
 // Компоненты
+import { UsersList, QuestionList } from '@/features';
 import { Header } from './components';
 // Типизация
 import { TypeStatsTab } from './component.types';
-import { useGetAllQuestions, useGetAllUsers } from '@/app/api/hooks';
-import { UsersList } from '@/features/UsersList';
-import { QuestionList } from '@/features/QuestionList';
 
 const AdminStats = () => {
   const { isAuth, user } = useAuthContext();
@@ -33,13 +32,7 @@ const AdminStats = () => {
     <Box id="AdminStats" className="h-full w-full p-2">
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <Box
-        id="AdminStatsClientWrapper"
-        className="h-full w-full! overflow-y-auto!"
-        sx={{
-          height: 'calc(100% - 40px - 24px - 1px)',
-        }}
-      >
+      <Box className="h-full w-full!">
         <Box className="mx-auto! flex h-full! w-full max-w-7xl flex-col gap-2 px-4!">
           {isLoading ? (
             <Box

@@ -1,8 +1,7 @@
-import { iResultEntry, iResultModel, iUserAnswer } from '../../types/resultTypes';
-import { iQuestionStats } from '../../types/statsTypes';
+import { IResultEntry, IResultModel, IUserAnswer, IQuestionStats } from '../../types';
 
-export const getQuestionStats = (questionId: string, userStats: iResultModel[]): iQuestionStats => {
-  const questionStats: iQuestionStats = {
+export const getQuestionStats = (questionId: string, userStats: IResultModel[]): IQuestionStats => {
+  const questionStats: IQuestionStats = {
     questionId,
     attempts: [],
     numberAttempts: 0,
@@ -10,9 +9,9 @@ export const getQuestionStats = (questionId: string, userStats: iResultModel[]):
     averageResult: 0,
   };
 
-  userStats.forEach((stats: iResultModel) => {
-    stats.attempts.forEach((attempt: iResultEntry) => {
-      attempt.answers.forEach((answer: iUserAnswer) => {
+  userStats.forEach((stats: IResultModel) => {
+    stats.attempts.forEach((attempt: IResultEntry) => {
+      attempt.answers.forEach((answer: IUserAnswer) => {
         if (answer.questionId === questionId) {
           questionStats.attempts.push(answer);
           questionStats.numberAttempts += 1;

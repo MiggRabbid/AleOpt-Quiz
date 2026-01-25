@@ -1,29 +1,17 @@
 // Библиотеки
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
-
-type btnVariant = 'text' | 'contained' | 'outlined';
-type btnColor =
-  | 'success'
-  | 'inherit'
-  | 'primary'
-  | 'secondary'
-  | 'error'
-  | 'info'
-  | 'warning';
-type btnType = 'button' | 'reset' | 'submit';
+import { BtnMain, type IBtnMainProps } from './BtnMain';
 
 interface IBtnGroupProps {
   leftBtnText: string;
   leftBtnClick?: () => void;
-  leftBtnVariant?: btnVariant;
-  leftBtnColor?: btnColor;
+  leftBtnVariant?: IBtnMainProps['variant'];
+  leftBtnColor?: IBtnMainProps['color'];
   rightBtnText: string;
   rightBtnClick?: () => void;
-  rightBtnVariant?: btnVariant;
-  rightBtnColor?: btnColor;
-  rightBtnType?: btnType;
+  rightBtnVariant?: IBtnMainProps['variant'];
+  rightBtnColor?: IBtnMainProps['color'];
+  rightBtnType?: IBtnMainProps['type'];
   disabledRight?: boolean;
   isLoading?: boolean;
 }
@@ -45,26 +33,24 @@ const BtnGroup = (props: IBtnGroupProps) => {
 
   return (
     <Box className="flex w-full items-center gap-x-5 gap-y-2">
-      <Button
-        onClick={leftBtnClick}
+      <BtnMain
+        btnClick={leftBtnClick}
         variant={leftBtnVariant}
         color={leftBtnColor}
         disabled={isLoading}
-        className="min-h-10! flex-1! rounded-xl! border-0! shadow-md! outline-0!"
-      >
-        {leftBtnText}
-      </Button>
-      <Button
-        onClick={rightBtnType === 'submit' ? undefined : rightBtnClick}
+        fullWidth={true}
+        btnText={leftBtnText}
+      />
+      <BtnMain
+        btnClick={rightBtnType === 'submit' ? undefined : rightBtnClick}
         variant={rightBtnVariant}
         color={rightBtnColor}
         type={rightBtnType}
         disabled={isLoading || disabledRight}
-        className="min-h-10! flex-1! items-center justify-center gap-2 rounded-xl! shadow-md!"
-      >
-        {isLoading && <CircularProgress sx={{ color: 'white !important' }} size={30} />}
-        {rightBtnText}
-      </Button>
+        isLoading={isLoading}
+        fullWidth={true}
+        btnText={rightBtnText}
+      />
     </Box>
   );
 };

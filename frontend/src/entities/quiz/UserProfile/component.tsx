@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useGetCurrentUser } from '@app/api/hooks';
 import { useAuthContext } from '@app/hooks';
 // Компоненты
-import { ProfileCard } from '@/features/ProfileCard';
+import { ProfileCard } from '@/features';
 import { BtnEndQuiz, SummaryResults } from './components';
 // Типизация
 import { UserRoles } from '@app/types';
@@ -28,7 +28,7 @@ const UserProfileForQuiz = () => {
   });
 
   return (
-    <Box className="flex h-full w-full flex-col justify-between gap-5.5">
+    <Box className="flex h-full w-full flex-col justify-start gap-5.5">
       <Box className="flex h-fit w-full flex-col justify-start gap-3.5">
         <ProfileCard
           role={userData?.role || UserRoles.Employee}

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { SideFull } from '@/shared/layouts';
-import { LoginForm } from '@/features/LoginForm';
+import { LoginForm } from '@/features';
 import { LoginImg } from './components/';
 
 const LoginPage = () => {
