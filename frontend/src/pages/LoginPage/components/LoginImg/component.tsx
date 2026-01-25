@@ -12,7 +12,7 @@ const LoginImg = () => {
       <Box
         className="bg-glass flex h-full w-full items-center justify-center"
         style={{
-          height: '100%', 
+          height: '100%',
           backgroundImage: 'url("/assets/images/login-img.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',

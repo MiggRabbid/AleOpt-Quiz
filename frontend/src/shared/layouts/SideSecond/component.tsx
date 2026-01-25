@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 interface ISideSecondProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const SideSecond: FC<ISideSecondProps> = ({ children }) => {

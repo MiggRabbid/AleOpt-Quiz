@@ -1,1 +1,1 @@
-export {default as LoginImg} from './LoginImg/component';
+export { default as LoginImg } from './LoginImg/component';

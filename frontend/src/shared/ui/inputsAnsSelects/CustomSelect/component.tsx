@@ -16,7 +16,7 @@ interface ICustomSelectProps {
   error?: any;
 }
 
-const CustomSelect = memo((props: ICustomSelectProps) => {
+const CustomSelect = (props: ICustomSelectProps) => {
   const { label, value, onChange, items, error } = props;
 
   return (
@@ -41,6 +41,8 @@ const CustomSelect = memo((props: ICustomSelectProps) => {
       </Select>
     </FormControl>
   );
-});
+};
 
-export { CustomSelect };
+const CustomSelectMemo = memo(CustomSelect);
+
+export { CustomSelectMemo as CustomSelect };

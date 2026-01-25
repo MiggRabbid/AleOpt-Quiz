@@ -1,3 +1,5 @@
+import type { ChangeEvent } from 'react';
+
 export interface iFormInputProps {
   controlId: string;
   label: string;
@@ -9,7 +11,7 @@ export interface iFormInputProps {
   value: string;
   onChange: (
     // eslint-disable-next-line no-unused-vars
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => void;
   isInvalid: boolean;
   options?: Record<string, string>;

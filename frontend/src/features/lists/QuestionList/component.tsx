@@ -10,7 +10,7 @@ interface IQuestionListProps {
   questions?: iQuestion[];
 }
 
-const QuestionList = memo(({ questions }: IQuestionListProps) => {
+const QuestionList = ({ questions }: IQuestionListProps) => {
   if (!questions) {
     return <PlugForEmptyData />;
   }
@@ -28,6 +28,8 @@ const QuestionList = memo(({ questions }: IQuestionListProps) => {
       })}
     </>
   );
-});
+};
 
-export { QuestionList };
+const QuestionListMemo = memo(QuestionList);
+
+export { QuestionListMemo as QuestionList };

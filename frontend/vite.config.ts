@@ -29,7 +29,11 @@ export default defineConfig({
         main: 'index.html',
       },
       output: {
-        manualChunks: undefined,
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          mui: ['@mui/material', '@mui/icons-material'],
+          vendor: ['axios', '@tanstack/react-query'],
+        },
       },
     },
   },

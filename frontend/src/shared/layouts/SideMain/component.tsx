@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import clsx from 'clsx';
 
-import type { CSSProperties, FC } from 'react';
+import type { CSSProperties, FC, ReactNode } from 'react';
 
 interface ISideMainProps {
-  children: React.ReactNode;
+  children: ReactNode;
   otherClass?: string;
   style?: CSSProperties;
 }

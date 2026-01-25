@@ -10,7 +10,7 @@ interface IPrivateOutletProps {
   children: ReactElement;
 }
 
-const PrivateOutlet: FC<IPrivateOutletProps> = memo(({ children }) => {
+const PrivateOutlet: FC<IPrivateOutletProps> = ({ children }) => {
   const { navigateTo, isLoginPage, isAdminPage } = useNavigate();
   const { isAuth, getIsAdmin } = useAuthContext();
 
@@ -36,6 +36,8 @@ const PrivateOutlet: FC<IPrivateOutletProps> = memo(({ children }) => {
   }, [isAuth, isAdmin, isLoginPage, isAdminPage]);
 
   return children;
-});
+};
 
-export { PrivateOutlet };
+const PrivateOutletMemo = memo(PrivateOutlet);
+
+export { PrivateOutletMemo as PrivateOutlet };

@@ -27,7 +27,7 @@ const CustomButtonGroup = (props: ICustomButtonGroupProps) => {
       roundedSize="rounded-xl"
       shadowBaseSize="shadow-none"
       shadowSize="shadow-md"
-      width='w-fit!'
+      width="w-fit!"
     >
       <ButtonGroup className="h-fit rounded-xl!">
         <BtnItem

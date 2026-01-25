@@ -1,10 +1,10 @@
 // Библиотеки
 import { Box } from '@mui/material';
 // Компоненты
-import { ResultTable, LastResultTable } from '..';
+import { LastResultTable, ResultTable } from '@/entities/users/UserProfile/components';
+import { CustomCardWrapper } from '@/shared/ui';
 // Типизация
 import type { iUserStats } from '@app/types';
-import { CustomCardWrapper } from '@/shared/ui';
 
 interface ISummaryResultProps {
   userStats: iUserStats | null;

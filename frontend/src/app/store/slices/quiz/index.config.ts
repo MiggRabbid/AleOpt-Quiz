@@ -10,5 +10,10 @@ export const initialState: iQuizState = {
   users: [],
   results: [],
   currentResult: [],
-  quizTimer: { seconds: '00', minutes: '00', currTime: 0, maxTime: TIME_FOR_ONE_QUESTION },
+  quizTimer: {
+    seconds: '00',
+    minutes: '00',
+    currTime: 0,
+    maxTime: TIME_FOR_ONE_QUESTION,
+  },
 };

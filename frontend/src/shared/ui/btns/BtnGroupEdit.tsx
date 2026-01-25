@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 // Компоненты
 import { CustomIcon } from '@/shared/ui/other/CustomIcon';
+import type { MouseEvent } from 'react';
 
 type TBtnColor =
   | 'success'
@@ -17,9 +18,9 @@ type TBtnSize = 'small' | 'medium' | 'large';
 
 interface IBtnGroupEditProps {
   // eslint-disable-next-line no-unused-vars
-  onClickEdit: (e: React.MouseEvent) => void;
+  onClickEdit: (e: MouseEvent) => void;
   // eslint-disable-next-line no-unused-vars
-  onClickDelete: (e: React.MouseEvent) => void;
+  onClickDelete: (e: MouseEvent) => void;
   colorEdit?: TBtnColor;
   colorDelete?: TBtnColor;
   size?: TBtnSize;
