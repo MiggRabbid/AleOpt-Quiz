@@ -1,13 +1,10 @@
 import type { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import { User } from '../models';
-import { type IUserModel, UserRoles } from '../types';
-
-dotenv.config();
+import { UserRoles } from '../types';
 
 const secret = process.env.SECRET_KEY;
 
@@ -28,14 +25,16 @@ const errorTypeMap = {
   incorrectPassword: 'incorrectPassword',
   authError: 'authError',
   userInactive: 'userInactive',
-};
+  authServerError: 'authServerError',
+} as const;
 
 const errorMsgMap = {
   userNotFound: 'Пользователь не найден',
   incorrectPassword: 'Неправильный пароль',
   authError: 'Ошибка авторизации',
+  authServerError: 'Ошибка сервера при авторизации',
   userInactive: 'Доступ запрещен для неактивного пользователя',
-};
+} as const;
 
 class AuthController {
   async login(request: Request, response: Response): Promise<Response> {
@@ -51,7 +50,8 @@ class AuthController {
       }
 
       const { username, password } = request.body;
-      const user = (await User.findOne({ username })) as IUserModel;
+      const user = await User.findOne({ username });
+
       if (!user) {
         return response
           .status(404)
@@ -77,13 +77,13 @@ class AuthController {
       const { firstName, role, _id: id, image = '' } = user;
       const token = getAccessToken(user.role, user.username);
 
-      console.log(`BACK / login  /  ${user?.firstName} ${user?.lastName} - ${user?.username}`);
+      console.log(`BACK / login  /  ${user?.username}`);
       return response.json({ token, id, firstName, username, role, image });
     } catch (e) {
       console.error('BACK / login / error', e);
       return response
-        .status(400)
-        .json({ message: errorMsgMap.authError, errorType: errorTypeMap.authError });
+        .status(500)
+        .json({ message: errorMsgMap.authServerError, errorType: errorTypeMap.authServerError });
     }
   }
 }

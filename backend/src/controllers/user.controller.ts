@@ -23,7 +23,7 @@ const errorTypeMap = {
   networkError: 'networkError',
   notFound: 'notFound',
   regError: 'regError',
-};
+} as const;
 
 const errorMsgMap = {
   userExists: 'Пользователь с таким именем уже существует',
@@ -31,7 +31,7 @@ const errorMsgMap = {
   otherError: 'Ошибка получения данных',
   notFound: 'Пользователь не найден',
   regError: 'Ошибка регистрации',
-};
+} as const;
 
 class UserController {
   constructor() {
@@ -52,11 +52,11 @@ class UserController {
     if (error instanceof Error) {
       console.error(message, error);
       const errorData = this.prepareError(message, error.name);
-      return response.status(400).json(errorData);
+      return response.status(500).json(errorData);
     }
     console.error(message, error);
     const errorData = this.prepareError(message, errorTypeMap.networkError);
-    return response.status(400).json(errorData);
+    return response.status(500).json(errorData);
   }
 
   private async getAllUsers(): Promise<IResponseUser[]> {
@@ -172,8 +172,7 @@ class UserController {
 
       return response.json(sortedUsers);
     } catch (e) {
-      const errorData = this.prepareError(errorMsgMap.regError, errorTypeMap.regError);
-      return response.status(400).json(errorData);
+      return this.handleError(response, e, errorMsgMap.regError);
     }
   }
 

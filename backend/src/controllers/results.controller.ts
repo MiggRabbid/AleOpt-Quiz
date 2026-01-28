@@ -5,8 +5,19 @@ import { getUserStats, getQuestionStats } from '../utils';
 import { Results } from '../models';
 import { IUserAnswer } from '../types';
 
-const NETWORK_ERROR_MESSAGE = 'Network error';
-const RESULT_NOT_FOUND_MESSAGE = 'Result not found. Check query parameters';
+const errorTypeMap = {
+  networkError: 'networkError',
+  notFound: 'notFound',
+} as const;
+
+const errorMsgMap = {
+  networkError: 'Ошибка сети',
+  notFoundUser: 'Пользователь не найден',
+  notFoundResult: 'Результат не найден',
+  getResultError: 'Ошибка сервера при получении результатов',
+  addingError: 'Ошибка добавления результата',
+  getQuestionResultError: 'Ошибка получения результатов по вопросу',
+} as const;
 
 class ResultController {
   constructor() {
@@ -18,11 +29,10 @@ class ResultController {
   private handleError(response: Response, error: unknown, message: string) {
     if (error instanceof Error) {
       console.error(message, error);
-      const responseMessage = `${message}: ${error.message}`;
-      return response.status(500).json({ message: responseMessage });
+      return response.status(500).json({ message });
     }
     console.error(message, error);
-    return response.status(500).json({ message: NETWORK_ERROR_MESSAGE });
+    return response.status(500).json({ message: errorMsgMap.networkError });
   }
 
   async allResults(_request: Request, response: Response): Promise<Response> {
@@ -31,7 +41,7 @@ class ResultController {
       const allStats = allResults.map((result) => getUserStats(result));
       return response.json(allStats);
     } catch (e) {
-      return this.handleError(response, e, 'Error getting all results');
+      return this.handleError(response, e, errorMsgMap.getResultError);
     }
   }
 
@@ -41,7 +51,7 @@ class ResultController {
     if (!username) {
       return response
         .status(400)
-        .json({ message: RESULT_NOT_FOUND_MESSAGE, typeError: 'Request parameters error' });
+        .json({ message: errorMsgMap.notFoundUser, typeError: errorTypeMap.notFound });
     }
 
     try {
@@ -49,14 +59,14 @@ class ResultController {
       if (!userResults) {
         return response
           .status(404)
-          .json({ message: RESULT_NOT_FOUND_MESSAGE, typeError: 'Request parameters error' });
+          .json({ message: errorMsgMap.notFoundResult, typeError: errorTypeMap.notFound });
       }
 
       const userStats = getUserStats(userResults);
 
       return response.json(userStats);
     } catch (e) {
-      return this.handleError(response, e, 'Error getting result');
+      return this.handleError(response, e, errorMsgMap.getResultError);
     }
   }
 
@@ -65,13 +75,15 @@ class ResultController {
     const { username } = request.query;
 
     if (!username || !data || !answers) {
-      return response.status(400).json({ message: RESULT_NOT_FOUND_MESSAGE });
+      return response.status(400).json({ message: errorMsgMap.notFoundResult });
     }
+
     try {
       const userResults = await Results.findOne({ username });
       const correctAnswers = answers.reduce((acc: number, item: IUserAnswer) => {
         return acc + item.result;
       }, 0);
+
       if (!!userResults) {
         userResults.attempts.unshift({ data, answers, correctAnswers });
 
@@ -91,14 +103,14 @@ class ResultController {
 
       const updatedUserResults = await Results.findOne({ username });
       if (!updatedUserResults) {
-        return response.status(404).json({ message: RESULT_NOT_FOUND_MESSAGE });
+        return response.status(404).json({ message: errorMsgMap.notFoundResult });
       }
 
       const updatedUserStats = getUserStats(updatedUserResults);
 
       return response.json(updatedUserStats);
     } catch (e) {
-      return this.handleError(response, e, 'Error adding result');
+      return this.handleError(response, e, errorMsgMap.addingError);
     }
   }
 
@@ -110,7 +122,7 @@ class ResultController {
       const questionStats = getQuestionStats(questionId, usersStats);
       return response.json(questionStats);
     } catch (e) {
-      return this.handleError(response, e, 'Error getting question stats');
+      return this.handleError(response, e, errorMsgMap.getQuestionResultError);
     }
   }
 }
