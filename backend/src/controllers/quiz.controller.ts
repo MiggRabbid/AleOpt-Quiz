@@ -63,10 +63,15 @@ class QuizController {
 
   async newQuestion(request: TQuizCustomRequest, response: TQuizCustomResponse): Promise<Response> {
     try {
-      const normalized = request.body.question?.toLowerCase().trim();
-      const exists = await Question.exists({ normalizedQuestion: normalized });
+      const allQuestions = await Question.find();
 
-      if (exists) {
+      const questionExists = allQuestions.find(
+        (question) =>
+          question.question.toLocaleLowerCase().trim() ===
+          request.body.question.toLocaleLowerCase().trim(),
+      );
+
+      if (questionExists) {
         const errorData = this.prepareError(
           errorMsgMap.questionExists,
           errorTypeMap.questionExists,

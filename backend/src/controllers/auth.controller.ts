@@ -2,9 +2,12 @@ import type { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
 import { User } from '../models';
 import { UserRoles } from '../types';
+
+dotenv.config();
 
 const secret = process.env.SECRET_KEY;
 
