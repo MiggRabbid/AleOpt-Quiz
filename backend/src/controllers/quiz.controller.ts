@@ -9,16 +9,17 @@ const errorTypeMap = {
   questionExists: 'questionExists',
   networkError: 'networkError',
   notFound: 'notFound',
-};
+} as const;
 
 const errorMsgMap = {
   questionExists: 'Такой вопрос уже существует',
   networkError: 'Ошибка сети',
   notFound: 'Вопрос не найден',
-  createError: 'Ошибка редактирования вопроса',
+  createError: 'Ошибка создания вопроса',
   editError: 'Ошибка редактирования вопроса',
   deleteError: 'Ошибка удаления вопроса',
-};
+  getQuestionError: 'Ошибка сервера при получении вопросов',
+} as const;
 
 class QuizController {
   constructor() {
@@ -39,11 +40,11 @@ class QuizController {
     if (error instanceof Error) {
       console.error(message, error);
       const errorData = this.prepareError(message, error.name);
-      return response.status(400).json(errorData);
+      return response.status(500).json(errorData);
     }
     console.error(message, error);
     const errorData = this.prepareError(message, errorTypeMap.networkError);
-    return response.status(400).json(errorData);
+    return response.status(500).json(errorData);
   }
 
   private async getSortedQuestions(): Promise<IQuestionModel[]> {
@@ -56,7 +57,7 @@ class QuizController {
       const sortedQuestions = await this.getSortedQuestions();
       return response.json(sortedQuestions);
     } catch (e) {
-      return this.handleError(response, e, 'Error in getQuiz:');
+      return this.handleError(response, e, errorMsgMap.getQuestionError);
     }
   }
 
@@ -96,7 +97,10 @@ class QuizController {
       const { id } = request.query;
       const updateData = request.body;
 
-      const question = await Question.findOneAndUpdate({ id }, updateData, { new: true });
+      const question = await Question.findOneAndUpdate({ id }, updateData, {
+        new: true,
+        runValidators: true,
+      });
 
       if (!question) {
         const errorData = this.prepareError(errorMsgMap.notFound, errorTypeMap.notFound);
