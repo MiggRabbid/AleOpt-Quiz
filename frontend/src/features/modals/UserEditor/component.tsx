@@ -141,10 +141,11 @@ const UserEditor = (props: IUserEditorProps) => {
             disabled={!passIsActive}
           />
         </Box>
-        <Box className="flex w-120 gap-x-5 gap-y-2">
-          <Box className="min-w-50 grow-1">
+
+        <Box className="flex w-full grow-1 justify-between gap-x-5 gap-y-2 px-1.5">
+          <Box className="max-w-90 min-w-45 shrink-1 grow-2">
             <CustomSelect
-              label="Выберите роль"
+              label="Роль"
               items={roleItems}
               value={watch('role')}
               onChange={(event) => {
@@ -157,7 +158,7 @@ const UserEditor = (props: IUserEditorProps) => {
               error={!!errors.role}
             />
           </Box>
-          <Box className="min-w-32 grow-1">
+          <Box className="w-40 shrink-0 grow-0">
             <CustomSelect
               label="Пол"
               items={genderItems}
@@ -172,7 +173,7 @@ const UserEditor = (props: IUserEditorProps) => {
               error={!!errors.gender}
             />
           </Box>
-          <Box className="min-w-32 grow-1">
+          <Box className="w-40 shrink-0 grow-0">
             <CustomSelect
               label="Статус"
               items={statusItems}
@@ -187,18 +188,19 @@ const UserEditor = (props: IUserEditorProps) => {
               error={!!errors.status}
             />
           </Box>
+
+          {!isNewUser && (
+            <Box className="w-50">
+              <BtnMain
+                btnClick={() => setPassIsActive(!passIsActive)}
+                btnText={passIsActive ? 'Не изменять пароль' : 'Изменить пароль'}
+                fullWidth
+                color="inherit"
+                variant={passIsActive ? 'contained' : 'outlined'}
+              />
+            </Box>
+          )}
         </Box>
-        {!isNewUser && (
-          <Box className="w-60">
-            <BtnMain
-              btnClick={() => setPassIsActive(!passIsActive)}
-              btnText={passIsActive ? 'Не изменять пароль' : 'Изменить пароль'}
-              fullWidth
-              color="inherit"
-              variant={passIsActive ? 'contained' : 'outlined'}
-            />
-          </Box>
-        )}
 
         <Box className="mt-8 flex w-full flex-col gap-5">
           <Divider />

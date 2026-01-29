@@ -13,8 +13,8 @@ export enum UserGender {
 }
 
 export const userGenderMap: Record<UserGender, string> = {
-  male: 'Муж.',
-  female: 'Жен.',
+  male: 'Мужчина',
+  female: 'Женщина',
 };
 
 export enum UserStatus {

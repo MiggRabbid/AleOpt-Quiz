@@ -31,6 +31,7 @@ const CustomInput = (props: ICustomInputProps) => {
             padding: '0',
           },
           ['.MuiFormLabel-root']: {
+            fontWeight: '500',
             color: error
               ? 'rgb(199, 0, 54) !important'
               : 'oklch(27.9% 0.041 260.031) !important',
@@ -57,15 +58,17 @@ const CustomInput = (props: ICustomInputProps) => {
             backgroundColor: 'oklch(76.5% 0.177 163.223 / 0.15) !important',
           },
         }}
-        InputProps={{
-          endAdornment: (
-            <CustomEndAdornment
-              disabled={disabled}
-              type={type}
-              showPassword={showPassword}
-              setShowPassword={setShowPassword}
-            />
-          ),
+        slotProps={{
+          input: {
+            endAdornment: (
+              <CustomEndAdornment
+                disabled={disabled}
+                type={type}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+              />
+            ),
+          },
         }}
       />
       <FormHelperText error={!!error} className="mx-3! mt-1! h-6 h-8 min-h-8 text-xs!">

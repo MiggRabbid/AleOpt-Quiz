@@ -34,15 +34,40 @@ const CustomMultilineInput = (props: ICustomMultilineInputProps) => {
         disabled={disabled}
         sx={{
           borderRadius: '50% !important',
-          '.MuiInputBase-root': {
+          ['.MuiInputBase-root']: {
             borderRadius: '12px !important',
-            padding: '15px',
+            padding: '0',
           },
-          '.MuiOutlinedInput-notchedOutline': {
-            borderRadius: '12px !important',
+          ['.MuiFormLabel-root']: {
+            fontWeight: '500',
+            color: error
+              ? 'rgb(199, 0, 54) !important'
+              : 'oklch(27.9% 0.041 260.031) !important',
+            ['&.Mui-focused']: {
+              color: 'rgb(45, 125, 50) !important',
+            },
+          },
+          ['.MuiOutlinedInput-root']: {
+            padding: '16px 20px !important',
+            ['.MuiOutlinedInput-notchedOutline']: {
+              borderRadius: '12px !important',
+              borderWidth: '2px !important',
+              borderColor: error
+                ? 'rgb(199, 0, 54) !important'
+                : 'oklch(27.9% 0.041 260.031) !important',
+            },
+            ['&.Mui-focused']: {
+              ['.MuiOutlinedInput-notchedOutline']: {
+                borderColor: 'rgb(45, 125, 50) !important',
+              },
+            },
+          },
+
+          ['&:hover']: {
+            backgroundColor: 'oklch(76.5% 0.177 163.223 / 0.15) !important',
           },
         }}
-        inputProps={{
+        slotProps={{
           input: { sx: { ...inputSx } },
         }}
       />
