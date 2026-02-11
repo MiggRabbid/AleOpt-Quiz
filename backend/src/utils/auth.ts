@@ -2,7 +2,7 @@ import jwt, { type JwtPayload } from 'jsonwebtoken';
 
 import { getRequiredEnv } from '../config/env';
 import { UserRoles } from '../modules/user/user.types';
-import type { IAuthUserPayload } from '../middleware/types';
+import type { IAuthUserPayload } from '../common/types/auth.types';
 
 const secretKey = getRequiredEnv('SECRET_KEY');
 

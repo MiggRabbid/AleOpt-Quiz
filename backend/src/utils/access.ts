@@ -1,5 +1,5 @@
 import { UserRoles } from '../modules/user/user.types';
-import type { IAuthUserPayload } from '../middleware/types';
+import type { IAuthUserPayload } from '../common/types/auth.types';
 
 export const hasElevatedRole = (role?: UserRoles): boolean =>
   role === UserRoles.Owner || role === UserRoles.Admin;

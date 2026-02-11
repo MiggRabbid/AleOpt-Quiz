@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 
 import { ERROR_PRESETS } from '../../config/error.config';
 import { HttpError } from '../../errors/http-error';
-import type { IAuthUserPayload } from '../../middleware/types';
+import type { IAuthUserPayload } from '../../common/types/auth.types';
 import { canAccessUsername, hasElevatedRole } from '../../utils/access';
 import { getUserStats, sortUsersByRole } from '../../utils';
 import Results from '../result/result.model';

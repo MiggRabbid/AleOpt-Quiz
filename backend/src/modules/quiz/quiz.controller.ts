@@ -1,30 +1,39 @@
-import type { Request, Response } from 'express';
+import { Body, Controller, Delete, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
 
-import type { IQuestionModel, IQuizQuery } from './quiz.types';
+import { type IQuestionModel } from './quiz.types';
 import quizService from './quiz.service';
+import { UserRoles } from '../user/user.types';
+import { RequiredRole } from '../../common/decorators/required-role.decorator';
+import AuthGuard from '../../common/guards/auth.guard';
+import RoleGuard from '../../common/guards/role.guard';
 
-class QuizController {
-  async allQuestions(_request: Request, response: Response): Promise<void> {
-    const questions = await quizService.getAllQuestions();
-    response.json(questions);
+@Controller('data')
+@UseGuards(RoleGuard)
+export default class QuizController {
+  @Get('questions')
+  @UseGuards(AuthGuard)
+  async allQuestions(): Promise<IQuestionModel[]> {
+    return quizService.getAllQuestions();
   }
 
-  async newQuestion(request: Request, response: Response): Promise<void> {
-    const questions = await quizService.createQuestion(request.body as IQuestionModel);
-    response.json(questions);
+  @Post('question')
+  @RequiredRole(UserRoles.Admin)
+  async newQuestion(@Body() payload: IQuestionModel): Promise<IQuestionModel[]> {
+    return quizService.createQuestion(payload);
   }
 
-  async editQuestion(request: Request, response: Response): Promise<void> {
-    const query = request.query as IQuizQuery;
-    const questions = await quizService.updateQuestion(query.id, request.body as IQuestionModel);
-    response.json(questions);
+  @Put('question')
+  @RequiredRole(UserRoles.Admin)
+  async editQuestion(
+    @Query('id') id: string | undefined,
+    @Body() payload: IQuestionModel,
+  ): Promise<IQuestionModel[]> {
+    return quizService.updateQuestion(id, payload);
   }
 
-  async deleteQuestion(request: Request, response: Response): Promise<void> {
-    const query = request.query as IQuizQuery;
-    const questions = await quizService.deleteQuestion(query.id);
-    response.json(questions);
+  @Delete('question')
+  @RequiredRole(UserRoles.Admin)
+  async deleteQuestion(@Query('id') id: string | undefined): Promise<IQuestionModel[]> {
+    return quizService.deleteQuestion(id);
   }
 }
-
-export default new QuizController();

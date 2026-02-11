@@ -1,6 +1,6 @@
 import { ERROR_PRESETS } from '../../config/error.config';
 import { HttpError } from '../../errors/http-error';
-import type { IAuthUserPayload } from '../../middleware/types';
+import type { IAuthUserPayload } from '../../common/types/auth.types';
 import { canAccessUsername } from '../../utils/access';
 import { getQuestionStats, getUserStats } from '../../utils';
 import Results from './result.model';

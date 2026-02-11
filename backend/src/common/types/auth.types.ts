@@ -1,6 +1,5 @@
 import type { Request } from 'express';
-
-import type { UserRoles } from '../modules/user/user.types';
+import { UserRoles } from '../../modules/user/user.types';
 
 export interface IAuthUserPayload {
   role: UserRoles;

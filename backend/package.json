@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/main.ts",
     "build": "tsc -p tsconfig.json",
     "lint": "npx eslint --ext ts,tsx --no-eslintrc --config .eslintrc.json .",
     "fix": "npx eslint --fix .",
@@ -22,16 +22,20 @@
     "url": "https://github.com/MiggRabbid/AleOpt-Quiz/issues"
   },
   "dependencies": {
+    "@nestjs/common": "^11.0.11",
+    "@nestjs/core": "^11.0.11",
+    "@nestjs/platform-express": "^11.0.11",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "express-validator": "^7.0.1",
     "helmet": "^8.1.0",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4",
-    "qs": "^6.14.1"
+    "qs": "^6.14.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
