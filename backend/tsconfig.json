@@ -7,8 +7,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./src"
   },
-  "include": ["src/**/*.ts", "src/index.ts", "src/providers/index.ts", "src/providers/SessionProvider.tsx"],
+  "include": ["src/**/*.ts", "src/index.ts"],
   "exclude": ["node_modules"]
 }

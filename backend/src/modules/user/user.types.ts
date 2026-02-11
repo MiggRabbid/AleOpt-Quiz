@@ -1,22 +1,16 @@
-import type { Request, Response } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
+import type { Document } from 'mongoose';
 
-import { Document } from 'mongoose';
-import { IErrorResponse } from './errors.types';
-// import { iAverageAttempts } from './statsTypes';
-
-// eslint-disable-next-line no-shadow
 export enum UserRoles {
   Admin = 'Admin',
   Employee = 'Employee',
   Owner = 'Owner',
 }
-// eslint-disable-next-line no-shadow
+
 export enum UserStatus {
   Active = 'active',
   Inactive = 'inactive',
 }
-// eslint-disable-next-line no-shadow
+
 export enum UserGender {
   Male = 'male',
   Female = 'female',
@@ -86,9 +80,3 @@ export interface IUpdateUserData {
   image?: string;
   status: string | UserStatus;
 }
-
-export type TUserRes = IResponseShortUser | IErrorResponse;
-export type TAllUsersRes = IResponseUser[] | IErrorResponse;
-
-export type TUserCustomRequest = Request<ParamsDictionary, any, ICreateUserData, IUserQuery>;
-export type TUserCustomResponse = Response<TAllUsersRes>;

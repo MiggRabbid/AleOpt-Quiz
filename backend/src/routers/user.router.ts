@@ -1,19 +1,14 @@
-import { Router, RequestHandler } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
+import { Router } from 'express';
 import { check } from 'express-validator';
-import { ParsedQs } from 'qs';
 
-import { userController } from '../controllers';
-import { authMiddleware, roleMiddleware } from '../middleware';
-
-import { UserRoles, IResponseUser, ICreateUserData, IErrorResponse } from '../types';
-
-type NewUserHandler = RequestHandler<
-  ParamsDictionary, // params
-  IResponseUser[] | IErrorResponse, // res body
-  ICreateUserData, // body
-  ParsedQs // query
->;
+import {
+  asyncMiddleware,
+  authMiddleware,
+  roleMiddleware,
+  validationMiddleware,
+} from '../middleware';
+import userController from '../modules/user/user.controller';
+import { UserRoles } from '../modules/user/user.types';
 
 const VALIDATION_ERROR_USERNAME = 'Логин должен быть от 4 до 20 символов';
 const VALIDATION_ERROR_PASSWORD = 'Пароль должен быть от 6 до 20 символов';
@@ -33,28 +28,35 @@ const validateName = [
 const validateNewUser = [...validateUsernameAndPassword, ...validateName];
 
 const userRouter = Router();
+
 userRouter.get(
   '/users',
   roleMiddleware(UserRoles.Admin),
-  userController.allUsers as NewUserHandler,
+  asyncMiddleware(userController.allUsers.bind(userController)),
 );
-userRouter.get('/user', authMiddleware, userController.currentUser);
+userRouter.get(
+  '/user',
+  authMiddleware,
+  asyncMiddleware(userController.currentUser.bind(userController)),
+);
 userRouter.post(
   '/user',
-  validateNewUser,
   roleMiddleware(UserRoles.Admin),
-  userController.newUser as NewUserHandler,
+  validateNewUser,
+  validationMiddleware,
+  asyncMiddleware(userController.newUser.bind(userController)),
 );
 userRouter.put(
   '/user',
   roleMiddleware(UserRoles.Admin),
   validateNewUser,
-  userController.editUser as NewUserHandler,
+  validationMiddleware,
+  asyncMiddleware(userController.editUser.bind(userController)),
 );
 userRouter.delete(
   '/user/',
   roleMiddleware(UserRoles.Admin),
-  userController.deleteUser as NewUserHandler,
+  asyncMiddleware(userController.deleteUser.bind(userController)),
 );
 
 export default userRouter;

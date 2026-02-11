@@ -1,14 +1,29 @@
 import { Router } from 'express';
 
-import { resultController } from '../controllers';
-import { authMiddleware, roleMiddleware } from '../middleware';
-
-import { UserRoles } from '../types';
+import { asyncMiddleware, authMiddleware, roleMiddleware } from '../middleware';
+import resultController from '../modules/result/result.controller';
+import { UserRoles } from '../modules/user/user.types';
 
 const resultsRouter = Router();
-resultsRouter.get('/results', roleMiddleware(UserRoles.Admin), resultController.allResults);
-resultsRouter.post('/result', authMiddleware, resultController.addResult);
-resultsRouter.get('/result', authMiddleware, resultController.userResult);
-resultsRouter.get('/stats', authMiddleware, resultController.questionStats);
+resultsRouter.get(
+  '/results',
+  roleMiddleware(UserRoles.Admin),
+  asyncMiddleware(resultController.allResults.bind(resultController)),
+);
+resultsRouter.post(
+  '/result',
+  authMiddleware,
+  asyncMiddleware(resultController.addResult.bind(resultController)),
+);
+resultsRouter.get(
+  '/result',
+  authMiddleware,
+  asyncMiddleware(resultController.userResult.bind(resultController)),
+);
+resultsRouter.get(
+  '/stats',
+  authMiddleware,
+  asyncMiddleware(resultController.questionStats.bind(resultController)),
+);
 
 export default resultsRouter;

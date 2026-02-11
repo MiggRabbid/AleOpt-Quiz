@@ -1,13 +1,17 @@
 import {
-  IResultEntry,
-  IResultModel,
-  IUserAnswer,
-  IAverageAttempts,
-  IUserStats,
-  TypeAnswerId,
-} from '../../types';
+  type IResultEntry,
+  type IResultModel,
+  type IUserAnswer,
+  type IAverageAttempts,
+  type IUserStats,
+  type TypeAnswerId,
+} from '../../modules/result/result.types';
 
 export const getAverageResult = (attempts: IResultEntry[]): number => {
+  if (attempts.length === 0) {
+    return 0;
+  }
+
   const currDivisor = attempts.length;
 
   const sumPercentage = attempts.reduce((acc, item: IResultEntry) => {
@@ -49,6 +53,7 @@ export const getAverageAttempts = (attempts: IResultEntry[]): IAverageAttempts =
 
 export const getUserStats = (userResults: IResultModel): IUserStats => {
   const { username, attempts } = userResults;
+
   return {
     username,
     attempts,

@@ -1,70 +1,57 @@
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
-import type { Request, Response, NextFunction } from 'express';
+import { TokenExpiredError } from 'jsonwebtoken';
+import type { Response, NextFunction } from 'express';
 
-dotenv.config();
+import type { IAuthenticatedRequest } from './types';
+import { ERROR_PRESETS, toErrorResponse } from '../config/error.config';
+import { UserRoles } from '../modules/user/user.types';
+import { extractBearerToken, verifyAccessToken } from '../utils/auth';
+import { hasElevatedRole } from '../utils/access';
 
-if (!process.env.SECRET_KEY) {
-  throw new Error('SECRET_KEY не найден');
-}
-
-const secret = process.env.SECRET_KEY;
-
-const errorTypeMap = {
-  authError: 'authError',
-  isNotAdmin: 'isNotAdmin',
-};
-
-const errorMsgMap = {
-  authError: 'Пользователь не авторизован',
-  isNotAdmin: 'У вас нет доступа',
-};
-
-const roleMiddleware = (role: string) => {
-  return (request: Request, response: Response, next: NextFunction): void => {
+const roleMiddleware = (requiredRole: UserRoles) => {
+  return (request: IAuthenticatedRequest, response: Response, next: NextFunction): void => {
     if (request.method === 'OPTIONS') {
       next();
+      return;
     }
 
-    const authHeader = request.headers.authorization || '';
-
-    if (!authHeader?.startsWith('Bearer ')) {
-      response.status(403).json({
-        message: errorMsgMap.authError,
-        typeError: errorTypeMap.authError,
-      });
+    const token = extractBearerToken(request.headers.authorization);
+    if (!token) {
+      response
+        .status(ERROR_PRESETS.authUnauthorized.statusCode)
+        .json(toErrorResponse(ERROR_PRESETS.authUnauthorized));
+      return;
     }
 
     try {
-      const token = authHeader.slice(7);
+      const payload = verifyAccessToken(token);
+      request.user = payload;
 
-      if (!token) {
+      const isRequiredRole = payload.role === requiredRole;
+      const isElevated = hasElevatedRole(payload.role);
+      const allowed =
+        isRequiredRole ||
+        (requiredRole === UserRoles.Admin && isElevated) ||
+        (requiredRole === UserRoles.Owner && payload.role === UserRoles.Owner);
+
+      if (!allowed) {
         response
-          .status(403)
-          .json({ message: errorMsgMap.authError, typeError: errorTypeMap.authError });
-        return;
-      }
-
-      const decodedData = jwt.verify(token, secret) as jwt.JwtPayload;
-
-      const userRole = decodedData.role;
-      const isAdmin = userRole === role;
-      const isOwner = userRole === role;
-
-      console.log(`BACK / roleMiddleware - ${JSON.stringify(decodedData)}`);
-      if (!isAdmin && !isOwner) {
-        response
-          .status(403)
-          .json({ message: errorMsgMap.isNotAdmin, typeError: errorTypeMap.isNotAdmin });
+          .status(ERROR_PRESETS.accessDenied.statusCode)
+          .json(toErrorResponse(ERROR_PRESETS.accessDenied));
         return;
       }
 
       next();
-    } catch (e) {
-      console.error('BACK / roleMiddleware', e);
+    } catch (error) {
+      if (error instanceof TokenExpiredError) {
+        response
+          .status(ERROR_PRESETS.authTokenExpired.statusCode)
+          .json(toErrorResponse(ERROR_PRESETS.authTokenExpired));
+        return;
+      }
+
       response
-        .status(403)
-        .json({ message: errorMsgMap.isNotAdmin, typeError: errorTypeMap.isNotAdmin });
+        .status(ERROR_PRESETS.accessDenied.statusCode)
+        .json(toErrorResponse(ERROR_PRESETS.accessDenied));
     }
   };
 };

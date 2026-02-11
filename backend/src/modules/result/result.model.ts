@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import type { IResultModel } from '../types';
+import type { IResultModel } from './result.types';
 
 const UserAnswerSchema = new Schema(
   {

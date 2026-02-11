@@ -1,4 +1,9 @@
-import { IResultEntry, IResultModel, IUserAnswer, IQuestionStats } from '../../types';
+import type {
+  IResultEntry,
+  IResultModel,
+  IUserAnswer,
+  IQuestionStats,
+} from '../../modules/result/result.types';
 
 export const getQuestionStats = (questionId: string, userStats: IResultModel[]): IQuestionStats => {
   const questionStats: IQuestionStats = {
@@ -21,9 +26,11 @@ export const getQuestionStats = (questionId: string, userStats: IResultModel[]):
     });
   });
 
-  questionStats.averageResult += Math.round(
-    questionStats.correctAnswers / questionStats.numberAttempts,
-  );
+  if (questionStats.numberAttempts > 0) {
+    questionStats.averageResult = Math.round(
+      questionStats.correctAnswers / questionStats.numberAttempts,
+    );
+  }
 
   return questionStats;
 };

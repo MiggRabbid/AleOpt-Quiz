@@ -1,35 +1,29 @@
-import { Router, RequestHandler } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
-import { ParsedQs } from 'qs';
+import { Router } from 'express';
 
-import { quizController } from '../controllers';
-import { authMiddleware, roleMiddleware } from '../middleware';
-
-import { IQuestionModel, IErrorResponse, UserRoles } from '../types';
-
-type NewQuizHandler = RequestHandler<
-  ParamsDictionary, // params
-  IQuestionModel[] | IErrorResponse, // res body
-  IQuestionModel, // body
-  ParsedQs // query
->;
+import { asyncMiddleware, authMiddleware, roleMiddleware } from '../middleware';
+import quizController from '../modules/quiz/quiz.controller';
+import { UserRoles } from '../modules/user/user.types';
 
 const quizRouter = Router();
-quizRouter.get('/questions', authMiddleware, quizController.allQuestions);
+quizRouter.get(
+  '/questions',
+  authMiddleware,
+  asyncMiddleware(quizController.allQuestions.bind(quizController)),
+);
 quizRouter.post(
   '/question',
   roleMiddleware(UserRoles.Admin),
-  quizController.newQuestion as NewQuizHandler,
+  asyncMiddleware(quizController.newQuestion.bind(quizController)),
 );
 quizRouter.put(
   '/question',
   roleMiddleware(UserRoles.Admin),
-  quizController.editQuestion as NewQuizHandler,
+  asyncMiddleware(quizController.editQuestion.bind(quizController)),
 );
 quizRouter.delete(
   '/question',
   roleMiddleware(UserRoles.Admin),
-  quizController.deleteQuestion as NewQuizHandler,
+  asyncMiddleware(quizController.deleteQuestion.bind(quizController)),
 );
 
 export default quizRouter;

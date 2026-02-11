@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import router from './routers';
 import { connectDB } from './config/db';
+import { errorMiddleware } from './middleware';
 
 dotenv.config();
 
@@ -14,13 +15,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use('/api', router);
+app.use(errorMiddleware);
 
 const start = async () => {
   try {
     await connectDB();
-    app.listen(PORT, () => console.log(`BACK / START SERVER - port: ${PORT}`));
+    app.listen(PORT, () => {
+      console.log(`BACK / START SERVER - port: ${PORT}`);
+    });
   } catch (e) {
     console.error('BACK / start', e);
+    process.exit(1);
   }
 };
 

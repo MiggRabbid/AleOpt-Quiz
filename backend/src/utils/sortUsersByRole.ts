@@ -1,4 +1,4 @@
-import { type IResponseUser, UserRoles } from '../types';
+import { type IResponseUser, UserRoles } from '../modules/user/user.types';
 
 const roleMapping: { [key in UserRoles]: number } = {
   [UserRoles.Owner]: 1,

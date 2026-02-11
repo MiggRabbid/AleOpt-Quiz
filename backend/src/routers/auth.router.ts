@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 
-import { authController } from '../controllers';
+import { asyncMiddleware, validationMiddleware } from '../middleware';
+import authController from '../modules/auth/auth.controller';
 
 const VALIDATION_ERROR_USERNAME = 'Username must be between 4 and 20 characters';
 const VALIDATION_ERROR_PASSWORD = 'Password must be between 6 and 20 characters';
@@ -12,6 +13,11 @@ const validateUsernameAndPassword = [
 ];
 
 const authRouter = Router();
-authRouter.post('/login', validateUsernameAndPassword, authController.login);
+authRouter.post(
+  '/login',
+  validateUsernameAndPassword,
+  validationMiddleware,
+  asyncMiddleware(authController.login.bind(authController)),
+);
 
 export default authRouter;
