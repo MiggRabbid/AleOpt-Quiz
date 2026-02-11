@@ -150,8 +150,8 @@ const QuestionEditor = (props: IQuestionEditorProps) => {
               isLoading={isSubmitting}
               leftBtnText="Отменить"
               leftBtnClick={clickOnClose}
-              leftBtnColor="success"
-              leftBtnVariant="outlined"
+              leftBtnColor="secondary"
+              leftBtnVariant="contained"
               rightBtnText="Сохранить"
               rightBtnType="submit"
               rightBtnColor="success"

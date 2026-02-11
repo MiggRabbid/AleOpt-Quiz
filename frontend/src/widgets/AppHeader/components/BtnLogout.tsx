@@ -24,7 +24,8 @@ const BtnLogout = () => {
       <BtnSmall
         btnText="Выход"
         btnClick={handelClickBtn}
-        variant="text"
+        variant="contained"
+        color="secondary"
         fullWidth
         IconRight={<CustomIcon name="Logout" />}
         disabled={isQuizPage}

@@ -2,14 +2,14 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import clsx from 'clsx';
 // Компоненты
 import { CustomIcon } from '@/shared/ui/other/CustomIcon';
-//
-
+import { CustomCardWrapper } from '@/shared/ui';
+// Типизация
 import type { Dispatch, SetStateAction } from 'react';
 import type { TLibraryIconMUIName } from '@/shared/ui/other/CustomIcon';
 import { TypeStatsTab } from '../../../component.types';
-import { CustomCardWrapper } from '@/shared/ui';
 
 interface ICustomButtonGroupProps {
   activeTab: TypeStatsTab;
@@ -63,24 +63,41 @@ const BtnItem = ({
   onClick?: () => void;
 }) => {
   const positionLeft = position === 'left';
+
+  const BtnClass = clsx(
+    'flex h-10! min-h-10! w-40! min-w-40! flex-row items-center justify-center gap-2 py-2 leading-none! font-bold! shadow-none! outline-0!',
+    positionLeft ? 'rounded-s-xl!' : 'rounded-e-xl!',
+  );
   return (
     <Button
-      color="success"
-      className={`flex h-10! min-h-10! w-40! min-w-40! flex-row items-center justify-center gap-2 py-2 leading-none! font-bold! shadow-none! outline-0! ${!isActive ? 'bg-white!' : ''} ${positionLeft ? 'rounded-s-xl!' : 'rounded-e-xl!'}`}
-      variant={isActive ? 'contained' : 'text'}
+      color={isActive ? 'primary' : 'secondary'}
+      variant="contained"
+      className={BtnClass}
       onClick={onClick}
+      sx={{
+        '&:hover': {
+          backgroundColor: (theme) => {
+            if (isActive) return theme.palette.primary.main;
+            return theme.palette.secondary.main;
+          },
+        },
+      }}
+      endIcon={
+        !positionLeft && (
+          <Box className="h-6 w-6">
+            <CustomIcon name={name} />
+          </Box>
+        )
+      }
+      startIcon={
+        positionLeft && (
+          <Box className="h-6 w-6">
+            <CustomIcon name={name} />
+          </Box>
+        )
+      }
     >
-      {positionLeft && (
-        <Box className="h-6 w-6">
-          <CustomIcon name={name} />
-        </Box>
-      )}
       {text}
-      {!positionLeft && (
-        <Box className="h-6 w-6">
-          <CustomIcon name={name} />
-        </Box>
-      )}
     </Button>
   );
 };

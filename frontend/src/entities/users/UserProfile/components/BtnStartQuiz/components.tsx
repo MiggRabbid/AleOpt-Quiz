@@ -45,7 +45,6 @@ const BtnStartQuiz = () => {
         btnClick={handelClickBtn}
         fullWidth
         isLoading={isPending}
-        variant="contained"
         color={unfinishedAttempt ? 'warning' : 'success'}
       />
     </Box>

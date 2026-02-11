@@ -62,7 +62,7 @@ const QuestionDelete = ({ clickOnClose }: IQuestionDeleteProps) => {
             leftBtnText="Отменить"
             leftBtnClick={clickOnClose}
             leftBtnColor="success"
-            leftBtnVariant="outlined"
+            leftBtnVariant="contained"
             rightBtnText="Удалить"
             rightBtnType="button"
             rightBtnClick={clickOnDelete}

@@ -195,8 +195,7 @@ const UserEditor = (props: IUserEditorProps) => {
                 btnClick={() => setPassIsActive(!passIsActive)}
                 btnText={passIsActive ? 'Не изменять пароль' : 'Изменить пароль'}
                 fullWidth
-                color="inherit"
-                variant={passIsActive ? 'contained' : 'outlined'}
+                color={passIsActive ? 'secondary' : 'primary'}
               />
             </Box>
           )}
@@ -208,8 +207,8 @@ const UserEditor = (props: IUserEditorProps) => {
             isLoading={isSubmitting}
             leftBtnText="Отменить"
             leftBtnClick={clickOnClose}
-            leftBtnColor="success"
-            leftBtnVariant="outlined"
+            leftBtnColor="secondary"
+            leftBtnVariant="contained"
             rightBtnText="Сохранить"
             rightBtnType="submit"
             rightBtnColor="success"

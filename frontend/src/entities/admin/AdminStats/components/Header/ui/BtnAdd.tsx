@@ -12,7 +12,7 @@ const BtnAdd = (props: IBtnAddProps) => {
 
   const btnText = `Добавить ${activeTab === TypeStatsTab.users ? 'сотрудника' : 'вопрос'}`;
 
-  return <BtnSmall btnText={btnText} variant="text" btnClick={openEditor} />;
+  return <BtnSmall btnText={btnText} variant="contained" btnClick={openEditor} />;
 };
 
 export { BtnAdd };

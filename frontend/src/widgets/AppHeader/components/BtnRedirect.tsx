@@ -5,6 +5,7 @@ import { useAuthContext, useNavigate } from '@app/hooks';
 import { routes } from '@app/router';
 // Компоненты
 import { BtnSmall } from '@/shared/ui/btns';
+import { CustomIcon } from '@/shared/ui';
 // Типизация
 
 export const BtnRedirect = () => {
@@ -30,9 +31,11 @@ export const BtnRedirect = () => {
       <BtnSmall
         btnText={getBtnText()}
         btnClick={handelClickBtn}
-        variant="text"
+        variant="contained"
+        color="secondary"
         fullWidth
         disabled={isQuizPage}
+        IconRight={<CustomIcon name="Home" />}
       />
     </Box>
   );

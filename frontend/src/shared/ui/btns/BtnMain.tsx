@@ -2,13 +2,15 @@
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
+import type { ButtonProps } from '@mui/material/Button';
+
 export interface IBtnMainProps {
   btnText: string;
   btnClick?: () => void;
   isLoading?: boolean;
   fullWidth?: boolean;
-  variant?: 'text' | 'contained' | 'outlined';
-  color?: 'success' | 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'warning';
+  variant?: 'text' | 'contained';
+  color?: ButtonProps['color'];
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
 }
@@ -19,8 +21,9 @@ const BtnMain = (props: IBtnMainProps) => {
     btnClick,
     fullWidth,
     isLoading,
-    variant = 'text',
-    color = 'success',
+    disabled,
+    variant = 'contained',
+    color = 'primary',
     type = 'button',
   } = props;
   return (
@@ -30,11 +33,15 @@ const BtnMain = (props: IBtnMainProps) => {
       variant={variant}
       color={color}
       type={type}
-      disabled={isLoading || props.disabled}
-      className={`h-14! min-h-14! rounded-xl! ${variant === 'text' ? 'bg-white!' : ''} outline-0!" leading-none! font-bold! shadow-none! hover:shadow-md!`}
+      disabled={isLoading || disabled}
+      className="shover:shadow-md! h-14! min-h-14! rounded-xl! px-5! py-1! leading-none! font-bold! shadow-sm! hover:shadow-md!"
       sx={{
-        paddingX: '20px',
-        paddingY: '5px',
+        '&:hover': {
+          backgroundColor: (theme) => {
+            if (!color || color === 'inherit') return 'inherit';
+            return theme.palette[color].main;
+          },
+        },
       }}
     >
       {isLoading && <CircularProgress sx={{ color: 'white !important' }} size={30} />}

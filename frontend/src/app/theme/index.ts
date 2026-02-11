@@ -15,8 +15,8 @@ export const customThemeMUI = createTheme(
         contrastText: '#fff',
       },
       secondary: {
-        main: '#ff8904',
-        contrastText: '#fff',
+        main: '#fff',
+        contrastText: '#007a55',
       },
       error: {
         main: '#c70036',
