@@ -21,6 +21,7 @@ const start = async () => {
     app.listen(PORT, () => console.log(`BACK / START SERVER - port: ${PORT}`));
   } catch (e) {
     console.error('BACK / start', e);
+    process.exit(1);
   }
 };
 
