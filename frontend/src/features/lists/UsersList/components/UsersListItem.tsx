@@ -1,35 +1,34 @@
 // Библиотеки
 import { memo, useCallback, useMemo } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 // Логика
-import { useAppActions, useAuthContext } from '@/app/hooks';
-import { useGetAllUsersStats } from '@/app/api/hooks';
+import { useAppActions } from '@/app/hooks';
 // Компоненты
 import { UserStats } from '@/entities/users';
 import { BtnGroupEdit, PlugForEmptyData } from '@/shared/ui';
 // Типизация
 import type { MouseEvent } from 'react';
 import type { iResponseLogin, iUser, iUserStats } from '@/app/types';
-import { TTypeModal, UserRoles, UserStatus } from '@/app/types';
+import { TTypeModal, UserGender, UserRoles, UserStatus } from '@/app/types';
 import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
 
 interface IUsersListItemProps {
   user: iUser;
   index: number;
   activeUser: boolean;
-  usersStats?: any;
+  usersStats: iUserStats[];
+  currUser: iResponseLogin | null;
 }
 
-const UsersListItem = ({ user, index, activeUser }: IUsersListItemProps) => {
-  const { isAuth, user: currUser } = useAuthContext();
+const UsersListItem = ({
+  user,
+  index,
+  activeUser,
+  usersStats,
+  currUser,
+}: IUsersListItemProps) => {
   const { openUserEditor } = useAppActions();
-
-  const { data: usersStats } = useQuery({
-    ...useGetAllUsersStats(),
-    enabled: isAuth && !!currUser?.username,
-  });
 
   const currStats = useMemo(
     () => usersStats?.find((stat) => stat.username === user.username),
@@ -84,6 +83,9 @@ const UsersListItemSummary = ({
   user: iUser;
   activeUser: boolean;
 }) => {
+  const isEmployee = user.role === UserRoles.Employee;
+  const isInactiveUser = user.status === UserStatus.Inactive;
+
   const attemptClass = clsx(
     'flex h-full! w-fit! items-center justify-center rounded-full! px-3! py-1! text-xs! leading-none! font-bold!',
     {
@@ -104,11 +106,7 @@ const UsersListItemSummary = ({
     },
   );
 
-  const isInactiveUser = user.status === UserStatus.Inactive;
-  const usernameClass = clsx(
-    'me-2!',
-    isInactiveUser ? 'line-through decoration-2! decoration-slate-400!' : '',
-  );
+  const usernameClass = clsx('me-2! font-bold!', { 'text-slate-400!': isInactiveUser });
 
   return (
     <Box className="flex grow-1 items-center">
@@ -122,19 +120,13 @@ const UsersListItemSummary = ({
             {`${user.firstName} ${user.lastName}`}
           </Typography>
 
-          {user.role !== UserRoles.Employee && (
-            <Typography className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! text-slate-600!">
-              {user.role}
-            </Typography>
-          )}
-
-          {activeUser && (
-            <Typography
-              component="span"
-              className="flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! text-slate-600!"
-            >
-              это вы
-            </Typography>
+          {!isEmployee && <UserListItemBadge text={user.role} />}
+          {activeUser && <UserListItemBadge text="это вы" />}
+          {isInactiveUser && (
+            <UserListItemBadge
+              light={true}
+              text={user.gender === UserGender.male ? 'уволен' : 'уволена'}
+            />
           )}
         </Box>
         <Box className="flex w-fit shrink-0 flex-row gap-4">
@@ -218,5 +210,17 @@ const UsersListItemDetails = ({
         <PlugForEmptyData />
       )}
     </Box>
+  );
+};
+
+const UserListItemBadge = ({ text, light }: { text: string; light?: boolean }) => {
+  const usernameClass = clsx(
+    'flex h-fit! w-fit! items-center justify-center rounded-full! bg-slate-200! px-2! py-1! text-xs! leading-none! font-bold! ',
+    light ? 'text-slate-400!' : 'text-slate-600!',
+  );
+  return (
+    <Typography component="span" className={usernameClass}>
+      {text}
+    </Typography>
   );
 };

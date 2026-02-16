@@ -1,6 +1,8 @@
 // Библиотеки
 import { memo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 // Логика
+import { useGetAllUsersStats } from '@/app/api/hooks';
 import { useAuthContext } from '@/app/hooks';
 // Компоненты
 import { PlugForEmptyData } from '@/shared/ui';
@@ -13,7 +15,12 @@ interface IUsersListProps {
 }
 
 const UsersList = ({ users }: IUsersListProps) => {
-  const { user: currUser } = useAuthContext();
+  const { isAuth, user: currUser } = useAuthContext();
+
+  const { data: usersStats } = useQuery({
+    ...useGetAllUsersStats(),
+    enabled: isAuth && !!currUser?.username,
+  });
 
   if (!users || users.length === 0) {
     return <PlugForEmptyData />;
@@ -27,6 +34,8 @@ const UsersList = ({ users }: IUsersListProps) => {
             key={`UsersListItem-${user.username}`}
             user={user}
             index={index + 1}
+            currUser={currUser}
+            usersStats={usersStats ?? []}
             activeUser={user.username === currUser?.username}
           />
         );
