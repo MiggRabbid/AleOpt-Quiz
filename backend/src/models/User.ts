@@ -27,6 +27,8 @@ const UserSchema = new Schema<IUserModel>({
     required: true,
     default: UserStatus.Active,
   },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date },
 });
 
 const User = model<IUserModel>('User', UserSchema);

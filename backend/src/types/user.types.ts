@@ -37,6 +37,8 @@ export interface IUserModel extends Document {
   image: string;
   gender: UserGender;
   status: UserStatus;
+  createdAt: Date;
+  updatedAt?: Date;
 }
 
 export interface IResponseUser {
@@ -50,6 +52,8 @@ export interface IResponseUser {
   image?: string;
   gender: string | UserGender;
   status: string | UserStatus;
+  createdAt: Date;
+  updatedAt?: Date;
 }
 
 export interface IResponseShortUser {
@@ -85,6 +89,7 @@ export interface IUpdateUserData {
   password?: string;
   image?: string;
   status: string | UserStatus;
+  updatedAt: Date;
 }
 
 export type TUserRes = IResponseShortUser | IErrorResponse;

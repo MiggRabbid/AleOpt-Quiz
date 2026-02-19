@@ -74,9 +74,11 @@ class UserController {
         status: user.status,
         numberAttempts: 0,
         lastResult: null,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
       };
 
-      const result = AllResults.find((result) => result.username === currUser.username);
+      const result = AllResults.find((res) => res.username === currUser.username);
 
       if (result) {
         const userResult = getUserStats(result);
@@ -164,6 +166,7 @@ class UserController {
         image,
         gender,
         status: UserStatus.Active,
+        createdAt: new Date(),
       });
       await newUser.save();
 
@@ -185,6 +188,7 @@ class UserController {
         firstName: request.body.firstName,
         lastName: request.body.lastName,
         status: request.body.status,
+        updatedAt: new Date(),
       };
 
       if (!!request.body.password && request.body.password.length > 0) {
