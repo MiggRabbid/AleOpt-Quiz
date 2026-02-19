@@ -223,6 +223,8 @@ class UserController {
         return response.status(404).json(errorData);
       }
 
+      await Results.findOneAndDelete({ username });
+
       const users = await this.getAllUsers();
       const sortedUser = sortUsersByRole(users);
       return response.json(sortedUser);
