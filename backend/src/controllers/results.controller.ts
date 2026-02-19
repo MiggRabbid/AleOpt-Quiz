@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
-import { getUserStats, getQuestionStats } from '../utils';
+import { getUserStats, getQuestionStats, getQuestionsStatsForAllUsers } from '../utils';
 
-import { Results } from '../models';
+import { Results, User } from '../models';
 import { IUserAnswer } from '../types';
 
 const errorTypeMap = {
@@ -40,6 +40,18 @@ class ResultController {
       const allResults = await Results.find();
       const allStats = allResults.map((result) => getUserStats(result));
       return response.json(allStats);
+    } catch (e) {
+      return this.handleError(response, e, errorMsgMap.getResultError);
+    }
+  }
+
+  async questionsStats(request: Request, response: Response): Promise<Response> {
+    try {
+      const allResults = await Results.find();
+
+      const allUsers = await User.find();
+      const questionsStats = getQuestionsStatsForAllUsers(allResults, allUsers);
+      return response.json(questionsStats);
     } catch (e) {
       return this.handleError(response, e, errorMsgMap.getResultError);
     }
