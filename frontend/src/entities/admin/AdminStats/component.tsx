@@ -4,7 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import { Box, CircularProgress } from '@mui/material';
 // Логика
 import { useAuthContext } from '@/app/hooks';
-import { useGetAllQuestions, useGetAllUsers } from '@/app/api/hooks';
+import {
+  useGetAllQuestions,
+  useGetAllUsers,
+  useGetQuestionsStats,
+} from '@/app/api/hooks';
 // Компоненты
 import { UsersList, QuestionList } from '@/features';
 import { Header } from './components';
@@ -25,6 +29,9 @@ const AdminStats = () => {
     ...useGetAllQuestions(),
     enabled: isAuth && !!user?.username,
   });
+
+  useQuery({ ...useGetQuestionsStats() });
+
   const isLoading = usersIsPending || questionsIsPending;
 
   return (

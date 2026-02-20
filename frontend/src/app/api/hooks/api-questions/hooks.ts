@@ -1,6 +1,6 @@
 import { keepPreviousData, queryOptions, useMutation } from '@tanstack/react-query';
 
-import { useAuthContext } from '@app/hooks';
+import { useAppActions, useAuthContext } from '@app/hooks';
 import {
   queryKeys,
   sendRequest,
@@ -39,9 +39,12 @@ export const useGetAllQuestions = () => {
     retry: false,
   });
 };
-
+/**
+ * Получение статистики всех вопросов
+ */
 export const useGetQuestionsStats = () => {
   const { token } = useAuthContext();
+  const { setQuestionsStats } = useAppActions();
 
   return queryOptions({
     queryKey: [queryKeys.questions.questionStats],
@@ -51,23 +54,10 @@ export const useGetQuestionsStats = () => {
         method: TypeAxiosMethod.get,
         endpoint: REQUEST_PATHS.questionsStats(),
         token: token,
-      }).then((res) => res),
-    retry: false,
-  });
-};
-
-export const useGetQuestionStats = (props: IQuestionRequest) => {
-  const { token } = useAuthContext();
-
-  return queryOptions<IQuestionStatsForAllUsers | null>({
-    queryKey: [queryKeys.questions.questionStats, props.params.id],
-    placeholderData: keepPreviousData,
-    queryFn: (): Promise<IQuestionStatsForAllUsers | null> =>
-      sendRequest<IQuestionsStatsForAllUsers>({
-        method: TypeAxiosMethod.get,
-        endpoint: REQUEST_PATHS.questionsStats(),
-        token: token,
-      }).then((res) => getCurrQuestionStats(props.params.id, res)),
+      }).then((res) => {
+        setQuestionsStats(res);
+        return res;
+      }),
     retry: false,
   });
 };

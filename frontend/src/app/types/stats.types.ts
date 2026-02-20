@@ -53,3 +53,15 @@ export type IQuestionsStatsForAllUsers = Record<
   iQuestion['id'],
   IQuestionStatsForAllUsers
 >;
+
+export interface iStatsState {
+  questionsStats: IQuestionsStatsForAllUsers;
+}
+
+export interface IPayloadSetStatsStateField<
+  K extends keyof iStatsState,
+  V extends iStatsState[K],
+> {
+  field: K;
+  data: V;
+}

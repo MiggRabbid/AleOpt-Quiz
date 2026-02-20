@@ -1,11 +1,13 @@
 // Библиотеки
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 // Логика
-import { useAppActions } from '@app/hooks';
+import { useAppActions, useAppSelector } from '@app/hooks';
+import { getQuestionStatsById } from '@/app/selectors';
 // Компоненты
 import { AnswerListItem, QuestionStats } from '.';
 import { BtnGroupEdit, CustomAppChip, TooltipTypography } from '@/shared/ui';
+import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
 // Типизация
 import type { MouseEvent } from 'react';
 import type {
@@ -14,9 +16,6 @@ import type {
   typeQuestionAnswer,
 } from '@app/types';
 import { TTypeModal } from '@app/types';
-import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
-import { useGetQuestionStats } from '@/app/api/hooks';
-import { useQuery } from '@tanstack/react-query';
 
 interface IQuestionListItemProps {
   question: iQuestion;
@@ -27,9 +26,7 @@ const QuestionListItem = (props: IQuestionListItemProps) => {
   const { index, question } = props;
   const { openQuestionEditor } = useAppActions();
 
-  const { data: questionStats } = useQuery({
-    ...useGetQuestionStats({ params: { id: question.id } }),
-  });
+  const questionStats = useAppSelector(getQuestionStatsById(question.id));
 
   const handelClickOnEdit = (e: MouseEvent) => {
     e.preventDefault();
