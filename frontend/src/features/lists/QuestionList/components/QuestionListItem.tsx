@@ -1,11 +1,11 @@
 // Библиотеки
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 // Логика
 import { useAppActions } from '@app/hooks';
 // Компоненты
 import { AnswerListItem, QuestionStats } from '.';
-import { BtnGroupEdit, TooltipTypography } from '@/shared/ui';
+import { BtnGroupEdit, CustomAppChip, TooltipTypography } from '@/shared/ui';
 // Типизация
 import type { MouseEvent } from 'react';
 import type {
@@ -31,16 +31,6 @@ const QuestionListItem = (props: IQuestionListItemProps) => {
     ...useGetQuestionStats({ params: { id: question.id } }),
   });
 
-  useEffect(() => {
-    if (questionStats) {
-      console.group(
-        `${questionStats.questionId} - ${questionStats.question.slice(0, 15)}`,
-      );
-      console.log(questionStats);
-      console.groupEnd();
-    }
-  }, [questionStats]);
-
   const handelClickOnEdit = (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -63,7 +53,11 @@ const QuestionListItem = (props: IQuestionListItemProps) => {
     <CustomAccordion
       ariaControls={`QuestionListItem-${question.id}`}
       SummaryChildren={
-        <QuestionListItemSummary index={index} question={question.question} />
+        <QuestionListItemSummary
+          index={index}
+          question={question.question}
+          questionStats={questionStats ?? null}
+        />
       }
       DetailsChildren={
         <QuestionListItemDetails
@@ -84,11 +78,28 @@ export { QuestionListItemMemo as QuestionListItem };
 
 const QuestionListItemSummary = ({
   index,
+  questionStats,
   question,
 }: {
   index: number;
+  questionStats: IQuestionStatsForAllUsers | null;
   question: string;
 }) => {
+  const results: number | null = useMemo(() => {
+    if (!questionStats || questionStats.results.length === 0) return null;
+
+    let numberAttempts = 0;
+    let correctAnswers = 0;
+
+    questionStats.results.forEach((item) => {
+      numberAttempts += item.numberAttempts;
+      correctAnswers += item.correctAnswers;
+    });
+    return numberAttempts ? Math.round((correctAnswers / numberAttempts) * 100) : 0;
+  }, [questionStats]);
+
+  console.log(results);
+
   return (
     <Box className="flex grow-1 items-center">
       <Typography className="me-3! flex h-6! w-6! shrink-0! items-center justify-center rounded-full! bg-slate-500! text-xs! leading-none! font-bold! text-slate-50!">
@@ -112,6 +123,9 @@ const QuestionListItemSummary = ({
         >
           {question}
         </TooltipTypography>
+      </Box>
+      <Box className="ms-auto me-3 shrink-0">
+        <CustomAppChip result={results} />
       </Box>
     </Box>
   );

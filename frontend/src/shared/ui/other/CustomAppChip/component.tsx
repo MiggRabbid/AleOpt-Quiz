@@ -18,7 +18,7 @@ export const CustomAppChip = ({
   return (
     <Chip
       label={!result && result !== 0 ? '-' : withoutPercent ? result : `${result}%`}
-      className={`w-17! text-base! font-bold! text-neutral-50! ${getChipColor(defRes ? null : maxRes ? RESULTS_STEPS.max : result)}`}
+      className={`w-17! shrink-0 text-base! font-bold! text-neutral-50! ${getChipColor(defRes ? null : maxRes ? RESULTS_STEPS.max : result)}`}
       variant="filled"
     />
   );
