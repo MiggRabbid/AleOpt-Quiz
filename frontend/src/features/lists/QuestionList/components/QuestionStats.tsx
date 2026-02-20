@@ -40,23 +40,34 @@ const QuestionStats = ({
         <Box className="flex flex-row items-start justify-start gap-4">
           <QuestionStatsBar questionStats={questionStats} />
 
-          <Box className="mt-7 flex h-full flex-col items-start justify-start gap-2 p-2">
-            <QuestionStatsItem
-              label="Всего попыток:"
-              result={result.numberAttempts}
-              defRes
-              withoutPercent
-            />
+          <Box className="flex h-full flex-col items-start justify-start gap-2">
+            <Box className="flex h-fit! h-full w-full flex-col justify-center gap-1">
+              <Typography
+                align="center"
+                className="ms-4! w-fit! text-lg! font-semibold! uppercase"
+              >
+                Общие результаты
+              </Typography>
+              <QuestionStatsItem
+                label="Всего попыток:"
+                result={result.numberAttempts}
+                defRes
+                withoutPercent
+              />
 
-            <QuestionStatsItem
-              label="
+              <QuestionStatsItem
+                label="
               Верный ответов:"
-              result={result.correctAnswers}
-              defRes
-              withoutPercent
-            />
+                result={result.correctAnswers}
+                defRes
+                withoutPercent
+              />
 
-            <QuestionStatsItem label="Средний результат:" result={result.averageResult} />
+              <QuestionStatsItem
+                label="Средний результат:"
+                result={result.averageResult}
+              />
+            </Box>
           </Box>
         </Box>
       )}
