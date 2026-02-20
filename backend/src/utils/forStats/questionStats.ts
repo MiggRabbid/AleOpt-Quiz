@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+
 import {
   IResultEntry,
   IResultModel,
@@ -8,6 +10,14 @@ import {
   IQuestionStatsForUser,
   IUserModel,
 } from '../../types';
+
+dotenv.config();
+
+if (!process.env.SUPER_ADMIN) {
+  throw new Error('SUPER_ADMIN не найден');
+}
+
+const { SUPER_ADMIN } = process.env;
 
 export const getQuestionStats = (questionId: string, userStats: IResultModel[]): IQuestionStats => {
   const questionStats: IQuestionStats = {
@@ -36,8 +46,15 @@ export const getQuestionsStatsForAllUsers = (
   results: IResultModel[],
   users: IUserModel[],
 ): IQuestionsStatsForAllUsers => {
+  const filteredResults = results.filter((result: IResultModel) => {
+    return result.username !== SUPER_ADMIN;
+  });
+  const filteredUsers = users.filter((user: IUserModel) => {
+    return user.username !== SUPER_ADMIN;
+  });
+
   const usersByUsername = new Map(
-    users.map((user: IUserModel) => [
+    filteredUsers.map((user: IUserModel) => [
       user.username,
       {
         firstName: user.firstName,
@@ -55,20 +72,23 @@ export const getQuestionsStatsForAllUsers = (
     }
   > = {};
 
-  results.forEach((result: IResultModel) => {
+  filteredResults.forEach((result: IResultModel) => {
     result.attempts.forEach((attempt: IResultEntry) => {
       attempt.answers.forEach((answer: IUserAnswer) => {
         if (!questionsStatsMap[answer.questionId]) {
-          const allUsersStats = users.reduce<Record<string, IQuestionStatsForUser>>((acc, user) => {
-            acc[user.username] = {
-              username: user.username,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              numberAttempts: 0,
-              correctAnswers: 0,
-            };
-            return acc;
-          }, {});
+          const allUsersStats = filteredUsers.reduce<Record<string, IQuestionStatsForUser>>(
+            (acc, user) => {
+              acc[user.username] = {
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                numberAttempts: 0,
+                correctAnswers: 0,
+              };
+              return acc;
+            },
+            {},
+          );
 
           questionsStatsMap[answer.questionId] = {
             questionId: answer.questionId,
