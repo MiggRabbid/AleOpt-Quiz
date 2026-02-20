@@ -3,9 +3,7 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Chip, Typography } from '@mui/material';
-
-import { getChipColor } from '@/shared/lib';
+import { Typography } from '@mui/material';
 
 import type { iUserStats } from '@app/types';
 import { CustomAppChip } from '@/shared/ui';

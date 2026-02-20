@@ -4,7 +4,7 @@ import { useLayoutEffect } from 'react';
 import { Box, Divider } from '@mui/material';
 // Логика
 import { useAppSelector, useAuthContext } from '@app/hooks';
-import { getGlobalStateField, getQuizStateField } from '@app/selectors';
+import { getGlobalStateField } from '@app/selectors';
 import { getNewQuestionId } from '@/shared/lib';
 import { useQuestionForm } from './hooks/useForm';
 // Компоненты

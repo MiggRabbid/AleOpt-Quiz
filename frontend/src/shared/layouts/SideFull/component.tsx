@@ -10,13 +10,7 @@ interface ISideFullProps {
   style?: CSSProperties;
 }
 
-const SideFull: FC<ISideFullProps> = ({
-  children,
-  id,
-  type = 'main',
-  otherClass,
-  style,
-}) => {
+const SideFull: FC<ISideFullProps> = ({ children, id, type = 'main', otherClass }) => {
   const className = clsx(
     `h-fit grid grow shrink rounded-2xl`,
     type === 'login'

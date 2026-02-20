@@ -9,7 +9,7 @@ interface ISideMainProps {
   style?: CSSProperties;
 }
 
-const SideMain: FC<ISideMainProps> = ({ otherClass, style, children }) => {
+const SideMain: FC<ISideMainProps> = ({ otherClass, children }) => {
   const className = clsx(
     `shadow-glass border-glass relative flex h-full w-full rounded-2xl border backdrop-blur-sm`,
     otherClass,

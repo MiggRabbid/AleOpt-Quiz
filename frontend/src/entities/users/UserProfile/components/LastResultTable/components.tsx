@@ -1,12 +1,9 @@
-import { Chip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import clsx from 'clsx';
-
-import { getChipColor } from '@/shared/lib';
 
 import type { iResultEntry } from '@app/types';
 import { CustomAppChip } from '@/shared/ui';
