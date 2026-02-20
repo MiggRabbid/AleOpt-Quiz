@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { getChipColor } from '@/shared/lib';
 
 import type { iResultEntry } from '@app/types';
+import { CustomAppChip } from '@/shared/ui';
 
 interface ILastResultTableProps {
   attempts: iResultEntry[] | null;
@@ -52,11 +53,6 @@ const LastResultTable = (props: ILastResultTableProps) => {
               (attempt.correctAnswers / attempt.answers.length) * 100,
             );
 
-            const chipClass = clsx(
-              'w-17 text-base font-bold text-neutral-50!',
-              getChipColor(numberAttempts),
-            );
-
             return (
               <TableRow key={`attempt-${index}-${attempt.correctAnswers}`}>
                 <TableCell className="px-1! py-3!">
@@ -65,11 +61,7 @@ const LastResultTable = (props: ILastResultTableProps) => {
                   </Typography>
                 </TableCell>
                 <TableCell align="right" className="px-1! py-3!">
-                  <Chip
-                    label={!!numberAttempts ? `${numberAttempts}%` : '-'}
-                    className={chipClass}
-                    variant="filled"
-                  />
+                  <CustomAppChip result={numberAttempts} />
                 </TableCell>
               </TableRow>
             );

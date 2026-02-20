@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 // Логика
 import { sortUsersByResult } from '@/shared/lib';
 // Компоненты
-import { TopResultsList } from '../';
+import { TopResultsList } from '@/features/';
 import { CustomCardWrapper } from '@/shared/ui';
 // Типизация
 import type { iUserStats } from '@app/types';

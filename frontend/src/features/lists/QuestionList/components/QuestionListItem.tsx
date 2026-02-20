@@ -1,16 +1,22 @@
 // Библиотеки
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 // Логика
 import { useAppActions } from '@app/hooks';
 // Компоненты
-import { AnswerListItem } from '.';
+import { AnswerListItem, QuestionStats } from '.';
 import { BtnGroupEdit, TooltipTypography } from '@/shared/ui';
 // Типизация
 import type { MouseEvent } from 'react';
-import type { iQuestion, typeQuestionAnswer } from '@app/types';
+import type {
+  iQuestion,
+  IQuestionStatsForAllUsers,
+  typeQuestionAnswer,
+} from '@app/types';
 import { TTypeModal } from '@app/types';
 import { CustomAccordion } from '@/shared/ui/other/CustomAccordion';
+import { useGetQuestionStats } from '@/app/api/hooks';
+import { useQuery } from '@tanstack/react-query';
 
 interface IQuestionListItemProps {
   question: iQuestion;
@@ -20,6 +26,20 @@ interface IQuestionListItemProps {
 const QuestionListItem = (props: IQuestionListItemProps) => {
   const { index, question } = props;
   const { openQuestionEditor } = useAppActions();
+
+  const { data: questionStats } = useQuery({
+    ...useGetQuestionStats({ params: { id: question.id } }),
+  });
+
+  useEffect(() => {
+    if (questionStats) {
+      console.group(
+        `${questionStats.questionId} - ${questionStats.question.slice(0, 15)}`,
+      );
+      console.log(questionStats);
+      console.groupEnd();
+    }
+  }, [questionStats]);
 
   const handelClickOnEdit = (e: MouseEvent) => {
     e.preventDefault();
@@ -50,6 +70,7 @@ const QuestionListItem = (props: IQuestionListItemProps) => {
           questionId={question.id}
           correctAnswerId={question.correctAnswerId}
           answers={question.answers}
+          questionStats={questionStats ?? null}
           handelClickOnEdit={handelClickOnEdit}
           handelClickOnDelete={handelClickOnDelete}
         />
@@ -100,13 +121,17 @@ const QuestionListItemDetails = ({
   questionId,
   correctAnswerId,
   answers,
+  questionStats,
   handelClickOnDelete,
   handelClickOnEdit,
 }: {
   questionId: string;
   correctAnswerId: string;
   answers: typeQuestionAnswer[];
+  questionStats: IQuestionStatsForAllUsers | null;
+  // eslint-disable-next-line no-unused-vars
   handelClickOnDelete: (e: MouseEvent) => void;
+  // eslint-disable-next-line no-unused-vars
   handelClickOnEdit: (e: MouseEvent) => void;
 }) => {
   return (
@@ -117,7 +142,7 @@ const QuestionListItemDetails = ({
             Текущий верный ответ:
             <Typography
               component="span"
-              className="font-semibold! text-slate-500! uppercase!"
+              className="ps-2 font-semibold! text-slate-500! uppercase!"
             >
               {correctAnswerId}
             </Typography>
@@ -143,6 +168,10 @@ const QuestionListItemDetails = ({
           );
         })}
       </Box>
+
+      <Divider />
+
+      <QuestionStats questionStats={questionStats} />
     </Box>
   );
 };

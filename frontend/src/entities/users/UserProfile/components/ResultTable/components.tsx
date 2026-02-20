@@ -8,6 +8,7 @@ import { Chip, Typography } from '@mui/material';
 import { getChipColor } from '@/shared/lib';
 
 import type { iUserStats } from '@app/types';
+import { CustomAppChip } from '@/shared/ui';
 
 interface IResultTableProps {
   userStats: iUserStats | null;
@@ -38,12 +39,7 @@ const ResultTable = (props: IResultTableProps) => {
             </Typography>
           </TableCell>
           <TableCell align="right" className="px-1! py-3!">
-            <Chip
-              label={`${userStats?.numberAttempts ?? '-'}`}
-              className="w-17! text-base! font-bold! text-neutral-100!"
-              variant="filled"
-              color="info"
-            />
+            <CustomAppChip result={userStats?.numberAttempts} maxRes />
           </TableCell>
         </TableRow>
         <TableRow>
@@ -53,11 +49,7 @@ const ResultTable = (props: IResultTableProps) => {
             </Typography>
           </TableCell>
           <TableCell align="right" className="px-1! py-3!">
-            <Chip
-              label={!!userStats?.averageResult ? `${userStats?.averageResult}%` : '-'}
-              className={`w-17! text-base! font-bold! text-neutral-50! ${getChipColor(userStats?.averageResult || 100)}`}
-              variant="filled"
-            />
+            <CustomAppChip result={userStats?.averageResult} />
           </TableCell>
         </TableRow>
       </TableBody>

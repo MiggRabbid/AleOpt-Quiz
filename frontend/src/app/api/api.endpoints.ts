@@ -13,6 +13,7 @@ export const API_PATH_TYPE = {
   users: 'users',
   question: 'question',
   questions: 'questions',
+  questionsStats: 'questions-stats',
   result: 'result',
   results: 'results',
 };
@@ -26,6 +27,8 @@ export const REQUEST_PATHS = {
   oneUserStats: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.result].join('/'),
   questions: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.questions].join('/'),
   question: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.question].join('/'),
+  questionsStats: () =>
+    [API_PATH.api, API_PATH.data, API_PATH_TYPE.questionsStats].join('/'),
 } as const;
 
 export type TRequestPath = ReturnType<(typeof REQUEST_PATHS)[keyof typeof REQUEST_PATHS]>;

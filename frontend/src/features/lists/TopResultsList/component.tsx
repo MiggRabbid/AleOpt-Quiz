@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 
-import { TopResultsListItem } from '../';
+import { TopResultsListItem } from './components/TopResultsListItem/component';
 
 import type { iUserStats } from '@app/types';
 

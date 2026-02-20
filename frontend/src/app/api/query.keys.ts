@@ -8,6 +8,7 @@ interface IQueryKeys {
   questions: {
     one: string;
     all: string;
+    questionStats: string;
   };
   results: {
     one: string;
@@ -25,6 +26,7 @@ export const queryKeys: IQueryKeys = {
   questions: {
     one: 'oneQuestion',
     all: 'allQuestions',
+    questionStats: 'questionStats',
   },
   results: {
     one: 'oneResult',

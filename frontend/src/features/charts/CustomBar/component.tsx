@@ -6,12 +6,18 @@ import { Box, Typography } from '@mui/material';
 // Логика
 import { getBarData, getBarOptions } from './utils';
 // Компоненты
-import { CustomCardWrapper, lastTenAttemptsTooltip, PlugForEmptyData } from '@/shared/ui';
+import {
+  CustomCardWrapper,
+  lastTenAttemptsTooltip,
+  questionStatsForAllUsersTooltip,
+  PlugForEmptyData,
+} from '@/shared/ui';
 
 Chart.register(...registerables);
 
 const tooltipMap = {
   lastTenAttemptsTooltip: lastTenAttemptsTooltip,
+  questionStatsForAllUsersTooltip: questionStatsForAllUsersTooltip,
 } as const;
 
 export type CustomTooltipType = keyof typeof tooltipMap;

@@ -25,7 +25,6 @@ const AdminStats = () => {
     ...useGetAllQuestions(),
     enabled: isAuth && !!user?.username,
   });
-
   const isLoading = usersIsPending || questionsIsPending;
 
   return (

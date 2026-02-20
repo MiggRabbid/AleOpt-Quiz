@@ -139,6 +139,9 @@ export const useUpdateUserStats = (
         queryClient.invalidateQueries({
           queryKey: [queryKeys.users.allStats],
         }),
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.questions.questionStats],
+        }),
       ]);
     },
   });

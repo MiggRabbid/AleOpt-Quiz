@@ -15,8 +15,11 @@ import type {
   iHandledError,
   iQuestion,
   IQuestionRequest,
+  IQuestionStatsForAllUsers,
+  IQuestionsStatsForAllUsers,
 } from '@app/types';
 import type { AxiosError } from 'axios';
+import { getCurrQuestionStats } from '@/shared/lib';
 
 /**
  * Получение всех вопросов
@@ -33,6 +36,38 @@ export const useGetAllQuestions = () => {
         endpoint: REQUEST_PATHS.questions(),
         token: token,
       }).then((res) => res),
+    retry: false,
+  });
+};
+
+export const useGetQuestionsStats = () => {
+  const { token } = useAuthContext();
+
+  return queryOptions({
+    queryKey: [queryKeys.questions.questionStats],
+    placeholderData: keepPreviousData,
+    queryFn: () =>
+      sendRequest<IQuestionsStatsForAllUsers>({
+        method: TypeAxiosMethod.get,
+        endpoint: REQUEST_PATHS.questionsStats(),
+        token: token,
+      }).then((res) => res),
+    retry: false,
+  });
+};
+
+export const useGetQuestionStats = (props: IQuestionRequest) => {
+  const { token } = useAuthContext();
+
+  return queryOptions<IQuestionStatsForAllUsers | null>({
+    queryKey: [queryKeys.questions.questionStats, props.params.id],
+    placeholderData: keepPreviousData,
+    queryFn: (): Promise<IQuestionStatsForAllUsers | null> =>
+      sendRequest<IQuestionsStatsForAllUsers>({
+        method: TypeAxiosMethod.get,
+        endpoint: REQUEST_PATHS.questionsStats(),
+        token: token,
+      }).then((res) => getCurrQuestionStats(props.params.id, res)),
     retry: false,
   });
 };

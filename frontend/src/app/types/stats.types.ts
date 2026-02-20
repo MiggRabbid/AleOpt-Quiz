@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import type { iResultEntry, typeAnswersKeys } from './';
+import type { iQuestion, iResultEntry, IUserRequest, typeAnswersKeys } from './';
 
 export enum typeDoughnut {
   hard = 'hard',
@@ -33,3 +33,23 @@ export interface iQuestionStatsForDoughnut {
     attemptCount: number;
   };
 }
+
+export interface IQuestionStatsForUser {
+  username: IUserRequest['username'];
+  firstName: IUserRequest['firstName'];
+  lastName: IUserRequest['lastName'];
+  numberAttempts: number;
+  correctAnswers: number;
+  averageResult: number;
+}
+
+export interface IQuestionStatsForAllUsers {
+  questionId: iQuestion['id'];
+  question: iQuestion['question'];
+  results: IQuestionStatsForUser[];
+}
+
+export type IQuestionsStatsForAllUsers = Record<
+  iQuestion['id'],
+  IQuestionStatsForAllUsers
+>;
