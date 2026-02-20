@@ -98,8 +98,6 @@ const QuestionListItemSummary = ({
     return numberAttempts ? Math.round((correctAnswers / numberAttempts) * 100) : 0;
   }, [questionStats]);
 
-  console.log(results);
-
   return (
     <Box className="flex grow-1 items-center">
       <Typography className="me-3! flex h-6! w-6! shrink-0! items-center justify-center rounded-full! bg-slate-500! text-xs! leading-none! font-bold! text-slate-50!">
