@@ -189,6 +189,7 @@ class UserController {
         lastName: request.body.lastName,
         status: request.body.status,
         updatedAt: new Date(),
+        image: request.body.image,
       };
 
       if (!!request.body.password && request.body.password.length > 0) {
