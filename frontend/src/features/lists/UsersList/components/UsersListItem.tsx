@@ -35,23 +35,29 @@ const UsersListItem = ({
     [user.username, usersStats],
   );
 
-  const handelClickOnEdit = useCallback((e: MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openUserEditor({
-      type: TTypeModal.edit,
-      editableUser: user,
-    });
-  }, []);
+  const handelClickOnEdit = useCallback(
+    (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openUserEditor({
+        type: TTypeModal.edit,
+        editableUser: user,
+      });
+    },
+    [openUserEditor, user],
+  );
 
-  const handelClickOnDelete = useCallback((e: MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openUserEditor({
-      type: TTypeModal.delete,
-      editableUser: user,
-    });
-  }, []);
+  const handelClickOnDelete = useCallback(
+    (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openUserEditor({
+        type: TTypeModal.delete,
+        editableUser: user,
+      });
+    },
+    [openUserEditor, user],
+  );
 
   return (
     <CustomAccordion

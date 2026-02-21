@@ -1,16 +1,24 @@
 // Библиотеки
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import Divider from '@mui/material/Divider';
 // Логика
-import { useAppSelector } from '@app/hooks';
+import { useAppSelector, useAvatars } from '@app/hooks';
 import { getGlobalStateField } from '@app/selectors';
 import { useUserForm } from './hooks/useForm';
 // Компоненты
-import { CustomInput, BtnGroup, BtnMain, CustomSelect } from '@/shared/ui';
+import {
+  CustomInput,
+  BtnGroup,
+  BtnMain,
+  CustomSelect,
+  ModalContainer,
+  UserAvatar,
+} from '@/shared/ui';
 // Типизация
 import type { TCustomSelectItems } from '@/shared/ui';
 import {
+  type IAvatarItem,
   UserGender,
   userGenderMap,
   UserRoles,
@@ -22,6 +30,15 @@ import {
 
 interface IUserEditorProps {
   clickOnClose: () => void;
+}
+
+interface IAvatarPickerModalProps {
+  isOpen: boolean;
+  selectedAvatar: string;
+  avatars: IAvatarItem[];
+  onClose: () => void;
+  // eslint-disable-next-line no-unused-vars
+  onSelect: (avatarSrc: string) => void;
 }
 
 const roleItems: TCustomSelectItems = Object.entries(userRolesMap).map(
@@ -45,6 +62,59 @@ const statusItems: TCustomSelectItems = Object.entries(userStatusMap).map(
   }),
 );
 
+const AvatarPickerModal = (props: IAvatarPickerModalProps) => {
+  const { isOpen, onClose, avatars, selectedAvatar, onSelect } = props;
+
+  return (
+    <ModalContainer isOpen={isOpen} onClose={onClose}>
+      <Box className="flex h-fit max-h-[80vh] w-[760px] max-w-[96vw] flex-col gap-4 overflow-hidden p-6">
+        <Box className="pr-10">
+          <h5 className="text-2xl font-bold">Выбор аватарки</h5>
+          <p className="text-sm text-slate-500">
+            Нажмите на изображение, чтобы выбрать аватар
+          </p>
+        </Box>
+        <Divider />
+        {avatars.length === 0 && (
+          <p className="py-4 text-center text-sm text-slate-500">
+            В этой категории пока нет аватарок
+          </p>
+        )}
+        <Box className="grid max-h-[60vh] grid-cols-3 gap-3 overflow-y-auto sm:grid-cols-4 md:grid-cols-5">
+          {avatars.map((avatar) => {
+            const isSelected = selectedAvatar === avatar.src;
+
+            return (
+              <Box
+                key={avatar.src}
+                component="button"
+                type="button"
+                onClick={() => onSelect(avatar.src)}
+                className="cursor-pointer border-0 bg-transparent p-0 text-left"
+              >
+                <Box
+                  className={`rounded-xl border-2 p-1 transition ${
+                    isSelected
+                      ? 'border-green-500 bg-green-50'
+                      : 'border-slate-200 hover:border-slate-400'
+                  }`}
+                >
+                  <img
+                    src={avatar.src}
+                    alt={avatar.name}
+                    loading="lazy"
+                    className="h-24 w-full rounded-lg object-cover"
+                  />
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
+      </Box>
+    </ModalContainer>
+  );
+};
+
 const UserEditor = (props: IUserEditorProps) => {
   const { clickOnClose } = props;
 
@@ -54,6 +124,8 @@ const UserEditor = (props: IUserEditorProps) => {
   const isNewUser = !editableUser && userEditorModal === TTypeModal.new;
 
   const [passIsActive, setPassIsActive] = useState<boolean>(false);
+  const [avatarModalIsOpen, setAvatarModalIsOpen] = useState<boolean>(false);
+  const { getAvatarsByGender } = useAvatars();
 
   const requiredPass = isNewUser || (!isNewUser && passIsActive);
 
@@ -91,8 +163,21 @@ const UserEditor = (props: IUserEditorProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const selectedGender = watch('gender') ?? UserGender.female;
+  const selectedAvatar = watch('image') ?? '';
+  const avatarsByGender = getAvatarsByGender(selectedGender);
+
+  const handleAvatarSelect = (avatarSrc: string) => {
+    setValue('image', avatarSrc, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+    setAvatarModalIsOpen(false);
+  };
+
   return (
-    <Box className="flex h-fit w-200 flex-col gap-10 p-6">
+    <Box className="flex h-fit w-200 max-w-[98vw] flex-col gap-6 p-6">
       <Box className="flex h-fit w-full flex-col gap-5">
         <h4 className="text-3xl font-bold">
           {isNewUser ? 'Создание пользователя' : 'Редактирование пользователя'}
@@ -104,6 +189,22 @@ const UserEditor = (props: IUserEditorProps) => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex! h-fit w-full flex-row! flex-wrap! items-center justify-center gap-x-5 gap-y-2"
       >
+        <Box className="mb-7 flex w-full flex-wrap items-center justify-between gap-4 px-2 py-0">
+          <Box className="flex items-center gap-3">
+            <UserAvatar src={selectedAvatar} />
+          </Box>
+          <Box className="w-full sm:w-60">
+            <BtnMain
+              btnText={isNewUser ? 'Выбрать аватар' : 'Изменить аватар'}
+              btnClick={() => setAvatarModalIsOpen(true)}
+              fullWidth
+            />
+          </Box>
+          {!!errors.image && (
+            <p className="w-full text-sm text-red-500">{errors.image.message}</p>
+          )}
+        </Box>
+
         <Box className="w-90">
           <CustomInput
             type="text"
@@ -217,6 +318,13 @@ const UserEditor = (props: IUserEditorProps) => {
           />
         </Box>
       </Box>
+      <AvatarPickerModal
+        isOpen={avatarModalIsOpen}
+        onClose={() => setAvatarModalIsOpen(false)}
+        avatars={avatarsByGender}
+        selectedAvatar={selectedAvatar}
+        onSelect={handleAvatarSelect}
+      />
     </Box>
   );
 };
