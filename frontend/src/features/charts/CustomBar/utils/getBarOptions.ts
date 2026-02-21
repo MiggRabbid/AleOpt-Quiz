@@ -30,6 +30,7 @@ export const getBarOptions = (props: {
       bar: {
         barThickness: 'flex',
         maxBarThickness: 50,
+        borderRadius: 8,
       },
     },
     scales: {

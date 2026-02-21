@@ -37,7 +37,7 @@ const QuestionStats = ({
       {!questionStats ? (
         <PlugForEmptyData isSmall />
       ) : (
-        <Box className="flex flex-row items-start justify-start gap-4">
+        <Box className="flex flex-row items-start justify-around gap-4">
           <QuestionStatsBar questionStats={questionStats} />
 
           <Box className="flex h-full flex-col items-start justify-start gap-2">
@@ -126,7 +126,7 @@ const QuestionStatsBar = ({
     });
 
   return (
-    <Box className="flex grow flex-row">
+    <Box className="flex grow-0 flex-row">
       <CustomBar
         dataLineOne={dataLineOne}
         labelLineOne={labelLineOne}

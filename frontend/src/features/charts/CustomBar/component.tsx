@@ -66,8 +66,8 @@ const CustomBar = (props: ICustomLineProps) => {
       >
         Динамика попыток
       </Typography>
-      <CustomCardWrapper shadowSize="shadow-lg">
-        <Box className="flex h-80 w-full items-center justify-center rounded-xl bg-cyan-100 p-4">
+      <CustomCardWrapper shadowSize="shadow-lg" width="w-fit!">
+        <Box className="flex h-80 w-200 shrink-0 grow-0 items-center justify-center rounded-xl bg-cyan-100 p-4">
           {isEmpty && <PlugForEmptyData isSmall />}
           {!isEmpty && <Bar data={data} options={options} />}
         </Box>
