@@ -1,53 +1,68 @@
-import { useEffect, useState } from 'react';
-import { UserGender, type TypeAvatarsMap, type TypeSubfolders } from '@app/types';
-import { getRandomNumber } from '@/shared/lib';
+import {
+  UserGender,
+  type IAvatarItem,
+  type TypeAvatarsMap,
+  type TypeSubfolders,
+} from '@app/types';
 
-// Этот костыль нужно оптимизировать
-// "Магическое" формирование путей к аватарам
-// Цифры в AVATAR_COUNTER должны соответствовать количеству аватаров в папках
+const avatarModules = import.meta.glob(
+  '/public/assets/avatars/{females,males}/*.{jpg,jpeg,png,webp,avif,svg}',
+  {
+    eager: true,
+    import: 'default',
+  },
+) as Record<string, string>;
 
-const AVATAR_DIR = '/assets/avatars';
-const AVATAR_EXTENSION = '.jpg';
-const AVATAR_COUNTER: Record<TypeSubfolders, number> = {
-  females: 11,
-  males: 6,
+const getPublicAssetPath = (path: string) => {
+  if (path.startsWith('/assets/')) {
+    return path;
+  }
+
+  return path.replace('/public', '');
 };
 
-const NAME_MAP = {
-  females: 'female',
-  males: 'male',
-};
+const avatarMap = Object.entries(avatarModules).reduce<TypeAvatarsMap>(
+  (acc, [filePath, publicPath]) => {
+    const isMale = filePath.includes('/males/');
+    const subfolder: TypeSubfolders = isMale ? 'males' : 'females';
+
+    const fileNameWithExtension = filePath.split('/').pop();
+    const fileName = fileNameWithExtension?.replace(/\.[^.]+$/, '');
+
+    if (!fileName) {
+      return acc;
+    }
+
+    acc[subfolder][fileName] = getPublicAssetPath(publicPath);
+    return acc;
+  },
+  { females: {}, males: {} },
+);
+
+const getSortedAvatarEntries = (avatars: Record<string, string>) =>
+  Object.entries(avatars).sort(([nameA], [nameB]) =>
+    nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' }),
+  );
 
 export const useAvatars = () => {
-  const [avatarsMap, setAvatarsMap] = useState<TypeAvatarsMap>({
-    females: {},
-    males: {},
-  });
-
-  useEffect(() => {
-    const newAvatarsMap: TypeAvatarsMap = avatarsMap;
-
-    (Object.keys(AVATAR_COUNTER) as TypeSubfolders[]).forEach((subfolder) => {
-      for (let i = 1; i <= AVATAR_COUNTER[subfolder]; i++) {
-        const name = `${NAME_MAP[subfolder]}${i}`;
-        const path = `${AVATAR_DIR}/${subfolder}/${name}${AVATAR_EXTENSION}`;
-        newAvatarsMap[subfolder][name] = path;
-      }
-    });
-
-    setAvatarsMap(newAvatarsMap);
-  }, []);
-
   const getNewRandomAvatar = (gender: UserGender) => {
     const genderKey: TypeSubfolders = gender === UserGender.male ? 'males' : 'females';
-    const avatars = avatarsMap[genderKey];
-    const avatarCount = Object.keys(avatars).length;
+    const avatars = avatarMap[genderKey];
+    const avatarEntries = getSortedAvatarEntries(avatars);
+    const avatarCount = avatarEntries.length;
 
     if (avatarCount === 0) return '';
 
-    const fileName = gender + getRandomNumber(avatarCount);
-    return avatars[fileName];
+    const randomIndex = Math.floor(Math.random() * avatarCount);
+    return avatarEntries[randomIndex]?.[1] ?? '';
   };
 
-  return { avatarsMap, getNewRandomAvatar };
+  const getAvatarsByGender = (gender: UserGender): IAvatarItem[] => {
+    const genderKey: TypeSubfolders = gender === UserGender.male ? 'males' : 'females';
+    const avatars = avatarMap[genderKey];
+
+    return getSortedAvatarEntries(avatars).map(([name, src]) => ({ name, src }));
+  };
+
+  return { avatarsMap: avatarMap, getNewRandomAvatar, getAvatarsByGender };
 };

@@ -46,7 +46,7 @@ const UserStats = ({ currentUser }: iUserStatsProps) => {
         <QuestionBlock type="easiest" questions={easiestQuestions} />
         <QuestionBlock type="hardest" questions={hardestQuestions} />
       </Box>
-      <Box className="flex h-fit shrink-1 grow-0 flex-wrap-reverse gap-8">
+      <Box className="flex h-fit shrink-1 grow-0 gap-8">
         <Box className="h-fit w-fit shrink-0 grow-0">
           <CustomDoughnut userStats={userStats} isEmpty={!attempts} />
         </Box>
