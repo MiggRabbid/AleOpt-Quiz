@@ -8,6 +8,7 @@ export const API_PATH = {
 
 export const API_PATH_TYPE = {
   login: 'login',
+  checkToken: 'check-token',
   signup: 'signup',
   user: 'user',
   users: 'users',
@@ -20,6 +21,7 @@ export const API_PATH_TYPE = {
 
 export const REQUEST_PATHS = {
   login: () => [API_PATH.api, API_PATH.auth, API_PATH_TYPE.login].join('/'),
+  checkToken: () => [API_PATH.api, API_PATH.auth, API_PATH_TYPE.checkToken].join('/'),
   signup: () => [API_PATH.api, API_PATH.auth, API_PATH_TYPE.signup].join('/'),
   user: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.user].join('/'),
   users: () => [API_PATH.api, API_PATH.data, API_PATH_TYPE.users].join('/'),

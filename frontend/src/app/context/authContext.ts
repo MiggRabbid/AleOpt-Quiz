@@ -8,6 +8,8 @@ const AuthContext = createContext<iAuthContext>({
   token: null,
   isAuth: false,
   getIsAdmin: () => false,
+  isTokenChecking: true,
+  isTokenError: false,
 });
 
 export { AuthContext };

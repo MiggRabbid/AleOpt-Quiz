@@ -13,5 +13,6 @@ const validateUsernameAndPassword = [
 
 const authRouter = Router();
 authRouter.post('/login', validateUsernameAndPassword, authController.login);
+authRouter.post('/check-token', authController.checkToken);
 
 export default authRouter;

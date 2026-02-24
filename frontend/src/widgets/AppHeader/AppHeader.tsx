@@ -1,9 +1,12 @@
-// Компоненты
+// Библиотеки
 import { Box } from '@mui/material';
+// Логика
+import { useAuthContext, useNavigate } from '@/app/hooks';
+// Компоненты
 import { BtnLogo, BtnRedirect, BtnLogout } from './components';
-import { useNavigate } from '@/app/hooks';
 
 const AppHeader = () => {
+  const { isTokenChecking } = useAuthContext();
   const { isLoginPage } = useNavigate();
 
   if (isLoginPage) return null;
@@ -18,10 +21,12 @@ const AppHeader = () => {
           <Box className="flex max-w-25 min-w-30 items-center justify-center border-none">
             <BtnLogo />
           </Box>
-          <Box className="flex items-center justify-end gap-4">
-            <BtnRedirect />
-            <BtnLogout />
-          </Box>
+          {!isTokenChecking && (
+            <Box className="flex items-center justify-end gap-4">
+              <BtnRedirect />
+              <BtnLogout />
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>
