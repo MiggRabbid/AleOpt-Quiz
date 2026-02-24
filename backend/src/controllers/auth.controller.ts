@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 import { User } from '../models';
@@ -87,6 +87,55 @@ class AuthController {
       return response
         .status(500)
         .json({ message: errorMsgMap.authServerError, errorType: errorTypeMap.authServerError });
+    }
+  }
+
+  async checkToken(request: Request, response: Response): Promise<Response> {
+    try {
+      const { username } = request.body;
+      const authHeader = request.headers.authorization ?? '';
+
+      if (!authHeader.startsWith('Bearer ')) {
+        return response
+          .status(401)
+          .json({ message: errorMsgMap.authError, errorType: errorTypeMap.authError });
+      }
+
+      if (!username || typeof username !== 'string') {
+        return response
+          .status(401)
+          .json({ message: errorMsgMap.authError, errorType: errorTypeMap.authError });
+      }
+
+      if (!secret || secret.length === 0) {
+        return response.status(500).json({
+          message: errorMsgMap.authServerError,
+          errorType: errorTypeMap.authServerError,
+        });
+      }
+
+      const token = authHeader.slice(7);
+      jwt.verify(token, secret);
+
+      const user = await User.findOne({ username });
+
+      if (!user) {
+        return response
+          .status(401)
+          .json({ message: errorMsgMap.authError, errorType: errorTypeMap.authError });
+      }
+
+      return response.sendStatus(200);
+    } catch (e) {
+      if (e instanceof TokenExpiredError) {
+        return response
+          .status(401)
+          .json({ message: errorMsgMap.authError, errorType: errorTypeMap.authError });
+      }
+
+      return response
+        .status(403)
+        .json({ message: errorMsgMap.authError, errorType: errorTypeMap.authError });
     }
   }
 }
