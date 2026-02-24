@@ -10,7 +10,7 @@ import {
 
 import type { CustomHookMutationOptions } from '@api/index';
 
-import type { iHandledError } from '@/app/types';
+import type { iHandledError, iRequestCheckToken } from '@/app/types';
 
 import type { AxiosError } from 'axios';
 import type { iRequestLogin, iResponseLogin } from '@/app/types';
@@ -40,5 +40,24 @@ export const useAuth = (
         }),
       ]);
     },
+  });
+};
+
+/**
+ * Проверка токена
+ */
+export const useCheckToken = (
+  options?: CustomHookMutationOptions<void, iRequestCheckToken>,
+) => {
+  return useMutation<void, AxiosError<iHandledError>, iRequestCheckToken>({
+    mutationFn: async ({ token, ...payload }) => {
+      return sendRequest({
+        method: TypeAxiosMethod.post,
+        endpoint: REQUEST_PATHS.checkToken(),
+        data: payload,
+        token,
+      });
+    },
+    ...options,
   });
 };

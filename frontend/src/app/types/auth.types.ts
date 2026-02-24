@@ -15,6 +15,11 @@ export interface iRequestLogin {
   password: string;
 }
 
+export interface iRequestCheckToken {
+  username: string;
+  token: string;
+}
+
 export interface iAuthContext {
   user: iResponseLogin | null;
   updateUserData: (user: iResponseLogin) => void;
@@ -22,4 +27,6 @@ export interface iAuthContext {
   token: string | null;
   getIsAdmin: () => boolean;
   isAuth: boolean;
+  isTokenChecking: boolean;
+  isTokenError: boolean;
 }

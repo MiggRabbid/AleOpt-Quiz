@@ -12,17 +12,17 @@ import { queryClient } from '@app/api';
 
 function App() {
   return (
-    <AuthProvider>
-      <ToastProvider>
-        <MuiThemeProvider>
-          <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ToastProvider>
+          <MuiThemeProvider>
             <StoreProvider>
               <RouterProvider router={AppRouter} />
             </StoreProvider>
-          </QueryClientProvider>
-        </MuiThemeProvider>
-      </ToastProvider>
-    </AuthProvider>
+          </MuiThemeProvider>
+        </ToastProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 

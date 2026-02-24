@@ -1,4 +1,5 @@
 import type { iResponseLogin, iTimer, iUserAnswer } from '@app/types';
+import { useCallback } from 'react';
 
 export enum LocalKeyMap {
   USER = 'user',
@@ -13,28 +14,24 @@ interface IValueMap {
 }
 
 export const useLocalStorage = () => {
-  const setLocalData = <T extends LocalKeyMap>({
-    key,
-    data,
-  }: {
-    key: T;
-    data: IValueMap[T];
-  }) => {
-    if (typeof window === 'undefined') return null;
-    return localStorage.setItem(key, JSON.stringify(data));
-  };
-  const getLocalData = <T extends LocalKeyMap>({
-    key,
-  }: {
-    key: T;
-  }): IValueMap[T] | null => {
-    if (typeof window === 'undefined') return null;
-    return JSON.parse(localStorage.getItem(key) || 'null');
-  };
-  const delLocalData = <T extends LocalKeyMap>({ key }: { key: T }) => {
+  const setLocalData = useCallback(
+    <T extends LocalKeyMap>({ key, data }: { key: T; data: IValueMap[T] }) => {
+      if (typeof window === 'undefined') return null;
+      return localStorage.setItem(key, JSON.stringify(data));
+    },
+    [],
+  );
+  const getLocalData = useCallback(
+    <T extends LocalKeyMap>({ key }: { key: T }): IValueMap[T] | null => {
+      if (typeof window === 'undefined') return null;
+      return JSON.parse(localStorage.getItem(key) || 'null');
+    },
+    [],
+  );
+  const delLocalData = useCallback(<T extends LocalKeyMap>({ key }: { key: T }) => {
     if (typeof window === 'undefined') return;
     return localStorage.removeItem(key);
-  };
+  }, []);
 
   return {
     setLocalData,
