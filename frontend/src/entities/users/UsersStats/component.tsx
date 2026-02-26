@@ -50,7 +50,7 @@ const UserStats = ({ currentUser }: iUserStatsProps) => {
         <Box className="h-fit w-fit shrink-0 grow-0">
           <CustomDoughnut userStats={userStats} isEmpty={!attempts} />
         </Box>
-        <Box className="h-fit w-fit max-w-[calc(100%_-_320px_-_32px_-_1px)] min-w-150 shrink-1 grow-1">
+        <Box className="h-fit w-fit max-w-[calc(100%_-_320px_-_32px_-_1px)] min-w-150 shrink grow">
           <CustomBar
             dataLineOne={dataLineOne}
             labelLineOne={labelLineOne}
