@@ -23,7 +23,7 @@ export const getDoughnutOptions = (
         display: false,
       },
       title: {
-        display: true,
+        display: false,
       },
       tooltip: {
         intersect: true,

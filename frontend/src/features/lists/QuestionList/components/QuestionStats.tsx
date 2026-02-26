@@ -126,7 +126,7 @@ const QuestionStatsBar = ({
     });
 
   return (
-    <Box className="flex grow-0 flex-row">
+    <Box className="flex grow-1 flex-row">
       <CustomBar
         dataLineOne={dataLineOne}
         labelLineOne={labelLineOne}

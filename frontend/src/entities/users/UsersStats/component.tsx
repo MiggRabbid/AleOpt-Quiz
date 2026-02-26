@@ -42,15 +42,15 @@ const UserStats = ({ currentUser }: iUserStatsProps) => {
 
   return (
     <Box className="flex h-full w-full flex-col gap-8" id="UserStats">
-      <Box className="flex w-full grow gap-8">
+      <Box className="flex w-full grow flex-wrap gap-8">
         <QuestionBlock type="easiest" questions={easiestQuestions} />
         <QuestionBlock type="hardest" questions={hardestQuestions} />
       </Box>
-      <Box className="flex h-fit shrink-1 grow-0 justify-around! gap-8">
+      <Box className="flex h-fit shrink-1 grow-0 flex-wrap justify-start gap-8 xl:justify-around!">
         <Box className="h-fit w-fit shrink-0 grow-0">
           <CustomDoughnut userStats={userStats} isEmpty={!attempts} />
         </Box>
-        <Box className="h-fit w-fit grow-0">
+        <Box className="h-fit w-fit max-w-[calc(100%_-_320px_-_32px_-_1px)] min-w-150 shrink-1 grow-1">
           <CustomBar
             dataLineOne={dataLineOne}
             labelLineOne={labelLineOne}
