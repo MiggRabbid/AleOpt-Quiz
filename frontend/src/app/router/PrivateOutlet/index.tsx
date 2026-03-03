@@ -33,6 +33,7 @@ const PrivateOutlet: FC<IPrivateOutletProps> = ({ children }) => {
       navigateTo({ to: routes.main, replace: true });
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth, isAdmin, isLoginPage, isAdminPage]);
 
   return children;

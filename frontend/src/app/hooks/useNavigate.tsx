@@ -14,6 +14,7 @@ const useNavigate = () => {
   const isQuizPage = location.pathname === routes.quiz;
   const is404LoginPage = useMemo(
     () => !Object.values(routes).some((route) => route === currentPath),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [routes, currentPath],
   );
 

@@ -23,7 +23,7 @@ const UserDelete = ({ clickOnClose }: IUserDeleteProps) => {
   const userEditorType = useAppSelector(getGlobalStateField('userEditorType'));
   const editableUser = useAppSelector(getGlobalStateField('editableUser'));
 
-  const { mutateAsync: UserDelete, isPending } = useDeleteUser({
+  const { mutateAsync: mutateUserDelete, isPending } = useDeleteUser({
     onSuccess: (data) => handleSuccess(data),
   });
 
@@ -31,7 +31,7 @@ const UserDelete = ({ clickOnClose }: IUserDeleteProps) => {
 
   const clickOnDelete = async () => {
     try {
-      UserDelete({ params: { username: editableUser.username } });
+      mutateUserDelete({ params: { username: editableUser.username } });
     } catch (e) {
       console.error(e);
     }

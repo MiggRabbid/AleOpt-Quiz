@@ -67,6 +67,7 @@ const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
     } else {
       mutateAsync({ token, username: user.username });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onError = () => {
@@ -91,6 +92,7 @@ const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
       updateUserData,
       getIsAdmin,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, token, isAuth, isTokenChecking, isTokenError],
   );
 

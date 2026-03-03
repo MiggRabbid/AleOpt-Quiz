@@ -19,7 +19,8 @@ const ResultListItem = (props: IResultListItemProps) => {
 
   const currQuestion = useMemo(
     () => questions.find((item) => item.id === question.questionId),
-    [question.questionId],
+
+    [questions, question.questionId],
   );
 
   const isCorrectAnswer = question.correctAnswerId === question.userAnswerId;

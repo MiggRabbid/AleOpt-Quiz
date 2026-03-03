@@ -23,7 +23,7 @@ const QuestionDelete = ({ clickOnClose }: IQuestionDeleteProps) => {
   const questionEditorType = useAppSelector(getGlobalStateField('questionEditorType'));
   const editableQuestion = useAppSelector(getGlobalStateField('editableQuestion'));
 
-  const { mutateAsync: QuestionDelete, isPending } = useDeleteQuestion({
+  const { mutateAsync: mutateQuestionDelete, isPending } = useDeleteQuestion({
     onSuccess: (data) => handleSuccess(data),
   });
 
@@ -31,7 +31,7 @@ const QuestionDelete = ({ clickOnClose }: IQuestionDeleteProps) => {
 
   const clickOnDelete = async () => {
     try {
-      QuestionDelete({ params: { id: editableQuestion.id } });
+      mutateQuestionDelete({ params: { id: editableQuestion.id } });
     } catch (e) {
       console.error(e);
     }

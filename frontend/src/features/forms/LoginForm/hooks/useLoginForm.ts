@@ -11,6 +11,7 @@ import type { iHandledError, iResponseLogin } from '@/app/types';
 import type { AxiosError } from 'axios';
 
 interface IUseLoginFormProps {
+  // eslint-disable-next-line no-unused-vars
   handleSuccess: (data: iResponseLogin) => void;
 }
 

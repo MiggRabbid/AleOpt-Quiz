@@ -45,6 +45,7 @@ const QuestionListForQuiz = () => {
       });
       setMaxQuizTime({ questionsCounter: questions.length });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questions]);
 
   const saveAttemptResult = useCallback(() => {
@@ -61,6 +62,7 @@ const QuestionListForQuiz = () => {
         query: data,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentResult]);
 
   return (

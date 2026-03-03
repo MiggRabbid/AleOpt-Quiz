@@ -2,8 +2,11 @@ import type { iResponseLogin, iTimer, iUserAnswer } from '@app/types';
 import { useCallback } from 'react';
 
 export enum LocalKeyMap {
+  // eslint-disable-next-line no-unused-vars
   USER = 'user',
+  // eslint-disable-next-line no-unused-vars
   RESULT = 'result',
+  // eslint-disable-next-line no-unused-vars
   TIMER = 'timer',
 }
 
