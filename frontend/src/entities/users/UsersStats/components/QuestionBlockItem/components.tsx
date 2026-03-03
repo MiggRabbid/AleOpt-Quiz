@@ -28,19 +28,22 @@ const QuestionBlockItem = (props: IQuestionBlockItemProps) => {
     },
   );
 
-  const headerClass = clsx('flex flex-row gap-2 h-15 border-b-2 pb-2', {
-    'border-emerald-200': isEasiest,
-    'border-rose-200': !isEasiest,
+  const headerClass = clsx('flex flex-row gap-2 h-15 border-b-2 pb-2 ', {
+    'border-emerald-400': isEasiest,
+    'border-rose-400': !isEasiest,
   });
 
   const indexClass = clsx(
-    'flex size-7 shrink-0 items-center justify-center rounded-full text-base',
-    { 'bg-emerald-200': isEasiest, 'bg-rose-200': !isEasiest },
+    'flex size-7 shrink-0 items-center justify-center rounded-full text-base font-semibold! ',
+    {
+      'bg-emerald-400  text-emerald-100': isEasiest,
+      'bg-rose-400 text-rose-100': !isEasiest,
+    },
   );
 
   const answerCountClass = clsx('text-normal ms-1 w-fit font-semibold!', {
-    'text-emerald-700': isEasiest,
-    'text-rose-700': !isEasiest,
+    'text-emerald-800': isEasiest,
+    'text-rose-800': !isEasiest,
   });
 
   return (

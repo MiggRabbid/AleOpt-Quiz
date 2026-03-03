@@ -33,7 +33,7 @@ const AppLayout: FC<IAppLayoutProps> = ({ children }) => {
         <SideFull id="AppLayout" type="login">
           <CircularProgress
             color="success"
-            className="mx-auto h-40! min-h-40! w-40! min-w-40!"
+            className="mx-auto h-30! min-h-30! w-30! min-w-30!"
           />
         </SideFull>
       )}

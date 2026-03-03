@@ -17,7 +17,11 @@ const BtnLogo = () => {
   };
 
   return (
-    <Button onClick={handelClickBtn} disabled={isLoginPage || isQuizPage}>
+    <Button
+      onClick={handelClickBtn}
+      disabled={isLoginPage || isQuizPage}
+      className="rounded-2xl!"
+    >
       <img
         src="/assets/images/logo.png"
         alt="АлёОпт"
