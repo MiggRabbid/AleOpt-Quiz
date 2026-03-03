@@ -12,6 +12,7 @@ import type { iHandledError } from '@/app/types';
 
 export const queryClient = new QueryClient({
   mutationCache: new MutationCache({
+    // eslint-disable-next-line no-unused-vars
     onError(error, _variables, _context, _mutation) {
       const preparedError = getHandledError(error);
       enqueueSnackbar(preparedError.message, {

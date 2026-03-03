@@ -182,7 +182,9 @@ const UsersListItemDetails = ({
   user: iUser;
   currUser: iResponseLogin | null;
   currStats?: iUserStats;
+  // eslint-disable-next-line no-unused-vars
   handelClickOnDelete: (e: MouseEvent) => void;
+  // eslint-disable-next-line no-unused-vars
   handelClickOnEdit: (e: MouseEvent) => void;
 }) => {
   const editingIsDisabled =

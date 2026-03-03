@@ -22,6 +22,7 @@ export interface iRequestCheckToken {
 
 export interface iAuthContext {
   user: iResponseLogin | null;
+  // eslint-disable-next-line no-unused-vars
   updateUserData: (user: iResponseLogin) => void;
   clearUserData: () => void;
   token: string | null;

@@ -22,6 +22,7 @@ const AppLayout: FC<IAppLayoutProps> = ({ children }) => {
     if (isTokenError) {
       navigateTo({ to: routes.login, replace: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTokenError]);
 
   return (

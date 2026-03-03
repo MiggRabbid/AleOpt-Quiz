@@ -1,5 +1,5 @@
 // Библиотеки
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 // Логика
 import { useAppActions } from '@app/hooks';
